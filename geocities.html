@@ -52,8 +52,7 @@
   header{
     text-align:center;
     padding:14px 10px 6px;
-    background:
-      repeating-linear-gradient(45deg,#1a0033,#1a0033 10px,#12002b 10px,#12002b 20px);
+    background:#150029;
     border-bottom:4px double var(--aqua);
   }
   .logoimg{
@@ -66,7 +65,6 @@
     margin:6px 0 0;
     letter-spacing:1px;
     color:var(--cream);
-    text-transform:uppercase;
     text-align:center;
   }
   .tagline{
@@ -164,6 +162,23 @@
     background:linear-gradient(90deg,var(--aqua),var(--royalblue));
   }
 
+  /* ==== PAGINATION BY POST DATE ==== */
+  .pagenav{ text-align:center; margin-top:6px; padding-top:6px; }
+  .pagenav-label{
+    display:block; margin-bottom:10px;
+    font-family:"Courier New",monospace; font-size:12px; color:var(--ink);
+  }
+  .pagenav-buttons button{
+    background:linear-gradient(180deg,#e8e8e8,#a0a0a0); border:2px outset #fff;
+    color:#000066; font-family:"MS Sans Serif","Tahoma",sans-serif;
+    font-weight:bold; font-size:13px;
+    width:34px; height:30px; margin:0 3px; cursor:pointer;
+  }
+  .pagenav-buttons button:hover{ background:linear-gradient(180deg,#f5eecb,#b9ae7c); color:#000; }
+  .pagenav-buttons button[aria-current="true"]{
+    border-style:inset; background:linear-gradient(180deg,#a0a0a0,#e8e8e8);
+  }
+
   .post{
     background:#000; border:3px ridge var(--aqua);
     padding:10px; margin-bottom:16px;
@@ -185,16 +200,17 @@
   }
   .post p{ color:var(--ink); font-size:14px; line-height:1.5; }
   .post img{ max-width:100%; border:4px ridge var(--silver); }
+  .img-crop-half{ width:100%; aspect-ratio:750/498; object-fit:cover; object-position:top; }
   .thumbstrip{ display:flex; gap:4px; margin:8px 0; }
   .thumbstrip img{ width:24%; border:2px outset var(--silver); }
 
   .bcplayer{ margin:8px 0; border:2px inset var(--silver); line-height:0; }
 
-  .starlink{
+  .starlink, .starlink:visited{
     font-family:"Courier New",monospace; font-weight:bold; font-size:13px;
-    color:var(--aqua); text-decoration:underline;
+    color:var(--cream); text-decoration:underline;
   }
-  .starlink:hover{ color:#fff; }
+  .starlink:hover, .starlink:visited:hover{ color:var(--aqua); }
 
   .saleband{
     background:repeating-linear-gradient(45deg,#1a001a,#1a001a 8px,#330033 8px,#330033 16px);
@@ -246,6 +262,47 @@
     .layout{ flex-direction:column; }
     h1.sitetitle{ font-size:34px; }
   }
+
+  /* ==== "READ MORE" POPUP WINDOW ==== */
+  .readmore-link{ margin-left:10px; }
+
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(0,0,0,0.75);
+    display:flex; align-items:center; justify-content:center;
+    padding:20px; z-index:1000;
+  }
+  .modal-overlay[hidden]{ display:none; }
+  .modal-window{
+    background:var(--silver); border:3px outset #fff;
+    width:100%; max-width:620px; max-height:85vh;
+    display:flex; flex-direction:column;
+    box-shadow:6px 6px 0 rgba(0,0,0,0.55);
+  }
+  .modal-titlebar{
+    background:linear-gradient(90deg,var(--royalblue),#0b2d54);
+    color:#fff; font-family:"MS Sans Serif","Tahoma",sans-serif;
+    font-weight:bold; font-size:13px;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:4px 4px 4px 8px; flex:0 0 auto;
+  }
+  .modal-titlebar span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .modal-close{
+    background:linear-gradient(180deg,#e8e8e8,#a0a0a0); border:2px outset #fff;
+    font-family:"MS Sans Serif","Tahoma",sans-serif; font-weight:bold; font-size:15px;
+    width:36px; height:32px; line-height:1; cursor:pointer; color:#000; flex:0 0 auto;
+  }
+  .modal-close:active{ border-style:inset; }
+  .modal-body{
+    background:#000; color:var(--ink); padding:18px 20px;
+    overflow-y:auto; font-family:"Comic Sans MS","Comic Sans",cursive,sans-serif;
+  }
+  .modal-body h2{
+    font-family:"Times New Roman",Times,serif; color:var(--cream);
+    margin:2px 0 10px; font-size:26px;
+  }
+  .modal-body p{ line-height:1.6; margin:0 0 14px; font-size:14px; }
+  .modal-body img{ max-width:100%; border:4px ridge var(--silver); margin:0 0 12px; }
+  .modal-body .bcplayer{ margin:0 0 14px; }
 </style>
 </head>
 <body>
@@ -278,9 +335,7 @@
       <li><a href="#latest" aria-current="true">Latest</a></li>
       <li><a href="#releases">Releases</a></li>
       <li><a href="#reviews">Reviews</a></li>
-      <li><a href="#features">Features</a></li>
       <li><a href="#tours">Tours</a></li>
-      <li><a href="#lastcopy">Last Copy</a></li>
       <li><a href="#recos">Johnny's Reco-mmendations</a></li>
     </ul>
   </nav>
@@ -288,66 +343,108 @@
   <main id="main" class="layout">
     <div class="maincol">
 
-      <article class="post" id="latest">
-        <span class="cat cat-news">News -- July 13, 2026</span>
-        <h2>Coup D'etat 7" Lathe Released!</h2>
-        <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/fe260615-f274-471e-9cb8-34807ad0de36/promo+w-background.jpg?format=750w" alt="Coup D'etat 7 inch lathe promo photo">
-        <p>Coup D'etat just released the 'coup d'etat the band the promo the ep' on black 7" lathe out of 50, with 30 going to the band. These sharp, seething jams clock in fast and leave a mark -- grab one before the band's share disappears on tour!!</p>
-        <p><a class="starlink" href="#">Shop Now</a></p>
-      </article>
-
-      <div class="saleband">
-        <strong>T-SHIRT SALE!!!</strong>
-        <p style="color:var(--ink);">Thinning the closet from 150 shirts down to 45. Everything worn zero to five times, in very good to incredible condition. $8.50US to ship a shirt.</p>
-        <a class="starlink" href="#">Shop The Sale</a>
+      <div class="post-page" data-page="1">
+        <article class="post" id="latest">
+          <span class="cat cat-news">News -- July 20, 2026</span>
+          <h2>Beau Navire 10"s Back in Stock + Constrain EP Released!</h2>
+          <img class="img-crop-half" src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/8a1731a2-137b-4966-a96d-644ba1ad00c3/1000005554.jpg?format=750w" alt="Beau Navire demo 10 inch restock">
+          <p>A lot going on this week: a shipping delay on EU orders, an out-of-office notice, a new split dropping Friday, the Beau Navire demo 10" back in stock, the new Constrain EP, and a last-copy recommendation. Full details inside.</p>
+          <p>
+            <a class="starlink" href="#">Shop Now</a>
+            <a class="starlink readmore-link" href="#" data-modal-target="tmpl-beaunavire" data-modal-title="Beau Navire 10&quot;s Back in Stock + Constrain EP Released!">Read More</a>
+          </p>
+        </article>
+        <template id="tmpl-beaunavire">
+          <span class="cat cat-news">News -- July 20, 2026</span>
+          <h2>Beau Navire 10"s Back in Stock + Constrain EP Released!</h2>
+          <img class="img-crop-half" src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/8a1731a2-137b-4966-a96d-644ba1ad00c3/1000005554.jpg?format=750w" alt="Beau Navire demo 10 inch restock">
+          <p>A few things this week, so bear with me. First: a handful of EU countries rolled out a new tariff, and Canada Post hasn't had time to build the charge into their system yet, so a few international orders are on hold until that gets sorted -- sorry for the wait, it's out of my hands.</p>
+          <p>Second: I'm out in Ontario from July 24 through August 3, so nothing ships during that window. Everything goes out the moment I'm back, promise.</p>
+          <p>Third: there's a new split dropping this Friday between The Names Of Our Friends and Poetry Of Torch. Copies land on Bandcamp and in the store at slightly different times, so keep an eye on both.</p>
+          <p>Now the good stuff. The Beau Navire 'Demo 2009' 10" is back in stock -- an original pressing straight from Clue #2 Records, $30US shipped. These have gotten stupidly expensive on the secondary market, so grab one here while it's still a sane price.</p>
+          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/4e6730e0-0103-4041-892d-2cb17cf02e88/Beau+demo.jpg?format=750w" alt="Beau Navire demo 10 inch vinyl">
+          <p>Constrain's new EP '1999' has been selling great on cassette -- physical tapes ship out in early August. Hillsboro's 'A Party in Your Name' tapes are also done and ready to go.</p>
+          <p>A couple more quick hits: Orphan Donor's 'Ailments' just got a nice writeup from This Noise Is Ours, and Operation X-Ray has been giving it radio play too.</p>
+          <p>Last thing -- we're down to the last copy of the Snag / Swallows Nest split. If you've been sleeping on that one, now's the time.</p>
+          <div class="bcplayer">
+            <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2989564054/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="Snag / Swallows Nest split on Bandcamp"><a href="https://zegemabeachrecords.bandcamp.com/album/snag-swallows-nest-split">Snag / Swallows Nest split</a></iframe>
+          </div>
+          <p><a class="starlink" href="#">Shop Now</a></p>
+        </template>
       </div>
 
-      <hr class="divider">
+      <div class="post-page" data-page="2" hidden>
+        <article class="post">
+          <span class="cat cat-news">News -- July 13, 2026</span>
+          <h2>Coup D'etat 7" Lathe Released!</h2>
+          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/fe260615-f274-471e-9cb8-34807ad0de36/promo+w-background.jpg?format=750w" alt="Coup D'etat 7 inch lathe promo photo">
+          <p>Coup D'etat just released their self-titled promo EP on a black 7" lathe cut, limited to 50 copies total. 30 of those went straight to the band, which leaves ZBR with just 20 to sell -- and lathes never last long once they're posted. Two re-recorded songs and a brand new one round out the tracklist, marking the band's peak to date with "new" guitarist Elle and the last recording to feature OG bassist Raine.</p>
+          <p>These are short, sharp, seething jams that clock in fast and leave a mark. If you've been following the band through the Zampler comps, this is your chance to grab their material on an actual physical format before it's gone. The band's touring on this one too, so their personal copies will likely disappear at merch tables before we even sell through ours.</p>
+          <p>Once these are gone, they're gone -- lathes don't get repressed.</p>
+          <p><a class="starlink" href="#">Shop Now</a></p>
+        </article>
+      </div>
 
-      <article class="post" id="releases">
-        <span class="cat cat-releases">Releases -- July 3, 2026</span>
-        <h3>Zampler #27 Released</h3>
-        <p>'Take It Out Easy, Cadet' houses 25 songs including a bunch of previously unreleased stuff. Housed on cdr in the traditional Zampler packaging -- place any order over $20 to receive one, essentially made-to-order!</p>
-        <a class="starlink" href="#">Shop ZBR</a>
-      </article>
+      <div class="post-page" data-page="3" hidden>
+        <article class="post" id="releases">
+          <span class="cat cat-releases">Releases -- July 3, 2026</span>
+          <h2>Zampler #27 Released</h2>
+          <p>ZAMPLER #27, 'Take It Out Easy, Cadet,' dropped on June 30th and it's a big one -- 25 songs deep, with a stacked chunk of previously unreleased material from Senza, Our Future Is An Absolute Shadow, Poetry Of Torch, Coup D'etat, The Names Of Our Friends, Hauzu, Empathetic, and Mourn Recif.</p>
+          <p>As always, it's housed on cdr in the traditional Zampler packaging, and it's basically made-to-order -- place any order over $20 anytime and one gets thrown in automatically. No need to hunt for a separate listing, it just happens at checkout.</p>
+          <p>If you've collected any of the previous 26 installments you already know the drill: this is the cheapest, weirdest way to hear a snapshot of the whole roster at once.</p>
+          <a class="starlink" href="#">Shop ZBR</a>
+        </article>
 
-      <article class="post">
-        <span class="cat cat-releases">Releases -- June 23, 2026</span>
-        <h3>Mal Criado Released</h3>
-        <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1645646257010-LSJI3DG1QK1ZJKT75U6S/cover.jpg?format=750w" alt="Mal Criado Ni Todo La Tierra Entera album cover">
-        <p>Mal Criado's 'Ni Todo La Tierra Entera' released on Tomb Tree! The 13 jams exude anger, dissatisfaction, and inequality at the horseshit system in place, all wrapped in a nasty powerviolence tortilla. Mmmm, so good!!</p>
-        <div class="thumbstrip" aria-hidden="true">
-          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1781537609406-33NAN935CRPQJAP7U8UT/1+black.jpg?format=300w" alt="">
-          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1781537609944-3V4E6VJR2VEG1WY2IJY3/2+mapuche+swirl.jpg?format=300w" alt="">
-          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1781537613749-79RR6F1QOUFELQXIKCRX/3+green+%2B+yellow+swirl.jpg?format=300w" alt="">
-          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1781537614820-8R435Z5S9X8CLNTMVX3E/4+test.jpg?format=300w" alt="">
+        <div class="saleband">
+          <strong>T-SHIRT SALE!!!</strong>
+          <p style="color:var(--ink);">Thinning the closet from 150 shirts down to 45. Everything worn zero to five times, in very good to incredible condition. $8.50US to ship a shirt.</p>
+          <a class="starlink" href="#">Shop The Sale</a>
         </div>
-        <div class="bcplayer">
-          <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2931628913/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="Ni Todo La Tierra Entera by Mal Criado on Bandcamp"><a href="https://malcriadobc.bandcamp.com/album/ni-todo-la-tierra-entera">Ni Todo La Tierra Entera by Mal Criado</a></iframe>
+      </div>
+
+      <div class="post-page" data-page="4" hidden>
+        <article class="post">
+          <span class="cat cat-releases">Releases -- June 23, 2026</span>
+          <h2>Mal Criado Released</h2>
+          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1645646257010-LSJI3DG1QK1ZJKT75U6S/cover.jpg?format=750w" alt="Mal Criado Ni Todo La Tierra Entera album cover">
+          <p>Mal Criado's 'Ni Todo La Tierra Entera' released on Tomb Tree! The 13 jams exude anger, dissatisfaction, and inequality at the horseshit system in place, all wrapped in a nasty powerviolence tortilla. Mmmm, so good!!</p>
+          <div class="bcplayer">
+            <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2931628913/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="Ni Todo La Tierra Entera by Mal Criado on Bandcamp"><a href="https://malcriadobc.bandcamp.com/album/ni-todo-la-tierra-entera">Ni Todo La Tierra Entera by Mal Criado</a></iframe>
+          </div>
+          <p>
+            <a class="starlink" href="#">Shop Now</a>
+            <a class="starlink readmore-link" href="#" data-modal-target="tmpl-malcriado" data-modal-title="Mal Criado Released">Read More</a>
+          </p>
+        </article>
+        <template id="tmpl-malcriado">
+          <span class="cat cat-releases">Releases -- June 23, 2026</span>
+          <h2>Mal Criado Released</h2>
+          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1645646257010-LSJI3DG1QK1ZJKT75U6S/cover.jpg?format=750w" alt="Mal Criado Ni Todo La Tierra Entera album cover">
+          <p>Mal Criado's 'Ni Todo La Tierra Entera' is out now on Tomb Tree Tapes! This Vancouver four-piece plays politically-charged powerviolence with some punk, grind, and metal leanings woven through -- 13 tracks of anger, dissatisfaction, and inequality at the horseshit systems currently in place, all wrapped in a nasty little tortilla of noise.</p>
+          <p>The tape comes in a handful of variants (swirl, brick, and a couple of test-press-style pressings), so check the shop for exactly what's still available before they're all claimed.</p>
+          <div class="thumbstrip" aria-hidden="true">
+            <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1781537609406-33NAN935CRPQJAP7U8UT/1+black.jpg?format=300w" alt="">
+            <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1781537609944-3V4E6VJR2VEG1WY2IJY3/2+mapuche+swirl.jpg?format=300w" alt="">
+            <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1781537613749-79RR6F1QOUFELQXIKCRX/3+green+%2B+yellow+swirl.jpg?format=300w" alt="">
+            <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1781537614820-8R435Z5S9X8CLNTMVX3E/4+test.jpg?format=300w" alt="">
+          </div>
+          <div class="bcplayer">
+            <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2931628913/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="Ni Todo La Tierra Entera by Mal Criado on Bandcamp"><a href="https://malcriadobc.bandcamp.com/album/ni-todo-la-tierra-entera">Ni Todo La Tierra Entera by Mal Criado</a></iframe>
+          </div>
+          <p>Stream it above and then go cop a physical copy -- this one's too good to just leave in your queue.</p>
+          <p><a class="starlink" href="#">Shop Now</a></p>
+        </template>
+      </div>
+
+      <nav class="pagenav" aria-label="Post pages by date">
+        <span class="pagenav-label" id="pagenavLabel">News from July 20, 2026</span>
+        <div class="pagenav-buttons">
+          <button type="button" data-page-nav="1" aria-current="true">1</button>
+          <button type="button" data-page-nav="2">2</button>
+          <button type="button" data-page-nav="3">3</button>
+          <button type="button" data-page-nav="4">4</button>
         </div>
-        <a class="starlink" href="#">Shop Now</a>
-      </article>
-
-      <hr class="divider">
-
-      <article class="post">
-        <span class="cat cat-news">News -- June 16, 2026</span>
-        <h3>US Store Closed for the Next Few Months</h3>
-        <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/5627e7a2-203d-4eac-b0b0-b68fdeac76e4/The+Daves+are+Dead.png?format=750w" alt="U.S. Dave and Johnny saying goodbye">
-        <p>Please say goodbye to U.S. Dave aka the man aka Crowning guitarist aka awesome dad aka Biological Fathers mastermind. He did so much for ZBR, it wouldn't be what it is today without him. &lt;3 &lt;3 &lt;3</p>
-        <a class="starlink" href="#">Read More</a>
-      </article>
-
-      <article class="post">
-        <span class="cat cat-releases">Releases</span>
-        <h3>Hillsboro -- 'A Party in Your Name'</h3>
-        <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/c4154315-bd45-46be-b21b-be5b183bd85e/OMSB+Pic.jpg?format=750w" alt="Hillsboro live at the Victoria release show">
-        <p>I went to the Victoria release show for my good friends Hillsboro and caught some live videos. The tapes shipped today so I'll have them and can ship by the end of this week!</p>
-        <div class="bcplayer">
-          <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3144453157/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="A Party in Your Name by Hillsboro on Bandcamp"><a href="https://hillsboro.bandcamp.com/album/a-party-in-your-name">A Party in Your Name by Hillsboro</a></iframe>
-        </div>
-        <a class="starlink" href="#">Watch Live Videos</a>
-      </article>
+      </nav>
 
     </div>
 
@@ -403,6 +500,16 @@
 
 </div>
 
+<div class="modal-overlay" id="postModal" hidden>
+  <div class="modal-window" role="dialog" aria-modal="true" aria-labelledby="modalTitleText">
+    <div class="modal-titlebar">
+      <span id="modalTitleText">Post</span>
+      <button type="button" class="modal-close" id="modalClose" aria-label="Close">&#10006;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
 <script>
   var navToggle = document.querySelector('.nav-toggle');
   var navList = document.getElementById('mainnav-list');
@@ -410,6 +517,67 @@
     var open = navList.classList.toggle('open');
     navToggle.setAttribute('aria-expanded', String(open));
     navToggle.innerHTML = open ? '&#10006; CLOSE' : '&#9776; MENU';
+  });
+
+  var postModal = document.getElementById('postModal');
+  var modalBody = document.getElementById('modalBody');
+  var modalTitle = document.getElementById('modalTitleText');
+  var modalClose = document.getElementById('modalClose');
+  var lastFocusedTrigger = null;
+
+  function openModal(trigger) {
+    var tmpl = document.getElementById(trigger.dataset.modalTarget);
+    if (!tmpl) return;
+    modalBody.innerHTML = '';
+    modalBody.appendChild(tmpl.content.cloneNode(true));
+    modalTitle.textContent = trigger.dataset.modalTitle || 'Post';
+    lastFocusedTrigger = trigger;
+    postModal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    modalClose.focus();
+  }
+
+  function closeModal() {
+    postModal.hidden = true;
+    document.body.style.overflow = '';
+    if (lastFocusedTrigger) lastFocusedTrigger.focus();
+  }
+
+  document.querySelectorAll('[data-modal-target]').forEach(function (trigger) {
+    trigger.addEventListener('click', function (e) {
+      e.preventDefault();
+      openModal(trigger);
+    });
+  });
+
+  modalClose.addEventListener('click', closeModal);
+  postModal.addEventListener('click', function (e) {
+    if (e.target === postModal) closeModal();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !postModal.hidden) closeModal();
+  });
+
+  var postPages = document.querySelectorAll('.post-page');
+  var pageButtons = document.querySelectorAll('[data-page-nav]');
+  var pagenavLabel = document.getElementById('pagenavLabel');
+  var pageDates = { 1: 'July 20, 2026', 2: 'July 13, 2026', 3: 'July 3, 2026', 4: 'June 23, 2026' };
+
+  function showPage(n) {
+    postPages.forEach(function (page) {
+      page.hidden = page.dataset.page !== n;
+    });
+    pageButtons.forEach(function (btn) {
+      btn.setAttribute('aria-current', btn.dataset.pageNav === n ? 'true' : 'false');
+    });
+    pagenavLabel.textContent = 'News from ' + pageDates[n];
+  }
+
+  pageButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      showPage(btn.dataset.pageNav);
+      document.querySelector('.subnav').scrollIntoView({ block: 'start', behavior: 'instant' });
+    });
   });
 </script>
 </body>
