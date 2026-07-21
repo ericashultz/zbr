@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>~*~ Zegema Beach Records ~*~ Official Web Page!!! ~*~</title>
+<style>
+  :root{
+    --royalblue:#1E61A8;
+    --aqua:#C0DEFF;
+    --cream:#FFF6D4;
+    --silver:#c0c0c0;
+    --ink:#d9f8ff;
+  }
+  * { box-sizing: border-box; }
+  html,body{
+    margin:0; padding:0;
+    background-color:#000033;
+    background-image:
+      radial-gradient(1px 1px at 10px 10px, #FFF6D4 1px, transparent 1px),
+      radial-gradient(1px 1px at 40px 60px, #FFF6D4 1px, transparent 1px),
+      radial-gradient(1px 1px at 70px 20px, #FFF6D4 1px, transparent 1px),
+      radial-gradient(2px 2px at 90px 80px, #FFF6D4 1px, transparent 1px),
+      radial-gradient(1px 1px at 25px 90px, #FFF6D4 1px, transparent 1px),
+      radial-gradient(1px 1px at 55px 35px, #FFF6D4 1px, transparent 1px);
+    background-size:100px 100px;
+    background-repeat:repeat;
+    font-family:"Comic Sans MS","Comic Sans",cursive,sans-serif;
+    color:var(--ink);
+    cursor:default;
+  }
+  a{ color:var(--aqua); }
+  a:visited{ color:var(--royalblue); }
+  a:hover{ color:var(--cream); background:#000; }
+
+  .skip-link{
+    position:absolute; left:-9999px; top:0;
+    background:#000; color:#0f0; padding:8px 16px; z-index:999;
+  }
+  .skip-link:focus{ left:0; }
+
+  /* ==== PAGE WRAPPER (fixed-width like an old 800px table) ==== */
+  .pagewrap{
+    max-width:980px;
+    margin:14px auto;
+    background:#000011;
+    border:6px ridge var(--royalblue);
+    padding:0;
+  }
+
+  /* ==== HEADER ==== */
+  header{
+    text-align:center;
+    padding:14px 10px 6px;
+    background:
+      repeating-linear-gradient(45deg,#1a0033,#1a0033 10px,#12002b 10px,#12002b 20px);
+    border-bottom:4px double var(--aqua);
+  }
+  .logoimg{
+    height:110px; width:auto;
+    mix-blend-mode:screen;
+  }
+  h1.sitetitle{
+    font-family:"Times New Roman",Times,serif;
+    font-size:48px;
+    margin:6px 0 0;
+    letter-spacing:1px;
+    color:var(--cream);
+    text-transform:uppercase;
+    text-align:center;
+  }
+  .tagline{
+    font-family:"Courier New",monospace;
+    color:var(--ink);
+    font-size:13px;
+    margin:16px 0;
+  }
+
+  /* ==== NAV: beveled 3D buttons ==== */
+  nav.mainnav{
+    background:var(--silver);
+    border-top:3px outset var(--silver);
+    border-bottom:3px outset var(--silver);
+    padding:6px; text-align:center;
+  }
+  .nav-toggle{
+    display:none;
+    width:100%;
+    background:linear-gradient(180deg,#e8e8e8,#a0a0a0);
+    border:2px outset #fff;
+    color:#000066;
+    font-family:"MS Sans Serif","Tahoma",sans-serif;
+    font-weight:bold; font-size:14px;
+    padding:10px; cursor:pointer;
+  }
+  .nav-toggle:active{ border-style:inset; }
+  nav.mainnav ul{
+    list-style:none; margin:0; padding:0;
+    display:flex; flex-wrap:wrap; justify-content:center; gap:4px;
+  }
+  nav.mainnav a{
+    display:inline-block;
+    background:linear-gradient(180deg,#e8e8e8,#a0a0a0);
+    border:2px outset #fff;
+    color:#000066;
+    font-family:"MS Sans Serif","Tahoma",sans-serif;
+    font-weight:bold; font-size:12px;
+    text-decoration:none;
+    padding:6px 10px;
+  }
+  nav.mainnav a:hover{ background:linear-gradient(180deg,#f5eecb,#b9ae7c); color:#000; }
+  nav.mainnav a:active, nav.mainnav a[aria-current="page"]{
+    border-style:inset; background:linear-gradient(180deg,#a0a0a0,#e8e8e8);
+  }
+
+  @media (max-width:700px){
+    .nav-toggle{ display:block; }
+    nav.mainnav ul{
+      display:none;
+      flex-direction:column; gap:6px;
+      margin-top:6px;
+    }
+    nav.mainnav ul.open{ display:flex; }
+    nav.mainnav a{ padding:10px; }
+  }
+
+  /* ==== SUBNAV: folder tabs ==== */
+  nav.subnav{
+    background:#000; padding:8px 6px 0; text-align:center;
+    border-bottom:3px solid var(--royalblue);
+  }
+  nav.subnav ul{
+    list-style:none; margin:0; padding:0;
+    display:flex; flex-wrap:wrap; justify-content:center; gap:3px;
+  }
+  @media (max-width:700px){
+    nav.subnav ul{
+      flex-wrap:nowrap; justify-content:flex-start;
+      overflow-x:auto; -webkit-overflow-scrolling:touch;
+      padding-bottom:2px;
+    }
+    nav.subnav a{ white-space:nowrap; }
+  }
+  nav.subnav a{
+    display:inline-block;
+    background:var(--royalblue); color:var(--cream);
+    font-family:"Courier New",monospace; font-weight:bold; font-size:11px;
+    text-decoration:none; text-transform:uppercase;
+    padding:5px 9px;
+    border:2px outset #a9c1ff;
+    border-bottom:none;
+  }
+  nav.subnav a[aria-current="true"]{
+    background:var(--cream); color:var(--royalblue); border-color:#faf4de;
+  }
+
+  /* ==== LAYOUT ==== */
+  .layout{ display:flex; gap:10px; padding:12px; }
+  .maincol{ flex:2; min-width:0; }
+  .sidecol{ flex:1; min-width:0; }
+
+  .divider{
+    height:4px; border:none; margin:14px 0;
+    background:linear-gradient(90deg,var(--aqua),var(--royalblue));
+  }
+
+  .post{
+    background:#000; border:3px ridge var(--aqua);
+    padding:10px; margin-bottom:16px;
+  }
+  .post .cat{
+    display:inline-block;
+    font-family:"Courier New",monospace; font-weight:bold; font-size:11px;
+    padding:2px 8px; margin-bottom:6px; color:#000;
+    border:2px outset #fff;
+  }
+  .cat-news{ background:var(--aqua); }
+  .cat-releases{ background:var(--cream); }
+
+  .post h2, .post h3{
+    font-family:"Times New Roman",serif;
+    color:var(--cream);
+    text-shadow:1px 1px 0 #660066;
+    margin:4px 0 8px;
+  }
+  .post p{ color:var(--ink); font-size:14px; line-height:1.5; }
+  .post img{ max-width:100%; border:4px ridge var(--silver); }
+  .thumbstrip{ display:flex; gap:4px; margin:8px 0; }
+  .thumbstrip img{ width:24%; border:2px outset var(--silver); }
+
+  .bcplayer{ margin:8px 0; border:2px inset var(--silver); line-height:0; }
+
+  .starlink{
+    font-family:"Courier New",monospace; font-weight:bold; font-size:13px;
+    color:var(--aqua); text-decoration:underline;
+  }
+  .starlink:hover{ color:#fff; }
+
+  .saleband{
+    background:repeating-linear-gradient(45deg,#1a001a,#1a001a 8px,#330033 8px,#330033 16px);
+    border:3px double var(--royalblue);
+    padding:8px; margin-bottom:16px; text-align:center;
+  }
+  .saleband strong{
+    font-family:"Times New Roman",serif; font-size:22px; color:var(--cream);
+  }
+
+  /* ==== SIDEBAR WIDGETS ==== */
+  .widget{
+    background:#000; border:3px groove var(--aqua);
+    padding:10px; margin-bottom:14px;
+  }
+  .widget h3{
+    font-family:"Courier New",monospace; font-size:13px;
+    color:#000; background:var(--aqua);
+    margin:-10px -10px 8px; padding:5px 8px;
+  }
+  .widget p{ color:var(--ink); font-size:13px; }
+  .widget img{ width:100%; border:2px outset var(--silver); margin-bottom:6px; }
+
+  .guestbook-buttons{ display:flex; gap:6px; flex-wrap:wrap; }
+  .gb-btn{
+    flex:1; text-align:center;
+    background:linear-gradient(180deg,#f5eecb,#cbbf87);
+    border:2px outset #faf4de;
+    color:#330000; font-weight:bold; font-family:"Courier New",monospace;
+    font-size:11px; padding:6px 4px; text-decoration:none;
+  }
+  .gb-btn:hover{ background:linear-gradient(180deg,#fff,#f5eecb); }
+
+  .webring{
+    text-align:center; font-family:"Courier New",monospace; font-size:12px;
+    color:var(--aqua); padding:10px 0;
+  }
+  .webring a{ color:var(--cream); font-weight:bold; }
+
+  footer{
+    text-align:center; background:#000;
+    border-top:4px double var(--aqua);
+    padding:14px 10px; font-family:"Courier New",monospace;
+    font-size:11px; color:var(--silver);
+  }
+
+  @media (max-width:980px){
+    .pagewrap{ margin:0; border-width:4px; }
+    .layout{ flex-direction:column; }
+    h1.sitetitle{ font-size:34px; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="pagewrap">
+
+  <header>
+    <div><img class="logoimg" src="assets/zbr-logo-white.webp" alt="Zegema Beach Records logo"></div>
+    <h1 class="sitetitle">Zegema Beach Records</h1>
+    <p class="tagline">A community rooted in promoting honest, passionate, inspiring music -- usually with screaming.</p>
+  </header>
+
+  <nav class="mainnav" aria-label="Main">
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="mainnav-list">&#9776; MENU</button>
+    <ul id="mainnav-list">
+      <li><a href="#" aria-current="page">Home</a></li>
+      <li><a href="#">Canada / Intl Store</a></li>
+      <li><a href="#">USA Store</a></li>
+      <li><a href="#">Bandcamp</a></li>
+      <li><a href="#">OMSB Blog</a></li>
+      <li><a href="#">Archives</a></li>
+      <li><a href="#">Search</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <nav class="subnav" aria-label="News sections">
+    <ul>
+      <li><a href="#latest" aria-current="true">Latest</a></li>
+      <li><a href="#releases">Releases</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#tours">Tours</a></li>
+      <li><a href="#lastcopy">Last Copy</a></li>
+      <li><a href="#recos">Johnny's Reco-mmendations</a></li>
+    </ul>
+  </nav>
+
+  <main id="main" class="layout">
+    <div class="maincol">
+
+      <article class="post" id="latest">
+        <span class="cat cat-news">News -- July 13, 2026</span>
+        <h2>Coup D'etat 7" Lathe Released!</h2>
+        <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/fe260615-f274-471e-9cb8-34807ad0de36/promo+w-background.jpg?format=750w" alt="Coup D'etat 7 inch lathe promo photo">
+        <p>Coup D'etat just released the 'coup d'etat the band the promo the ep' on black 7" lathe out of 50, with 30 going to the band. These sharp, seething jams clock in fast and leave a mark -- grab one before the band's share disappears on tour!!</p>
+        <p><a class="starlink" href="#">Shop Now</a></p>
+      </article>
+
+      <div class="saleband">
+        <strong>T-SHIRT SALE!!!</strong>
+        <p style="color:var(--ink);">Thinning the closet from 150 shirts down to 45. Everything worn zero to five times, in very good to incredible condition. $8.50US to ship a shirt.</p>
+        <a class="starlink" href="#">Shop The Sale</a>
+      </div>
+
+      <hr class="divider">
+
+      <article class="post" id="releases">
+        <span class="cat cat-releases">Releases -- July 3, 2026</span>
+        <h3>Zampler #27 Released</h3>
+        <p>'Take It Out Easy, Cadet' houses 25 songs including a bunch of previously unreleased stuff. Housed on cdr in the traditional Zampler packaging -- place any order over $20 to receive one, essentially made-to-order!</p>
+        <a class="starlink" href="#">Shop ZBR</a>
+      </article>
+
+      <article class="post">
+        <span class="cat cat-releases">Releases -- June 23, 2026</span>
+        <h3>Mal Criado Released</h3>
+        <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1645646257010-LSJI3DG1QK1ZJKT75U6S/cover.jpg?format=750w" alt="Mal Criado Ni Todo La Tierra Entera album cover">
+        <p>Mal Criado's 'Ni Todo La Tierra Entera' released on Tomb Tree! The 13 jams exude anger, dissatisfaction, and inequality at the horseshit system in place, all wrapped in a nasty powerviolence tortilla. Mmmm, so good!!</p>
+        <div class="thumbstrip" aria-hidden="true">
+          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1781537609406-33NAN935CRPQJAP7U8UT/1+black.jpg?format=300w" alt="">
+          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1781537609944-3V4E6VJR2VEG1WY2IJY3/2+mapuche+swirl.jpg?format=300w" alt="">
+          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1781537613749-79RR6F1QOUFELQXIKCRX/3+green+%2B+yellow+swirl.jpg?format=300w" alt="">
+          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1781537614820-8R435Z5S9X8CLNTMVX3E/4+test.jpg?format=300w" alt="">
+        </div>
+        <div class="bcplayer">
+          <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2931628913/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="Ni Todo La Tierra Entera by Mal Criado on Bandcamp"><a href="https://malcriadobc.bandcamp.com/album/ni-todo-la-tierra-entera">Ni Todo La Tierra Entera by Mal Criado</a></iframe>
+        </div>
+        <a class="starlink" href="#">Shop Now</a>
+      </article>
+
+      <hr class="divider">
+
+      <article class="post">
+        <span class="cat cat-news">News -- June 16, 2026</span>
+        <h3>US Store Closed for the Next Few Months</h3>
+        <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/5627e7a2-203d-4eac-b0b0-b68fdeac76e4/The+Daves+are+Dead.png?format=750w" alt="U.S. Dave and Johnny saying goodbye">
+        <p>Please say goodbye to U.S. Dave aka the man aka Crowning guitarist aka awesome dad aka Biological Fathers mastermind. He did so much for ZBR, it wouldn't be what it is today without him. &lt;3 &lt;3 &lt;3</p>
+        <a class="starlink" href="#">Read More</a>
+      </article>
+
+      <article class="post">
+        <span class="cat cat-releases">Releases</span>
+        <h3>Hillsboro -- 'A Party in Your Name'</h3>
+        <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/c4154315-bd45-46be-b21b-be5b183bd85e/OMSB+Pic.jpg?format=750w" alt="Hillsboro live at the Victoria release show">
+        <p>I went to the Victoria release show for my good friends Hillsboro and caught some live videos. The tapes shipped today so I'll have them and can ship by the end of this week!</p>
+        <div class="bcplayer">
+          <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3144453157/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="A Party in Your Name by Hillsboro on Bandcamp"><a href="https://hillsboro.bandcamp.com/album/a-party-in-your-name">A Party in Your Name by Hillsboro</a></iframe>
+        </div>
+        <a class="starlink" href="#">Watch Live Videos</a>
+      </article>
+
+    </div>
+
+    <div class="sidecol">
+
+      <div class="widget" id="recos">
+        <h3 style="background:var(--royalblue);color:#000;">Johnny's Reco-mmendations</h3>
+        <p><strong style="color:#fff;">All That's Left of You</strong><br>This Australian screamo band's debut is top-fucking-notch!!!</p>
+        <a class="starlink" href="#">Listen Now</a>
+      </div>
+
+      <div class="widget" id="features">
+        <h3>Features</h3>
+        <p><strong style="color:#fff;">I.O. on Operation X-Ray</strong><br>Operation X-Ray featured I.O. amidst a ton of other sick artists. Our tapes are running pretty low!</p>
+        <a class="starlink" href="#">Shop I.O. Tapes</a><br>
+        <a class="starlink" href="#">Listen to Operation X-Ray</a>
+      </div>
+
+      <div class="widget" id="lastcopy" style="border-color:var(--cream);">
+        <h3 style="background:var(--cream);color:#000;">Last Copy!!</h3>
+        <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/069cfca1-2d7f-4d94-b88c-3d7d5effec51/Screenshot+%281689%29.png?format=750w" alt="Constrain playing live in Duncan, BC">
+        <p><strong style="color:#fff;">Constrain, Lakeside Amusement Park, Cadere</strong><br>One copy left of their 'Welcome to Club Vampire' cassette EP -- snag now or forever hold your peace!</p>
+        <a class="starlink" href="#">Buy Last Constrain EP</a>
+      </div>
+
+      <div class="widget">
+        <h3>Sign My Guestbook!</h3>
+        <p>Let us know you stopped by the site!</p>
+        <div class="guestbook-buttons">
+          <a class="gb-btn" href="#">SIGN<br>GUESTBOOK</a>
+          <a class="gb-btn" href="#">VIEW<br>GUESTBOOK</a>
+        </div>
+      </div>
+
+      <div class="widget">
+        <h3>Mailing List</h3>
+        <p>Zamplers, lathes, last copies, and tour news -- straight to your inbox!</p>
+        <a class="starlink" href="mailto:zegemabeachrecords@example.com">Email The Webmaster</a>
+      </div>
+
+      <div class="webring">
+        &laquo; PREV &nbsp;|&nbsp; <a href="#">SCREAMO WEBRING</a> &nbsp;|&nbsp; RANDOM &nbsp;|&nbsp; NEXT &raquo;
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Zegema Beach Records -- Canada</p>
+    <p>Page designed with Netscape Composer on a Compaq Presario. Powered by dial-up and spite.</p>
+    <p><a href="#">Canada / Intl Store</a> &middot; <a href="#">USA Store</a> &middot; <a href="#">Bandcamp</a> &middot; <a href="#">Archives</a> &middot; <a href="#">Contact</a></p>
+  </footer>
+
+</div>
+
+<script>
+  var navToggle = document.querySelector('.nav-toggle');
+  var navList = document.getElementById('mainnav-list');
+  navToggle.addEventListener('click', function () {
+    var open = navList.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.innerHTML = open ? '&#10006; CLOSE' : '&#9776; MENU';
+  });
+</script>
+</body>
+</html>
