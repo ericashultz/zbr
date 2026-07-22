@@ -378,6 +378,22 @@
     text-align:center; color:#19A800; font-weight:bold; font-size:15px; margin-top:16px;
   }
 
+  .guestbook-entries{ display:flex; flex-direction:column; gap:12px; margin-top:20px; }
+  .guestbook-entry{
+    background:#000; border:3px groove var(--aqua); padding:10px 12px; text-align:left;
+  }
+  .guestbook-entry-head{
+    display:flex; justify-content:space-between; align-items:baseline; gap:10px; flex-wrap:wrap;
+    margin-bottom:6px;
+  }
+  .guestbook-entry-name{
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:14px; color:#FFEE00;
+  }
+  .guestbook-entry-date{
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:11px; color:var(--ink);
+  }
+  .guestbook-entry-message{ color:var(--white); font-size:14px; line-height:1.5; }
+
   .back-to-top{
     position:fixed; bottom:20px; right:20px; z-index:500;
     background:linear-gradient(180deg,#e8e8e8,#a0a0a0); border:2px outset #fff;
@@ -717,8 +733,8 @@
         <h3 style="color:#000;">Sign My Guestbook!</h3>
         <p>Let us know you stopped by the site!</p>
         <div class="guestbook-buttons">
-          <a class="gb-btn" href="#">SIGN<br>GUESTBOOK</a>
-          <a class="gb-btn" href="#">VIEW<br>GUESTBOOK</a>
+          <a class="gb-btn" href="#" data-view-link="guestbookSign">SIGN<br>GUESTBOOK</a>
+          <a class="gb-btn" href="#" data-view-link="guestbookList">VIEW<br>GUESTBOOK</a>
         </div>
       </div>
 
@@ -779,6 +795,36 @@
       </form>
 
       <p id="contactThanks" class="contact-thanks" hidden>Thanks for reaching out! ZBR will get back to you within 24 hours.</p>
+    </div>
+  </div>
+
+  <div id="guestbookSignView" hidden>
+    <div class="contact-page">
+      <h2>Sign My Guestbook!</h2>
+      <p>Leave a note, tell us what band you're most stoked on, or just say hi -- it'll show up on the <a class="starlink" href="#" data-view-link="guestbookList">guestbook page</a> for everyone to see!</p>
+
+      <form id="guestbookForm" class="contact-form">
+        <label class="contact-form-field">Name (required)
+          <input type="text" name="gbName" required>
+        </label>
+        <label class="contact-form-field">Website (optional)
+          <input type="url" name="gbWebsite" placeholder="https://">
+        </label>
+        <label class="contact-form-field">Message (required)
+          <textarea name="gbMessage" rows="5" required></textarea>
+        </label>
+        <a class="cart-btn" href="#" id="guestbookSubmit">SIGN GUESTBOOK</a>
+      </form>
+
+      <p id="guestbookThanks" class="contact-thanks" hidden>Thanks for signing! <a class="starlink" href="#" data-view-link="guestbookList">View the guestbook</a> to see your entry.</p>
+    </div>
+  </div>
+
+  <div id="guestbookListView" hidden>
+    <div class="contact-page">
+      <h2>Guestbook</h2>
+      <p>Here's what everyone's been saying! <a class="starlink" href="#" data-view-link="guestbookSign">Sign the guestbook</a> yourself.</p>
+      <div id="guestbookEntries" class="guestbook-entries"></div>
     </div>
   </div>
 
@@ -882,7 +928,9 @@
     home: document.getElementById('homeView'),
     usa: document.getElementById('usaStoreView'),
     cart: document.getElementById('cartView'),
-    contact: document.getElementById('contactView')
+    contact: document.getElementById('contactView'),
+    guestbookSign: document.getElementById('guestbookSignView'),
+    guestbookList: document.getElementById('guestbookListView')
   };
   var viewLinks = document.querySelectorAll('[data-view-link]');
 
@@ -1009,6 +1057,90 @@
     contactForm.hidden = true;
     contactThanks.hidden = false;
     contactForm.reset();
+  });
+
+  var GUESTBOOK_STORAGE_KEY = 'zbrGuestbook';
+  var guestbookSeed = [
+    { name: 'Hieg', website: '', message: 'Thanks for keeping DIY screamo alive, ZBR crew! Beau Navire forever.', date: 'Jul 18, 2026' },
+    { name: 'skramz4life', website: '', message: 'just found this site through the Constrain tape, instant follow. more Zampler comps please!!!', date: 'Jul 12, 2026' },
+    { name: 'Nima (Wollruss)', website: 'https://hillsboro.bandcamp.com/', message: 'Stoked to be part of the Hillsboro release, thanks for having us on the label <3', date: 'Jul 3, 2026' }
+  ];
+
+  function loadGuestbook() {
+    try {
+      var parsed = JSON.parse(localStorage.getItem(GUESTBOOK_STORAGE_KEY));
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveGuestbook() {
+    try {
+      localStorage.setItem(GUESTBOOK_STORAGE_KEY, JSON.stringify(guestbookEntries));
+    } catch (e) { /* storage unavailable/full -- guestbook still works for this session */ }
+  }
+
+  var guestbookEntries = loadGuestbook();
+  var guestbookEntriesEl = document.getElementById('guestbookEntries');
+
+  function renderGuestbook() {
+    guestbookEntriesEl.innerHTML = '';
+    guestbookEntries.concat(guestbookSeed).forEach(function (entry) {
+      var row = document.createElement('div');
+      row.className = 'guestbook-entry';
+
+      var head = document.createElement('div');
+      head.className = 'guestbook-entry-head';
+
+      var nameEl = document.createElement('span');
+      nameEl.className = 'guestbook-entry-name';
+      if (entry.website && /^https?:\/\//i.test(entry.website)) {
+        var link = document.createElement('a');
+        link.href = entry.website;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.className = 'starlink';
+        link.textContent = entry.name;
+        nameEl.appendChild(link);
+      } else {
+        nameEl.textContent = entry.name;
+      }
+
+      var dateEl = document.createElement('span');
+      dateEl.className = 'guestbook-entry-date';
+      dateEl.textContent = entry.date;
+
+      head.appendChild(nameEl);
+      head.appendChild(dateEl);
+
+      var msgEl = document.createElement('p');
+      msgEl.className = 'guestbook-entry-message';
+      msgEl.textContent = entry.message;
+
+      row.appendChild(head);
+      row.appendChild(msgEl);
+      guestbookEntriesEl.appendChild(row);
+    });
+  }
+  renderGuestbook();
+
+  var guestbookForm = document.getElementById('guestbookForm');
+  var guestbookThanks = document.getElementById('guestbookThanks');
+  document.getElementById('guestbookSubmit').addEventListener('click', function (e) {
+    e.preventDefault();
+    if (!guestbookForm.reportValidity()) { return; }
+    guestbookEntries.unshift({
+      name: guestbookForm.gbName.value.trim(),
+      website: guestbookForm.gbWebsite.value.trim(),
+      message: guestbookForm.gbMessage.value.trim(),
+      date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+    });
+    saveGuestbook();
+    renderGuestbook();
+    guestbookForm.hidden = true;
+    guestbookThanks.hidden = false;
+    guestbookForm.reset();
   });
 
   var backToTop = document.getElementById('backToTop');
