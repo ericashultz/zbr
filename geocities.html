@@ -414,21 +414,31 @@
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:13px;
     border:2px inset var(--silver); background:#fff; color:#000;
   }
-  .store-sidebar h3{
-    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:13px;
-    color:#000; background:var(--aqua); margin:0 -10px 8px; padding:5px 8px;
+  .sidebar-section{ margin-bottom:6px; }
+  .sidebar-section-toggle{
+    display:block; width:100%; text-align:left; background:var(--aqua); color:#000;
+    border:none; font-family:"Fixedsys Excelsior","Courier New",monospace;
+    font-weight:bold; font-size:13px; margin:0 -10px 8px; padding:5px 8px; cursor:default;
   }
-  .band-list{ list-style:none; margin:0; padding:0; max-height:420px; overflow-y:auto; }
-  .band-list li{ margin-bottom:2px; }
-  .band-list button{
+  .sidebar-section-toggle .toggle-arrow{ display:none; float:right; }
+  .sidebar-list{ list-style:none; margin:0 0 10px; padding:0; max-height:420px; overflow-y:auto; }
+  .sidebar-list li{ margin-bottom:2px; }
+  .sidebar-list button{
     display:block; width:100%; text-align:left; background:none; border:none;
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:12px;
     color:var(--aqua); padding:4px 6px; cursor:pointer;
   }
-  .band-list button:hover, .band-list button[aria-current="true"]{
+  .sidebar-list button:hover, .sidebar-list button[aria-current="true"]{
     background:#1D64A7; color:var(--white);
   }
   .store-empty{ color:var(--ink); font-size:14px; padding:10px 2px; }
+
+  @media (max-width:700px){
+    .store-sidebar{ flex:1 1 100%; width:100%; }
+    .sidebar-section-toggle{ cursor:pointer; }
+    .sidebar-section-toggle .toggle-arrow{ display:inline; }
+    .sidebar-list.collapsed{ display:none; }
+  }
 
   .store-grid{
     flex:1; min-width:260px;
@@ -824,8 +834,33 @@
           <label class="store-search">Search
             <input type="text" id="storeSearch" placeholder="Band or release...">
           </label>
-          <h3>Bands A-Z</h3>
-          <ul class="band-list" id="bandList"></ul>
+
+          <div class="sidebar-section">
+            <button type="button" class="sidebar-section-toggle" data-toggle-section aria-expanded="false">Bands A-Z <span class="toggle-arrow">&#9660;</span></button>
+            <ul class="sidebar-list collapsed" id="bandList"></ul>
+          </div>
+
+          <div class="sidebar-section">
+            <button type="button" class="sidebar-section-toggle" data-toggle-section aria-expanded="false">Merch <span class="toggle-arrow">&#9660;</span></button>
+            <ul class="sidebar-list collapsed" id="merchList">
+              <li><button type="button" data-category-filter="vinyl">Vinyl</button></li>
+              <li><button type="button" data-category-filter="cd">CDs</button></li>
+              <li><button type="button" data-category-filter="cassette">Cassettes</button></li>
+              <li><button type="button" data-category-filter="shirt">Shirts</button></li>
+              <li><button type="button" data-category-filter="poster">Posters</button></li>
+              <li><button type="button" data-category-filter="button">Buttons</button></li>
+              <li><button type="button" data-category-filter="sticker">Stickers</button></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-section">
+            <button type="button" class="sidebar-section-toggle" data-toggle-section aria-expanded="false">Labels <span class="toggle-arrow">&#9660;</span></button>
+            <ul class="sidebar-list collapsed" id="labelList">
+              <li><button type="button" data-label-filter="Zegema Beach Releases">Zegema Beach Releases</button></li>
+              <li><button type="button" data-label-filter="Tomb Tree">Tomb Tree</button></li>
+              <li><button type="button" data-label-filter="Softseed Music">Softseed Music</button></li>
+            </ul>
+          </div>
         </aside>
         <div class="store-grid" id="storeGrid"></div>
       </div>
@@ -1161,6 +1196,8 @@
       listenUrl: 'https://www.youtube.com/watch?v=QN4SyRc3XnU',
       bcAlbumId: null,
       variants: null,
+      category: 'vinyl',
+      label: 'Zegema Beach Releases',
       soldOut: false
     },
     {
@@ -1183,6 +1220,8 @@
         { value: 'swirl', label: 'Swirl (/15)', available: true },
         { value: 'grey', label: 'Grey (/10)', available: true }
       ],
+      category: 'cassette',
+      label: 'Tomb Tree',
       soldOut: false
     },
     {
@@ -1201,6 +1240,8 @@
       listenUrl: 'https://hillsboro.bandcamp.com/album/a-party-in-your-name',
       bcAlbumId: '3144453157',
       variants: null,
+      category: 'cassette',
+      label: 'Softseed Music',
       soldOut: false
     },
     {
@@ -1225,6 +1266,8 @@
         { value: 'black', label: 'Black -- SOLD OUT', available: false },
         { value: 'black-silkscreen', label: 'Black w/silkscreen -- SOLD OUT', available: false }
       ],
+      category: 'vinyl',
+      label: 'Zegema Beach Releases',
       soldOut: false
     },
     {
@@ -1244,6 +1287,8 @@
       bcAlbumId: '3279434931',
       variants: null,
       maxQty: 1,
+      category: 'cassette',
+      label: 'Zegema Beach Releases',
       soldOut: false
     },
     {
@@ -1262,15 +1307,21 @@
       listenUrl: 'https://zegemabeachrecords.bandcamp.com/album/snag',
       bcAlbumId: '4179526474',
       variants: null,
+      category: 'vinyl',
+      label: 'Zegema Beach Releases',
       soldOut: true
     }
   ];
 
   var storeGrid = document.getElementById('storeGrid');
   var bandList = document.getElementById('bandList');
+  var merchList = document.getElementById('merchList');
+  var labelList = document.getElementById('labelList');
   var storeSearch = document.getElementById('storeSearch');
   var pdpContent = document.getElementById('pdpContent');
   var activeBandFilter = '';
+  var activeCategoryFilter = '';
+  var activeLabelFilter = '';
 
   function escapeHtml(str) {
     var div = document.createElement('div');
@@ -1293,27 +1344,34 @@
     var query = storeSearch.value.trim().toLowerCase();
     var filtered = products.filter(function (p) {
       var matchesBand = !activeBandFilter || p.band === activeBandFilter;
+      var matchesCategory = !activeCategoryFilter || p.category === activeCategoryFilter;
+      var matchesLabel = !activeLabelFilter || p.label === activeLabelFilter;
       var matchesQuery = !query || (p.band + ' ' + p.title).toLowerCase().indexOf(query) !== -1;
-      return matchesBand && matchesQuery;
+      return matchesBand && matchesCategory && matchesLabel && matchesQuery;
     });
 
     if (filtered.length === 0) {
       storeGrid.innerHTML = '<p class="store-empty">No releases match that search.</p>';
-      return;
+    } else {
+      storeGrid.innerHTML = filtered.map(function (p) {
+        return '' +
+          '<button type="button" class="product-tile" data-product-id="' + p.id + '">' +
+          '<img src="' + p.image + '" alt="' + escapeHtml(p.imageAlt) + '">' +
+          '<span class="product-tile-band">' + escapeHtml(p.band) + '</span>' +
+          '<span class="product-tile-title">' + escapeHtml(p.title) + '</span>' +
+          '<span class="product-tile-price' + (p.soldOut ? ' product-tile-soldout' : '') + '">' + escapeHtml(p.priceLabel) + '</span>' +
+          '</button>';
+      }).join('');
     }
-
-    storeGrid.innerHTML = filtered.map(function (p) {
-      return '' +
-        '<button type="button" class="product-tile" data-product-id="' + p.id + '">' +
-        '<img src="' + p.image + '" alt="' + escapeHtml(p.imageAlt) + '">' +
-        '<span class="product-tile-band">' + escapeHtml(p.band) + '</span>' +
-        '<span class="product-tile-title">' + escapeHtml(p.title) + '</span>' +
-        '<span class="product-tile-price' + (p.soldOut ? ' product-tile-soldout' : '') + '">' + escapeHtml(p.priceLabel) + '</span>' +
-        '</button>';
-    }).join('');
 
     bandList.querySelectorAll('button').forEach(function (btn) {
       btn.setAttribute('aria-current', btn.dataset.bandFilter === activeBandFilter ? 'true' : 'false');
+    });
+    merchList.querySelectorAll('button').forEach(function (btn) {
+      btn.setAttribute('aria-current', btn.dataset.categoryFilter === activeCategoryFilter ? 'true' : 'false');
+    });
+    labelList.querySelectorAll('button').forEach(function (btn) {
+      btn.setAttribute('aria-current', btn.dataset.labelFilter === activeLabelFilter ? 'true' : 'false');
     });
   }
 
@@ -1323,7 +1381,35 @@
     var btn = e.target.closest('[data-band-filter]');
     if (!btn) return;
     activeBandFilter = activeBandFilter === btn.dataset.bandFilter ? '' : btn.dataset.bandFilter;
+    activeCategoryFilter = '';
+    activeLabelFilter = '';
     renderStoreGrid();
+  });
+
+  merchList.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-category-filter]');
+    if (!btn) return;
+    activeCategoryFilter = activeCategoryFilter === btn.dataset.categoryFilter ? '' : btn.dataset.categoryFilter;
+    activeBandFilter = '';
+    activeLabelFilter = '';
+    renderStoreGrid();
+  });
+
+  labelList.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-label-filter]');
+    if (!btn) return;
+    activeLabelFilter = activeLabelFilter === btn.dataset.labelFilter ? '' : btn.dataset.labelFilter;
+    activeBandFilter = '';
+    activeCategoryFilter = '';
+    renderStoreGrid();
+  });
+
+  document.querySelectorAll('[data-toggle-section]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var list = btn.nextElementSibling;
+      var collapsed = list.classList.toggle('collapsed');
+      btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+    });
   });
 
   function openProduct(id) {
