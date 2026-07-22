@@ -394,6 +394,73 @@
   }
   .guestbook-entry-message{ color:var(--white); font-size:14px; line-height:1.5; }
 
+  /* ==== CANADA / INTL STORE ==== */
+  .store-page{ max-width:980px; margin:24px auto; padding:12px; }
+  .store-page h2{
+    font-family:"Arial Narrow",Arial,sans-serif; font-weight:bold; font-style:italic;
+    color:var(--white); font-size:32px; margin:0 0 14px; text-align:center;
+  }
+  .store-layout{ display:flex; gap:18px; flex-wrap:wrap; align-items:flex-start; }
+  .store-sidebar{
+    flex:0 0 200px; min-width:160px;
+    background:#000; border:3px groove var(--aqua); padding:10px;
+  }
+  .store-search{
+    display:block; font-family:"Fixedsys Excelsior","Courier New",monospace;
+    font-weight:bold; font-size:12px; color:var(--white); margin-bottom:14px;
+  }
+  .store-search input{
+    display:block; width:100%; margin-top:6px; padding:6px;
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:13px;
+    border:2px inset var(--silver); background:#fff; color:#000;
+  }
+  .store-sidebar h3{
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:13px;
+    color:#000; background:var(--aqua); margin:0 -10px 8px; padding:5px 8px;
+  }
+  .band-list{ list-style:none; margin:0; padding:0; max-height:420px; overflow-y:auto; }
+  .band-list li{ margin-bottom:2px; }
+  .band-list button{
+    display:block; width:100%; text-align:left; background:none; border:none;
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:12px;
+    color:var(--aqua); padding:4px 6px; cursor:pointer;
+  }
+  .band-list button:hover, .band-list button[aria-current="true"]{
+    background:#1D64A7; color:var(--white);
+  }
+  .store-empty{ color:var(--ink); font-size:14px; padding:10px 2px; }
+
+  .store-grid{
+    flex:1; min-width:260px;
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); gap:14px;
+  }
+  .product-tile{
+    display:block; text-align:center; text-decoration:none;
+    background:#000; border:3px groove var(--aqua); padding:8px; cursor:pointer;
+  }
+  .product-tile img{ width:100%; border:2px outset var(--silver); margin-bottom:6px; }
+  .product-tile-band{
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:12px;
+    color:#FFEE00; display:block;
+  }
+  .product-tile-title{
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:11px;
+    color:var(--white); display:block; margin:2px 0;
+  }
+  .product-tile-price{
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:12px;
+    color:var(--aqua); display:block;
+  }
+  .product-tile-soldout{ color:#ff6b6b; }
+  .product-tile:hover{ border-color:#1D64A7; }
+
+  .pdp-page{ max-width:640px; margin:24px auto; padding:12px; }
+  .pdp-back{ display:block; margin-bottom:14px; }
+  .pdp-soldout-msg{
+    color:#ff6b6b; font-weight:bold; font-family:"Fixedsys Excelsior","Courier New",monospace;
+    font-size:13px; margin-top:8px;
+  }
+
   .back-to-top{
     position:fixed; bottom:20px; right:20px; z-index:500;
     background:linear-gradient(180deg,#e8e8e8,#a0a0a0); border:2px outset #fff;
@@ -501,7 +568,7 @@
     <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="mainnav-list">&#9776; MENU</button>
     <ul id="mainnav-list">
       <li><a href="#" data-view-link="home" aria-current="page">Home</a></li>
-      <li><a href="#">Canada / Intl Store</a></li>
+      <li><a href="#" data-view-link="store">Canada / Intl Store</a></li>
       <li><a href="#" data-view-link="usa">USA Store</a></li>
       <li><a href="#">Archives</a></li>
       <li><a href="#">Search</a></li>
@@ -749,6 +816,26 @@
 
   </div>
 
+  <div id="storeView" hidden>
+    <div class="store-page">
+      <h2>Canada / Intl Store</h2>
+      <div class="store-layout">
+        <aside class="store-sidebar">
+          <label class="store-search">Search
+            <input type="text" id="storeSearch" placeholder="Band or release...">
+          </label>
+          <h3>Bands A-Z</h3>
+          <ul class="band-list" id="bandList"></ul>
+        </aside>
+        <div class="store-grid" id="storeGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="pdpView" hidden>
+    <div class="pdp-page" id="pdpContent"></div>
+  </div>
+
   <div id="usaStoreView" hidden>
     <div class="construction-panel">
       <div class="stripes" aria-hidden="true"></div>
@@ -830,7 +917,7 @@
 
   <footer>
     <p>&copy; 2026 Zegema Beach Records -- Canada</p>
-    <p><a href="#">Canada / Intl Store</a> &middot; <a href="#" data-view-link="usa">USA Store</a> &middot; <a href="#">Archives</a> &middot; <a href="#" data-view-link="contact">Contact</a></p>
+    <p><a href="#" data-view-link="store">Canada / Intl Store</a> &middot; <a href="#" data-view-link="usa">USA Store</a> &middot; <a href="#">Archives</a> &middot; <a href="#" data-view-link="contact">Contact</a></p>
   </footer>
 
 </div>
@@ -930,16 +1017,20 @@
     cart: document.getElementById('cartView'),
     contact: document.getElementById('contactView'),
     guestbookSign: document.getElementById('guestbookSignView'),
-    guestbookList: document.getElementById('guestbookListView')
+    guestbookList: document.getElementById('guestbookListView'),
+    store: document.getElementById('storeView'),
+    pdp: document.getElementById('pdpView')
   };
   var viewLinks = document.querySelectorAll('[data-view-link]');
+  var navHighlightAs = { pdp: 'store' };
 
   function showView(view) {
     Object.keys(views).forEach(function (key) {
       views[key].hidden = key !== view;
     });
+    var highlight = navHighlightAs[view] || view;
     viewLinks.forEach(function (link) {
-      if (link.dataset.viewLink === view) {
+      if (link.dataset.viewLink === highlight) {
         link.setAttribute('aria-current', 'page');
       } else {
         link.removeAttribute('aria-current');
@@ -948,11 +1039,12 @@
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
-  viewLinks.forEach(function (link) {
-    link.addEventListener('click', function (e) {
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('[data-view-link]');
+    if (link) {
       e.preventDefault();
       showView(link.dataset.viewLink);
-    });
+    }
   });
 
   var CART_STORAGE_KEY = 'zbrCart';
@@ -1014,7 +1106,7 @@
     }
   });
 
-  document.querySelectorAll('.addcart[data-product]').forEach(function (box) {
+  function wireAddToCart(box) {
     var btn = box.querySelector('.cart-btn');
     var qtyInput = box.querySelector('.cart-qty');
     var variantSelect = box.querySelector('.cart-variant');
@@ -1045,9 +1137,248 @@
       btn.innerHTML = '&#10003; ADDED!';
       setTimeout(function () { btn.innerHTML = originalLabel; }, 1200);
     });
-  });
+  }
+
+  document.querySelectorAll('.addcart[data-product]').forEach(wireAddToCart);
 
   renderCart();
+
+  var products = [
+    {
+      id: 'beau-navire-demo',
+      band: 'Beau Navire',
+      title: '2009 Demo (10")',
+      cat: 'Releases',
+      price: 25.00,
+      priceLabel: '$25.00 USD',
+      image: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/4e6730e0-0103-4041-892d-2cb17cf02e88/Beau+demo.jpg?format=750w',
+      imageAlt: 'Beau Navire demo 10 inch vinyl',
+      description: [
+        'For fans of: Loma Prieta, Iwrotehaikusaboutcanniblaisminyouryearbook, and Carrion Spring.',
+        "This early demo from the immortal Cali band mixes the softer/jazzy stuff from Iwrotehaikus with their later and heavier sound. A wicked snapshot in time. We bought these off Clue #2 Records a few months ago and they moved in a day, so we picked up another 50 copies and this is the only place to get'em!!! Hella rare/awesome find! Thanks Hieg <3",
+        '10" on black vinyl with lyric insert. 6 songs.'
+      ],
+      listenUrl: 'https://www.youtube.com/watch?v=QN4SyRc3XnU',
+      bcAlbumId: null,
+      variants: null,
+      soldOut: false
+    },
+    {
+      id: 'constrain-1999',
+      band: 'Constrain',
+      title: "'1999' (cassette)",
+      cat: 'Releases',
+      price: 15.00,
+      priceLabel: 'from CA$15.00',
+      image: 'https://f4.bcbits.com/img/a3679845641_10.jpg',
+      imageAlt: 'Constrain 1999 EP cover art',
+      description: [
+        "CONSTRAIN '1999' cassette EP (TT154). For fans of: SeeYouSpaceCowboy, I Promised The World, and Concealer.",
+        "This Hamilton band ditches a lot of sass and leans more heavily into the metalcore on their sophomore EP '1999'. Unrelenting in its assault, the attacks are thunderous with enough speed behind them to create a wave-after-wave effect but compressed into less than three minutes. Pressing on 25 cassettes. Released on Tomb Tree, co-released with Paper Wings.",
+        'Cassettes /25: 15 swirl and 10 grey, w/j-card. 5 songs.'
+      ],
+      listenUrl: 'https://tombtreetapes.bandcamp.com/album/1999',
+      bcAlbumId: '3198503332',
+      variants: [
+        { value: 'swirl', label: 'Swirl (/15)', available: true },
+        { value: 'grey', label: 'Grey (/10)', available: true }
+      ],
+      soldOut: false
+    },
+    {
+      id: 'hillsboro-apiyn',
+      band: 'Hillsboro',
+      title: 'A Party in Your Name (Ltd. Cassette)',
+      cat: 'Releases',
+      price: 11.00,
+      priceLabel: '$11.00 USD',
+      image: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/959e2021-d62a-4aa2-8c2f-4b0e80434d5c/0-0+promo.jpg?format=2500w',
+      imageAlt: 'Hillsboro promo photo',
+      description: [
+        "Hillsboro's 'A Party in Your Name' is a wicked collection of songs that fall somewhere in the indie/emo/shoegaze category and features Nima from Wollruss on vocals/guitar.",
+        'PT-193 Limited Edition Cassette (ltd. 50): homedubbed, real time duplicated red cassettes with transparent vinyl AB labels. Double-sided 3-panel J-card printed on matte 110lb cardstock, cut and folded by hand. Your choice of black or clear cassette case. 8 songs.'
+      ],
+      listenUrl: 'https://hillsboro.bandcamp.com/album/a-party-in-your-name',
+      bcAlbumId: '3144453157',
+      variants: null,
+      soldOut: false
+    },
+    {
+      id: 'snag-death-doula',
+      band: 'SNAG',
+      title: 'Death Doula (12"LP/shirt)',
+      cat: 'Last Copy',
+      price: 25.00,
+      priceLabel: 'from CA$25.00',
+      image: 'https://f4.bcbits.com/img/a3960401376_10.jpg',
+      imageAlt: 'SNAG Death Doula cover art',
+      description: [
+        'For fans of: Funeral Diner, Coma Regalia and Eyes Of Verotika',
+        "Milwaukee's SNAG is back for more environmentally/socially/politically conscious screamo. If you order a t-shirt please indicate if you would like a brown or black one. If you order a long-sleeve shirt they ONLY come in black.",
+        '12" vinyl /300, 150 on clear, 50 on clear w/silkscreen b-side, 50 on black, and 50 on black w/silkscreen b-side. Download code included. 7 songs.'
+      ],
+      listenUrl: 'https://zegemabeachrecords.bandcamp.com/album/death-doula',
+      bcAlbumId: '2052037531',
+      variants: [
+        { value: 'clear', label: 'Clear (150)', available: true },
+        { value: 'clear-silkscreen', label: 'Clear w/silkscreen -- SOLD OUT', available: false },
+        { value: 'black', label: 'Black -- SOLD OUT', available: false },
+        { value: 'black-silkscreen', label: 'Black w/silkscreen -- SOLD OUT', available: false }
+      ],
+      soldOut: false
+    },
+    {
+      id: 'snag-swallowsnest-split',
+      band: 'SNAG',
+      title: 'Snag / Swallows Nest Split (cassette)',
+      cat: 'Last Copy',
+      price: 15.00,
+      priceLabel: '$15.00 USD',
+      image: 'https://f4.bcbits.com/img/a2989564054_10.jpg',
+      imageAlt: 'Snag Swallows Nest split cassette cover art',
+      description: [
+        'A screamo/emo-violence split with New Zealand’s Swallows Nest -- down to the last copy!',
+        'Cassette split EP on 100 yellow and 100 red, comes with an 11x17 two-sided poster as a case, includes lyrics and band statements.'
+      ],
+      listenUrl: 'https://zegemabeachrecords.bandcamp.com/album/snag-swallows-nest-split',
+      bcAlbumId: '3279434931',
+      variants: null,
+      maxQty: 1,
+      soldOut: false
+    },
+    {
+      id: 'snag-debut-lp',
+      band: 'SNAG',
+      title: 'snag (self-titled 12"LP)',
+      cat: 'Sold Out',
+      price: null,
+      priceLabel: 'SOLD OUT',
+      image: 'https://f4.bcbits.com/img/a1394667157_10.jpg',
+      imageAlt: 'Snag self-titled LP cover art',
+      description: [
+        'Snag is; milwaukee river skramz about climate anxiety.',
+        'SNAG’s debut self-titled LP is sold out physically -- digital download still available on Bandcamp.'
+      ],
+      listenUrl: 'https://zegemabeachrecords.bandcamp.com/album/snag',
+      bcAlbumId: '4179526474',
+      variants: null,
+      soldOut: true
+    }
+  ];
+
+  var storeGrid = document.getElementById('storeGrid');
+  var bandList = document.getElementById('bandList');
+  var storeSearch = document.getElementById('storeSearch');
+  var pdpContent = document.getElementById('pdpContent');
+  var activeBandFilter = '';
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function renderBandList() {
+    var bands = [];
+    products.forEach(function (p) {
+      if (bands.indexOf(p.band) === -1) bands.push(p.band);
+    });
+    bands.sort();
+    bandList.innerHTML = bands.map(function (band) {
+      return '<li><button type="button" data-band-filter="' + escapeHtml(band) + '">' + escapeHtml(band) + '</button></li>';
+    }).join('');
+  }
+
+  function renderStoreGrid() {
+    var query = storeSearch.value.trim().toLowerCase();
+    var filtered = products.filter(function (p) {
+      var matchesBand = !activeBandFilter || p.band === activeBandFilter;
+      var matchesQuery = !query || (p.band + ' ' + p.title).toLowerCase().indexOf(query) !== -1;
+      return matchesBand && matchesQuery;
+    });
+
+    if (filtered.length === 0) {
+      storeGrid.innerHTML = '<p class="store-empty">No releases match that search.</p>';
+      return;
+    }
+
+    storeGrid.innerHTML = filtered.map(function (p) {
+      return '' +
+        '<button type="button" class="product-tile" data-product-id="' + p.id + '">' +
+        '<img src="' + p.image + '" alt="' + escapeHtml(p.imageAlt) + '">' +
+        '<span class="product-tile-band">' + escapeHtml(p.band) + '</span>' +
+        '<span class="product-tile-title">' + escapeHtml(p.title) + '</span>' +
+        '<span class="product-tile-price' + (p.soldOut ? ' product-tile-soldout' : '') + '">' + escapeHtml(p.priceLabel) + '</span>' +
+        '</button>';
+    }).join('');
+
+    bandList.querySelectorAll('button').forEach(function (btn) {
+      btn.setAttribute('aria-current', btn.dataset.bandFilter === activeBandFilter ? 'true' : 'false');
+    });
+  }
+
+  storeSearch.addEventListener('input', renderStoreGrid);
+
+  bandList.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-band-filter]');
+    if (!btn) return;
+    activeBandFilter = activeBandFilter === btn.dataset.bandFilter ? '' : btn.dataset.bandFilter;
+    renderStoreGrid();
+  });
+
+  function openProduct(id) {
+    var p = products.filter(function (item) { return item.id === id; })[0];
+    if (!p) return;
+
+    var html = '<a href="#" class="starlink pdp-back" data-view-link="store">&laquo; Back to Store</a>';
+    html += '<article class="post">';
+    html += '<span class="cat cat-releases">' + escapeHtml(p.cat) + '</span>';
+    html += '<h2>' + escapeHtml(p.band) + ' - ' + escapeHtml(p.title) + '</h2>';
+    html += '<img src="' + p.image + '" alt="' + escapeHtml(p.imageAlt) + '">';
+    p.description.forEach(function (para) {
+      html += '<p>' + para + '</p>';
+    });
+    if (p.bcAlbumId) {
+      html += '<div class="bcplayer"><iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=' + p.bcAlbumId + '/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="' + escapeHtml(p.band + ' - ' + p.title) + ' on Bandcamp"><a href="' + p.listenUrl + '">' + escapeHtml(p.band + ' - ' + p.title) + '</a></iframe></div>';
+    }
+    html += '<p><a class="starlink" href="' + p.listenUrl + '" target="_blank" rel="noopener">Listen Here</a></p>';
+
+    if (p.soldOut) {
+      html += '<p class="pdp-soldout-msg">This release is sold out in physical formats. Grab the digital download via the Bandcamp link above.</p>';
+    } else {
+      html += '<div class="addcart" data-product="' + escapeHtml(p.band + ' - ' + p.title) + '" data-price="' + p.price + '">';
+      html += '<span class="cart-price">' + escapeHtml(p.priceLabel) + '</span>';
+      if (p.variants) {
+        html += '<label class="cart-variant-wrap">Variant:<select class="cart-variant"><option value="" selected>Select Variant</option>';
+        p.variants.forEach(function (v) {
+          html += '<option value="' + v.value + '"' + (v.available ? '' : ' disabled') + '>' + escapeHtml(v.label) + '</option>';
+        });
+        html += '</select></label>';
+      } else {
+        html += '<label class="cart-qty-wrap">Qty:<input type="number" class="cart-qty" value="1" min="1" max="' + (p.maxQty || 99) + '"></label>';
+      }
+      html += '<a class="cart-btn" href="#">&#128722; ADD TO CART</a>';
+      html += '</div>';
+    }
+    html += '</article>';
+
+    pdpContent.innerHTML = html;
+    var addcartBox = pdpContent.querySelector('.addcart');
+    if (addcartBox) wireAddToCart(addcartBox);
+
+    showView('pdp');
+  }
+
+  document.addEventListener('click', function (e) {
+    var tile = e.target.closest('[data-product-id]');
+    if (tile) {
+      e.preventDefault();
+      openProduct(tile.dataset.productId);
+    }
+  });
+
+  renderBandList();
+  renderStoreGrid();
 
   var contactForm = document.getElementById('contactForm');
   var contactThanks = document.getElementById('contactThanks');
