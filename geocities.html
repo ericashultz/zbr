@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>~*~ Zegema Beach Records ~*~ Official Web Page!!! ~*~</title>
 <style>
+  [hidden]{ display:none !important; }
+
   :root{
     --royalblue:#1E61A8;
     --aqua:#C0DEFF;
@@ -357,16 +359,24 @@
     color:var(--white); font-size:32px; margin:0 0 14px;
   }
   .contact-page p{ color:var(--white); font-size:15px; line-height:1.6; margin:0 0 12px; }
-  .contact-links{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
-  .contact-links a{
-    display:inline-block;
-    background:linear-gradient(180deg,#e8e8e8,#a0a0a0);
-    border:2px outset #fff;
-    color:#000066; font-family:"MS Sans Serif","Tahoma",sans-serif;
-    font-weight:bold; font-size:12px;
-    text-decoration:none; padding:6px 10px;
+
+  .contact-form{
+    display:flex; flex-direction:column; gap:14px; text-align:left; margin-top:20px;
   }
-  .contact-links a:hover{ background:linear-gradient(180deg,#ffffff,#c9c9c9); color:#000; }
+  .contact-form-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .contact-form-row .contact-form-field{ flex:1; min-width:180px; }
+  .contact-form-field{
+    display:flex; flex-direction:column; gap:4px;
+    font-family:"Courier New",monospace; font-weight:bold; font-size:13px; color:var(--white);
+  }
+  .contact-form-field input, .contact-form-field textarea{
+    padding:6px; font-family:"Courier New",monospace; font-size:13px;
+    border:2px inset var(--silver); background:#fff; color:#000; resize:vertical;
+  }
+  .contact-form #contactSubmit{ align-self:flex-start; }
+  .contact-thanks{
+    text-align:center; color:#19A800; font-weight:bold; font-size:15px; margin-top:16px;
+  }
 
   .back-to-top{
     position:fixed; bottom:20px; right:20px; z-index:500;
@@ -745,14 +755,27 @@
   <div id="contactView" hidden>
     <div class="contact-page">
       <h2>Contact</h2>
-      <p>Got a question about an order, a release, or just want to talk screamo? Hit us up.</p>
-      <p><a class="starlink" href="mailto:zegemabeachrecords@example.com">zegemabeachrecords@example.com</a></p>
-      <p>You can also find us here:</p>
-      <div class="contact-links">
-        <a href="https://zegemabeachrecords.bandcamp.com/" target="_blank" rel="noopener">Bandcamp</a>
-        <a href="https://www.youtube.com/@MrSilentStorms" target="_blank" rel="noopener">YouTube</a>
-        <a href="https://www.instagram.com/zegema_beach/" target="_blank" rel="noopener">Instagram</a>
-      </div>
+      <p>If you would like to contact Zegema Beach Records just fill out this contact form. A response will be returned within 24 hours. ZBR loves open communication!!! You can also email ZBR at <a class="starlink" href="mailto:zegemabeachrecords@gmail.com">zegemabeachrecords@gmail.com</a></p>
+
+      <form id="contactForm" class="contact-form">
+        <div class="contact-form-row">
+          <label class="contact-form-field">First Name (required)
+            <input type="text" name="firstName" required>
+          </label>
+          <label class="contact-form-field">Last Name (required)
+            <input type="text" name="lastName" required>
+          </label>
+        </div>
+        <label class="contact-form-field">Email Address (required)
+          <input type="email" name="email" required>
+        </label>
+        <label class="contact-form-field">Message (required)
+          <textarea name="message" rows="6" required></textarea>
+        </label>
+        <a class="cart-btn" href="#" id="contactSubmit">SUBMIT</a>
+      </form>
+
+      <p id="contactThanks" class="contact-thanks" hidden>Thanks for reaching out! ZBR will get back to you within 24 hours.</p>
     </div>
   </div>
 
@@ -975,6 +998,16 @@
   });
 
   renderCart();
+
+  var contactForm = document.getElementById('contactForm');
+  var contactThanks = document.getElementById('contactThanks');
+  document.getElementById('contactSubmit').addEventListener('click', function (e) {
+    e.preventDefault();
+    if (!contactForm.reportValidity()) { return; }
+    contactForm.hidden = true;
+    contactThanks.hidden = false;
+    contactForm.reset();
+  });
 
   var backToTop = document.getElementById('backToTop');
   window.addEventListener('scroll', function () {
