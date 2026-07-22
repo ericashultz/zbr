@@ -838,7 +838,24 @@
     });
   });
 
-  var cart = [];
+  var CART_STORAGE_KEY = 'zbrCart';
+
+  function loadCart() {
+    try {
+      var parsed = JSON.parse(localStorage.getItem(CART_STORAGE_KEY));
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveCart() {
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    } catch (e) { /* storage unavailable/full -- cart still works for this session */ }
+  }
+
+  var cart = loadCart();
   var cartCount = document.getElementById('cartCount');
   var cartEmpty = document.getElementById('cartEmpty');
   var cartItemsEl = document.getElementById('cartItems');
@@ -846,6 +863,7 @@
   var cartSubtotal = document.getElementById('cartSubtotal');
 
   function renderCart() {
+    saveCart();
     cartItemsEl.innerHTML = '';
     var hasItems = cart.length > 0;
     cartEmpty.hidden = hasItems;
