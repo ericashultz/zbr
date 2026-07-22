@@ -1340,8 +1340,9 @@
     });
     if (p.bcAlbumId) {
       html += '<div class="bcplayer"><iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=' + p.bcAlbumId + '/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="' + escapeHtml(p.band + ' - ' + p.title) + ' on Bandcamp"><a href="' + p.listenUrl + '">' + escapeHtml(p.band + ' - ' + p.title) + '</a></iframe></div>';
+    } else {
+      html += '<p><a class="starlink" href="' + p.listenUrl + '" target="_blank" rel="noopener">Listen Here</a></p>';
     }
-    html += '<p><a class="starlink" href="' + p.listenUrl + '" target="_blank" rel="noopener">Listen Here</a></p>';
 
     if (p.soldOut) {
       html += '<p class="pdp-soldout-msg">This release is sold out in physical formats. Grab the digital download via the Bandcamp link above.</p>';
