@@ -312,6 +312,42 @@
     border:2px inset var(--silver); background:#fff; color:#000;
   }
 
+  .cart-count{
+    display:inline-block; min-width:16px; margin-left:4px; padding:1px 5px;
+    background:#A500A8; color:var(--white); border-radius:8px;
+    font-family:"Courier New",monospace; font-weight:bold; font-size:11px;
+  }
+
+  .cart-page{
+    max-width:640px; margin:24px auto; padding:12px;
+  }
+  .cart-page h2{
+    font-family:"Arial Narrow",Arial,sans-serif;
+    font-weight:bold; font-style:italic;
+    color:var(--white); font-size:32px; margin:0 0 14px; text-align:center;
+  }
+  .cart-empty{ text-align:center; color:var(--ink); font-size:15px; }
+  .cart-items{ display:flex; flex-direction:column; gap:10px; margin-bottom:16px; }
+  .cart-row{
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    background:#000; border:3px groove var(--aqua); padding:10px;
+    font-family:"Courier New",monospace; font-size:13px; color:var(--ink);
+  }
+  .cart-row-name{ flex:1; min-width:160px; color:var(--white); font-weight:bold; }
+  .cart-row-remove{
+    background:linear-gradient(180deg,#ffffff,#d4d4d4);
+    border:2px outset #ffffff; color:#330000; font-weight:bold;
+    font-family:"Courier New",monospace; font-size:12px;
+    padding:4px 8px; cursor:pointer;
+  }
+  .cart-row-remove:hover{ background:linear-gradient(180deg,#fff,#eeeeee); }
+  .cart-row-remove:active{ border-style:inset; }
+  .cart-summary{
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    border-top:2px groove #444; padding-top:14px;
+  }
+  .cart-subtotal-label{ font-family:"Courier New",monospace; font-size:15px; color:var(--white); }
+
   .back-to-top{
     position:fixed; bottom:20px; right:20px; z-index:500;
     background:linear-gradient(180deg,#e8e8e8,#a0a0a0); border:2px outset #fff;
@@ -425,6 +461,7 @@
       <li><a href="#">Archives</a></li>
       <li><a href="#">Search</a></li>
       <li><a href="#">Contact</a></li>
+      <li><a href="#" data-view-link="cart">View Cart <span id="cartCount" class="cart-count" hidden>0</span></a></li>
     </ul>
   </nav>
 
@@ -446,13 +483,13 @@
         <article class="post">
           <span class="cat cat-releases">Releases</span>
           <h2>Beau Navire - 2009 Demo (10")</h2>
-          <p>Beau Navire 10"s for their 'Demo 2009' release are back in stock! This is still the OG pressing from Clue #2 that was stashed away for over a decade -- so once this pressing is gonezo you'll have to pay stupid amounts on Discogs -- but you can get them now for just $30USD including shipping!</p>
+          <p><strong>Beau Navire</strong> 10"s for their 'Demo 2009' release are back in stock! This is still the OG pressing from Clue #2 that was stashed away for over a decade -- so once this pressing is gonezo you'll have to pay stupid amounts on Discogs -- but you can get them now for just $30USD including shipping!</p>
           <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/4e6730e0-0103-4041-892d-2cb17cf02e88/Beau+demo.jpg?format=750w" alt="Beau Navire demo 10 inch vinyl">
-          <p>For fans of: Loma Prieta, Iwrotehaikusaboutcanniblaisminyouryearbook, and Carrion Spring.</p>
+          <p><strong>For fans of: Loma Prieta, Iwrotehaikusaboutcanniblaisminyouryearbook, and Carrion Spring.</strong></p>
           <p>This early demo from the immortal Cali band mixes the softer/jazzy stuff from Iwrotehaikus with their later and heavier sound. I wicked snapshot in time. We bought these off Clue #2 Records a few months ago and they moved in a day, so we picked up another 50 copies and this is the only place to get'em!!! Hella rare/awesome find! Thanks Hieg &lt;3</p>
           <p>10" on black vinyl with lyric insert. 6 songs.</p>
           <p><a class="starlink" href="https://www.youtube.com/watch?v=QN4SyRc3XnU" target="_blank" rel="noopener">Listen Here</a></p>
-          <div class="addcart">
+          <div class="addcart" data-product="Beau Navire - 2009 Demo (10&quot;)" data-price="25.00">
             <span class="cart-price">$25.00 USD</span>
             <label class="cart-qty-wrap">Qty:
               <input type="number" class="cart-qty" value="1" min="1" max="99">
@@ -464,7 +501,7 @@
         <article class="post">
           <span class="cat cat-releases">Releases</span>
           <h2>Constrain '1999' EP</h2>
-          <p>Constrain's new EP '1999' was released last week and I moved more than half of the cassettes already. The sassy metalcore is less sass and more metal than the previous EP but still intertwines them and hits like a fucking truck. The tapes arrive at my house next week and will start shipping in early August.</p>
+          <p><strong>Constrain</strong>'s new EP <strong>'1999'</strong> was released last week and I moved more than half of the cassettes already. The sassy metalcore is less sass and more metal than the previous EP but still intertwines them and hits like a fucking truck. The tapes arrive at my house next week and will start shipping in early August.</p>
           <div class="bcplayer">
             <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3198503332/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="1999 by Constrain on Bandcamp"><a href="https://tombtreetapes.bandcamp.com/album/1999">1999 by Constrain</a></iframe>
           </div>
@@ -478,7 +515,7 @@
         <article class="post">
           <span class="cat cat-releases">Releases</span>
           <h2>Hillsboro Tapes</h2>
-          <p>Hillsboro tapes for 'A Party in Your Name' are officially done and ready to ship! This album is a wicked collection of songs that fall somewhere in the indie/emo/shoegaze category and features my good bud Nima from Wollruss on vocals/guitar.</p>
+          <p><strong>Hillsboro</strong> tapes for <strong>'A Party in Your Name'</strong> are officially done and ready to ship! This album is a wicked collection of songs that fall somewhere in the indie/emo/shoegaze category and features my good bud Nima from Wollruss on vocals/guitar.</p>
           <div class="bcplayer">
             <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3144453157/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="A Party in Your Name by Hillsboro on Bandcamp"><a href="https://hillsboro.bandcamp.com/album/a-party-in-your-name">A Party in Your Name by Hillsboro</a></iframe>
           </div>
@@ -488,26 +525,23 @@
         <article class="post">
           <span class="cat cat-releases">Last Copy</span>
           <h2>SNAG - Death Doula (12"LP/shirt)</h2>
-          <p>In conjunction with our Johnny's Reco-mmendations is our good friends Snag. We released their split cassette with Swallows Nest (one left!), their debut 12"LP, and their sophomore 12"LP (one left!), which makes them Today's Last Fucking Copy so snag it now or forever hold your peace!</p>
+          <p>In conjunction with our Johnny's Reco-mmendations is our good friends <strong>Snag</strong>. We released their split cassette with <strong>Swallows Nest</strong> (one left!), their debut 12"LP, and their sophomore 12"LP (one left!), which makes them Today's Last Fucking Copy so snag it now or forever hold your peace!</p>
           <div class="bcplayer">
             <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2052037531/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="Death Doula by SNAG on Bandcamp"><a href="https://zegemabeachrecords.bandcamp.com/album/death-doula">Death Doula by SNAG</a></iframe>
           </div>
-          <a href="https://www.zegemabeachrecords.com/zegema-beach-releases/snag2" target="_blank" rel="noopener">
-            <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1618898126667-B8FYY1OAHRYMB7MBQIMK/Bandcamp.png?format=750w" alt="SNAG Death Doula merch bundle">
-          </a>
-          <p>For fans of: Funeral Diner, Coma Regalia and Eyes Of Verotika</p>
-          <p>Milwaukee's SNAG is back for more environmentally/socially/politically conscious screamo. Records start shipping July 2nd, 2021. If you order a t-shirt please indicate if you would like a brown or black one. If you order a long-sleeve shirt they ONLY come in black.</p>
+          <p><strong>For fans of: Funeral Diner, Coma Regalia and Eyes Of Verotika</strong></p>
+          <p>Milwaukee's <strong>SNAG</strong> is back for more environmentally/socially/politically conscious screamo. Records start shipping July 2nd, 2021. If you order a t-shirt please indicate if you would like a brown or black one. If you order a long-sleeve shirt they ONLY come in black.</p>
           <p>12" vinyl /300, 150 on clear, 50 on clear w/silkscreen b-side, 50 on black, and 50 on black w/silkscreen b-side. Download code included. 7 songs.</p>
           <p><a class="starlink" href="https://zegemabeachrecords.bandcamp.com/album/death-doula" target="_blank" rel="noopener">Listen Here</a></p>
-          <div class="addcart">
+          <div class="addcart" data-product="SNAG - Death Doula (12&quot;LP/shirt)" data-price="25.00">
             <span class="cart-price">$25.00 USD</span>
             <label class="cart-variant-wrap">Variant:
               <select class="cart-variant">
                 <option value="" selected>Select Variant</option>
                 <option value="clear">Clear (150)</option>
-                <option value="clear-silkscreen">Clear w/silkscreen (/50)</option>
-                <option value="black">Black (50)</option>
-                <option value="black-silkscreen">Black w/silkscreen (50)</option>
+                <option value="clear-silkscreen" disabled>Clear w/silkscreen -- SOLD OUT</option>
+                <option value="black" disabled>Black -- SOLD OUT</option>
+                <option value="black-silkscreen" disabled>Black w/silkscreen -- SOLD OUT</option>
               </select>
             </label>
             <a class="cart-btn" href="#">&#128722; ADD TO CART</a>
@@ -667,6 +701,18 @@
     </div>
   </div>
 
+  <div id="cartView" hidden>
+    <div class="cart-page">
+      <h2>Shopping Cart</h2>
+      <p id="cartEmpty" class="cart-empty">Your cart is empty -- go add some records!</p>
+      <div id="cartItems" class="cart-items" hidden></div>
+      <div class="cart-summary" id="cartSummary" hidden>
+        <span class="cart-subtotal-label">Subtotal: <strong id="cartSubtotal">$0.00 USD</strong></span>
+        <a class="cart-btn" href="#">&#128274; CHECKOUT</a>
+      </div>
+    </div>
+  </div>
+
   <footer>
     <p>&copy; 2026 Zegema Beach Records -- Canada</p>
     <p>Page designed with Netscape Composer on a Compaq Presario. Powered by dial-up and spite.</p>
@@ -766,13 +812,15 @@
 
   var homeView = document.getElementById('homeView');
   var usaStoreView = document.getElementById('usaStoreView');
+  var cartView = document.getElementById('cartView');
   var viewLinks = document.querySelectorAll('[data-view-link]');
 
   function showView(view) {
     homeView.hidden = view !== 'home';
     usaStoreView.hidden = view !== 'usa';
+    cartView.hidden = view !== 'cart';
     viewLinks.forEach(function (link) {
-      if (link.dataset.viewLink === 'home' || link.dataset.viewLink === 'usa') {
+      if (link.dataset.viewLink === 'home' || link.dataset.viewLink === 'usa' || link.dataset.viewLink === 'cart') {
         if (link.dataset.viewLink === view) {
           link.setAttribute('aria-current', 'page');
         } else {
@@ -789,6 +837,82 @@
       showView(link.dataset.viewLink);
     });
   });
+
+  var cart = [];
+  var cartCount = document.getElementById('cartCount');
+  var cartEmpty = document.getElementById('cartEmpty');
+  var cartItemsEl = document.getElementById('cartItems');
+  var cartSummary = document.getElementById('cartSummary');
+  var cartSubtotal = document.getElementById('cartSubtotal');
+
+  function renderCart() {
+    cartItemsEl.innerHTML = '';
+    var hasItems = cart.length > 0;
+    cartEmpty.hidden = hasItems;
+    cartItemsEl.hidden = !hasItems;
+    cartSummary.hidden = !hasItems;
+
+    var subtotal = 0;
+    cart.forEach(function (item, i) {
+      subtotal += item.price * item.qty;
+      var row = document.createElement('div');
+      row.className = 'cart-row';
+      var label = item.name + (item.variant ? ' -- ' + item.variant : '');
+      row.innerHTML =
+        '<span class="cart-row-name">' + label + '</span>' +
+        '<span>Qty: ' + item.qty + '</span>' +
+        '<span>$' + (item.price * item.qty).toFixed(2) + ' USD</span>' +
+        '<button type="button" class="cart-row-remove" data-remove-index="' + i + '">&#10006; REMOVE</button>';
+      cartItemsEl.appendChild(row);
+    });
+
+    var count = cart.reduce(function (sum, item) { return sum + item.qty; }, 0);
+    cartCount.textContent = count;
+    cartCount.hidden = count === 0;
+    cartSubtotal.textContent = '$' + subtotal.toFixed(2) + ' USD';
+  }
+
+  cartItemsEl.addEventListener('click', function (e) {
+    if (e.target.matches('[data-remove-index]')) {
+      cart.splice(parseInt(e.target.dataset.removeIndex, 10), 1);
+      renderCart();
+    }
+  });
+
+  document.querySelectorAll('.addcart[data-product]').forEach(function (box) {
+    var btn = box.querySelector('.cart-btn');
+    var qtyInput = box.querySelector('.cart-qty');
+    var variantSelect = box.querySelector('.cart-variant');
+
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      var variant = null;
+      if (variantSelect) {
+        if (!variantSelect.value) {
+          variantSelect.style.borderColor = '#ff3333';
+          variantSelect.focus();
+          return;
+        }
+        variant = variantSelect.options[variantSelect.selectedIndex].text;
+        variantSelect.style.borderColor = '';
+      }
+
+      cart.push({
+        name: box.dataset.product,
+        price: parseFloat(box.dataset.price),
+        qty: qtyInput ? parseInt(qtyInput.value, 10) || 1 : 1,
+        variant: variant
+      });
+      renderCart();
+
+      var originalLabel = btn.innerHTML;
+      btn.innerHTML = '&#10003; ADDED!';
+      setTimeout(function () { btn.innerHTML = originalLabel; }, 1200);
+    });
+  });
+
+  renderCart();
 
   var backToTop = document.getElementById('backToTop');
   window.addEventListener('scroll', function () {
