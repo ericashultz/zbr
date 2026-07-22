@@ -59,7 +59,6 @@
   .logoimg{
     height:64px; width:auto;
     mix-blend-mode:screen;
-    filter:brightness(0.75);
   }
   h1.sitetitle{
     font-family:"Arial Narrow",Arial,sans-serif;
@@ -73,7 +72,7 @@
   .tagline{
     font-family:"Times New Roman Condensed","Times New Roman",Times,serif;
     font-stretch:condensed;
-    color:var(--ink);
+    color:var(--white);
     font-size:14px;
     margin:16px 0;
   }
@@ -205,11 +204,11 @@
   .post .cat{
     display:inline-block;
     font-family:"Courier New",monospace; font-weight:bold; font-size:11px;
-    padding:2px 8px; margin-bottom:6px; color:#000;
-    border:2px outset #fff;
+    padding:2px 8px; margin-bottom:6px; color:var(--white);
+    border:2px outset #1D64A7;
   }
-  .cat-news{ background:#19A800; }
-  .cat-releases{ background:#19A800; }
+  .cat-news{ background:#1D64A7; }
+  .cat-releases{ background:#1D64A7; }
 
   .post h2, .post h3{
     font-family:"Arial Narrow",Arial,sans-serif;
@@ -280,7 +279,7 @@
   .widget img{ width:100%; border:2px outset var(--silver); margin-bottom:6px; }
 
   .quicklinks-grid{
-    display:grid; grid-template-columns:1fr 1fr; gap:10px;
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;
   }
   .quicklink{
     display:flex; flex-direction:column; align-items:center; gap:4px;
@@ -310,6 +309,20 @@
     font-size:11px; padding:6px 4px; text-decoration:none;
   }
   .gb-btn:hover{ background:linear-gradient(180deg,#fff,#eeeeee); }
+
+  .addcart{ display:flex; align-items:center; gap:12px; margin-top:8px; flex-wrap:wrap; }
+  .addcart .cart-price{
+    font-family:"Courier New",monospace; font-weight:bold; font-size:18px; color:var(--white);
+  }
+  .addcart .cart-btn{
+    display:inline-block; text-align:center;
+    background:linear-gradient(180deg,#ffffff,#d4d4d4);
+    border:2px outset #ffffff;
+    color:#330000; font-weight:bold; font-family:"Courier New",monospace;
+    font-size:12px; padding:8px 16px; text-decoration:none; cursor:pointer;
+  }
+  .addcart .cart-btn:hover{ background:linear-gradient(180deg,#fff,#eeeeee); }
+  .addcart .cart-btn:active{ border-style:inset; }
 
   .webring{
     text-align:center; font-family:"Courier New",monospace; font-size:12px;
@@ -423,20 +436,22 @@
 
         <article class="post">
           <span class="cat cat-releases">Releases</span>
-          <h2>Beau Navire "Demo 2009"</h2>
+          <h2>Beau Navire - 2009 Demo (10")</h2>
+          <p>Beau Navire 10"s for their 'Demo 2009' release are back in stock! This is still the OG pressing from Clue #2 that was stashed away for over a decade -- so once this pressing is gonezo you'll have to pay stupid amounts on Discogs -- but you can get them now for just $30USD including shipping!</p>
           <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/4e6730e0-0103-4041-892d-2cb17cf02e88/Beau+demo.jpg?format=750w" alt="Beau Navire demo 10 inch vinyl">
-          <p>The Beau Navire 'Demo 2009' 10" is back in stock -- an original pressing straight from Clue #2 Records, $30US shipped. These have gotten stupidly expensive on the secondary market, so grab one here while it's still a sane price.</p>
-          <a class="videolink" href="https://www.youtube.com/watch?v=QN4SyRc3XnU" target="_blank" rel="noopener">
-            <img src="https://i.ytimg.com/vi/QN4SyRc3XnU/hqdefault.jpg" alt="Watch Beau Navire - Demo 10&quot; on YouTube">
-            <span class="playbtn" aria-hidden="true"></span>
-            <span class="ytlabel">WATCH ON YOUTUBE</span>
-          </a>
-          <a class="starlink" href="#">Shop Now</a>
+          <p>For fans of: Loma Prieta, Iwrotehaikusaboutcanniblaisminyouryearbook, and Carrion Spring.</p>
+          <p>This early demo from the immortal Cali band mixes the softer/jazzy stuff from Iwrotehaikus with their later and heavier sound. I wicked snapshot in time. We bought these off Clue #2 Records a few months ago and they moved in a day, so we picked up another 50 copies and this is the only place to get'em!!! Hella rare/awesome find! Thanks Hieg &lt;3</p>
+          <p>10" on black vinyl with lyric insert. 6 songs.</p>
+          <p><a class="starlink" href="https://www.youtube.com/watch?v=QN4SyRc3XnU" target="_blank" rel="noopener">Listen Here</a></p>
+          <div class="addcart">
+            <span class="cart-price">$25.00 USD</span>
+            <a class="cart-btn" href="#">&#128722; ADD TO CART</a>
+          </div>
         </article>
 
         <article class="post">
           <span class="cat cat-releases">Releases</span>
-          <h2>Constrain's New EP</h2>
+          <h2>Constrain "1999" EP</h2>
           <img src="https://f4.bcbits.com/img/a3679845641_10.jpg" alt="Constrain 1999 EP cover art">
           <p>Constrain's new EP '1999' is out on Tomb Tree Tapes and has been selling great on cassette -- 15 swirl and 10 grey variants, 25 total, each with digital download and j-card artwork. Physical tapes ship out in early August.</p>
           <a class="videolink" href="https://www.youtube.com/watch?v=bhlxQPTpIX8" target="_blank" rel="noopener">
@@ -552,7 +567,7 @@
     <div class="sidecol">
 
       <div class="widget" style="border-color:#A500A8;">
-        <h3>Quick Links</h3>
+        <h3 style="background:#A500A8;color:var(--white);">Quick Links</h3>
         <div class="quicklinks-grid">
           <a class="quicklink" href="https://omsbpodcast.bandcamp.com/" target="_blank" rel="noopener">
             <span class="icon" aria-hidden="true">&#127908;</span>
@@ -580,17 +595,23 @@
       <div class="widget" id="features">
         <h3 style="background:var(--royalblue);color:var(--white);">Reviews</h3>
         <p>Orphan Donor's 'Ailments' just got a nice writeup from This Noise Is Ours!</p>
-        <a class="starlink" href="#">Read The Feature</a>
+        <a class="starlink" href="#">Read The Review</a>
+        <div class="bcplayer">
+          <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1890948605/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="Ailments by Orphan Donor on Bandcamp"><a href="https://zegemabeachrecords.bandcamp.com/album/ailments">Ailments by Orphan Donor</a></iframe>
+        </div>
       </div>
 
       <div class="widget">
         <h3>Features</h3>
-        <p>Coup D'etat has been getting spins on Operation X-Ray alongside a ton of other sick artists!</p>
-        <a class="starlink" href="#">Listen to Operation X-Ray</a>
+        <p>Operation X-Ray played some Coup D'etat as well as the new Hauzu song from the Zampler. Check it out!</p>
+        <a class="starlink" href="https://soundcloud.com/cameron-dennison/operation-xray-ep-235?utm_source=clipboard&amp;utm_campaign=wtshare&amp;utm_medium=widget&amp;utm_content=https%253A%252F%252Fsoundcloud.com%252Fcameron-dennison%252Foperation-xray-ep-235" target="_blank" rel="noopener">Listen to Operation X-Ray</a>
+        <div class="bcplayer">
+          <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1056741751/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="ZAMPLER #27 Take It Out Easy, Cadet on Bandcamp"><a href="https://zegemabeachrecords.bandcamp.com/album/zampler-27-take-it-out-easy-cadet">ZAMPLER #27 Take It Out Easy, Cadet</a></iframe>
+        </div>
       </div>
 
       <div class="widget" style="border-color:#19A800;">
-        <h3>Sign My Guestbook!</h3>
+        <h3 style="background:#19A800;color:var(--white);">Sign My Guestbook!</h3>
         <p>Let us know you stopped by the site!</p>
         <div class="guestbook-buttons">
           <a class="gb-btn" href="#">SIGN<br>GUESTBOOK</a>
