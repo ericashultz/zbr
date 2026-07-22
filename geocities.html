@@ -846,6 +846,7 @@
           <div class="sidebar-section">
             <button type="button" class="sidebar-section-toggle" data-toggle-section aria-expanded="false">Merch <span class="toggle-arrow">&#9660;</span></button>
             <ul class="sidebar-list collapsed" id="merchList">
+              <li><button type="button" data-view-all>View All</button></li>
               <li><button type="button" data-category-filter="vinyl">Vinyl</button></li>
               <li><button type="button" data-category-filter="cd">CDs</button></li>
               <li><button type="button" data-category-filter="cassette">Cassettes</button></li>
@@ -859,6 +860,7 @@
           <div class="sidebar-section">
             <button type="button" class="sidebar-section-toggle" data-toggle-section aria-expanded="false">Labels <span class="toggle-arrow">&#9660;</span></button>
             <ul class="sidebar-list collapsed" id="labelList">
+              <li><button type="button" data-view-all>View All</button></li>
               <li><button type="button" data-label-filter="Zegema Beach Releases">Zegema Beach Releases</button></li>
               <li><button type="button" data-label-filter="Tomb Tree">Tomb Tree</button></li>
               <li><button type="button" data-label-filter="Softseed Music">Softseed Music</button></li>
@@ -1344,7 +1346,7 @@
       if (bands.indexOf(p.band) === -1) bands.push(p.band);
     });
     bands.sort();
-    bandList.innerHTML = bands.map(function (band) {
+    bandList.innerHTML = '<li><button type="button" data-view-all>View All</button></li>' + bands.map(function (band) {
       return '<li><button type="button" data-band-filter="' + escapeHtml(band) + '">' + escapeHtml(band) + '</button></li>';
     }).join('');
   }
@@ -1374,19 +1376,30 @@
     }
 
     bandList.querySelectorAll('button').forEach(function (btn) {
-      btn.setAttribute('aria-current', btn.dataset.bandFilter === activeBandFilter ? 'true' : 'false');
+      var isViewAll = 'viewAll' in btn.dataset;
+      btn.setAttribute('aria-current', isViewAll ? (!activeBandFilter ? 'true' : 'false') : (btn.dataset.bandFilter === activeBandFilter ? 'true' : 'false'));
     });
     merchList.querySelectorAll('button').forEach(function (btn) {
-      btn.setAttribute('aria-current', btn.dataset.categoryFilter === activeCategoryFilter ? 'true' : 'false');
+      var isViewAll = 'viewAll' in btn.dataset;
+      btn.setAttribute('aria-current', isViewAll ? (!activeCategoryFilter ? 'true' : 'false') : (btn.dataset.categoryFilter === activeCategoryFilter ? 'true' : 'false'));
     });
     labelList.querySelectorAll('button').forEach(function (btn) {
-      btn.setAttribute('aria-current', btn.dataset.labelFilter === activeLabelFilter ? 'true' : 'false');
+      var isViewAll = 'viewAll' in btn.dataset;
+      btn.setAttribute('aria-current', isViewAll ? (!activeLabelFilter ? 'true' : 'false') : (btn.dataset.labelFilter === activeLabelFilter ? 'true' : 'false'));
     });
+  }
+
+  function clearStoreFilters() {
+    activeBandFilter = '';
+    activeCategoryFilter = '';
+    activeLabelFilter = '';
+    renderStoreGrid();
   }
 
   storeSearch.addEventListener('input', renderStoreGrid);
 
   bandList.addEventListener('click', function (e) {
+    if (e.target.closest('[data-view-all]')) { clearStoreFilters(); return; }
     var btn = e.target.closest('[data-band-filter]');
     if (!btn) return;
     activeBandFilter = activeBandFilter === btn.dataset.bandFilter ? '' : btn.dataset.bandFilter;
@@ -1396,6 +1409,7 @@
   });
 
   merchList.addEventListener('click', function (e) {
+    if (e.target.closest('[data-view-all]')) { clearStoreFilters(); return; }
     var btn = e.target.closest('[data-category-filter]');
     if (!btn) return;
     activeCategoryFilter = activeCategoryFilter === btn.dataset.categoryFilter ? '' : btn.dataset.categoryFilter;
@@ -1405,6 +1419,7 @@
   });
 
   labelList.addEventListener('click', function (e) {
+    if (e.target.closest('[data-view-all]')) { clearStoreFilters(); return; }
     var btn = e.target.closest('[data-label-filter]');
     if (!btn) return;
     activeLabelFilter = activeLabelFilter === btn.dataset.labelFilter ? '' : btn.dataset.labelFilter;
