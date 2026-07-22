@@ -348,6 +348,26 @@
   }
   .cart-subtotal-label{ font-family:"Courier New",monospace; font-size:15px; color:var(--white); }
 
+  .contact-page{
+    max-width:640px; margin:24px auto; padding:12px; text-align:center;
+  }
+  .contact-page h2{
+    font-family:"Arial Narrow",Arial,sans-serif;
+    font-weight:bold; font-style:italic;
+    color:var(--white); font-size:32px; margin:0 0 14px;
+  }
+  .contact-page p{ color:var(--white); font-size:15px; line-height:1.6; margin:0 0 12px; }
+  .contact-links{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
+  .contact-links a{
+    display:inline-block;
+    background:linear-gradient(180deg,#e8e8e8,#a0a0a0);
+    border:2px outset #fff;
+    color:#000066; font-family:"MS Sans Serif","Tahoma",sans-serif;
+    font-weight:bold; font-size:12px;
+    text-decoration:none; padding:6px 10px;
+  }
+  .contact-links a:hover{ background:linear-gradient(180deg,#ffffff,#c9c9c9); color:#000; }
+
   .back-to-top{
     position:fixed; bottom:20px; right:20px; z-index:500;
     background:linear-gradient(180deg,#e8e8e8,#a0a0a0); border:2px outset #fff;
@@ -460,7 +480,7 @@
       <li><a href="#" data-view-link="usa">USA Store</a></li>
       <li><a href="#">Archives</a></li>
       <li><a href="#">Search</a></li>
-      <li><a href="#">Contact</a></li>
+      <li><a href="#" data-view-link="contact">Contact</a></li>
       <li><a href="#" data-view-link="cart">View Cart <span id="cartCount" class="cart-count" hidden>0</span></a></li>
     </ul>
   </nav>
@@ -722,10 +742,24 @@
     </div>
   </div>
 
+  <div id="contactView" hidden>
+    <div class="contact-page">
+      <h2>Contact</h2>
+      <p>Got a question about an order, a release, or just want to talk screamo? Hit us up.</p>
+      <p><a class="starlink" href="mailto:zegemabeachrecords@example.com">zegemabeachrecords@example.com</a></p>
+      <p>You can also find us here:</p>
+      <div class="contact-links">
+        <a href="https://zegemabeachrecords.bandcamp.com/" target="_blank" rel="noopener">Bandcamp</a>
+        <a href="https://www.youtube.com/@MrSilentStorms" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.instagram.com/zegema_beach/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </div>
+
   <footer>
     <p>&copy; 2026 Zegema Beach Records -- Canada</p>
     <p>Page designed with Netscape Composer on a Compaq Presario. Powered by dial-up and spite.</p>
-    <p><a href="#">Canada / Intl Store</a> &middot; <a href="#" data-view-link="usa">USA Store</a> &middot; <a href="#">Bandcamp</a> &middot; <a href="#">Archives</a> &middot; <a href="#">Contact</a></p>
+    <p><a href="#">Canada / Intl Store</a> &middot; <a href="#" data-view-link="usa">USA Store</a> &middot; <a href="#">Bandcamp</a> &middot; <a href="#">Archives</a> &middot; <a href="#" data-view-link="contact">Contact</a></p>
   </footer>
 
 </div>
@@ -819,22 +853,23 @@
     });
   });
 
-  var homeView = document.getElementById('homeView');
-  var usaStoreView = document.getElementById('usaStoreView');
-  var cartView = document.getElementById('cartView');
+  var views = {
+    home: document.getElementById('homeView'),
+    usa: document.getElementById('usaStoreView'),
+    cart: document.getElementById('cartView'),
+    contact: document.getElementById('contactView')
+  };
   var viewLinks = document.querySelectorAll('[data-view-link]');
 
   function showView(view) {
-    homeView.hidden = view !== 'home';
-    usaStoreView.hidden = view !== 'usa';
-    cartView.hidden = view !== 'cart';
+    Object.keys(views).forEach(function (key) {
+      views[key].hidden = key !== view;
+    });
     viewLinks.forEach(function (link) {
-      if (link.dataset.viewLink === 'home' || link.dataset.viewLink === 'usa' || link.dataset.viewLink === 'cart') {
-        if (link.dataset.viewLink === view) {
-          link.setAttribute('aria-current', 'page');
-        } else {
-          link.removeAttribute('aria-current');
-        }
+      if (link.dataset.viewLink === view) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
       }
     });
     window.scrollTo({ top: 0, behavior: 'instant' });
