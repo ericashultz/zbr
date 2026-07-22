@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>~*~ Zegema Beach Records ~*~ Official Web Page!!! ~*~</title>
+<style>
+  :root{
+    --royalblue:#1E61A8;
+    --aqua:#C0DEFF;
+    --white:#FFFFFF;
+    --silver:#c0c0c0;
+    --ink:#d9d9d9;
+  }
+  * { box-sizing: border-box; }
+  html,body{
+    margin:0; padding:0;
+    background-color:#000033;
+    background-image:
+      radial-gradient(1px 1px at 10px 10px, #19A800 1px, transparent 1px),
+      radial-gradient(1px 1px at 40px 60px, #19A800 1px, transparent 1px),
+      radial-gradient(1px 1px at 70px 20px, #19A800 1px, transparent 1px),
+      radial-gradient(2px 2px at 90px 80px, #19A800 1px, transparent 1px),
+      radial-gradient(1px 1px at 25px 90px, #19A800 1px, transparent 1px),
+      radial-gradient(1px 1px at 55px 35px, #19A800 1px, transparent 1px);
+    background-size:100px 100px;
+    background-repeat:repeat;
+    font-family:"Times New Roman Condensed","Times New Roman",Times,serif;
+    font-stretch:condensed;
+    color:var(--ink);
+    cursor:default;
+  }
+  a{ color:var(--aqua); }
+  a:visited{ color:var(--royalblue); }
+  a:hover{ color:var(--white); background:#000; }
+
+  .skip-link{
+    position:absolute; left:-9999px; top:0;
+    background:#000; color:#0f0; padding:8px 16px; z-index:999;
+  }
+  .skip-link:focus{ left:0; }
+
+  /* ==== PAGE WRAPPER (fixed-width like an old 800px table) ==== */
+  .pagewrap{
+    max-width:980px;
+    margin:14px auto;
+    background:#000011;
+    border:6px ridge var(--royalblue);
+    padding:0;
+  }
+
+  /* ==== HEADER ==== */
+  header{
+    text-align:center;
+    padding:14px 10px 6px;
+    background:#150029;
+    border-bottom:4px double var(--aqua);
+  }
+  .logoimg{
+    height:64px; width:auto;
+    mix-blend-mode:screen;
+    filter:brightness(0.75);
+  }
+  h1.sitetitle{
+    font-family:"Arial Narrow",Arial,sans-serif;
+    font-weight:bold; font-style:italic;
+    font-size:48px;
+    margin:6px 0 0;
+    letter-spacing:1px;
+    color:#19A800;
+    text-align:center;
+  }
+  .tagline{
+    font-family:"Times New Roman Condensed","Times New Roman",Times,serif;
+    font-stretch:condensed;
+    color:var(--ink);
+    font-size:14px;
+    margin:16px 0;
+  }
+
+  /* ==== NAV: beveled 3D buttons ==== */
+  nav.mainnav{
+    background:var(--silver);
+    border-top:3px outset var(--silver);
+    border-bottom:3px outset var(--silver);
+    padding:6px; text-align:center;
+  }
+  .nav-toggle{
+    display:none;
+    width:100%;
+    background:linear-gradient(180deg,#e8e8e8,#a0a0a0);
+    border:2px outset #fff;
+    color:#000066;
+    font-family:"MS Sans Serif","Tahoma",sans-serif;
+    font-weight:bold; font-size:14px;
+    padding:10px; cursor:pointer;
+  }
+  .nav-toggle:active{ border-style:inset; }
+  nav.mainnav ul{
+    list-style:none; margin:0; padding:0;
+    display:flex; flex-wrap:wrap; justify-content:center; gap:4px;
+  }
+  nav.mainnav a{
+    display:inline-block;
+    background:linear-gradient(180deg,#e8e8e8,#a0a0a0);
+    border:2px outset #fff;
+    color:#000066;
+    font-family:"MS Sans Serif","Tahoma",sans-serif;
+    font-weight:bold; font-size:12px;
+    text-decoration:none;
+    padding:6px 10px;
+  }
+  nav.mainnav a:hover{ background:linear-gradient(180deg,#ffffff,#c9c9c9); color:#000; }
+  nav.mainnav a:active, nav.mainnav a[aria-current="page"]{
+    border-style:inset; background:linear-gradient(180deg,#a0a0a0,#e8e8e8);
+  }
+
+  @media (max-width:700px){
+    .nav-toggle{ display:block; }
+    nav.mainnav ul{
+      display:none;
+      flex-direction:column; gap:6px;
+      margin-top:6px;
+    }
+    nav.mainnav ul.open{ display:flex; }
+    nav.mainnav a{ padding:10px; }
+  }
+
+  /* ==== SUBNAV: folder tabs ==== */
+  nav.subnav{
+    background:#000; padding:8px 6px 0; text-align:center;
+    border-bottom:3px solid var(--royalblue);
+  }
+  nav.subnav ul{
+    list-style:none; margin:0; padding:0;
+    display:flex; flex-wrap:wrap; justify-content:center; gap:3px;
+  }
+  @media (max-width:700px){
+    nav.subnav ul{
+      flex-wrap:nowrap; justify-content:flex-start;
+      overflow-x:auto; -webkit-overflow-scrolling:touch;
+      padding-bottom:2px;
+    }
+    nav.subnav a{ white-space:nowrap; }
+  }
+  nav.subnav a{
+    display:inline-block;
+    background:var(--royalblue); color:var(--white);
+    font-family:"Courier New",monospace; font-weight:bold; font-size:11px;
+    text-decoration:none; text-transform:uppercase;
+    padding:5px 9px;
+    border:2px outset #a9c1ff;
+    border-bottom:none;
+  }
+  nav.subnav a[aria-current="true"]{
+    background:var(--white); color:var(--royalblue); border-color:#ffffff;
+  }
+
+  /* ==== LAYOUT ==== */
+  .layout{ display:flex; gap:10px; padding:12px; }
+  .maincol{ flex:2; min-width:0; }
+  .sidecol{ flex:1; min-width:0; }
+
+  /* ==== PAGINATION BY POST DATE ==== */
+  /* ==== USA STORE (UNDER CONSTRUCTION) VIEW ==== */
+  .construction-panel{
+    max-width:640px; margin:24px auto; padding:12px;
+    text-align:center;
+  }
+  .construction-panel .stripes{
+    height:22px; margin:0 0 24px;
+    background-color:#ffff00;
+    background-image:repeating-linear-gradient(-45deg, #000 0 10px, #ffff00 10px 20px);
+    border-top:3px solid #000; border-bottom:3px solid #000;
+  }
+  .construction-panel .stripes:last-child{ margin:24px 0 0; }
+  .construction-panel .digger{ font-size:56px; margin:0 0 18px; }
+  .construction-panel h2{
+    font-family:"Arial Narrow",Arial,sans-serif;
+    font-weight:bold; font-style:italic;
+    color:var(--white); font-size:32px; margin:0 0 14px;
+  }
+  .construction-panel p{ font-size:15px; line-height:1.6; margin:0; color:var(--ink); }
+
+  .pagenav{ text-align:center; margin-top:6px; padding-top:6px; }
+  .pagenav-label{
+    display:block; margin-bottom:10px;
+    font-family:"Courier New",monospace; font-size:12px; color:var(--ink);
+  }
+  .pagenav-buttons button{
+    background:linear-gradient(180deg,#e8e8e8,#a0a0a0); border:2px outset #fff;
+    color:#000066; font-family:"MS Sans Serif","Tahoma",sans-serif;
+    font-weight:bold; font-size:13px;
+    width:34px; height:30px; margin:0 3px; cursor:pointer;
+  }
+  .pagenav-buttons button:hover{ background:linear-gradient(180deg,#ffffff,#c9c9c9); color:#000; }
+  .pagenav-buttons button[aria-current="true"]{
+    border-style:inset; background:linear-gradient(180deg,#a0a0a0,#e8e8e8);
+  }
+
+  .post{
+    background:#000; border:3px ridge var(--aqua);
+    padding:10px; margin-bottom:16px;
+  }
+  .post .cat{
+    display:inline-block;
+    font-family:"Courier New",monospace; font-weight:bold; font-size:11px;
+    padding:2px 8px; margin-bottom:6px; color:#000;
+    border:2px outset #fff;
+  }
+  .cat-news{ background:#19A800; }
+  .cat-releases{ background:#19A800; }
+
+  .post h2, .post h3{
+    font-family:"Arial Narrow",Arial,sans-serif;
+    font-weight:bold; font-style:italic;
+    color:var(--white);
+    text-shadow:1px 1px 0 #660066;
+    margin:4px 0 8px;
+  }
+  .post p{ color:var(--ink); font-size:14px; line-height:1.5; }
+  .post img{ max-width:100%; border:4px ridge var(--silver); }
+  .thumbstrip{ display:flex; gap:4px; margin:8px 0; }
+  .thumbstrip img{ width:24%; border:2px outset var(--silver); }
+
+  .bcplayer{ margin:8px 0; border:2px inset var(--silver); line-height:0; }
+  .videolink{
+    display:block; position:relative; margin:8px 0;
+    border:2px inset var(--silver); line-height:0;
+  }
+  .videolink img{ display:block; width:100%; }
+  .videolink .playbtn{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:64px; height:44px;
+    background:rgba(0,0,0,0.6); border:2px outset var(--silver);
+    border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .videolink .playbtn::after{
+    content:""; width:0; height:0;
+    border-top:12px solid transparent; border-bottom:12px solid transparent;
+    border-left:20px solid var(--white);
+    margin-left:4px;
+  }
+  .videolink .ytlabel{
+    position:absolute; bottom:6px; right:8px;
+    background:rgba(0,0,0,0.7); color:var(--white);
+    font-family:"Courier New",monospace; font-weight:bold; font-size:11px;
+    padding:2px 6px;
+  }
+
+  .starlink, .starlink:visited{
+    font-family:"Courier New",monospace; font-weight:bold; font-size:13px;
+    color:var(--white); text-decoration:underline;
+  }
+  .starlink:hover, .starlink:visited:hover{ color:var(--aqua); }
+
+  .saleband{
+    background:repeating-linear-gradient(45deg,#1a001a,#1a001a 8px,#330033 8px,#330033 16px);
+    border:3px double var(--royalblue);
+    padding:8px; margin-bottom:16px; text-align:center;
+  }
+  .saleband strong{
+    font-family:"Arial Narrow",Arial,sans-serif; font-weight:bold; font-style:italic;
+    font-size:22px; color:var(--white);
+  }
+
+  /* ==== SIDEBAR WIDGETS ==== */
+  .widget{
+    background:#000; border:3px groove var(--aqua);
+    padding:10px; margin-bottom:14px;
+  }
+  .widget h3{
+    font-family:"Courier New",monospace; font-size:13px;
+    color:#000; background:var(--aqua);
+    margin:4px -10px 8px; padding:5px 8px;
+  }
+  .widget h3:first-child{ margin-top:-10px; }
+  .widget p{ color:var(--ink); font-size:13px; }
+  .widget img{ width:100%; border:2px outset var(--silver); margin-bottom:6px; }
+
+  .quicklinks-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:10px;
+  }
+  .quicklink{
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+    text-decoration:none; padding:6px 2px;
+  }
+  .quicklink .icon{
+    width:52px; height:52px;
+    background:linear-gradient(145deg,#e8e8e8,#a0a0a0);
+    border:2px outset #fff; border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:26px; line-height:1;
+    box-shadow:1px 1px 3px rgba(0,0,0,0.5);
+  }
+  .quicklink:hover .icon{ background:linear-gradient(145deg,#fff,#c9c9c9); }
+  .quicklink:active .icon{ border-style:inset; }
+  .quicklink .qllabel{
+    font-family:"Courier New",monospace; font-weight:bold; font-size:10px;
+    color:var(--ink); text-align:center; text-decoration:none;
+  }
+
+  .guestbook-buttons{ display:flex; gap:6px; flex-wrap:wrap; }
+  .gb-btn{
+    flex:1; text-align:center;
+    background:linear-gradient(180deg,#ffffff,#d4d4d4);
+    border:2px outset #ffffff;
+    color:#330000; font-weight:bold; font-family:"Courier New",monospace;
+    font-size:11px; padding:6px 4px; text-decoration:none;
+  }
+  .gb-btn:hover{ background:linear-gradient(180deg,#fff,#eeeeee); }
+
+  .webring{
+    text-align:center; font-family:"Courier New",monospace; font-size:12px;
+    color:var(--aqua); padding:10px 0;
+  }
+  .webring a{ color:var(--white); font-weight:bold; }
+
+  footer{
+    text-align:center; background:#000;
+    border-top:4px double var(--aqua);
+    padding:14px 10px; font-family:"Courier New",monospace;
+    font-size:11px; color:var(--silver);
+  }
+
+  @media (max-width:980px){
+    .pagewrap{ margin:0; border-width:4px; }
+    .layout{ flex-direction:column; }
+    h1.sitetitle{ font-size:34px; }
+  }
+
+  /* ==== "READ MORE" POPUP WINDOW ==== */
+  .readmore-link{ margin-left:10px; }
+
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(0,0,0,0.75);
+    display:flex; align-items:center; justify-content:center;
+    padding:20px; z-index:1000;
+  }
+  .modal-overlay[hidden]{ display:none; }
+  .modal-window{
+    background:var(--silver); border:3px outset #fff;
+    width:100%; max-width:620px; max-height:85vh;
+    display:flex; flex-direction:column;
+    box-shadow:6px 6px 0 rgba(0,0,0,0.55);
+  }
+  .modal-titlebar{
+    background:linear-gradient(90deg,var(--royalblue),#0b2d54);
+    color:#fff; font-family:"MS Sans Serif","Tahoma",sans-serif;
+    font-weight:bold; font-size:13px;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:4px 4px 4px 8px; flex:0 0 auto;
+  }
+  .modal-titlebar span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .modal-close{
+    background:linear-gradient(180deg,#e8e8e8,#a0a0a0); border:2px outset #fff;
+    font-family:"MS Sans Serif","Tahoma",sans-serif; font-weight:bold; font-size:15px;
+    width:36px; height:32px; line-height:1; cursor:pointer; color:#000; flex:0 0 auto;
+  }
+  .modal-close:active{ border-style:inset; }
+  .modal-body{
+    background:#000; color:var(--ink); padding:18px 20px;
+    overflow-y:auto; font-family:"Times New Roman Condensed","Times New Roman",Times,serif;
+    font-stretch:condensed;
+  }
+  .modal-body h2{
+    font-family:"Arial Narrow",Arial,sans-serif; font-weight:bold; font-style:italic; color:var(--white);
+    margin:2px 0 10px; font-size:26px;
+  }
+  .modal-body p{ line-height:1.6; margin:0 0 14px; font-size:14px; }
+  .modal-body img{ max-width:100%; border:4px ridge var(--silver); margin:0 0 12px; }
+  .modal-body .bcplayer{ margin:0 0 14px; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="pagewrap">
+
+  <header>
+    <div><img class="logoimg" src="assets/zbr-logo-white.webp" alt="Zegema Beach Records logo"></div>
+    <h1 class="sitetitle">Zegema Beach Records</h1>
+    <p class="tagline">A community rooted in promoting honest, passionate, inspiring music -- usually with screaming.</p>
+  </header>
+
+  <nav class="mainnav" aria-label="Main">
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="mainnav-list">&#9776; MENU</button>
+    <ul id="mainnav-list">
+      <li><a href="#" data-view-link="home" aria-current="page">Home</a></li>
+      <li><a href="#">Canada / Intl Store</a></li>
+      <li><a href="#" data-view-link="usa">USA Store</a></li>
+      <li><a href="#">Archives</a></li>
+      <li><a href="#">Search</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div id="homeView">
+
+  <nav class="subnav" aria-label="News sections">
+    <ul>
+      <li><a href="#latest" aria-current="true">Latest</a></li>
+      <li><a href="#releases">Releases</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#tours">Tours</a></li>
+      <li><a href="#recos">Johnny's Reco-mmendations</a></li>
+    </ul>
+  </nav>
+
+  <main id="main" class="layout">
+    <div class="maincol">
+
+      <div class="post-page" data-page="1">
+
+        <article class="post" id="latest">
+          <span class="cat cat-news">News -- July 20, 2026</span>
+          <h2>Beau Navire 10"s in Stock x Constrain EP Released!</h2>
+          <p>First things first, 12 or so EU countries have a new tariff implemented but Canada Post hasn't had time to prepare to charge for it (or something like that) so I cannot ship a few orders until the postal service catches up and fixes it. I might need to hit people up for a measly $3 or whatever the tariff ends up being, but you can just place another order if you want and I can refund your shipping (minus the tariff fee) if that's easier. I'll give you more news when I get it!</p>
+          <p>Second things...second I guess. I am going on vacation to see my family in Ontario from July 24th-August 3rd so obviously nothing will get shipped in the that timeframe, and hopefully the EU stuff is smoothed out by the time I get back.</p>
+          <p>Third things...fourth...right? I mean...The Names Of Our Friends x Poetry Of Torch split releases this Friday! It'll go up at a stupid time (cuz I'll be going to the airport at like 4am PST) so half the copies will go up on Bandcamp at that time and the rest will go up in this store at our regular 9am PST.</p>
+        </article>
+
+        <article class="post">
+          <span class="cat cat-releases">Releases</span>
+          <h2>Beau Navire "Demo 2009"</h2>
+          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/4e6730e0-0103-4041-892d-2cb17cf02e88/Beau+demo.jpg?format=750w" alt="Beau Navire demo 10 inch vinyl">
+          <p>The Beau Navire 'Demo 2009' 10" is back in stock -- an original pressing straight from Clue #2 Records, $30US shipped. These have gotten stupidly expensive on the secondary market, so grab one here while it's still a sane price.</p>
+          <a class="videolink" href="https://www.youtube.com/watch?v=QN4SyRc3XnU" target="_blank" rel="noopener">
+            <img src="https://i.ytimg.com/vi/QN4SyRc3XnU/hqdefault.jpg" alt="Watch Beau Navire - Demo 10&quot; on YouTube">
+            <span class="playbtn" aria-hidden="true"></span>
+            <span class="ytlabel">WATCH ON YOUTUBE</span>
+          </a>
+          <a class="starlink" href="#">Shop Now</a>
+        </article>
+
+        <article class="post">
+          <span class="cat cat-releases">Releases</span>
+          <h2>Constrain's New EP</h2>
+          <img src="https://f4.bcbits.com/img/a3679845641_10.jpg" alt="Constrain 1999 EP cover art">
+          <p>Constrain's new EP '1999' is out on Tomb Tree Tapes and has been selling great on cassette -- 15 swirl and 10 grey variants, 25 total, each with digital download and j-card artwork. Physical tapes ship out in early August.</p>
+          <a class="videolink" href="https://www.youtube.com/watch?v=bhlxQPTpIX8" target="_blank" rel="noopener">
+            <img src="https://i.ytimg.com/vi/bhlxQPTpIX8/hqdefault.jpg" alt="Watch Constrain - That Smelly Smell That Smells Smelly on YouTube">
+            <span class="playbtn" aria-hidden="true"></span>
+            <span class="ytlabel">WATCH ON YOUTUBE</span>
+          </a>
+          <div class="bcplayer">
+            <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3198503332/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="1999 by Constrain on Bandcamp"><a href="https://tombtreetapes.bandcamp.com/album/1999">1999 by Constrain</a></iframe>
+          </div>
+          <a class="starlink" href="#">Shop Now</a>
+        </article>
+
+        <article class="post">
+          <span class="cat cat-releases">Releases</span>
+          <h2>Hillsboro Tapes</h2>
+          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/c4154315-bd45-46be-b21b-be5b183bd85e/OMSB+Pic.jpg?format=750w" alt="Hillsboro live at the Victoria release show">
+          <p>Hillsboro's 'A Party in Your Name' tapes are done and ready to go -- shipping now.</p>
+          <div class="bcplayer">
+            <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3144453157/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="A Party in Your Name by Hillsboro on Bandcamp"><a href="https://hillsboro.bandcamp.com/album/a-party-in-your-name">A Party in Your Name by Hillsboro</a></iframe>
+          </div>
+          <a class="starlink" href="#">Shop Now</a>
+        </article>
+
+        <article class="post">
+          <span class="cat cat-releases">Last Copy</span>
+          <h2>Snag</h2>
+          <img src="https://f4.bcbits.com/img/a2989564054_10.jpg" alt="Snag / Swallows Nest split cassette cover art">
+          <p>Down to the last copy of the Snag / Swallows Nest split -- a screamo/skramz cassette split out of Ladysmith, BC. If you've been sleeping on that one, now's the time.</p>
+          <div class="bcplayer">
+            <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3279434931/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="Snag / Swallows Nest split on Bandcamp"><a href="https://zegemabeachrecords.bandcamp.com/album/snag-swallows-nest-split">Snag / Swallows Nest split</a></iframe>
+          </div>
+          <a class="starlink" href="#">Buy Last Copy</a>
+        </article>
+
+      </div>
+
+      <div class="post-page" data-page="2" hidden>
+        <article class="post">
+          <span class="cat cat-news">News -- July 13, 2026</span>
+          <h2>Coup D'etat 7" Lathe Released!</h2>
+          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/fe260615-f274-471e-9cb8-34807ad0de36/promo+w-background.jpg?format=750w" alt="Coup D'etat 7 inch lathe promo photo">
+          <p>Coup D'etat just released their self-titled promo EP on a black 7" lathe cut, limited to 50 copies total. 30 of those went straight to the band, which leaves ZBR with just 20 to sell -- and lathes never last long once they're posted. Two re-recorded songs and a brand new one round out the tracklist, marking the band's peak to date with "new" guitarist Elle and the last recording to feature OG bassist Raine.</p>
+          <p>These are short, sharp, seething jams that clock in fast and leave a mark. If you've been following the band through the Zampler comps, this is your chance to grab their material on an actual physical format before it's gone. The band's touring on this one too, so their personal copies will likely disappear at merch tables before we even sell through ours.</p>
+          <p>Once these are gone, they're gone -- lathes don't get repressed.</p>
+          <p><a class="starlink" href="#">Shop Now</a></p>
+        </article>
+      </div>
+
+      <div class="post-page" data-page="3" hidden>
+        <article class="post" id="releases">
+          <span class="cat cat-releases">Releases -- July 3, 2026</span>
+          <h2>Zampler #27 Released</h2>
+          <p>ZAMPLER #27, 'Take It Out Easy, Cadet,' dropped on June 30th and it's a big one -- 25 songs deep, with a stacked chunk of previously unreleased material from Senza, Our Future Is An Absolute Shadow, Poetry Of Torch, Coup D'etat, The Names Of Our Friends, Hauzu, Empathetic, and Mourn Recif.</p>
+          <p>As always, it's housed on cdr in the traditional Zampler packaging, and it's basically made-to-order -- place any order over $20 anytime and one gets thrown in automatically. No need to hunt for a separate listing, it just happens at checkout.</p>
+          <p>If you've collected any of the previous 26 installments you already know the drill: this is the cheapest, weirdest way to hear a snapshot of the whole roster at once.</p>
+          <a class="starlink" href="#">Shop ZBR</a>
+        </article>
+
+        <div class="saleband">
+          <strong>T-SHIRT SALE!!!</strong>
+          <p style="color:var(--ink);">Thinning the closet from 150 shirts down to 45. Everything worn zero to five times, in very good to incredible condition. $8.50US to ship a shirt.</p>
+          <a class="starlink" href="#">Shop The Sale</a>
+        </div>
+      </div>
+
+      <div class="post-page" data-page="4" hidden>
+        <article class="post">
+          <span class="cat cat-releases">Releases -- June 23, 2026</span>
+          <h2>Mal Criado Released</h2>
+          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1645646257010-LSJI3DG1QK1ZJKT75U6S/cover.jpg?format=750w" alt="Mal Criado Ni Todo La Tierra Entera album cover">
+          <p>Mal Criado's 'Ni Todo La Tierra Entera' released on Tomb Tree! The 13 jams exude anger, dissatisfaction, and inequality at the horseshit system in place, all wrapped in a nasty powerviolence tortilla. Mmmm, so good!!</p>
+          <div class="bcplayer">
+            <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2931628913/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="Ni Todo La Tierra Entera by Mal Criado on Bandcamp"><a href="https://malcriadobc.bandcamp.com/album/ni-todo-la-tierra-entera">Ni Todo La Tierra Entera by Mal Criado</a></iframe>
+          </div>
+          <p>
+            <a class="starlink" href="#">Shop Now</a>
+            <a class="starlink readmore-link" href="#" data-modal-target="tmpl-malcriado" data-modal-title="Mal Criado Released">Read More</a>
+          </p>
+        </article>
+        <template id="tmpl-malcriado">
+          <span class="cat cat-releases">Releases -- June 23, 2026</span>
+          <h2>Mal Criado Released</h2>
+          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1645646257010-LSJI3DG1QK1ZJKT75U6S/cover.jpg?format=750w" alt="Mal Criado Ni Todo La Tierra Entera album cover">
+          <p>Mal Criado's 'Ni Todo La Tierra Entera' is out now on Tomb Tree Tapes! This Vancouver four-piece plays politically-charged powerviolence with some punk, grind, and metal leanings woven through -- 13 tracks of anger, dissatisfaction, and inequality at the horseshit systems currently in place, all wrapped in a nasty little tortilla of noise.</p>
+          <p>The tape comes in a handful of variants (swirl, brick, and a couple of test-press-style pressings), so check the shop for exactly what's still available before they're all claimed.</p>
+          <div class="thumbstrip" aria-hidden="true">
+            <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1781537609406-33NAN935CRPQJAP7U8UT/1+black.jpg?format=300w" alt="">
+            <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1781537609944-3V4E6VJR2VEG1WY2IJY3/2+mapuche+swirl.jpg?format=300w" alt="">
+            <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1781537613749-79RR6F1QOUFELQXIKCRX/3+green+%2B+yellow+swirl.jpg?format=300w" alt="">
+            <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1781537614820-8R435Z5S9X8CLNTMVX3E/4+test.jpg?format=300w" alt="">
+          </div>
+          <div class="bcplayer">
+            <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2931628913/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="Ni Todo La Tierra Entera by Mal Criado on Bandcamp"><a href="https://malcriadobc.bandcamp.com/album/ni-todo-la-tierra-entera">Ni Todo La Tierra Entera by Mal Criado</a></iframe>
+          </div>
+          <p>Stream it above and then go cop a physical copy -- this one's too good to just leave in your queue.</p>
+          <p><a class="starlink" href="#">Shop Now</a></p>
+        </template>
+      </div>
+
+      <nav class="pagenav" aria-label="Post pages by date">
+        <span class="pagenav-label" id="pagenavLabel">News from July 20, 2026</span>
+        <div class="pagenav-buttons">
+          <button type="button" data-page-nav="1" aria-current="true">1</button>
+          <button type="button" data-page-nav="2">2</button>
+          <button type="button" data-page-nav="3">3</button>
+          <button type="button" data-page-nav="4">4</button>
+        </div>
+      </nav>
+
+    </div>
+
+    <div class="sidecol">
+
+      <div class="widget" style="border-color:#A500A8;">
+        <h3>Quick Links</h3>
+        <div class="quicklinks-grid">
+          <a class="quicklink" href="https://omsbpodcast.bandcamp.com/" target="_blank" rel="noopener">
+            <span class="icon" aria-hidden="true">&#127908;</span>
+            <span class="qllabel">OMSB Podcast</span>
+          </a>
+          <a class="quicklink" href="https://openmindsaturatedbrain.blogspot.com/" target="_blank" rel="noopener">
+            <span class="icon" aria-hidden="true">&#128211;</span>
+            <span class="qllabel">OMSB Blog</span>
+          </a>
+          <a class="quicklink" href="https://zegemabeachrecords.bandcamp.com/" target="_blank" rel="noopener">
+            <span class="icon" aria-hidden="true">&#128191;</span>
+            <span class="qllabel">Bandcamp</span>
+          </a>
+          <a class="quicklink" href="https://www.youtube.com/@MrSilentStorms" target="_blank" rel="noopener">
+            <span class="icon" aria-hidden="true">&#128250;</span>
+            <span class="qllabel">YouTube</span>
+          </a>
+          <a class="quicklink" href="https://www.instagram.com/zegema_beach/" target="_blank" rel="noopener">
+            <span class="icon" aria-hidden="true">&#128248;</span>
+            <span class="qllabel">Instagram</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="widget" id="features">
+        <h3 style="background:var(--royalblue);color:var(--white);">Reviews</h3>
+        <p>Orphan Donor's 'Ailments' just got a nice writeup from This Noise Is Ours!</p>
+        <a class="starlink" href="#">Read The Feature</a>
+      </div>
+
+      <div class="widget">
+        <h3>Features</h3>
+        <p>Coup D'etat has been getting spins on Operation X-Ray alongside a ton of other sick artists!</p>
+        <a class="starlink" href="#">Listen to Operation X-Ray</a>
+      </div>
+
+      <div class="widget" style="border-color:#19A800;">
+        <h3>Sign My Guestbook!</h3>
+        <p>Let us know you stopped by the site!</p>
+        <div class="guestbook-buttons">
+          <a class="gb-btn" href="#">SIGN<br>GUESTBOOK</a>
+          <a class="gb-btn" href="#">VIEW<br>GUESTBOOK</a>
+        </div>
+      </div>
+
+      <div class="widget">
+        <h3>Mailing List</h3>
+        <p>Zamplers, lathes, last copies, and tour news -- straight to your inbox!</p>
+        <a class="starlink" href="mailto:zegemabeachrecords@example.com">Email The Webmaster</a>
+      </div>
+
+      <div class="webring">
+        &laquo; PREV &nbsp;|&nbsp; <a href="#">SCREAMO WEBRING</a> &nbsp;|&nbsp; RANDOM &nbsp;|&nbsp; NEXT &raquo;
+      </div>
+
+    </div>
+  </main>
+
+  </div>
+
+  <div id="usaStoreView" hidden>
+    <div class="construction-panel">
+      <div class="stripes" aria-hidden="true"></div>
+      <div class="digger" aria-hidden="true">&#128679;</div>
+      <h2>USA Store -- Under Construction</h2>
+      <p>We're digging through boxes of records trying to get the USA store back up and running. Check back soon -- in the meantime, the Canada / Intl store and Bandcamp are open for business!</p>
+      <div class="stripes" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Zegema Beach Records -- Canada</p>
+    <p>Page designed with Netscape Composer on a Compaq Presario. Powered by dial-up and spite.</p>
+    <p><a href="#">Canada / Intl Store</a> &middot; <a href="#" data-view-link="usa">USA Store</a> &middot; <a href="#">Bandcamp</a> &middot; <a href="#">Archives</a> &middot; <a href="#">Contact</a></p>
+  </footer>
+
+</div>
+
+<div class="modal-overlay" id="postModal" hidden>
+  <div class="modal-window" role="dialog" aria-modal="true" aria-labelledby="modalTitleText">
+    <div class="modal-titlebar">
+      <span id="modalTitleText">Post</span>
+      <button type="button" class="modal-close" id="modalClose" aria-label="Close">&#10006;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+  var navToggle = document.querySelector('.nav-toggle');
+  var navList = document.getElementById('mainnav-list');
+  navToggle.addEventListener('click', function () {
+    var open = navList.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.innerHTML = open ? '&#10006; CLOSE' : '&#9776; MENU';
+  });
+
+  var postModal = document.getElementById('postModal');
+  var modalBody = document.getElementById('modalBody');
+  var modalTitle = document.getElementById('modalTitleText');
+  var modalClose = document.getElementById('modalClose');
+  var lastFocusedTrigger = null;
+
+  function openModal(trigger) {
+    var tmpl = document.getElementById(trigger.dataset.modalTarget);
+    if (!tmpl) return;
+    modalBody.innerHTML = '';
+    modalBody.appendChild(tmpl.content.cloneNode(true));
+    modalTitle.textContent = trigger.dataset.modalTitle || 'Post';
+    lastFocusedTrigger = trigger;
+    postModal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    modalClose.focus();
+  }
+
+  function closeModal() {
+    postModal.hidden = true;
+    document.body.style.overflow = '';
+    if (lastFocusedTrigger) lastFocusedTrigger.focus();
+  }
+
+  document.querySelectorAll('[data-modal-target]').forEach(function (trigger) {
+    trigger.addEventListener('click', function (e) {
+      e.preventDefault();
+      openModal(trigger);
+    });
+  });
+
+  modalClose.addEventListener('click', closeModal);
+  postModal.addEventListener('click', function (e) {
+    if (e.target === postModal) closeModal();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !postModal.hidden) closeModal();
+  });
+
+  var postPages = document.querySelectorAll('.post-page');
+  var pageButtons = document.querySelectorAll('[data-page-nav]');
+  var pagenavLabel = document.getElementById('pagenavLabel');
+  var pageDates = { 1: 'July 20, 2026', 2: 'July 13, 2026', 3: 'July 3, 2026', 4: 'June 23, 2026' };
+
+  function showPage(n) {
+    postPages.forEach(function (page) {
+      page.hidden = page.dataset.page !== n;
+    });
+    pageButtons.forEach(function (btn) {
+      btn.setAttribute('aria-current', btn.dataset.pageNav === n ? 'true' : 'false');
+    });
+    pagenavLabel.textContent = 'News from ' + pageDates[n];
+  }
+
+  pageButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      showPage(btn.dataset.pageNav);
+      document.querySelector('.subnav').scrollIntoView({ block: 'start', behavior: 'instant' });
+    });
+  });
+
+  var homeView = document.getElementById('homeView');
+  var usaStoreView = document.getElementById('usaStoreView');
+  var viewLinks = document.querySelectorAll('[data-view-link]');
+
+  function showView(view) {
+    homeView.hidden = view !== 'home';
+    usaStoreView.hidden = view !== 'usa';
+    viewLinks.forEach(function (link) {
+      if (link.dataset.viewLink === 'home' || link.dataset.viewLink === 'usa') {
+        if (link.dataset.viewLink === view) {
+          link.setAttribute('aria-current', 'page');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      }
+    });
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  viewLinks.forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      showView(link.dataset.viewLink);
+    });
+  });
+</script>
+</body>
+</html>
