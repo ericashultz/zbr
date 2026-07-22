@@ -223,7 +223,7 @@
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:13px;
     color:#FFEE00; text-decoration:underline;
   }
-  .starlink:hover, .starlink:visited:hover{ color:#A500A8; }
+  .starlink:hover, .starlink:visited:hover{ color:#19A800; }
 
   .saleband{
     background:repeating-linear-gradient(45deg,#1a001a,#1a001a 8px,#330033 8px,#330033 16px);
@@ -803,7 +803,7 @@
       <div class="widget" id="johnnys-widget">
         <h3>Johnny's Reco-mmendations</h3>
         <p><strong>SNAG</strong> = This band has been kickin' it forever and has a split with Dave's New Zealand band <strong>Swallows Nest</strong> and ZBR released their first and second (aka two previous) full lengths.</p>
-        <a class="starlink" href="#">Shop Now</a>
+        <a class="starlink" href="#" data-view-link="store" data-band-filter="SNAG">Shop Now</a>
         <div class="bcplayer">
           <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=781253572/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="All The Cages Holding Us Will One Day Turn To Dust by snag. on Bandcamp"><a href="https://snagmke.bandcamp.com/album/all-the-cages-holding-us-will-one-day-turn-to-dust">All The Cages Holding Us Will One Day Turn To Dust</a></iframe>
         </div>
@@ -1081,6 +1081,12 @@
     var link = e.target.closest('[data-view-link]');
     if (link) {
       e.preventDefault();
+      if (link.dataset.viewLink === 'store') {
+        activeBandFilter = link.dataset.bandFilter || '';
+        activeCategoryFilter = '';
+        activeLabelFilter = '';
+        renderStoreGrid();
+      }
       showView(link.dataset.viewLink);
     }
   });
