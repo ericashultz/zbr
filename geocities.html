@@ -151,7 +151,7 @@
   }
   .construction-panel p{ font-size:15px; line-height:1.6; margin:0; color:var(--ink); }
 
-  .pagenav{ text-align:center; margin-top:14px; padding-top:10px; border-top:2px groove #444; }
+  .pagenav{ flex-basis:100%; order:1; text-align:center; margin-top:6px; padding-top:6px; }
   .pagenav-label{
     display:block; margin-bottom:10px;
     font-family:"Courier New",monospace; font-size:12px; color:var(--ink);
@@ -339,12 +339,6 @@
     #guestbook-widget h3{ animation:none; background-color:#FFEE00; }
   }
 
-  .webring{
-    text-align:center; font-family:"Courier New",monospace; font-size:12px;
-    color:var(--aqua); padding:10px 0;
-  }
-  .webring a{ color:var(--white); font-weight:bold; }
-
   footer{
     text-align:center; background:#000;
     border-top:4px double var(--aqua);
@@ -366,7 +360,6 @@
     #features-widget{ order:3; }
     .pagenav{ order:4; flex-basis:auto; }
     .sidecol > .widget{ order:5; }
-    .sidecol > .webring{ order:6; }
   }
 
   /* ==== "READ MORE" POPUP WINDOW ==== */
@@ -586,17 +579,17 @@
         </template>
       </div>
 
-      <nav class="pagenav" aria-label="Post pages by date">
-        <span class="pagenav-label" id="pagenavLabel">News from July 20, 2026</span>
-        <div class="pagenav-buttons">
-          <button type="button" data-page-nav="1" aria-current="true">1</button>
-          <button type="button" data-page-nav="2">2</button>
-          <button type="button" data-page-nav="3">3</button>
-          <button type="button" data-page-nav="4">4</button>
-        </div>
-      </nav>
-
     </div>
+
+    <nav class="pagenav" aria-label="Post pages by date">
+      <span class="pagenav-label" id="pagenavLabel">News from July 20, 2026</span>
+      <div class="pagenav-buttons">
+        <button type="button" data-page-nav="1" aria-current="true">1</button>
+        <button type="button" data-page-nav="2">2</button>
+        <button type="button" data-page-nav="3">3</button>
+        <button type="button" data-page-nav="4">4</button>
+      </div>
+    </nav>
 
     <div class="sidecol">
 
@@ -657,10 +650,6 @@
         <h3>Mailing List</h3>
         <p>Zamplers, lathes, last copies, and tour news -- straight to your inbox!</p>
         <a class="starlink" href="mailto:zegemabeachrecords@example.com">Email The Webmaster</a>
-      </div>
-
-      <div class="webring">
-        &laquo; PREV &nbsp;|&nbsp; <a href="#">SCREAMO WEBRING</a> &nbsp;|&nbsp; RANDOM &nbsp;|&nbsp; NEXT &raquo;
       </div>
 
     </div>
