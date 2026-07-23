@@ -533,15 +533,16 @@
     .layout{ flex-direction:column; }
     h1.sitetitle{ font-size:34px; }
 
-    /* Reorder: posts, then Reviews/Features (they're part of the July 20
-       posts), then pagination, then the remaining sidebar widgets. */
+    /* Reorder: posts, then Reviews/Features/Johnny's (they're part of the
+       July 20 posts), then pagination, then the remaining sidebar widgets. */
     .maincol{ display:contents; }
     .sidecol{ display:contents; }
     .post-page{ order:1; }
     #reviews-widget{ order:2; }
     #features-widget{ order:3; }
-    .pagenav{ order:4; flex-basis:auto; }
-    .sidecol > .widget{ order:5; }
+    #johnnys-widget{ order:4; }
+    .pagenav{ order:5; flex-basis:auto; }
+    .sidecol > .widget{ order:6; }
   }
 
   /* ==== "READ MORE" POPUP WINDOW ==== */
@@ -663,7 +664,7 @@
           <div class="bcplayer">
             <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3144453157/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="A Party in Your Name by Hillsboro on Bandcamp"><a href="https://hillsboro.bandcamp.com/album/a-party-in-your-name">A Party in Your Name by Hillsboro</a></iframe>
           </div>
-          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/959e2021-d62a-4aa2-8c2f-4b0e80434d5c/0-0+promo.jpg?format=2500w" alt="Hillsboro promo photo">
+          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/959e2021-d62a-4aa2-8c2f-4b0e80434d5c/0-0+promo.jpg?format=2500w" alt="Hillsboro promo photo" style="margin-top:20px;">
         </article>
 
         <article class="post">
@@ -850,7 +851,6 @@
 
   <div id="storeView" hidden>
     <div class="store-page">
-      <h2>Canada / International Store</h2>
       <div class="store-layout">
         <aside class="store-sidebar">
           <label class="store-search">Search
@@ -909,9 +909,8 @@
 
   <div id="usaStoreView" hidden>
     <div class="construction-panel">
-      <div class="stripes" aria-hidden="true"></div>
       <div class="digger" aria-hidden="true"><img src="assets/directory_folder_options-4.png" alt=""></div>
-      <h2>USA Store -- Under Construction</h2>
+      <h2>Under Construction</h2>
       <p>We're digging through boxes of records trying to get the USA store back up and running. Check back soon -- in the meantime, the Canada / International store and Bandcamp are open for business!</p>
       <div class="stripes" aria-hidden="true"></div>
     </div>
@@ -920,7 +919,6 @@
   <div id="cartView" hidden>
     <div class="cart-page">
       <img src="assets/shopping_cart_transparent_v2.png" alt="" class="cart-icon">
-      <h2>Shopping Cart</h2>
       <p id="cartEmpty" class="cart-empty">Your cart is empty -- go add some records!</p>
       <div id="cartItems" class="cart-items" hidden></div>
       <div class="cart-summary" id="cartSummary" hidden>
@@ -933,7 +931,6 @@
   <div id="contactView" hidden>
     <div class="contact-page">
       <img src="assets/modem-5.png" alt="" class="contact-icon">
-      <h2>Contact</h2>
       <p>If you would like to contact Zegema Beach Records just fill out this contact form. A response will be returned within 24 hours. ZBR loves open communication!!! You can also email ZBR at <a class="starlink" href="mailto:zegemabeachrecords@gmail.com">zegemabeachrecords@gmail.com</a></p>
 
       <form id="contactForm" class="contact-form">
