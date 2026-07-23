@@ -251,6 +251,9 @@
 
   .quicklinks-grid{
     display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;
+    background:linear-gradient(145deg,#e8e8e8,#a0a0a0);
+    border:2px outset #fff; border-radius:8px;
+    padding:10px;
   }
   .quicklink{
     display:flex; flex-direction:column; align-items:center; gap:4px;
@@ -258,17 +261,12 @@
   }
   .quicklink .icon{
     width:52px; height:52px;
-    background:linear-gradient(145deg,#e8e8e8,#a0a0a0);
-    border:2px outset #fff; border-radius:8px;
     display:flex; align-items:center; justify-content:center;
-    font-size:26px; line-height:1;
-    box-shadow:1px 1px 3px rgba(0,0,0,0.5);
   }
-  .quicklink:hover .icon{ background:linear-gradient(145deg,#fff,#c9c9c9); }
-  .quicklink:active .icon{ border-style:inset; }
+  .quicklink .icon img{ width:32px; height:32px; border:none; margin-bottom:0; }
   .quicklink .qllabel{
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:12px;
-    color:var(--ink); text-align:center; text-decoration:none;
+    color:#000; text-align:center; text-decoration:none;
   }
 
   .guestbook-buttons{ display:flex; gap:6px; flex-wrap:wrap; }
@@ -756,27 +754,27 @@
         <h3 style="background:#A500A8;color:var(--white);">Quick Links</h3>
         <div class="quicklinks-grid">
           <a class="quicklink" href="https://omsbpodcast.bandcamp.com/" target="_blank" rel="noopener">
-            <span class="icon" aria-hidden="true">&#127908;</span>
+            <span class="icon"><img src="assets/microphone_2-0.png" alt=""></span>
             <span class="qllabel">OMSB Podcast</span>
           </a>
           <a class="quicklink" href="https://openmindsaturatedbrain.blogspot.com/" target="_blank" rel="noopener">
-            <span class="icon" aria-hidden="true">&#128211;</span>
+            <span class="icon"><img src="assets/notepad-2.png" alt=""></span>
             <span class="qllabel">OMSB Blog</span>
           </a>
           <a class="quicklink" href="https://zegemabeachrecords.bandcamp.com/" target="_blank" rel="noopener">
-            <span class="icon" aria-hidden="true">&#128191;</span>
+            <span class="icon"><img src="assets/cd_audio_cd_a-4.png" alt=""></span>
             <span class="qllabel">Bandcamp</span>
           </a>
           <a class="quicklink" href="https://www.youtube.com/@MrSilentStorms" target="_blank" rel="noopener">
-            <span class="icon" aria-hidden="true">&#128250;</span>
+            <span class="icon"><img src="assets/shut_down_normal-2.png" alt=""></span>
             <span class="qllabel">YouTube</span>
           </a>
           <a class="quicklink" href="https://www.instagram.com/zegema_beach/" target="_blank" rel="noopener">
-            <span class="icon" aria-hidden="true">&#128248;</span>
+            <span class="icon"><img src="assets/camera-0.png" alt=""></span>
             <span class="qllabel">Instagram</span>
           </a>
           <a class="quicklink" href="#">
-            <span class="icon" aria-hidden="true">&#128172;</span>
+            <span class="icon"><img src="assets/laptop_infrared_2-5.png" alt=""></span>
             <span class="qllabel">Chat Room</span>
           </a>
         </div>
