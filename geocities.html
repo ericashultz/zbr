@@ -411,6 +411,19 @@
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:13px;
     border:2px inset var(--silver); background:#fff; color:#000;
   }
+  .store-quicklabels{ display:flex; gap:8px; margin-bottom:14px; }
+  .store-quicklabels button{
+    flex:1; text-align:center;
+    background:linear-gradient(180deg,#ffffff,#d4d4d4);
+    border:2px outset #ffffff;
+    color:#330000; font-weight:bold; font-family:"Fixedsys Excelsior","Courier New",monospace;
+    font-size:12px; padding:6px 4px; cursor:pointer;
+  }
+  .store-quicklabels button:hover{ background:#1D64A7; border-color:var(--royalblue); color:var(--white); }
+  .store-quicklabels button[aria-current="true"]{
+    border-style:inset; background:#FFEE00; color:#000;
+  }
+
   .sidebar-section{ margin-bottom:6px; }
   .sidebar-section-toggle{
     display:block; width:100%; text-align:left; background:var(--aqua); color:#000;
@@ -429,6 +442,16 @@
     color:var(--aqua); padding:4px 6px; cursor:pointer;
   }
   .sidebar-list button:hover, .sidebar-list button[aria-current="true"]{
+    background:#1D64A7; color:var(--white);
+  }
+  .sidebar-sublist{ list-style:none; margin:2px 0 2px 14px; padding:0; }
+  .sidebar-sublist li{ margin-bottom:2px; }
+  .sidebar-sublist button{
+    display:block; width:100%; text-align:left; background:none; border:none;
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:11px;
+    color:var(--ink); padding:3px 6px; cursor:pointer;
+  }
+  .sidebar-sublist button:hover, .sidebar-sublist button[aria-current="true"]{
     background:#1D64A7; color:var(--white);
   }
   .store-empty{ color:var(--ink); font-size:14px; padding:10px 2px; }
@@ -834,6 +857,11 @@
             <input type="text" id="storeSearch" placeholder="Band or release...">
           </label>
 
+          <div class="store-quicklabels">
+            <button type="button" data-special-filter="new">New Items</button>
+            <button type="button" data-special-filter="steals">Steals</button>
+          </div>
+
           <div class="sidebar-section">
             <button type="button" class="sidebar-section-toggle" data-toggle-section aria-expanded="false">Bands A-Z <span class="toggle-arrow">&#9660;</span></button>
             <ul class="sidebar-list collapsed" id="bandList"></ul>
@@ -843,7 +871,14 @@
             <button type="button" class="sidebar-section-toggle" data-toggle-section aria-expanded="false">Merch <span class="toggle-arrow">&#9660;</span></button>
             <ul class="sidebar-list collapsed" id="merchList">
               <li><button type="button" data-view-all>View All</button></li>
-              <li><button type="button" data-category-filter="vinyl">Vinyl</button></li>
+              <li>
+                <button type="button" data-category-filter="vinyl">Vinyl</button>
+                <ul class="sidebar-sublist">
+                  <li><button type="button" data-category-filter="vinyl" data-vinyl-size="12">12" Records</button></li>
+                  <li><button type="button" data-category-filter="vinyl" data-vinyl-size="7">7" Records</button></li>
+                  <li><button type="button" data-category-filter="vinyl" data-vinyl-size="5,6,9,10">5"/6"/9"/10" Records</button></li>
+                </ul>
+              </li>
               <li><button type="button" data-category-filter="cd">CDs</button></li>
               <li><button type="button" data-category-filter="cassette">Cassettes</button></li>
               <li><button type="button" data-category-filter="shirt">Shirts</button></li>
@@ -1206,6 +1241,7 @@
       bcAlbumId: null,
       variants: null,
       category: 'vinyl',
+      vinylSize: '10',
       label: 'Zegema Beach Releases',
       soldOut: false
     },
@@ -1231,6 +1267,7 @@
       ],
       category: 'cassette',
       label: 'Tomb Tree',
+      isNew: true,
       soldOut: false
     },
     {
@@ -1251,6 +1288,7 @@
       variants: null,
       category: 'cassette',
       label: 'Softseed Music',
+      isNew: true,
       soldOut: false
     },
     {
@@ -1276,6 +1314,7 @@
         { value: 'black-silkscreen', label: 'Black w/silkscreen -- SOLD OUT', available: false }
       ],
       category: 'vinyl',
+      vinylSize: '12',
       label: 'Zegema Beach Releases',
       soldOut: false
     },
@@ -1317,6 +1356,7 @@
       bcAlbumId: '4179526474',
       variants: null,
       category: 'vinyl',
+      vinylSize: '12',
       label: 'Zegema Beach Releases',
       soldOut: true
     }
@@ -1326,11 +1366,14 @@
   var bandList = document.getElementById('bandList');
   var merchList = document.getElementById('merchList');
   var labelList = document.getElementById('labelList');
+  var storeQuicklabels = document.querySelector('.store-quicklabels');
   var storeSearch = document.getElementById('storeSearch');
   var pdpContent = document.getElementById('pdpContent');
   var activeBandFilter = '';
   var activeCategoryFilter = '';
+  var activeVinylSizeFilter = '';
   var activeLabelFilter = '';
+  var activeSpecialFilter = '';
 
   function escapeHtml(str) {
     var div = document.createElement('div');
@@ -1354,9 +1397,11 @@
     var filtered = products.filter(function (p) {
       var matchesBand = !activeBandFilter || p.band === activeBandFilter;
       var matchesCategory = !activeCategoryFilter || p.category === activeCategoryFilter;
+      var matchesVinylSize = !activeVinylSizeFilter || (p.vinylSize && activeVinylSizeFilter.split(',').indexOf(p.vinylSize) !== -1);
       var matchesLabel = !activeLabelFilter || p.label === activeLabelFilter;
+      var matchesSpecial = !activeSpecialFilter || (activeSpecialFilter === 'new' ? p.isNew : p.cat === 'Last Copy');
       var matchesQuery = !query || (p.band + ' ' + p.title).toLowerCase().indexOf(query) !== -1;
-      return matchesBand && matchesCategory && matchesLabel && matchesQuery;
+      return matchesBand && matchesCategory && matchesVinylSize && matchesLabel && matchesSpecial && matchesQuery;
     });
 
     if (filtered.length === 0) {
@@ -1379,7 +1424,16 @@
     });
     merchList.querySelectorAll('button').forEach(function (btn) {
       var isViewAll = 'viewAll' in btn.dataset;
-      btn.setAttribute('aria-current', isViewAll ? (!activeCategoryFilter ? 'true' : 'false') : (btn.dataset.categoryFilter === activeCategoryFilter ? 'true' : 'false'));
+      if (isViewAll) {
+        btn.setAttribute('aria-current', !activeCategoryFilter ? 'true' : 'false');
+      } else if ('vinylSize' in btn.dataset) {
+        btn.setAttribute('aria-current', btn.dataset.vinylSize === activeVinylSizeFilter ? 'true' : 'false');
+      } else {
+        btn.setAttribute('aria-current', (btn.dataset.categoryFilter === activeCategoryFilter && !activeVinylSizeFilter) ? 'true' : 'false');
+      }
+    });
+    storeQuicklabels.querySelectorAll('button').forEach(function (btn) {
+      btn.setAttribute('aria-current', btn.dataset.specialFilter === activeSpecialFilter ? 'true' : 'false');
     });
     labelList.querySelectorAll('button').forEach(function (btn) {
       var isViewAll = 'viewAll' in btn.dataset;
@@ -1390,7 +1444,9 @@
   function clearStoreFilters() {
     activeBandFilter = '';
     activeCategoryFilter = '';
+    activeVinylSizeFilter = '';
     activeLabelFilter = '';
+    activeSpecialFilter = '';
     renderStoreGrid();
   }
 
@@ -1402,7 +1458,9 @@
     if (!btn) return;
     activeBandFilter = activeBandFilter === btn.dataset.bandFilter ? '' : btn.dataset.bandFilter;
     activeCategoryFilter = '';
+    activeVinylSizeFilter = '';
     activeLabelFilter = '';
+    activeSpecialFilter = '';
     renderStoreGrid();
   });
 
@@ -1410,8 +1468,26 @@
     if (e.target.closest('[data-view-all]')) { clearStoreFilters(); return; }
     var btn = e.target.closest('[data-category-filter]');
     if (!btn) return;
-    activeCategoryFilter = activeCategoryFilter === btn.dataset.categoryFilter ? '' : btn.dataset.categoryFilter;
+    if ('vinylSize' in btn.dataset) {
+      activeVinylSizeFilter = activeVinylSizeFilter === btn.dataset.vinylSize ? '' : btn.dataset.vinylSize;
+      activeCategoryFilter = activeVinylSizeFilter ? 'vinyl' : '';
+    } else {
+      activeCategoryFilter = activeCategoryFilter === btn.dataset.categoryFilter ? '' : btn.dataset.categoryFilter;
+      activeVinylSizeFilter = '';
+    }
     activeBandFilter = '';
+    activeLabelFilter = '';
+    activeSpecialFilter = '';
+    renderStoreGrid();
+  });
+
+  storeQuicklabels.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-special-filter]');
+    if (!btn) return;
+    activeSpecialFilter = activeSpecialFilter === btn.dataset.specialFilter ? '' : btn.dataset.specialFilter;
+    activeBandFilter = '';
+    activeCategoryFilter = '';
+    activeVinylSizeFilter = '';
     activeLabelFilter = '';
     renderStoreGrid();
   });
@@ -1423,6 +1499,8 @@
     activeLabelFilter = activeLabelFilter === btn.dataset.labelFilter ? '' : btn.dataset.labelFilter;
     activeBandFilter = '';
     activeCategoryFilter = '';
+    activeVinylSizeFilter = '';
+    activeSpecialFilter = '';
     renderStoreGrid();
   });
 
