@@ -539,8 +539,13 @@
   .pdp-info{ flex:2 1 320px; min-width:280px; }
 
   .pdp-carousel{ position:relative; }
-  .pdp-carousel-track{ position:relative; line-height:0; }
-  .pdp-carousel-img{ display:block; width:100%; border:4px ridge var(--silver); }
+  .pdp-carousel-track{
+    position:relative; aspect-ratio:750 / 725; overflow:hidden;
+    background:#000; border:4px ridge var(--silver);
+  }
+  .pdp-carousel-img{
+    display:block; width:100%; height:100%; object-fit:contain; object-position:center;
+  }
   .pdp-carousel-prev, .pdp-carousel-next{
     position:absolute; top:50%; transform:translateY(-50%);
     background:rgba(0,0,0,0.6); border:2px outset var(--silver); color:var(--white);
@@ -750,7 +755,7 @@
           <p>12" vinyl /300, 150 on clear, 50 on clear w/silkscreen b-side, 50 on black, and 50 on black w/silkscreen b-side. Download code included. 7 songs.</p>
           <div class="addcart" data-product="SNAG - Death Doula (12&quot;LP/shirt)" data-price="25.00">
             <span class="cart-price">$25.00 USD</span>
-            <label class="cart-variant-wrap">Variant:
+            <label class="cart-variant-wrap">
               <select class="cart-variant">
                 <option value="" selected>Select Variant</option>
                 <option value="clear">Clear (150)</option>
@@ -1040,7 +1045,7 @@
 
   <div id="guestbookSignView" hidden>
     <div class="contact-page">
-      <h2>Sign My Guestbook!</h2>
+      <img src="assets/write_yellow-1.png" alt="Sign My Guestbook" class="search-icon">
       <p>Leave a note, tell us your favorite band, or just say hi -- it'll show up on the <a class="starlink" href="#" data-view-link="guestbookList">guestbook page</a> for everyone to see!</p>
 
       <form id="guestbookForm" class="contact-form">
@@ -1062,7 +1067,7 @@
 
   <div id="guestbookListView" hidden>
     <div class="contact-page">
-      <h2>Guestbook</h2>
+      <img src="assets/address_book-0.png" alt="Guestbook" class="search-icon">
       <p>Here's what everyone's been saying! <a class="starlink" href="#" data-view-link="guestbookSign">Sign the guestbook</a> yourself.</p>
       <div id="guestbookEntries" class="guestbook-entries"></div>
     </div>
@@ -1631,7 +1636,6 @@
     if (p.soldOut) {
       html += '<span class="cat cat-soldout">' + escapeHtml(p.cat) + '</span>';
     }
-    html += '<h2>' + escapeHtml(p.band) + ' - ' + escapeHtml(p.title) + '</h2>';
     html += '<div class="pdp-columns">';
 
     html += '<div class="pdp-media">';
@@ -1656,14 +1660,10 @@
     html += '</div>';
 
     html += '<div class="pdp-info">';
+    html += '<h2>' + escapeHtml(p.band) + ' - ' + escapeHtml(p.title) + '</h2>';
     p.description.forEach(function (para) {
       html += '<p>' + para + '</p>';
     });
-    if (p.bcAlbumId) {
-      html += '<div class="bcplayer"><iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=' + p.bcAlbumId + '/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="' + escapeHtml(p.band + ' - ' + p.title) + ' on Bandcamp"><a href="' + p.listenUrl + '">' + escapeHtml(p.band + ' - ' + p.title) + '</a></iframe></div>';
-    } else {
-      html += '<p><a class="starlink" href="' + p.listenUrl + '" target="_blank" rel="noopener">Listen Here</a></p>';
-    }
 
     if (p.soldOut) {
       html += '<p class="pdp-soldout-msg">This release is sold out in physical formats. Grab the digital download via the Bandcamp link above.</p>';
@@ -1671,7 +1671,7 @@
       html += '<div class="addcart" data-product="' + escapeHtml(p.band + ' - ' + p.title) + '" data-price="' + p.price + '">';
       html += '<span class="cart-price">' + escapeHtml(p.priceLabel) + '</span>';
       if (p.variants) {
-        html += '<label class="cart-variant-wrap">Variant:<select class="cart-variant"><option value="" selected>Select Variant</option>';
+        html += '<label class="cart-variant-wrap"><select class="cart-variant"><option value="" selected>Select Variant</option>';
         p.variants.forEach(function (v) {
           html += '<option value="' + v.value + '"' + (v.available ? '' : ' disabled') + '>' + escapeHtml(v.label) + '</option>';
         });
@@ -1681,6 +1681,12 @@
       }
       html += '<a class="cart-btn" href="#">ADD TO CART</a>';
       html += '</div>';
+    }
+
+    if (p.bcAlbumId) {
+      html += '<div class="bcplayer"><iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=' + p.bcAlbumId + '/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="' + escapeHtml(p.band + ' - ' + p.title) + ' on Bandcamp"><a href="' + p.listenUrl + '">' + escapeHtml(p.band + ' - ' + p.title) + '</a></iframe></div>';
+    } else {
+      html += '<p><a class="starlink" href="' + p.listenUrl + '" target="_blank" rel="noopener">Listen Here</a></p>';
     }
     html += '</div>';
     html += '</div>';
