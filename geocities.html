@@ -268,6 +268,19 @@
     color:var(--white); text-align:center; text-decoration:none;
   }
 
+  .mobile-quicklinks{ display:none; }
+  .mobile-quicklinks-toggle{
+    display:block; width:100%; text-align:left; background:#A500A8; color:var(--white);
+    border:none; font-family:"Fixedsys Excelsior","Courier New",monospace;
+    font-weight:bold; font-size:14px; padding:8px 10px; cursor:pointer;
+  }
+  .mobile-quicklinks-toggle .toggle-arrow{ float:right; transition:transform 0.15s ease; }
+  .mobile-quicklinks-toggle[aria-expanded="true"] .toggle-arrow{ transform:rotate(180deg); }
+  .mobile-quicklinks .quicklinks-grid{
+    padding:10px; margin:0; background:#000; border:3px groove var(--aqua); border-top:none;
+  }
+  .mobile-quicklinks .quicklinks-grid.collapsed{ display:none; }
+
   .guestbook-buttons{ display:flex; gap:6px; flex-wrap:wrap; }
   .gb-btn{
     flex:1; text-align:center;
@@ -280,33 +293,34 @@
 
   .addcart{ display:flex; align-items:center; gap:12px; margin-top:8px; flex-wrap:wrap; }
   .addcart .cart-price{
-    font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:18px; color:var(--white);
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:18px; color:#C0DFFE;
   }
   .cart-btn{
-    display:inline-block; text-align:center;
+    display:inline-flex; align-items:center; justify-content:center; height:34px;
+    text-align:center;
     background:linear-gradient(180deg,#ffffff,#d4d4d4);
     border:2px outset #ffffff;
     color:#330000; font-weight:bold; font-family:"Fixedsys Excelsior","Courier New",monospace;
-    font-size:13px; padding:8px 16px; text-decoration:none; cursor:pointer;
+    font-size:13px; padding:0 16px; text-decoration:none; cursor:pointer;
   }
   .cart-btn:hover{ background:#1D64A7; border-color:var(--royalblue); color:var(--white); }
   .cart-btn:active{ border-style:inset; }
   .cart-btn img{ border:none; }
   .cart-qty-wrap{
-    display:flex; align-items:center; gap:4px;
-    font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:13px; color:var(--white);
+    display:flex; align-items:center; gap:4px; margin-left:10px;
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:18px; color:var(--white);
   }
   .cart-qty{
-    width:44px; padding:4px; text-align:center;
+    width:44px; height:34px; padding:0 4px; text-align:center;
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:13px;
     border:2px inset var(--silver); background:#fff; color:#000;
   }
   .cart-variant-wrap{
-    display:flex; align-items:center; gap:4px;
+    display:flex; align-items:center; gap:4px; margin-left:10px;
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:13px; color:var(--white);
   }
   .cart-variant{
-    width:140px; padding:4px; text-align:center;
+    width:140px; height:34px; padding:0 4px; text-align:center;
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:13px;
     border:2px inset var(--silver); background:#fff; color:#000;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
@@ -521,7 +535,7 @@
   }
   .product-tile-price{
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:12px;
-    color:var(--aqua); display:block;
+    color:#C0DFFE; display:block;
   }
   .product-tile-soldout{ color:#ff6b6b; }
   .product-tile:hover{ border-color:#1D64A7; }
@@ -546,6 +560,10 @@
   .pdp-carousel-img{
     display:block; width:100%; height:100%; object-fit:contain; object-position:center;
   }
+  @media (min-width:701px){
+    .pdp-carousel-img{ transition:transform 0.2s ease; cursor:zoom-in; }
+    .pdp-carousel-track:hover .pdp-carousel-img:not([hidden]){ transform:scale(1.25); }
+  }
   .pdp-carousel-prev, .pdp-carousel-next{
     position:absolute; top:50%; transform:translateY(-50%);
     background:rgba(0,0,0,0.6); border:2px outset var(--silver); color:var(--white);
@@ -561,8 +579,11 @@
   }
   .pdp-carousel-dot[aria-current="true"]{ background:#FFEE00; }
 
+  .pdp-addcart-action{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+
   @media (max-width:700px){
     .pdp-media{ max-width:none; }
+    .pdp-addcart .cart-price{ flex-basis:100%; }
   }
 
   .search-highlight{ outline:3px solid #FFEE00; outline-offset:2px; }
@@ -616,6 +637,9 @@
     #johnnys-widget{ order:4; }
     .pagenav{ order:5; flex-basis:auto; }
     .sidecol > .widget{ order:6; }
+
+    .mobile-quicklinks{ display:block; margin:10px 12px 0; }
+    #quicklinks-widget{ display:none; }
   }
 
   /* ==== "READ MORE" POPUP WINDOW ==== */
@@ -683,6 +707,36 @@
       <li><a href="#" data-view-link="cart">View Cart <span id="cartCount" class="cart-count" hidden>0</span></a></li>
     </ul>
   </nav>
+
+  <div class="mobile-quicklinks">
+    <button type="button" class="mobile-quicklinks-toggle" data-toggle-section aria-expanded="false">Quick Links <span class="toggle-arrow">&#9660;</span></button>
+    <div class="quicklinks-grid collapsed" id="mobileQuicklinksGrid">
+      <a class="quicklink" href="https://omsbpodcast.bandcamp.com/" target="_blank" rel="noopener">
+        <span class="icon"><img src="assets/microphone_2-0.png" alt=""></span>
+        <span class="qllabel">OMSB Podcast</span>
+      </a>
+      <a class="quicklink" href="https://openmindsaturatedbrain.blogspot.com/" target="_blank" rel="noopener">
+        <span class="icon"><img src="assets/notepad-2.png" alt=""></span>
+        <span class="qllabel">OMSB Blog</span>
+      </a>
+      <a class="quicklink" href="https://zegemabeachrecords.bandcamp.com/" target="_blank" rel="noopener">
+        <span class="icon"><img src="assets/cd_audio_cd_a-4.png" alt=""></span>
+        <span class="qllabel">Bandcamp</span>
+      </a>
+      <a class="quicklink" href="https://www.youtube.com/@MrSilentStorms" target="_blank" rel="noopener">
+        <span class="icon"><img src="assets/monitor_blue_grad-0.png" alt=""></span>
+        <span class="qllabel">YouTube</span>
+      </a>
+      <a class="quicklink" href="https://www.instagram.com/zegema_beach/" target="_blank" rel="noopener">
+        <span class="icon"><img src="assets/camera-0.png" alt=""></span>
+        <span class="qllabel">Instagram</span>
+      </a>
+      <a class="quicklink" href="#">
+        <span class="icon"><img src="assets/user_computer_pair-0.png" alt=""></span>
+        <span class="qllabel">Chat Room</span>
+      </a>
+    </div>
+  </div>
 
   <div id="homeView">
 
@@ -850,7 +904,7 @@
 
     <div class="sidecol">
 
-      <div class="widget" style="border-color:#A500A8;">
+      <div class="widget" id="quicklinks-widget" style="border-color:#A500A8;">
         <h3 style="background:#A500A8;color:var(--white);">Quick Links</h3>
         <div class="quicklinks-grid">
           <a class="quicklink" href="https://omsbpodcast.bandcamp.com/" target="_blank" rel="noopener">
@@ -1668,8 +1722,9 @@
     if (p.soldOut) {
       html += '<p class="pdp-soldout-msg">This release is sold out in physical formats. Grab the digital download via the Bandcamp link above.</p>';
     } else {
-      html += '<div class="addcart" data-product="' + escapeHtml(p.band + ' - ' + p.title) + '" data-price="' + p.price + '">';
+      html += '<div class="addcart pdp-addcart" data-product="' + escapeHtml(p.band + ' - ' + p.title) + '" data-price="' + p.price + '">';
       html += '<span class="cart-price">' + escapeHtml(p.priceLabel) + '</span>';
+      html += '<div class="pdp-addcart-action">';
       if (p.variants) {
         html += '<label class="cart-variant-wrap"><select class="cart-variant"><option value="" selected>Select Variant</option>';
         p.variants.forEach(function (v) {
@@ -1680,6 +1735,7 @@
         html += '<label class="cart-qty-wrap">Qty:<input type="number" class="cart-qty" value="1" min="1" max="' + (p.maxQty || 99) + '"></label>';
       }
       html += '<a class="cart-btn" href="#">ADD TO CART</a>';
+      html += '</div>';
       html += '</div>';
     }
 
