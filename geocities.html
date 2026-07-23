@@ -59,7 +59,7 @@
     border-bottom:4px solid var(--aqua);
   }
   .logoimg{
-    height:64px; width:auto;
+    height:76px; width:auto;
     mix-blend-mode:screen;
   }
   h1.sitetitle{
@@ -123,7 +123,7 @@
       margin-top:6px;
     }
     nav.mainnav ul.open{ display:flex; }
-    nav.mainnav a{ width:100%; padding:10px; }
+    nav.mainnav a{ width:100%; padding:10px; font-size:14px; }
   }
 
   /* ==== LAYOUT ==== */
@@ -144,7 +144,8 @@
     border-top:3px solid #000; border-bottom:3px solid #000;
   }
   .construction-panel .stripes:last-child{ margin:24px 0 0; }
-  .construction-panel .digger{ font-size:56px; margin:0 0 18px; }
+  .construction-panel .digger{ margin:0 0 18px; }
+  .construction-panel .digger img{ width:40px; height:40px; }
   .construction-panel h2{
     font-family:"Arial Narrow",Arial,sans-serif;
     font-weight:bold; font-style:italic;
@@ -170,7 +171,7 @@
 
   .post{
     background:#000; border:3px ridge var(--aqua);
-    padding:10px; margin-bottom:16px;
+    padding:20px; margin-bottom:16px;
   }
   .post .cat{
     display:inline-block;
@@ -180,6 +181,7 @@
   }
   .cat-news{ background:#1D64A7; }
   .cat-releases{ background:#1D64A7; }
+  .post .cat-soldout{ background:#cc0000; border-color:#cc0000; color:var(--white); }
 
   .post h2, .post h3{
     font-family:"Arial Narrow",Arial,sans-serif;
@@ -196,9 +198,9 @@
   .bcplayer{ margin:8px 0; border:2px inset var(--silver); line-height:0; }
   .videolink{
     display:block; position:relative; margin:8px 0;
-    border:2px inset var(--silver); line-height:0;
+    line-height:0;
   }
-  .videolink img{ display:block; width:100%; }
+  .videolink img{ display:block; width:100%; border:none; }
   .videolink .playbtn{
     position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
     width:64px; height:44px;
@@ -212,15 +214,8 @@
     border-left:20px solid var(--white);
     margin-left:4px;
   }
-  .videolink .ytlabel{
-    position:absolute; bottom:6px; right:8px;
-    background:rgba(0,0,0,0.7); color:var(--white);
-    font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:11px;
-    padding:2px 6px;
-  }
-
   .starlink, .starlink:visited{
-    font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:13px;
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:14px;
     color:#FFEE00; text-decoration:underline;
   }
   .starlink:hover, .starlink:visited:hover{ color:#19A800; }
@@ -261,14 +256,14 @@
     background:linear-gradient(145deg,#e8e8e8,#a0a0a0);
     border:2px outset #fff; border-radius:8px;
     display:flex; align-items:center; justify-content:center;
-    font-size:26px; line-height:1;
     box-shadow:1px 1px 3px rgba(0,0,0,0.5);
   }
   .quicklink:hover .icon{ background:linear-gradient(145deg,#fff,#c9c9c9); }
   .quicklink:active .icon{ border-style:inset; }
+  .quicklink .icon img{ width:32px; height:32px; border:none; margin-bottom:0; }
   .quicklink .qllabel{
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:12px;
-    color:var(--ink); text-align:center; text-decoration:none;
+    color:var(--white); text-align:center; text-decoration:none;
   }
 
   .guestbook-buttons{ display:flex; gap:6px; flex-wrap:wrap; }
@@ -277,7 +272,7 @@
     background:linear-gradient(180deg,#ffffff,#d4d4d4);
     border:2px outset #ffffff;
     color:#330000; font-weight:bold; font-family:"Fixedsys Excelsior","Courier New",monospace;
-    font-size:12px; padding:6px 4px; text-decoration:none;
+    font-size:13px; padding:6px 4px; text-decoration:none;
   }
   .gb-btn:hover{ background:#1D64A7; border-color:var(--royalblue); color:var(--white); }
 
@@ -290,10 +285,11 @@
     background:linear-gradient(180deg,#ffffff,#d4d4d4);
     border:2px outset #ffffff;
     color:#330000; font-weight:bold; font-family:"Fixedsys Excelsior","Courier New",monospace;
-    font-size:12px; padding:8px 16px; text-decoration:none; cursor:pointer;
+    font-size:13px; padding:8px 16px; text-decoration:none; cursor:pointer;
   }
   .cart-btn:hover{ background:#1D64A7; border-color:var(--royalblue); color:var(--white); }
   .cart-btn:active{ border-style:inset; }
+  .cart-btn img{ border:none; }
   .cart-qty-wrap{
     display:flex; align-items:center; gap:4px;
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:13px; color:var(--white);
@@ -323,6 +319,7 @@
   .cart-page{
     max-width:640px; margin:24px auto; padding:12px;
   }
+  .cart-page .cart-icon{ display:block; width:40px; height:40px; margin:0 auto 10px; }
   .cart-page h2{
     font-family:"Arial Narrow",Arial,sans-serif;
     font-weight:bold; font-style:italic;
@@ -353,6 +350,7 @@
   .contact-page{
     max-width:640px; margin:24px auto; padding:12px; text-align:center;
   }
+  .contact-page .contact-icon{ width:40px; height:40px; margin-bottom:10px; }
   .contact-page h2{
     font-family:"Arial Narrow",Arial,sans-serif;
     font-weight:bold; font-style:italic;
@@ -414,11 +412,24 @@
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:13px;
     border:2px inset var(--silver); background:#fff; color:#000;
   }
+  .store-quicklabels{ display:flex; gap:8px; margin-bottom:14px; }
+  .store-quicklabels button{
+    flex:1; text-align:center;
+    background:linear-gradient(180deg,#ffffff,#d4d4d4);
+    border:2px outset #ffffff;
+    color:#330000; font-weight:bold; font-family:"Fixedsys Excelsior","Courier New",monospace;
+    font-size:13px; padding:6px 4px; cursor:pointer;
+  }
+  .store-quicklabels button:hover{ background:#1D64A7; border-color:var(--royalblue); color:var(--white); }
+  .store-quicklabels button[aria-current="true"]{
+    border-style:inset; background:#FFEE00; color:#000;
+  }
+
   .sidebar-section{ margin-bottom:6px; }
   .sidebar-section-toggle{
-    display:block; width:calc(100% + 20px); text-align:left; background:var(--aqua); color:#000;
+    display:block; width:100%; text-align:left; background:var(--aqua); color:#000;
     border:none; font-family:"Fixedsys Excelsior","Courier New",monospace;
-    font-weight:bold; font-size:13px; margin:0 -10px 8px; padding:5px 8px; cursor:default;
+    font-weight:bold; font-size:14px; margin:0 0 8px; padding:5px 8px; cursor:default;
   }
   .sidebar-section-toggle .toggle-arrow{
     display:none; float:right; transition:transform 0.15s ease;
@@ -428,10 +439,23 @@
   .sidebar-list li{ margin-bottom:2px; }
   .sidebar-list button{
     display:block; width:100%; text-align:left; background:none; border:none;
-    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:12px;
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:13px;
     color:var(--aqua); padding:4px 6px; cursor:pointer;
   }
   .sidebar-list button:hover, .sidebar-list button[aria-current="true"]{
+    background:#1D64A7; color:var(--white);
+  }
+  .sidebar-list button[data-view-all][aria-current="true"]{
+    background:none; color:var(--aqua);
+  }
+  .sidebar-sublist{ list-style:none; margin:2px 0 2px 14px; padding:0; }
+  .sidebar-sublist li{ margin-bottom:2px; }
+  .sidebar-sublist button{
+    display:block; width:100%; text-align:left; background:none; border:none;
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:12px;
+    color:var(--ink); padding:3px 6px; cursor:pointer;
+  }
+  .sidebar-sublist button:hover, .sidebar-sublist button[aria-current="true"]{
     background:#1D64A7; color:var(--white);
   }
   .store-empty{ color:var(--ink); font-size:14px; padding:10px 2px; }
@@ -453,11 +477,11 @@
   }
   .product-tile img{ width:100%; border:2px outset var(--silver); margin-bottom:6px; }
   .product-tile-band{
-    font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:12px;
+    font-family:Arial,sans-serif; font-weight:bold; font-size:12px;
     color:#FFEE00; display:block;
   }
   .product-tile-title{
-    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:11px;
+    font-family:Arial,sans-serif; font-size:11px;
     color:var(--white); display:block; margin:2px 0;
   }
   .product-tile-price{
@@ -513,15 +537,16 @@
     .layout{ flex-direction:column; }
     h1.sitetitle{ font-size:34px; }
 
-    /* Reorder: posts, then Reviews/Features (they're part of the July 20
-       posts), then pagination, then the remaining sidebar widgets. */
+    /* Reorder: posts, then Reviews/Features/Johnny's (they're part of the
+       July 20 posts), then pagination, then the remaining sidebar widgets. */
     .maincol{ display:contents; }
     .sidecol{ display:contents; }
     .post-page{ order:1; }
     #reviews-widget{ order:2; }
     #features-widget{ order:3; }
-    .pagenav{ order:4; flex-basis:auto; }
-    .sidecol > .widget{ order:5; }
+    #johnnys-widget{ order:4; }
+    .pagenav{ order:5; flex-basis:auto; }
+    .sidecol > .widget{ order:6; }
   }
 
   /* ==== "READ MORE" POPUP WINDOW ==== */
@@ -619,7 +644,7 @@
             <label class="cart-qty-wrap">Qty:
               <input type="number" class="cart-qty" value="1" min="1" max="99">
             </label>
-            <a class="cart-btn" href="#">&#128722; ADD TO CART</a>
+            <a class="cart-btn" href="#"><img src="assets/shopping_cart_transparent_v2.png" alt="" style="width:14px; height:14px; vertical-align:middle; margin-right:4px;"> ADD TO CART</a>
           </div>
         </article>
 
@@ -633,7 +658,6 @@
           <a class="videolink" href="https://www.youtube.com/watch?v=bhlxQPTpIX8" target="_blank" rel="noopener">
             <img src="https://i.ytimg.com/vi/bhlxQPTpIX8/hqdefault.jpg" alt="Watch Constrain - That Smelly Smell That Smells Smelly on YouTube">
             <span class="playbtn" aria-hidden="true"></span>
-            <span class="ytlabel">WATCH ON YOUTUBE</span>
           </a>
         </article>
 
@@ -644,7 +668,7 @@
           <div class="bcplayer">
             <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3144453157/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="A Party in Your Name by Hillsboro on Bandcamp"><a href="https://hillsboro.bandcamp.com/album/a-party-in-your-name">A Party in Your Name by Hillsboro</a></iframe>
           </div>
-          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/959e2021-d62a-4aa2-8c2f-4b0e80434d5c/0-0+promo.jpg?format=2500w" alt="Hillsboro promo photo">
+          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/959e2021-d62a-4aa2-8c2f-4b0e80434d5c/0-0+promo.jpg?format=2500w" alt="Hillsboro promo photo" style="margin-top:20px;">
         </article>
 
         <article class="post">
@@ -669,7 +693,7 @@
                 <option value="black-silkscreen" disabled>Black w/silkscreen -- SOLD OUT</option>
               </select>
             </label>
-            <a class="cart-btn" href="#">&#128722; ADD TO CART</a>
+            <a class="cart-btn" href="#"><img src="assets/shopping_cart_transparent_v2.png" alt="" style="width:14px; height:14px; vertical-align:middle; margin-right:4px;"> ADD TO CART</a>
           </div>
         </article>
 
@@ -756,27 +780,27 @@
         <h3 style="background:#A500A8;color:var(--white);">Quick Links</h3>
         <div class="quicklinks-grid">
           <a class="quicklink" href="https://omsbpodcast.bandcamp.com/" target="_blank" rel="noopener">
-            <span class="icon" aria-hidden="true">&#127908;</span>
+            <span class="icon"><img src="assets/microphone_2-0.png" alt=""></span>
             <span class="qllabel">OMSB Podcast</span>
           </a>
           <a class="quicklink" href="https://openmindsaturatedbrain.blogspot.com/" target="_blank" rel="noopener">
-            <span class="icon" aria-hidden="true">&#128211;</span>
+            <span class="icon"><img src="assets/notepad-2.png" alt=""></span>
             <span class="qllabel">OMSB Blog</span>
           </a>
           <a class="quicklink" href="https://zegemabeachrecords.bandcamp.com/" target="_blank" rel="noopener">
-            <span class="icon" aria-hidden="true">&#128191;</span>
+            <span class="icon"><img src="assets/cd_audio_cd_a-4.png" alt=""></span>
             <span class="qllabel">Bandcamp</span>
           </a>
           <a class="quicklink" href="https://www.youtube.com/@MrSilentStorms" target="_blank" rel="noopener">
-            <span class="icon" aria-hidden="true">&#128250;</span>
+            <span class="icon"><img src="assets/shut_down_normal-2.png" alt=""></span>
             <span class="qllabel">YouTube</span>
           </a>
           <a class="quicklink" href="https://www.instagram.com/zegema_beach/" target="_blank" rel="noopener">
-            <span class="icon" aria-hidden="true">&#128248;</span>
+            <span class="icon"><img src="assets/camera-0.png" alt=""></span>
             <span class="qllabel">Instagram</span>
           </a>
           <a class="quicklink" href="#">
-            <span class="icon" aria-hidden="true">&#128172;</span>
+            <span class="icon"><img src="assets/laptop_infrared_2-5.png" alt=""></span>
             <span class="qllabel">Chat Room</span>
           </a>
         </div>
@@ -784,10 +808,10 @@
 
       <div class="widget" id="reviews-widget">
         <h3 style="background:var(--royalblue);color:var(--white);">Reviews</h3>
-        <p><strong>Orphan Donor's 'Ailments'</strong> just got a nice writeup from <strong>This Noise Is Ours</strong>!</p>
+        <p><strong>Orphan Donor's 'Ailments'</strong> got some love from <strong>This Noise Is Ours</strong>!</p>
         <a class="starlink" href="http://www.thisnoiseisours.com/2026/07/orphan-donor-ailments.html" target="_blank" rel="noopener">Read The Review</a>
         <div class="bcplayer">
-          <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1890948605/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="Ailments by Orphan Donor on Bandcamp"><a href="https://zegemabeachrecords.bandcamp.com/album/ailments">Ailments by Orphan Donor</a></iframe>
+          <iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=1890948605/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="Ailments by Orphan Donor on Bandcamp"><a href="https://zegemabeachrecords.bandcamp.com/album/ailments">Ailments by Orphan Donor</a></iframe>
         </div>
       </div>
 
@@ -796,7 +820,7 @@
         <p><strong>Operation X-Ray</strong> played some <strong>Coup D'etat</strong> as well as the new <strong>Hauzu</strong> song from the Zampler. Check it out!</p>
         <a class="starlink" href="https://soundcloud.com/cameron-dennison/operation-xray-ep-235?utm_source=clipboard&amp;utm_campaign=wtshare&amp;utm_medium=widget&amp;utm_content=https%253A%252F%252Fsoundcloud.com%252Fcameron-dennison%252Foperation-xray-ep-235" target="_blank" rel="noopener">Listen to Operation X-Ray</a>
         <div class="bcplayer">
-          <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1056741751/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="ZAMPLER #27 Take It Out Easy, Cadet on Bandcamp"><a href="https://zegemabeachrecords.bandcamp.com/album/zampler-27-take-it-out-easy-cadet">ZAMPLER #27 Take It Out Easy, Cadet</a></iframe>
+          <iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/track=2797111084/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="Train on the Living by ***HAUZU on Bandcamp"><a href="https://zegemabeachrecords.bandcamp.com/track/train-on-the-living">Train on the Living by ***HAUZU</a></iframe>
         </div>
       </div>
 
@@ -805,7 +829,7 @@
         <p><strong>SNAG</strong> = This band has been kickin' it forever and has a split with Dave's New Zealand band <strong>Swallows Nest</strong> and ZBR released their first and second (aka two previous) full lengths.</p>
         <a class="starlink" href="#" data-view-link="store" data-band-filter="SNAG">Shop Now</a>
         <div class="bcplayer">
-          <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=781253572/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="All The Cages Holding Us Will One Day Turn To Dust by snag. on Bandcamp"><a href="https://snagmke.bandcamp.com/album/all-the-cages-holding-us-will-one-day-turn-to-dust">All The Cages Holding Us Will One Day Turn To Dust</a></iframe>
+          <iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=781253572/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="All The Cages Holding Us Will One Day Turn To Dust by snag. on Bandcamp"><a href="https://snagmke.bandcamp.com/album/all-the-cages-holding-us-will-one-day-turn-to-dust">All The Cages Holding Us Will One Day Turn To Dust</a></iframe>
         </div>
       </div>
 
@@ -831,12 +855,16 @@
 
   <div id="storeView" hidden>
     <div class="store-page">
-      <h2>Canada / International Store</h2>
       <div class="store-layout">
         <aside class="store-sidebar">
           <label class="store-search">Search
             <input type="text" id="storeSearch" placeholder="Band or release...">
           </label>
+
+          <div class="store-quicklabels">
+            <button type="button" data-special-filter="new">New Items</button>
+            <button type="button" data-special-filter="steals">Steals</button>
+          </div>
 
           <div class="sidebar-section">
             <button type="button" class="sidebar-section-toggle" data-toggle-section aria-expanded="false">Bands A-Z <span class="toggle-arrow">&#9660;</span></button>
@@ -847,7 +875,14 @@
             <button type="button" class="sidebar-section-toggle" data-toggle-section aria-expanded="false">Merch <span class="toggle-arrow">&#9660;</span></button>
             <ul class="sidebar-list collapsed" id="merchList">
               <li><button type="button" data-view-all>View All</button></li>
-              <li><button type="button" data-category-filter="vinyl">Vinyl</button></li>
+              <li>
+                <button type="button" data-category-filter="vinyl">Vinyl</button>
+                <ul class="sidebar-sublist">
+                  <li><button type="button" data-category-filter="vinyl" data-vinyl-size="12">12" Records</button></li>
+                  <li><button type="button" data-category-filter="vinyl" data-vinyl-size="7">7" Records</button></li>
+                  <li><button type="button" data-category-filter="vinyl" data-vinyl-size="5,6,9,10">5"/6"/9"/10" Records</button></li>
+                </ul>
+              </li>
               <li><button type="button" data-category-filter="cd">CDs</button></li>
               <li><button type="button" data-category-filter="cassette">Cassettes</button></li>
               <li><button type="button" data-category-filter="shirt">Shirts</button></li>
@@ -878,9 +913,8 @@
 
   <div id="usaStoreView" hidden>
     <div class="construction-panel">
-      <div class="stripes" aria-hidden="true"></div>
-      <div class="digger" aria-hidden="true">&#128679;</div>
-      <h2>USA Store -- Under Construction</h2>
+      <div class="digger" aria-hidden="true"><img src="assets/directory_folder_options-4.png" alt=""></div>
+      <h2>Under Construction</h2>
       <p>We're digging through boxes of records trying to get the USA store back up and running. Check back soon -- in the meantime, the Canada / International store and Bandcamp are open for business!</p>
       <div class="stripes" aria-hidden="true"></div>
     </div>
@@ -888,19 +922,19 @@
 
   <div id="cartView" hidden>
     <div class="cart-page">
-      <h2>Shopping Cart</h2>
+      <img src="assets/shopping_cart_transparent_v2.png" alt="" class="cart-icon">
       <p id="cartEmpty" class="cart-empty">Your cart is empty -- go add some records!</p>
       <div id="cartItems" class="cart-items" hidden></div>
       <div class="cart-summary" id="cartSummary" hidden>
         <span class="cart-subtotal-label">Subtotal: <strong id="cartSubtotal">$0.00 USD</strong></span>
-        <a class="cart-btn" href="#">&#128274; CHECKOUT</a>
+        <a class="cart-btn" href="#"><img src="assets/key_padlock-0.png" alt="" style="width:14px; height:14px; vertical-align:middle; margin-right:4px;"> CHECKOUT</a>
       </div>
     </div>
   </div>
 
   <div id="contactView" hidden>
     <div class="contact-page">
-      <h2>Contact</h2>
+      <img src="assets/modem-5.png" alt="" class="contact-icon">
       <p>If you would like to contact Zegema Beach Records just fill out this contact form. A response will be returned within 24 hours. ZBR loves open communication!!! You can also email ZBR at <a class="starlink" href="mailto:zegemabeachrecords@gmail.com">zegemabeachrecords@gmail.com</a></p>
 
       <form id="contactForm" class="contact-form">
@@ -1208,6 +1242,7 @@
       bcAlbumId: null,
       variants: null,
       category: 'vinyl',
+      vinylSize: '10',
       label: 'Zegema Beach Releases',
       soldOut: false
     },
@@ -1233,6 +1268,7 @@
       ],
       category: 'cassette',
       label: 'Tomb Tree',
+      isNew: true,
       soldOut: false
     },
     {
@@ -1253,6 +1289,7 @@
       variants: null,
       category: 'cassette',
       label: 'Softseed Music',
+      isNew: true,
       soldOut: false
     },
     {
@@ -1278,6 +1315,7 @@
         { value: 'black-silkscreen', label: 'Black w/silkscreen -- SOLD OUT', available: false }
       ],
       category: 'vinyl',
+      vinylSize: '12',
       label: 'Zegema Beach Releases',
       soldOut: false
     },
@@ -1319,6 +1357,7 @@
       bcAlbumId: '4179526474',
       variants: null,
       category: 'vinyl',
+      vinylSize: '12',
       label: 'Zegema Beach Releases',
       soldOut: true
     }
@@ -1328,11 +1367,14 @@
   var bandList = document.getElementById('bandList');
   var merchList = document.getElementById('merchList');
   var labelList = document.getElementById('labelList');
+  var storeQuicklabels = document.querySelector('.store-quicklabels');
   var storeSearch = document.getElementById('storeSearch');
   var pdpContent = document.getElementById('pdpContent');
   var activeBandFilter = '';
   var activeCategoryFilter = '';
+  var activeVinylSizeFilter = '';
   var activeLabelFilter = '';
+  var activeSpecialFilter = '';
 
   function escapeHtml(str) {
     var div = document.createElement('div');
@@ -1356,9 +1398,11 @@
     var filtered = products.filter(function (p) {
       var matchesBand = !activeBandFilter || p.band === activeBandFilter;
       var matchesCategory = !activeCategoryFilter || p.category === activeCategoryFilter;
+      var matchesVinylSize = !activeVinylSizeFilter || (p.vinylSize && activeVinylSizeFilter.split(',').indexOf(p.vinylSize) !== -1);
       var matchesLabel = !activeLabelFilter || p.label === activeLabelFilter;
+      var matchesSpecial = !activeSpecialFilter || (activeSpecialFilter === 'new' ? p.isNew : p.cat === 'Last Copy');
       var matchesQuery = !query || (p.band + ' ' + p.title).toLowerCase().indexOf(query) !== -1;
-      return matchesBand && matchesCategory && matchesLabel && matchesQuery;
+      return matchesBand && matchesCategory && matchesVinylSize && matchesLabel && matchesSpecial && matchesQuery;
     });
 
     if (filtered.length === 0) {
@@ -1381,7 +1425,16 @@
     });
     merchList.querySelectorAll('button').forEach(function (btn) {
       var isViewAll = 'viewAll' in btn.dataset;
-      btn.setAttribute('aria-current', isViewAll ? (!activeCategoryFilter ? 'true' : 'false') : (btn.dataset.categoryFilter === activeCategoryFilter ? 'true' : 'false'));
+      if (isViewAll) {
+        btn.setAttribute('aria-current', !activeCategoryFilter ? 'true' : 'false');
+      } else if ('vinylSize' in btn.dataset) {
+        btn.setAttribute('aria-current', btn.dataset.vinylSize === activeVinylSizeFilter ? 'true' : 'false');
+      } else {
+        btn.setAttribute('aria-current', (btn.dataset.categoryFilter === activeCategoryFilter && !activeVinylSizeFilter) ? 'true' : 'false');
+      }
+    });
+    storeQuicklabels.querySelectorAll('button').forEach(function (btn) {
+      btn.setAttribute('aria-current', btn.dataset.specialFilter === activeSpecialFilter ? 'true' : 'false');
     });
     labelList.querySelectorAll('button').forEach(function (btn) {
       var isViewAll = 'viewAll' in btn.dataset;
@@ -1392,7 +1445,9 @@
   function clearStoreFilters() {
     activeBandFilter = '';
     activeCategoryFilter = '';
+    activeVinylSizeFilter = '';
     activeLabelFilter = '';
+    activeSpecialFilter = '';
     renderStoreGrid();
   }
 
@@ -1404,7 +1459,9 @@
     if (!btn) return;
     activeBandFilter = activeBandFilter === btn.dataset.bandFilter ? '' : btn.dataset.bandFilter;
     activeCategoryFilter = '';
+    activeVinylSizeFilter = '';
     activeLabelFilter = '';
+    activeSpecialFilter = '';
     renderStoreGrid();
   });
 
@@ -1412,8 +1469,26 @@
     if (e.target.closest('[data-view-all]')) { clearStoreFilters(); return; }
     var btn = e.target.closest('[data-category-filter]');
     if (!btn) return;
-    activeCategoryFilter = activeCategoryFilter === btn.dataset.categoryFilter ? '' : btn.dataset.categoryFilter;
+    if ('vinylSize' in btn.dataset) {
+      activeVinylSizeFilter = activeVinylSizeFilter === btn.dataset.vinylSize ? '' : btn.dataset.vinylSize;
+      activeCategoryFilter = activeVinylSizeFilter ? 'vinyl' : '';
+    } else {
+      activeCategoryFilter = activeCategoryFilter === btn.dataset.categoryFilter ? '' : btn.dataset.categoryFilter;
+      activeVinylSizeFilter = '';
+    }
     activeBandFilter = '';
+    activeLabelFilter = '';
+    activeSpecialFilter = '';
+    renderStoreGrid();
+  });
+
+  storeQuicklabels.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-special-filter]');
+    if (!btn) return;
+    activeSpecialFilter = activeSpecialFilter === btn.dataset.specialFilter ? '' : btn.dataset.specialFilter;
+    activeBandFilter = '';
+    activeCategoryFilter = '';
+    activeVinylSizeFilter = '';
     activeLabelFilter = '';
     renderStoreGrid();
   });
@@ -1425,6 +1500,8 @@
     activeLabelFilter = activeLabelFilter === btn.dataset.labelFilter ? '' : btn.dataset.labelFilter;
     activeBandFilter = '';
     activeCategoryFilter = '';
+    activeVinylSizeFilter = '';
+    activeSpecialFilter = '';
     renderStoreGrid();
   });
 
@@ -1442,14 +1519,16 @@
 
     var html = '<a href="#" class="starlink pdp-back" data-view-link="store">&laquo; Back to Store</a>';
     html += '<article class="post">';
-    html += '<span class="cat cat-releases">' + escapeHtml(p.cat) + '</span>';
+    if (p.soldOut) {
+      html += '<span class="cat cat-soldout">' + escapeHtml(p.cat) + '</span>';
+    }
     html += '<h2>' + escapeHtml(p.band) + ' - ' + escapeHtml(p.title) + '</h2>';
     html += '<img src="' + p.image + '" alt="' + escapeHtml(p.imageAlt) + '">';
     p.description.forEach(function (para) {
       html += '<p>' + para + '</p>';
     });
     if (p.bcAlbumId) {
-      html += '<div class="bcplayer"><iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=' + p.bcAlbumId + '/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="' + escapeHtml(p.band + ' - ' + p.title) + ' on Bandcamp"><a href="' + p.listenUrl + '">' + escapeHtml(p.band + ' - ' + p.title) + '</a></iframe></div>';
+      html += '<div class="bcplayer"><iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=' + p.bcAlbumId + '/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="' + escapeHtml(p.band + ' - ' + p.title) + ' on Bandcamp"><a href="' + p.listenUrl + '">' + escapeHtml(p.band + ' - ' + p.title) + '</a></iframe></div>';
     } else {
       html += '<p><a class="starlink" href="' + p.listenUrl + '" target="_blank" rel="noopener">Listen Here</a></p>';
     }
@@ -1468,7 +1547,7 @@
       } else {
         html += '<label class="cart-qty-wrap">Qty:<input type="number" class="cart-qty" value="1" min="1" max="' + (p.maxQty || 99) + '"></label>';
       }
-      html += '<a class="cart-btn" href="#">&#128722; ADD TO CART</a>';
+      html += '<a class="cart-btn" href="#"><img src="assets/shopping_cart_transparent_v2.png" alt="" style="width:14px; height:14px; vertical-align:middle; margin-right:4px;"> ADD TO CART</a>';
       html += '</div>';
     }
     html += '</article>';
