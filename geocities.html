@@ -526,11 +526,38 @@
   .product-tile-soldout{ color:#ff6b6b; }
   .product-tile:hover{ border-color:#1D64A7; }
 
-  .pdp-page{ max-width:640px; margin:24px auto; padding:12px; }
+  .pdp-page{ max-width:900px; margin:24px auto; padding:12px; }
   .pdp-back{ display:block; margin-bottom:14px; }
   .pdp-soldout-msg{
     color:#ff6b6b; font-weight:bold; font-family:"Fixedsys Excelsior","Courier New",monospace;
     font-size:13px; margin-top:8px;
+  }
+
+  .pdp-columns{ display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap; }
+  .pdp-media{ flex:1 1 300px; max-width:380px; }
+  .pdp-media img{ max-width:100%; }
+  .pdp-info{ flex:2 1 320px; min-width:280px; }
+
+  .pdp-carousel{ position:relative; }
+  .pdp-carousel-track{ position:relative; line-height:0; }
+  .pdp-carousel-img{ display:block; width:100%; border:4px ridge var(--silver); }
+  .pdp-carousel-prev, .pdp-carousel-next{
+    position:absolute; top:50%; transform:translateY(-50%);
+    background:rgba(0,0,0,0.6); border:2px outset var(--silver); color:var(--white);
+    width:30px; height:30px; cursor:pointer; font-size:12px;
+  }
+  .pdp-carousel-prev:active, .pdp-carousel-next:active{ border-style:inset; }
+  .pdp-carousel-prev{ left:6px; }
+  .pdp-carousel-next{ right:6px; }
+  .pdp-carousel-dots{ display:flex; justify-content:center; gap:6px; margin-top:8px; }
+  .pdp-carousel-dot{
+    width:10px; height:10px; border-radius:50%; background:var(--silver);
+    cursor:pointer; display:inline-block; border:1px solid #000;
+  }
+  .pdp-carousel-dot[aria-current="true"]{ background:#FFEE00; }
+
+  @media (max-width:700px){
+    .pdp-media{ max-width:none; }
   }
 
   .search-highlight{ outline:3px solid #FFEE00; outline-offset:2px; }
@@ -1356,6 +1383,15 @@
       priceLabel: 'from CA$25.00',
       image: 'https://f4.bcbits.com/img/a3960401376_10.jpg',
       imageAlt: 'SNAG Death Doula cover art',
+      gallery: [
+        { src: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1618898122582-DD6YFR1MJ6HVEVP05G7W/Webp.net-resizeimage+-+2021-04-19T225157.872.jpg?format=750w', alt: 'SNAG Death Doula 12" vinyl and jacket' },
+        { src: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1618898129801-L0YR35GOFYJUJCHBE9RE/Webp.net-resizeimage+-+2021-04-19T225240.811.jpg?format=750w', alt: 'SNAG Death Doula vinyl detail' },
+        { src: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1618898125386-BGAIM1UM56XYAJSMUL8G/Webp.net-resizeimage+-+2021-04-19T225456.406.jpg?format=750w', alt: 'SNAG Death Doula vinyl detail' },
+        { src: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1618898128958-SC6PU966MY9FU1D2JW6G/Webp.net-resizeimage+-+2021-04-19T225335.932.jpg?format=750w', alt: 'SNAG Death Doula vinyl detail' },
+        { src: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1618900661994-LT0Q2JP9WXCS89WG1R49/Shrooms-Doulas-coyote-tee-01-BANDCAMP.png?format=750w', alt: 'SNAG Death Doula t-shirt front and back' },
+        { src: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1618900662056-2533YIW2URDBFEFVO8P6/TO-SUFFER-nome-art-LongsleeveBANDCAMP-03.png?format=750w', alt: 'SNAG Death Doula longsleeve shirt' },
+        { src: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1618900663874-JY3YT05KUASAQS5G9568/TO-SUFFER-nome-art-FOR+BANDCAMP-02.png?format=750w', alt: 'SNAG Death Doula shirt design' }
+      ],
       description: [
         'For fans of: Funeral Diner, Coma Regalia and Eyes Of Verotika',
         "Milwaukee's SNAG is back for more environmentally/socially/politically conscious screamo. If you order a t-shirt please indicate if you would like a brown or black one. If you order a long-sleeve shirt they ONLY come in black.",
@@ -1568,6 +1604,24 @@
     });
   });
 
+  function wireCarousel(container) {
+    var slides = container.querySelectorAll('.pdp-carousel-img');
+    var dots = container.querySelectorAll('.pdp-carousel-dot');
+    var index = 0;
+
+    function show(i) {
+      index = (i + slides.length) % slides.length;
+      slides.forEach(function (img, idx) { img.hidden = idx !== index; });
+      dots.forEach(function (dot, idx) { dot.setAttribute('aria-current', idx === index ? 'true' : 'false'); });
+    }
+
+    container.querySelector('.pdp-carousel-prev').addEventListener('click', function () { show(index - 1); });
+    container.querySelector('.pdp-carousel-next').addEventListener('click', function () { show(index + 1); });
+    dots.forEach(function (dot, idx) {
+      dot.addEventListener('click', function () { show(idx); });
+    });
+  }
+
   function openProduct(id) {
     var p = products.filter(function (item) { return item.id === id; })[0];
     if (!p) return;
@@ -1578,7 +1632,30 @@
       html += '<span class="cat cat-soldout">' + escapeHtml(p.cat) + '</span>';
     }
     html += '<h2>' + escapeHtml(p.band) + ' - ' + escapeHtml(p.title) + '</h2>';
-    html += '<img src="' + p.image + '" alt="' + escapeHtml(p.imageAlt) + '">';
+    html += '<div class="pdp-columns">';
+
+    html += '<div class="pdp-media">';
+    if (p.gallery) {
+      html += '<div class="pdp-carousel">';
+      html += '<div class="pdp-carousel-track">';
+      p.gallery.forEach(function (photo, idx) {
+        html += '<img class="pdp-carousel-img" src="' + photo.src + '" alt="' + escapeHtml(photo.alt) + '"' + (idx === 0 ? '' : ' hidden') + '>';
+      });
+      html += '<button type="button" class="pdp-carousel-prev" aria-label="Previous photo">&#9664;</button>';
+      html += '<button type="button" class="pdp-carousel-next" aria-label="Next photo">&#9654;</button>';
+      html += '</div>';
+      html += '<div class="pdp-carousel-dots">';
+      p.gallery.forEach(function (photo, idx) {
+        html += '<span class="pdp-carousel-dot" aria-current="' + (idx === 0 ? 'true' : 'false') + '"></span>';
+      });
+      html += '</div>';
+      html += '</div>';
+    } else {
+      html += '<img src="' + p.image + '" alt="' + escapeHtml(p.imageAlt) + '">';
+    }
+    html += '</div>';
+
+    html += '<div class="pdp-info">';
     p.description.forEach(function (para) {
       html += '<p>' + para + '</p>';
     });
@@ -1605,11 +1682,15 @@
       html += '<a class="cart-btn" href="#">ADD TO CART</a>';
       html += '</div>';
     }
+    html += '</div>';
+    html += '</div>';
     html += '</article>';
 
     pdpContent.innerHTML = html;
     var addcartBox = pdpContent.querySelector('.addcart');
     if (addcartBox) wireAddToCart(addcartBox);
+    var carousel = pdpContent.querySelector('.pdp-carousel');
+    if (carousel) wireCarousel(carousel);
 
     showView('pdp');
   }
