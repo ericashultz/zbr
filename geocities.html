@@ -307,7 +307,7 @@
   .cart-btn:active{ border-style:inset; }
   .cart-btn img{ border:none; }
   .cart-qty-wrap{
-    display:flex; align-items:center; gap:4px; margin-left:10px;
+    display:flex; align-items:center; gap:4px;
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:18px; color:var(--white);
   }
   .cart-qty{
@@ -316,8 +316,12 @@
     border:2px inset var(--silver); background:#fff; color:#000;
   }
   .cart-variant-wrap{
-    display:flex; align-items:center; gap:4px; margin-left:10px;
+    display:flex; align-items:center; gap:4px;
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:13px; color:var(--white);
+  }
+  .addcart > .cart-price + .cart-qty-wrap,
+  .addcart > .cart-price + .cart-variant-wrap{
+    margin-left:10px;
   }
   .cart-variant{
     width:140px; height:34px; padding:0 4px; text-align:center;
@@ -579,7 +583,8 @@
   }
   .pdp-carousel-dot[aria-current="true"]{ background:#FFEE00; }
 
-  .pdp-addcart-action{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .pdp-addcart-action{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:flex-start; }
+  .pdp-info .bcplayer{ margin-top:24px; }
 
   @media (max-width:700px){
     .pdp-media{ max-width:none; }
