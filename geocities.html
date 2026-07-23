@@ -582,14 +582,20 @@
   }
   .pdp-carousel-dot[aria-current="true"]{ background:#FFEE00; }
 
-  .lightbox-window{ max-width:840px; }
-  .lightbox-body{ background:#000; padding:16px; text-align:center; }
-  .lightbox-stage{ position:relative; }
-  .lightbox-img{
-    display:block; max-width:100%; max-height:70vh; margin:0 auto;
-    border:4px ridge var(--silver);
+  .modal-window.lightbox-window{ width:96vw; height:92vh; max-width:96vw; max-height:92vh; }
+  .lightbox-body{
+    flex:1; min-height:0; display:flex; flex-direction:column;
+    background:#000; padding:16px; text-align:center;
   }
-  .lightbox-dots{ margin-top:12px; }
+  .lightbox-stage{
+    position:relative; flex:1; min-height:0;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .lightbox-img{
+    display:block; max-width:100%; max-height:100%; margin:0 auto;
+    object-fit:contain; border:4px ridge var(--silver);
+  }
+  .lightbox-dots{ flex:0 0 auto; margin-top:12px; }
 
   .pdp-addcart-action{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:flex-start; }
   .pdp-info .bcplayer{ margin-top:24px; }
