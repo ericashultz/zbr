@@ -268,6 +268,19 @@
     color:var(--white); text-align:center; text-decoration:none;
   }
 
+  .mobile-quicklinks{ display:none; }
+  .mobile-quicklinks-toggle{
+    display:block; width:100%; text-align:left; background:#A500A8; color:var(--white);
+    border:none; font-family:"Fixedsys Excelsior","Courier New",monospace;
+    font-weight:bold; font-size:14px; padding:8px 10px; cursor:pointer;
+  }
+  .mobile-quicklinks-toggle .toggle-arrow{ float:right; transition:transform 0.15s ease; }
+  .mobile-quicklinks-toggle[aria-expanded="true"] .toggle-arrow{ transform:rotate(180deg); }
+  .mobile-quicklinks .quicklinks-grid{
+    padding:10px; margin:0; background:#000; border:3px groove var(--aqua); border-top:none;
+  }
+  .mobile-quicklinks .quicklinks-grid.collapsed{ display:none; }
+
   .guestbook-buttons{ display:flex; gap:6px; flex-wrap:wrap; }
   .gb-btn{
     flex:1; text-align:center;
@@ -280,33 +293,34 @@
 
   .addcart{ display:flex; align-items:center; gap:12px; margin-top:8px; flex-wrap:wrap; }
   .addcart .cart-price{
-    font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:18px; color:var(--white);
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:18px; color:#C0DFFE;
   }
   .cart-btn{
-    display:inline-block; text-align:center;
+    display:inline-flex; align-items:center; justify-content:center; height:34px;
+    text-align:center;
     background:linear-gradient(180deg,#ffffff,#d4d4d4);
     border:2px outset #ffffff;
     color:#330000; font-weight:bold; font-family:"Fixedsys Excelsior","Courier New",monospace;
-    font-size:13px; padding:8px 16px; text-decoration:none; cursor:pointer;
+    font-size:13px; padding:0 16px; text-decoration:none; cursor:pointer;
   }
   .cart-btn:hover{ background:#1D64A7; border-color:var(--royalblue); color:var(--white); }
   .cart-btn:active{ border-style:inset; }
   .cart-btn img{ border:none; }
   .cart-qty-wrap{
-    display:flex; align-items:center; gap:4px;
-    font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:13px; color:var(--white);
+    display:flex; align-items:center; gap:4px; margin-left:10px;
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:18px; color:var(--white);
   }
   .cart-qty{
-    width:44px; padding:4px; text-align:center;
+    width:44px; height:34px; padding:0 4px; text-align:center;
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:13px;
     border:2px inset var(--silver); background:#fff; color:#000;
   }
   .cart-variant-wrap{
-    display:flex; align-items:center; gap:4px;
+    display:flex; align-items:center; gap:4px; margin-left:10px;
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:13px; color:var(--white);
   }
   .cart-variant{
-    width:140px; padding:4px; text-align:center;
+    width:140px; height:34px; padding:0 4px; text-align:center;
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:13px;
     border:2px inset var(--silver); background:#fff; color:#000;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
@@ -521,16 +535,55 @@
   }
   .product-tile-price{
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:12px;
-    color:var(--aqua); display:block;
+    color:#C0DFFE; display:block;
   }
   .product-tile-soldout{ color:#ff6b6b; }
   .product-tile:hover{ border-color:#1D64A7; }
 
-  .pdp-page{ max-width:640px; margin:24px auto; padding:12px; }
+  .pdp-page{ max-width:900px; margin:24px auto; padding:12px; }
   .pdp-back{ display:block; margin-bottom:14px; }
   .pdp-soldout-msg{
     color:#ff6b6b; font-weight:bold; font-family:"Fixedsys Excelsior","Courier New",monospace;
     font-size:13px; margin-top:8px;
+  }
+
+  .pdp-columns{ display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap; }
+  .pdp-media{ flex:1 1 300px; max-width:380px; }
+  .pdp-media img{ max-width:100%; }
+  .pdp-info{ flex:2 1 320px; min-width:280px; }
+
+  .pdp-carousel{ position:relative; }
+  .pdp-carousel-track{
+    position:relative; aspect-ratio:750 / 725; overflow:hidden;
+    background:#000; border:4px ridge var(--silver);
+  }
+  .pdp-carousel-img{
+    display:block; width:100%; height:100%; object-fit:contain; object-position:center;
+  }
+  @media (min-width:701px){
+    .pdp-carousel-img{ transition:transform 0.2s ease; cursor:zoom-in; }
+    .pdp-carousel-track:hover .pdp-carousel-img:not([hidden]){ transform:scale(1.25); }
+  }
+  .pdp-carousel-prev, .pdp-carousel-next{
+    position:absolute; top:50%; transform:translateY(-50%);
+    background:rgba(0,0,0,0.6); border:2px outset var(--silver); color:var(--white);
+    width:30px; height:30px; cursor:pointer; font-size:12px;
+  }
+  .pdp-carousel-prev:active, .pdp-carousel-next:active{ border-style:inset; }
+  .pdp-carousel-prev{ left:6px; }
+  .pdp-carousel-next{ right:6px; }
+  .pdp-carousel-dots{ display:flex; justify-content:center; gap:6px; margin-top:8px; }
+  .pdp-carousel-dot{
+    width:10px; height:10px; border-radius:50%; background:var(--silver);
+    cursor:pointer; display:inline-block; border:1px solid #000;
+  }
+  .pdp-carousel-dot[aria-current="true"]{ background:#FFEE00; }
+
+  .pdp-addcart-action{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+
+  @media (max-width:700px){
+    .pdp-media{ max-width:none; }
+    .pdp-addcart .cart-price{ flex-basis:100%; }
   }
 
   .search-highlight{ outline:3px solid #FFEE00; outline-offset:2px; }
@@ -584,6 +637,9 @@
     #johnnys-widget{ order:4; }
     .pagenav{ order:5; flex-basis:auto; }
     .sidecol > .widget{ order:6; }
+
+    .mobile-quicklinks{ display:block; margin:10px 12px 0; }
+    #quicklinks-widget{ display:none; }
   }
 
   /* ==== "READ MORE" POPUP WINDOW ==== */
@@ -651,6 +707,36 @@
       <li><a href="#" data-view-link="cart">View Cart <span id="cartCount" class="cart-count" hidden>0</span></a></li>
     </ul>
   </nav>
+
+  <div class="mobile-quicklinks">
+    <button type="button" class="mobile-quicklinks-toggle" data-toggle-section aria-expanded="false">Quick Links <span class="toggle-arrow">&#9660;</span></button>
+    <div class="quicklinks-grid collapsed" id="mobileQuicklinksGrid">
+      <a class="quicklink" href="https://omsbpodcast.bandcamp.com/" target="_blank" rel="noopener">
+        <span class="icon"><img src="assets/microphone_2-0.png" alt=""></span>
+        <span class="qllabel">OMSB Podcast</span>
+      </a>
+      <a class="quicklink" href="https://openmindsaturatedbrain.blogspot.com/" target="_blank" rel="noopener">
+        <span class="icon"><img src="assets/notepad-2.png" alt=""></span>
+        <span class="qllabel">OMSB Blog</span>
+      </a>
+      <a class="quicklink" href="https://zegemabeachrecords.bandcamp.com/" target="_blank" rel="noopener">
+        <span class="icon"><img src="assets/cd_audio_cd_a-4.png" alt=""></span>
+        <span class="qllabel">Bandcamp</span>
+      </a>
+      <a class="quicklink" href="https://www.youtube.com/@MrSilentStorms" target="_blank" rel="noopener">
+        <span class="icon"><img src="assets/monitor_blue_grad-0.png" alt=""></span>
+        <span class="qllabel">YouTube</span>
+      </a>
+      <a class="quicklink" href="https://www.instagram.com/zegema_beach/" target="_blank" rel="noopener">
+        <span class="icon"><img src="assets/camera-0.png" alt=""></span>
+        <span class="qllabel">Instagram</span>
+      </a>
+      <a class="quicklink" href="#">
+        <span class="icon"><img src="assets/user_computer_pair-0.png" alt=""></span>
+        <span class="qllabel">Chat Room</span>
+      </a>
+    </div>
+  </div>
 
   <div id="homeView">
 
@@ -723,7 +809,7 @@
           <p>12" vinyl /300, 150 on clear, 50 on clear w/silkscreen b-side, 50 on black, and 50 on black w/silkscreen b-side. Download code included. 7 songs.</p>
           <div class="addcart" data-product="SNAG - Death Doula (12&quot;LP/shirt)" data-price="25.00">
             <span class="cart-price">$25.00 USD</span>
-            <label class="cart-variant-wrap">Variant:
+            <label class="cart-variant-wrap">
               <select class="cart-variant">
                 <option value="" selected>Select Variant</option>
                 <option value="clear">Clear (150)</option>
@@ -818,7 +904,7 @@
 
     <div class="sidecol">
 
-      <div class="widget" style="border-color:#A500A8;">
+      <div class="widget" id="quicklinks-widget" style="border-color:#A500A8;">
         <h3 style="background:#A500A8;color:var(--white);">Quick Links</h3>
         <div class="quicklinks-grid">
           <a class="quicklink" href="https://omsbpodcast.bandcamp.com/" target="_blank" rel="noopener">
@@ -1013,7 +1099,7 @@
 
   <div id="guestbookSignView" hidden>
     <div class="contact-page">
-      <h2>Sign My Guestbook!</h2>
+      <img src="assets/write_yellow-1.png" alt="Sign My Guestbook" class="search-icon">
       <p>Leave a note, tell us your favorite band, or just say hi -- it'll show up on the <a class="starlink" href="#" data-view-link="guestbookList">guestbook page</a> for everyone to see!</p>
 
       <form id="guestbookForm" class="contact-form">
@@ -1035,7 +1121,7 @@
 
   <div id="guestbookListView" hidden>
     <div class="contact-page">
-      <h2>Guestbook</h2>
+      <img src="assets/address_book-0.png" alt="Guestbook" class="search-icon">
       <p>Here's what everyone's been saying! <a class="starlink" href="#" data-view-link="guestbookSign">Sign the guestbook</a> yourself.</p>
       <div id="guestbookEntries" class="guestbook-entries"></div>
     </div>
@@ -1356,6 +1442,15 @@
       priceLabel: 'from CA$25.00',
       image: 'https://f4.bcbits.com/img/a3960401376_10.jpg',
       imageAlt: 'SNAG Death Doula cover art',
+      gallery: [
+        { src: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1618898122582-DD6YFR1MJ6HVEVP05G7W/Webp.net-resizeimage+-+2021-04-19T225157.872.jpg?format=750w', alt: 'SNAG Death Doula 12" vinyl and jacket' },
+        { src: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1618898129801-L0YR35GOFYJUJCHBE9RE/Webp.net-resizeimage+-+2021-04-19T225240.811.jpg?format=750w', alt: 'SNAG Death Doula vinyl detail' },
+        { src: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1618898125386-BGAIM1UM56XYAJSMUL8G/Webp.net-resizeimage+-+2021-04-19T225456.406.jpg?format=750w', alt: 'SNAG Death Doula vinyl detail' },
+        { src: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1618898128958-SC6PU966MY9FU1D2JW6G/Webp.net-resizeimage+-+2021-04-19T225335.932.jpg?format=750w', alt: 'SNAG Death Doula vinyl detail' },
+        { src: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1618900661994-LT0Q2JP9WXCS89WG1R49/Shrooms-Doulas-coyote-tee-01-BANDCAMP.png?format=750w', alt: 'SNAG Death Doula t-shirt front and back' },
+        { src: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1618900662056-2533YIW2URDBFEFVO8P6/TO-SUFFER-nome-art-LongsleeveBANDCAMP-03.png?format=750w', alt: 'SNAG Death Doula longsleeve shirt' },
+        { src: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1618900663874-JY3YT05KUASAQS5G9568/TO-SUFFER-nome-art-FOR+BANDCAMP-02.png?format=750w', alt: 'SNAG Death Doula shirt design' }
+      ],
       description: [
         'For fans of: Funeral Diner, Coma Regalia and Eyes Of Verotika',
         "Milwaukee's SNAG is back for more environmentally/socially/politically conscious screamo. If you order a t-shirt please indicate if you would like a brown or black one. If you order a long-sleeve shirt they ONLY come in black.",
@@ -1568,6 +1663,24 @@
     });
   });
 
+  function wireCarousel(container) {
+    var slides = container.querySelectorAll('.pdp-carousel-img');
+    var dots = container.querySelectorAll('.pdp-carousel-dot');
+    var index = 0;
+
+    function show(i) {
+      index = (i + slides.length) % slides.length;
+      slides.forEach(function (img, idx) { img.hidden = idx !== index; });
+      dots.forEach(function (dot, idx) { dot.setAttribute('aria-current', idx === index ? 'true' : 'false'); });
+    }
+
+    container.querySelector('.pdp-carousel-prev').addEventListener('click', function () { show(index - 1); });
+    container.querySelector('.pdp-carousel-next').addEventListener('click', function () { show(index + 1); });
+    dots.forEach(function (dot, idx) {
+      dot.addEventListener('click', function () { show(idx); });
+    });
+  }
+
   function openProduct(id) {
     var p = products.filter(function (item) { return item.id === id; })[0];
     if (!p) return;
@@ -1577,24 +1690,43 @@
     if (p.soldOut) {
       html += '<span class="cat cat-soldout">' + escapeHtml(p.cat) + '</span>';
     }
+    html += '<div class="pdp-columns">';
+
+    html += '<div class="pdp-media">';
+    if (p.gallery) {
+      html += '<div class="pdp-carousel">';
+      html += '<div class="pdp-carousel-track">';
+      p.gallery.forEach(function (photo, idx) {
+        html += '<img class="pdp-carousel-img" src="' + photo.src + '" alt="' + escapeHtml(photo.alt) + '"' + (idx === 0 ? '' : ' hidden') + '>';
+      });
+      html += '<button type="button" class="pdp-carousel-prev" aria-label="Previous photo">&#9664;</button>';
+      html += '<button type="button" class="pdp-carousel-next" aria-label="Next photo">&#9654;</button>';
+      html += '</div>';
+      html += '<div class="pdp-carousel-dots">';
+      p.gallery.forEach(function (photo, idx) {
+        html += '<span class="pdp-carousel-dot" aria-current="' + (idx === 0 ? 'true' : 'false') + '"></span>';
+      });
+      html += '</div>';
+      html += '</div>';
+    } else {
+      html += '<img src="' + p.image + '" alt="' + escapeHtml(p.imageAlt) + '">';
+    }
+    html += '</div>';
+
+    html += '<div class="pdp-info">';
     html += '<h2>' + escapeHtml(p.band) + ' - ' + escapeHtml(p.title) + '</h2>';
-    html += '<img src="' + p.image + '" alt="' + escapeHtml(p.imageAlt) + '">';
     p.description.forEach(function (para) {
       html += '<p>' + para + '</p>';
     });
-    if (p.bcAlbumId) {
-      html += '<div class="bcplayer"><iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=' + p.bcAlbumId + '/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="' + escapeHtml(p.band + ' - ' + p.title) + ' on Bandcamp"><a href="' + p.listenUrl + '">' + escapeHtml(p.band + ' - ' + p.title) + '</a></iframe></div>';
-    } else {
-      html += '<p><a class="starlink" href="' + p.listenUrl + '" target="_blank" rel="noopener">Listen Here</a></p>';
-    }
 
     if (p.soldOut) {
       html += '<p class="pdp-soldout-msg">This release is sold out in physical formats. Grab the digital download via the Bandcamp link above.</p>';
     } else {
-      html += '<div class="addcart" data-product="' + escapeHtml(p.band + ' - ' + p.title) + '" data-price="' + p.price + '">';
+      html += '<div class="addcart pdp-addcart" data-product="' + escapeHtml(p.band + ' - ' + p.title) + '" data-price="' + p.price + '">';
       html += '<span class="cart-price">' + escapeHtml(p.priceLabel) + '</span>';
+      html += '<div class="pdp-addcart-action">';
       if (p.variants) {
-        html += '<label class="cart-variant-wrap">Variant:<select class="cart-variant"><option value="" selected>Select Variant</option>';
+        html += '<label class="cart-variant-wrap"><select class="cart-variant"><option value="" selected>Select Variant</option>';
         p.variants.forEach(function (v) {
           html += '<option value="' + v.value + '"' + (v.available ? '' : ' disabled') + '>' + escapeHtml(v.label) + '</option>';
         });
@@ -1604,12 +1736,23 @@
       }
       html += '<a class="cart-btn" href="#">ADD TO CART</a>';
       html += '</div>';
+      html += '</div>';
     }
+
+    if (p.bcAlbumId) {
+      html += '<div class="bcplayer"><iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=' + p.bcAlbumId + '/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="' + escapeHtml(p.band + ' - ' + p.title) + ' on Bandcamp"><a href="' + p.listenUrl + '">' + escapeHtml(p.band + ' - ' + p.title) + '</a></iframe></div>';
+    } else {
+      html += '<p><a class="starlink" href="' + p.listenUrl + '" target="_blank" rel="noopener">Listen Here</a></p>';
+    }
+    html += '</div>';
+    html += '</div>';
     html += '</article>';
 
     pdpContent.innerHTML = html;
     var addcartBox = pdpContent.querySelector('.addcart');
     if (addcartBox) wireAddToCart(addcartBox);
+    var carousel = pdpContent.querySelector('.pdp-carousel');
+    if (carousel) wireCarousel(carousel);
 
     showView('pdp');
   }
