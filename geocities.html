@@ -393,6 +393,37 @@
   }
   .guestbook-entry-message{ color:var(--white); font-size:14px; line-height:1.5; }
 
+  .site-search-field{
+    display:block; font-family:"Fixedsys Excelsior","Courier New",monospace;
+    font-weight:bold; font-size:13px; color:var(--white); margin-bottom:6px;
+  }
+  .site-search-field input{
+    display:block; width:100%; margin-top:6px; padding:8px;
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:14px;
+    border:2px inset var(--silver); background:#fff; color:#000;
+  }
+  .site-search-results{ display:flex; flex-direction:column; gap:12px; margin-top:20px; }
+  .site-search-empty{ text-align:center; color:var(--ink); font-size:14px; margin-top:20px; }
+  .site-search-result{
+    display:block; width:100%; text-align:left; cursor:pointer;
+    background:#000; border:3px groove var(--aqua); padding:10px 12px;
+    font-family:inherit; color:inherit;
+  }
+  .site-search-result:hover{ border-color:#1D64A7; }
+  .site-search-result-head{
+    display:flex; justify-content:space-between; align-items:baseline; gap:10px; flex-wrap:wrap;
+    margin-bottom:6px;
+  }
+  .site-search-result-title{
+    font-family:"Arial Narrow",Arial,sans-serif; font-weight:bold; font-style:italic;
+    font-size:16px; color:var(--white);
+  }
+  .site-search-result-page{
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:11px; color:var(--ink);
+  }
+  .site-search-result-snippet{ color:var(--ink); font-size:13px; line-height:1.5; }
+  .site-search-result-snippet mark{ background:#FFEE00; color:#000; }
+
   /* ==== CANADA / INTL STORE ==== */
   .store-page{ max-width:980px; margin:24px auto; padding:12px; }
   .store-page h2{
@@ -498,6 +529,8 @@
     color:#ff6b6b; font-weight:bold; font-family:"Fixedsys Excelsior","Courier New",monospace;
     font-size:13px; margin-top:8px;
   }
+
+  .search-highlight{ outline:3px solid #FFEE00; outline-offset:2px; }
 
   .back-to-top{
     position:fixed; bottom:20px; right:20px; z-index:500;
@@ -610,7 +643,7 @@
       <li><a href="#" data-view-link="store">Canada / Intl Store</a></li>
       <li><a href="#" data-view-link="usa">USA Store</a></li>
       <li><a href="#">Archives</a></li>
-      <li><a href="#">Search</a></li>
+      <li><a href="#" data-view-link="search">Search</a></li>
       <li><a href="#" data-view-link="contact">Contact</a></li>
       <li><a href="#" data-view-link="cart">View Cart <span id="cartCount" class="cart-count" hidden>0</span></a></li>
     </ul>
@@ -912,6 +945,15 @@
     <div class="pdp-page" id="pdpContent"></div>
   </div>
 
+  <div id="searchView" hidden>
+    <div class="contact-page">
+      <label class="site-search-field">Search the site
+        <input type="text" id="siteSearchInput" placeholder="Search band names, releases, news...">
+      </label>
+      <div id="siteSearchResults"></div>
+    </div>
+  </div>
+
   <div id="usaStoreView" hidden>
     <div class="construction-panel">
       <div class="digger" aria-hidden="true"><img src="assets/directory_folder_options-4.png" alt=""></div>
@@ -1094,7 +1136,8 @@
     guestbookSign: document.getElementById('guestbookSignView'),
     guestbookList: document.getElementById('guestbookListView'),
     store: document.getElementById('storeView'),
-    pdp: document.getElementById('pdpView')
+    pdp: document.getElementById('pdpView'),
+    search: document.getElementById('searchView')
   };
   var viewLinks = document.querySelectorAll('[data-view-link]');
   var navHighlightAs = { pdp: 'store' };
@@ -1663,6 +1706,78 @@
     guestbookForm.hidden = true;
     guestbookThanks.hidden = false;
     guestbookForm.reset();
+  });
+
+  var siteSearchInput = document.getElementById('siteSearchInput');
+  var siteSearchResults = document.getElementById('siteSearchResults');
+  var currentSearchMatches = [];
+
+  var searchIndex = Array.prototype.reduce.call(document.querySelectorAll('.post-page'), function (acc, page) {
+    page.querySelectorAll('.post').forEach(function (article) {
+      var h2 = article.querySelector('h2');
+      if (!h2) return;
+      var body = Array.prototype.map.call(article.querySelectorAll('p'), function (p) { return p.textContent; }).join(' ');
+      acc.push({ el: article, page: page.dataset.page, title: h2.textContent, body: body });
+    });
+    return acc;
+  }, []);
+
+  function buildSnippet(text, query) {
+    var idx = text.toLowerCase().indexOf(query.toLowerCase());
+    if (idx === -1) {
+      return escapeHtml(text.slice(0, 140)) + (text.length > 140 ? '...' : '');
+    }
+    var start = Math.max(0, idx - 40);
+    var end = Math.min(text.length, idx + query.length + 100);
+    var before = text.slice(start, idx);
+    var match = text.slice(idx, idx + query.length);
+    var after = text.slice(idx + query.length, end);
+    return (start > 0 ? '...' : '') + escapeHtml(before) + '<mark>' + escapeHtml(match) + '</mark>' + escapeHtml(after) + (end < text.length ? '...' : '');
+  }
+
+  function renderSiteSearch() {
+    var query = siteSearchInput.value.trim();
+    if (!query) {
+      siteSearchResults.innerHTML = '<p class="site-search-empty">Start typing to search news posts and releases.</p>';
+      currentSearchMatches = [];
+      return;
+    }
+
+    var lowerQuery = query.toLowerCase();
+    currentSearchMatches = searchIndex.filter(function (item) {
+      return item.title.toLowerCase().indexOf(lowerQuery) !== -1 || item.body.toLowerCase().indexOf(lowerQuery) !== -1;
+    });
+
+    if (currentSearchMatches.length === 0) {
+      siteSearchResults.innerHTML = '<p class="site-search-empty">No posts match "' + escapeHtml(query) + '".</p>';
+      return;
+    }
+
+    siteSearchResults.innerHTML = currentSearchMatches.map(function (item, i) {
+      return '' +
+        '<button type="button" class="site-search-result" data-result-index="' + i + '">' +
+        '<div class="site-search-result-head">' +
+        '<span class="site-search-result-title">' + escapeHtml(item.title) + '</span>' +
+        '<span class="site-search-result-page">Page ' + item.page + '</span>' +
+        '</div>' +
+        '<p class="site-search-result-snippet">' + buildSnippet(item.body, query) + '</p>' +
+        '</button>';
+    }).join('');
+  }
+
+  siteSearchInput.addEventListener('input', renderSiteSearch);
+  renderSiteSearch();
+
+  siteSearchResults.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-result-index]');
+    if (!btn) return;
+    var item = currentSearchMatches[parseInt(btn.dataset.resultIndex, 10)];
+    if (!item) return;
+    showView('home');
+    showPage(item.page);
+    item.el.scrollIntoView({ block: 'start', behavior: 'instant' });
+    item.el.classList.add('search-highlight');
+    setTimeout(function () { item.el.classList.remove('search-highlight'); }, 1500);
   });
 
   var backToTop = document.getElementById('backToTop');
