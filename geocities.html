@@ -190,6 +190,8 @@
     text-shadow:1px 1px 0 #660066;
     margin:4px 0 8px;
   }
+  .post-title-link, .post-title-link:visited{ color:inherit; text-decoration:none; }
+  .post-title-link:hover{ color:#FFEE00; }
   .post p{ color:var(--white); font-size:14px; line-height:1.5; }
   .post img{ max-width:100%; border:4px ridge var(--silver); }
   .thumbstrip{ display:flex; gap:4px; margin:8px 0; }
@@ -351,6 +353,7 @@
     max-width:640px; margin:24px auto; padding:12px; text-align:center;
   }
   .contact-page .contact-icon{ width:40px; height:40px; margin-bottom:10px; }
+  .contact-page .search-icon{ display:block; width:40px; height:40px; margin:0 auto 10px; }
   .contact-page h2{
     font-family:"Arial Narrow",Arial,sans-serif;
     font-weight:bold; font-style:italic;
@@ -392,6 +395,37 @@
   }
   .guestbook-entry-message{ color:var(--white); font-size:14px; line-height:1.5; }
 
+  .site-search-field{
+    display:block; font-family:"Fixedsys Excelsior","Courier New",monospace;
+    font-weight:bold; font-size:13px; color:var(--white); margin-bottom:6px;
+  }
+  .site-search-field input{
+    display:block; width:100%; margin-top:6px; padding:8px;
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:14px;
+    border:2px inset var(--silver); background:#fff; color:#000;
+  }
+  .site-search-results{ display:flex; flex-direction:column; gap:12px; margin-top:20px; }
+  .site-search-empty{ text-align:center; color:var(--ink); font-size:14px; margin-top:20px; }
+  .site-search-result{
+    display:block; width:100%; text-align:left; cursor:pointer;
+    background:#000; border:3px groove var(--aqua); padding:10px 12px;
+    font-family:inherit; color:inherit;
+  }
+  .site-search-result:hover{ border-color:#1D64A7; }
+  .site-search-result-head{
+    display:flex; justify-content:space-between; align-items:baseline; gap:10px; flex-wrap:wrap;
+    margin-bottom:6px;
+  }
+  .site-search-result-title{
+    font-family:"Arial Narrow",Arial,sans-serif; font-weight:bold; font-style:italic;
+    font-size:16px; color:var(--white);
+  }
+  .site-search-result-page{
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:11px; color:var(--ink);
+  }
+  .site-search-result-snippet{ color:var(--ink); font-size:13px; line-height:1.5; }
+  .site-search-result-snippet mark{ background:#FFEE00; color:#000; }
+
   /* ==== CANADA / INTL STORE ==== */
   .store-page{ max-width:980px; margin:24px auto; padding:12px; }
   .store-page h2{
@@ -429,13 +463,14 @@
   .sidebar-section-toggle{
     display:block; width:100%; text-align:left; background:var(--aqua); color:#000;
     border:none; font-family:"Fixedsys Excelsior","Courier New",monospace;
-    font-weight:bold; font-size:14px; margin:0 0 8px; padding:5px 8px; cursor:default;
+    font-weight:bold; font-size:14px; margin:0 0 8px; padding:5px 8px; cursor:pointer;
   }
   .sidebar-section-toggle .toggle-arrow{
-    display:none; float:right; transition:transform 0.15s ease;
+    display:inline; float:right; transition:transform 0.15s ease;
   }
   .sidebar-section-toggle[aria-expanded="true"] .toggle-arrow{ transform:rotate(180deg); }
   .sidebar-list{ list-style:none; margin:0 0 10px; padding:0; max-height:420px; overflow-y:auto; }
+  .sidebar-list.collapsed{ display:none; }
   .sidebar-list li{ margin-bottom:2px; }
   .sidebar-list button{
     display:block; width:100%; text-align:left; background:none; border:none;
@@ -447,6 +482,9 @@
   }
   .sidebar-list button[data-view-all][aria-current="true"]{
     background:none; color:var(--aqua);
+  }
+  .sidebar-list button[data-view-all]:hover{
+    background:#1D64A7; color:var(--white);
   }
   .sidebar-sublist{ list-style:none; margin:2px 0 2px 14px; padding:0; }
   .sidebar-sublist li{ margin-bottom:2px; }
@@ -462,9 +500,6 @@
 
   @media (max-width:700px){
     .store-sidebar{ flex:1 1 100%; width:100%; }
-    .sidebar-section-toggle{ cursor:pointer; }
-    .sidebar-section-toggle .toggle-arrow{ display:inline; }
-    .sidebar-list.collapsed{ display:none; }
   }
 
   .store-grid{
@@ -497,6 +532,8 @@
     color:#ff6b6b; font-weight:bold; font-family:"Fixedsys Excelsior","Courier New",monospace;
     font-size:13px; margin-top:8px;
   }
+
+  .search-highlight{ outline:3px solid #FFEE00; outline-offset:2px; }
 
   .back-to-top{
     position:fixed; bottom:20px; right:20px; z-index:500;
@@ -609,7 +646,7 @@
       <li><a href="#" data-view-link="store">Canada / Intl Store</a></li>
       <li><a href="#" data-view-link="usa">USA Store</a></li>
       <li><a href="#">Archives</a></li>
-      <li><a href="#">Search</a></li>
+      <li><a href="#" data-view-link="search">Search</a></li>
       <li><a href="#" data-view-link="contact">Contact</a></li>
       <li><a href="#" data-view-link="cart">View Cart <span id="cartCount" class="cart-count" hidden>0</span></a></li>
     </ul>
@@ -632,7 +669,7 @@
 
         <article class="post">
           <span class="cat cat-releases">Releases</span>
-          <h2>Beau Navire - 2009 Demo (10")</h2>
+          <h2><a href="#" class="post-title-link" data-product-id="beau-navire-demo">Beau Navire - 2009 Demo (10")</a></h2>
           <p><strong>Beau Navire</strong> 10"s for their 'Demo 2009' release are back in stock! This is still the OG pressing from Clue #2 that was stashed away for over a decade -- so once this pressing is gonezo you'll have to pay stupid amounts on Discogs -- but you can get them now for just $30USD including shipping!</p>
           <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/4e6730e0-0103-4041-892d-2cb17cf02e88/Beau+demo.jpg?format=750w" alt="Beau Navire demo 10 inch vinyl">
           <p><strong>For fans of: Loma Prieta, Iwrotehaikusaboutcanniblaisminyouryearbook, and Carrion Spring.</strong></p>
@@ -644,7 +681,7 @@
             <label class="cart-qty-wrap">Qty:
               <input type="number" class="cart-qty" value="1" min="1" max="99">
             </label>
-            <a class="cart-btn" href="#"><img src="assets/shopping_cart_transparent_v2.png" alt="" style="width:14px; height:14px; vertical-align:middle; margin-right:4px;"> ADD TO CART</a>
+            <a class="cart-btn" href="#">ADD TO CART</a>
           </div>
         </article>
 
@@ -663,7 +700,7 @@
 
         <article class="post">
           <span class="cat cat-releases">Releases</span>
-          <h2>Hillsboro Tapes</h2>
+          <h2><a href="#" class="post-title-link" data-product-id="hillsboro-apiyn">Hillsboro Tapes</a></h2>
           <p><strong>Hillsboro</strong> tapes for <strong>'A Party in Your Name'</strong> are officially done and ready to ship! This album is a wicked collection of songs that fall somewhere in the indie/emo/shoegaze category and features my good bud Nima from Wollruss on vocals/guitar.</p>
           <div class="bcplayer">
             <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3144453157/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="A Party in Your Name by Hillsboro on Bandcamp"><a href="https://hillsboro.bandcamp.com/album/a-party-in-your-name">A Party in Your Name by Hillsboro</a></iframe>
@@ -693,7 +730,7 @@
                 <option value="black-silkscreen" disabled>Black w/silkscreen -- SOLD OUT</option>
               </select>
             </label>
-            <a class="cart-btn" href="#"><img src="assets/shopping_cart_transparent_v2.png" alt="" style="width:14px; height:14px; vertical-align:middle; margin-right:4px;"> ADD TO CART</a>
+            <a class="cart-btn" href="#">ADD TO CART</a>
           </div>
         </article>
 
@@ -792,7 +829,7 @@
             <span class="qllabel">Bandcamp</span>
           </a>
           <a class="quicklink" href="https://www.youtube.com/@MrSilentStorms" target="_blank" rel="noopener">
-            <span class="icon"><img src="assets/shut_down_normal-2.png" alt=""></span>
+            <span class="icon"><img src="assets/monitor_blue_grad-0.png" alt=""></span>
             <span class="qllabel">YouTube</span>
           </a>
           <a class="quicklink" href="https://www.instagram.com/zegema_beach/" target="_blank" rel="noopener">
@@ -800,7 +837,7 @@
             <span class="qllabel">Instagram</span>
           </a>
           <a class="quicklink" href="#">
-            <span class="icon"><img src="assets/laptop_infrared_2-5.png" alt=""></span>
+            <span class="icon"><img src="assets/user_computer_pair-0.png" alt=""></span>
             <span class="qllabel">Chat Room</span>
           </a>
         </div>
@@ -911,6 +948,16 @@
     <div class="pdp-page" id="pdpContent"></div>
   </div>
 
+  <div id="searchView" hidden>
+    <div class="contact-page">
+      <img src="assets/search_directory-5.png" alt="" class="search-icon">
+      <label class="site-search-field">Search the site
+        <input type="text" id="siteSearchInput" placeholder="Search band names, releases, news...">
+      </label>
+      <div id="siteSearchResults"></div>
+    </div>
+  </div>
+
   <div id="usaStoreView" hidden>
     <div class="construction-panel">
       <div class="digger" aria-hidden="true"><img src="assets/directory_folder_options-4.png" alt=""></div>
@@ -922,12 +969,12 @@
 
   <div id="cartView" hidden>
     <div class="cart-page">
-      <img src="assets/shopping_cart_transparent_v2.png" alt="" class="cart-icon">
+      <img src="assets/recycle_bin_empty_cool-0.png" alt="" class="cart-icon" id="cartEmptyIcon">
       <p id="cartEmpty" class="cart-empty">Your cart is empty -- go add some records!</p>
       <div id="cartItems" class="cart-items" hidden></div>
       <div class="cart-summary" id="cartSummary" hidden>
         <span class="cart-subtotal-label">Subtotal: <strong id="cartSubtotal">$0.00 USD</strong></span>
-        <a class="cart-btn" href="#"><img src="assets/key_padlock-0.png" alt="" style="width:14px; height:14px; vertical-align:middle; margin-right:4px;"> CHECKOUT</a>
+        <a class="cart-btn" href="#"><img src="assets/key_padlock-1.png" alt="" style="width:14px; height:14px; vertical-align:middle; margin-right:4px;"> CHECKOUT</a>
       </div>
     </div>
   </div>
@@ -1093,7 +1140,8 @@
     guestbookSign: document.getElementById('guestbookSignView'),
     guestbookList: document.getElementById('guestbookListView'),
     store: document.getElementById('storeView'),
-    pdp: document.getElementById('pdpView')
+    pdp: document.getElementById('pdpView'),
+    search: document.getElementById('searchView')
   };
   var viewLinks = document.querySelectorAll('[data-view-link]');
   var navHighlightAs = { pdp: 'store' };
@@ -1147,6 +1195,7 @@
   var cart = loadCart();
   var cartCount = document.getElementById('cartCount');
   var cartEmpty = document.getElementById('cartEmpty');
+  var cartEmptyIcon = document.getElementById('cartEmptyIcon');
   var cartItemsEl = document.getElementById('cartItems');
   var cartSummary = document.getElementById('cartSummary');
   var cartSubtotal = document.getElementById('cartSubtotal');
@@ -1156,6 +1205,7 @@
     cartItemsEl.innerHTML = '';
     var hasItems = cart.length > 0;
     cartEmpty.hidden = hasItems;
+    cartEmptyIcon.hidden = hasItems;
     cartItemsEl.hidden = !hasItems;
     cartSummary.hidden = !hasItems;
 
@@ -1547,7 +1597,7 @@
       } else {
         html += '<label class="cart-qty-wrap">Qty:<input type="number" class="cart-qty" value="1" min="1" max="' + (p.maxQty || 99) + '"></label>';
       }
-      html += '<a class="cart-btn" href="#"><img src="assets/shopping_cart_transparent_v2.png" alt="" style="width:14px; height:14px; vertical-align:middle; margin-right:4px;"> ADD TO CART</a>';
+      html += '<a class="cart-btn" href="#">ADD TO CART</a>';
       html += '</div>';
     }
     html += '</article>';
@@ -1662,6 +1712,78 @@
     guestbookForm.hidden = true;
     guestbookThanks.hidden = false;
     guestbookForm.reset();
+  });
+
+  var siteSearchInput = document.getElementById('siteSearchInput');
+  var siteSearchResults = document.getElementById('siteSearchResults');
+  var currentSearchMatches = [];
+
+  var searchIndex = Array.prototype.reduce.call(document.querySelectorAll('.post-page'), function (acc, page) {
+    page.querySelectorAll('.post').forEach(function (article) {
+      var h2 = article.querySelector('h2');
+      if (!h2) return;
+      var body = Array.prototype.map.call(article.querySelectorAll('p'), function (p) { return p.textContent; }).join(' ');
+      acc.push({ el: article, page: page.dataset.page, title: h2.textContent, body: body });
+    });
+    return acc;
+  }, []);
+
+  function buildSnippet(text, query) {
+    var idx = text.toLowerCase().indexOf(query.toLowerCase());
+    if (idx === -1) {
+      return escapeHtml(text.slice(0, 140)) + (text.length > 140 ? '...' : '');
+    }
+    var start = Math.max(0, idx - 40);
+    var end = Math.min(text.length, idx + query.length + 100);
+    var before = text.slice(start, idx);
+    var match = text.slice(idx, idx + query.length);
+    var after = text.slice(idx + query.length, end);
+    return (start > 0 ? '...' : '') + escapeHtml(before) + '<mark>' + escapeHtml(match) + '</mark>' + escapeHtml(after) + (end < text.length ? '...' : '');
+  }
+
+  function renderSiteSearch() {
+    var query = siteSearchInput.value.trim();
+    if (!query) {
+      siteSearchResults.innerHTML = '<p class="site-search-empty">Start typing to search news posts and releases.</p>';
+      currentSearchMatches = [];
+      return;
+    }
+
+    var lowerQuery = query.toLowerCase();
+    currentSearchMatches = searchIndex.filter(function (item) {
+      return item.title.toLowerCase().indexOf(lowerQuery) !== -1 || item.body.toLowerCase().indexOf(lowerQuery) !== -1;
+    });
+
+    if (currentSearchMatches.length === 0) {
+      siteSearchResults.innerHTML = '<p class="site-search-empty">No posts match "' + escapeHtml(query) + '".</p>';
+      return;
+    }
+
+    siteSearchResults.innerHTML = currentSearchMatches.map(function (item, i) {
+      return '' +
+        '<button type="button" class="site-search-result" data-result-index="' + i + '">' +
+        '<div class="site-search-result-head">' +
+        '<span class="site-search-result-title">' + escapeHtml(item.title) + '</span>' +
+        '<span class="site-search-result-page">Page ' + item.page + '</span>' +
+        '</div>' +
+        '<p class="site-search-result-snippet">' + buildSnippet(item.body, query) + '</p>' +
+        '</button>';
+    }).join('');
+  }
+
+  siteSearchInput.addEventListener('input', renderSiteSearch);
+  renderSiteSearch();
+
+  siteSearchResults.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-result-index]');
+    if (!btn) return;
+    var item = currentSearchMatches[parseInt(btn.dataset.resultIndex, 10)];
+    if (!item) return;
+    showView('home');
+    showPage(item.page);
+    item.el.scrollIntoView({ block: 'start', behavior: 'instant' });
+    item.el.classList.add('search-highlight');
+    setTimeout(function () { item.el.classList.remove('search-highlight'); }, 1500);
   });
 
   var backToTop = document.getElementById('backToTop');
