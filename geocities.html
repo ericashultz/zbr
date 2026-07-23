@@ -462,13 +462,14 @@
   .sidebar-section-toggle{
     display:block; width:100%; text-align:left; background:var(--aqua); color:#000;
     border:none; font-family:"Fixedsys Excelsior","Courier New",monospace;
-    font-weight:bold; font-size:14px; margin:0 0 8px; padding:5px 8px; cursor:default;
+    font-weight:bold; font-size:14px; margin:0 0 8px; padding:5px 8px; cursor:pointer;
   }
   .sidebar-section-toggle .toggle-arrow{
-    display:none; float:right; transition:transform 0.15s ease;
+    display:inline; float:right; transition:transform 0.15s ease;
   }
   .sidebar-section-toggle[aria-expanded="true"] .toggle-arrow{ transform:rotate(180deg); }
   .sidebar-list{ list-style:none; margin:0 0 10px; padding:0; max-height:420px; overflow-y:auto; }
+  .sidebar-list.collapsed{ display:none; }
   .sidebar-list li{ margin-bottom:2px; }
   .sidebar-list button{
     display:block; width:100%; text-align:left; background:none; border:none;
@@ -480,6 +481,9 @@
   }
   .sidebar-list button[data-view-all][aria-current="true"]{
     background:none; color:var(--aqua);
+  }
+  .sidebar-list button[data-view-all]:hover{
+    background:#1D64A7; color:var(--white);
   }
   .sidebar-sublist{ list-style:none; margin:2px 0 2px 14px; padding:0; }
   .sidebar-sublist li{ margin-bottom:2px; }
@@ -495,9 +499,6 @@
 
   @media (max-width:700px){
     .store-sidebar{ flex:1 1 100%; width:100%; }
-    .sidebar-section-toggle{ cursor:pointer; }
-    .sidebar-section-toggle .toggle-arrow{ display:inline; }
-    .sidebar-list.collapsed{ display:none; }
   }
 
   .store-grid{
@@ -679,7 +680,7 @@
             <label class="cart-qty-wrap">Qty:
               <input type="number" class="cart-qty" value="1" min="1" max="99">
             </label>
-            <a class="cart-btn" href="#"><img src="assets/shopping_cart_transparent%20copy.png" alt="" style="width:14px; height:14px; vertical-align:middle; margin-right:4px;"> ADD TO CART</a>
+            <a class="cart-btn" href="#">ADD TO CART</a>
           </div>
         </article>
 
@@ -728,7 +729,7 @@
                 <option value="black-silkscreen" disabled>Black w/silkscreen -- SOLD OUT</option>
               </select>
             </label>
-            <a class="cart-btn" href="#"><img src="assets/shopping_cart_transparent%20copy.png" alt="" style="width:14px; height:14px; vertical-align:middle; margin-right:4px;"> ADD TO CART</a>
+            <a class="cart-btn" href="#">ADD TO CART</a>
           </div>
         </article>
 
@@ -967,7 +968,7 @@
 
   <div id="cartView" hidden>
     <div class="cart-page">
-      <img src="assets/shopping_cart_transparent%20copy.png" alt="" class="cart-icon">
+      <img src="assets/recycle_bin_empty_cool-0.png" alt="" class="cart-icon" id="cartEmptyIcon">
       <p id="cartEmpty" class="cart-empty">Your cart is empty -- go add some records!</p>
       <div id="cartItems" class="cart-items" hidden></div>
       <div class="cart-summary" id="cartSummary" hidden>
@@ -1193,6 +1194,7 @@
   var cart = loadCart();
   var cartCount = document.getElementById('cartCount');
   var cartEmpty = document.getElementById('cartEmpty');
+  var cartEmptyIcon = document.getElementById('cartEmptyIcon');
   var cartItemsEl = document.getElementById('cartItems');
   var cartSummary = document.getElementById('cartSummary');
   var cartSubtotal = document.getElementById('cartSubtotal');
@@ -1202,6 +1204,7 @@
     cartItemsEl.innerHTML = '';
     var hasItems = cart.length > 0;
     cartEmpty.hidden = hasItems;
+    cartEmptyIcon.hidden = hasItems;
     cartItemsEl.hidden = !hasItems;
     cartSummary.hidden = !hasItems;
 
@@ -1593,7 +1596,7 @@
       } else {
         html += '<label class="cart-qty-wrap">Qty:<input type="number" class="cart-qty" value="1" min="1" max="' + (p.maxQty || 99) + '"></label>';
       }
-      html += '<a class="cart-btn" href="#"><img src="assets/shopping_cart_transparent%20copy.png" alt="" style="width:14px; height:14px; vertical-align:middle; margin-right:4px;"> ADD TO CART</a>';
+      html += '<a class="cart-btn" href="#">ADD TO CART</a>';
       html += '</div>';
     }
     html += '</article>';
