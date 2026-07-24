@@ -724,7 +724,7 @@
     </ul>
   </nav>
 
-  <div class="mobile-quicklinks">
+  <div class="mobile-quicklinks" id="mobileQuicklinks">
     <button type="button" class="mobile-quicklinks-toggle" data-toggle-section aria-expanded="false">Quick Links <span class="toggle-arrow">&#9660;</span></button>
     <div class="quicklinks-grid collapsed" id="mobileQuicklinksGrid">
       <a class="quicklink" href="https://omsbpodcast.bandcamp.com/" target="_blank" rel="noopener">
@@ -1331,11 +1331,13 @@
   };
   var viewLinks = document.querySelectorAll('[data-view-link]');
   var navHighlightAs = { pdp: 'store' };
+  var mobileQuicklinks = document.getElementById('mobileQuicklinks');
 
   function showView(view) {
     Object.keys(views).forEach(function (key) {
       views[key].hidden = key !== view;
     });
+    mobileQuicklinks.hidden = view !== 'home';
     var highlight = navHighlightAs[view] || view;
     viewLinks.forEach(function (link) {
       if (link.dataset.viewLink === highlight) {
