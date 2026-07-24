@@ -400,6 +400,20 @@
     text-align:center; color:#19A800; font-weight:bold; font-size:15px; margin-top:16px;
   }
 
+  .archives-page{ max-width:900px; margin:24px auto; padding:12px; }
+  .archives-page .search-icon{ display:block; width:40px; height:40px; margin:0 auto 10px; }
+  .archives-page > p{ color:var(--white); font-size:15px; line-height:1.6; margin:0 0 18px; text-align:center; }
+  .archives-columns{ display:flex; gap:20px; flex-wrap:wrap; align-items:flex-start; }
+  .archives-section{ flex:1 1 320px; min-width:280px; }
+  .archive-list{ list-style:none; margin:0; padding:0; }
+  .archive-list li{ margin-bottom:2px; }
+  .archive-list a{
+    display:block; padding:4px 6px; text-decoration:none;
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:13px;
+    color:var(--aqua);
+  }
+  .archive-list a:hover{ background:#1D64A7; color:var(--white); }
+
   .guestbook-entries{ display:flex; flex-direction:column; gap:12px; margin-top:20px; }
   .guestbook-entry{
     background:#000; border:3px groove var(--aqua); padding:10px 12px; text-align:left;
@@ -717,7 +731,7 @@
       <li><a href="#" data-view-link="home" aria-current="page">Home</a></li>
       <li><a href="#" data-view-link="store">Canada / Intl Store</a></li>
       <li><a href="#" data-view-link="usa">USA Store</a></li>
-      <li><a href="#">Archives</a></li>
+      <li><a href="#" data-view-link="archives">Archives</a></li>
       <li><a href="#" data-view-link="search">Search</a></li>
       <li><a href="#" data-view-link="contact">Contact</a></li>
       <li><a href="#" data-view-link="cart">View Cart <span id="cartCount" class="cart-count" hidden>0</span></a></li>
@@ -1143,9 +1157,96 @@
     </div>
   </div>
 
+  <div id="archivesView" hidden>
+    <div class="archives-page">
+      <img src="assets/directory_folder_options-4.png" alt="Archives" class="search-icon">
+      <p>Dig through the ZBR archives -- years of band interviews and show recaps from the scene. Everything below links out to the original post on the classic ZBR site.</p>
+      <div class="archives-columns">
+        <div class="archives-section widget">
+          <h3>Interviews</h3>
+          <ul class="archive-list">
+        <li><a href="https://www.zegemabeachrecords.com/colinmay-interview" target="_blank" rel="noopener">MAY, COLIN (Phoenix Bodies/Brighter Arrows) Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/interviews" target="_blank" rel="noopener">OMSB Interview Reel</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/adolina-interview" target="_blank" rel="noopener">ADOLINA Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/apollo18-interview" target="_blank" rel="noopener">APOLLO 18 Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/beaunavire-interview" target="_blank" rel="noopener">BEAU NAVIRE Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/boland-interview" target="_blank" rel="noopener">BOLAND, CASEY (Hot Cross / You And I) Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/brodskyinterview" target="_blank" rel="noopener">BRODSKY, STEPHEN (Cave In) Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/big-dick-interview" target="_blank" rel="noopener">BIG DICK Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/cysis-interview" target="_blank" rel="noopener">CAPTAIN, YOUR SHIP IS SINKING interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/careless-interview" target="_blank" rel="noopener">CARELESS Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/ceaseuponthecapitol-interview" target="_blank" rel="noopener">CEASE UPON THE CAPITOL Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/chuglife-interview" target="_blank" rel="noopener">CHUG LIFE Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/creeperinterview" target="_blank" rel="noopener">CREEPER Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/deathofannakarina-interview" target="_blank" rel="noopener">DEATH OF ANNA KARINA Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/foxmoulder-interview" target="_blank" rel="noopener">FOXMOULDER interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/haloofflies-interview" target="_blank" rel="noopener">HALO OF FLIES Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/initrecords-interview" target="_blank" rel="noopener">INIT RECORDS Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/kenmode-interview" target="_blank" rel="noopener">KEN MODE Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/leetaylor-interview" target="_blank" rel="noopener">LEE TAYLOR (Merridew / Dear John) Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/locktender-interview" target="_blank" rel="noopener">LOCKTENDER / MEN AS TREES Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/loma-prieta-interview" target="_blank" rel="noopener">LOMA PRIETA Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/lordsnowinterview" target="_blank" rel="noopener">LORD SNOW Interview / Live Sets</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/mahria-interview" target="_blank" rel="noopener">MAHRIA Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/mnwa-interview" target="_blank" rel="noopener">мища Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/native-interview" target="_blank" rel="noopener">NATIVE Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/stephenpierce-interview" target="_blank" rel="noopener">PIERCE, STEPHEN (Ampere, Kindling, Montcalm, The Last Forty Seconds)</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/pthinterview-boxset" target="_blank" rel="noopener">PROTEST THE HERO interview &amp; LP cassette box set</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/pth-luke-interview" target="_blank" rel="noopener">PROTEST THE HERO video interview / show review</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/protestant-interview" target="_blank" rel="noopener">PROTESTANT Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/roche-interview" target="_blank" rel="noopener">ROCHE, STEVE (Saetia/Off Minor/Ordinary Lives) Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/schlatter-interview" target="_blank" rel="noopener">SCHLATTER, THOMAS (Capacities, etc.)</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/secretsmoker-interview" target="_blank" rel="noopener">SECRET SMOKER Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/chrisstory-interview" target="_blank" rel="noopener">STORY, CHRIS (Jenny Piccolo / Makara / Yaphet Kotto)</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/telfyr-interview" target="_blank" rel="noopener">TEL FYR Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/tentacles-interview" target="_blank" rel="noopener">TENTACLES Interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/timeasacolorducthearts-interview" target="_blank" rel="noopener">TIME AS A COLOR / DUCT HEARTS interview</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/youthnovel-interview" target="_blank" rel="noopener">YOUTH NOVEL interview</a></li>
+          </ul>
+        </div>
+        <div class="archives-section widget">
+          <h3>Shows &amp; Features</h3>
+          <ul class="archive-list">
+        <li><a href="https://www.zegemabeachrecords.com/the-world-that-summer-firstfull-set" target="_blank" rel="noopener">THE WORLD THAT SUMMER first/full set</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/congratulations-release-show-wnous" target="_blank" rel="noopener">CONGRATULATIONS release show w/NOUS ÉTIONS &amp; TERRY GREEN</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/creeper-lastshow" target="_blank" rel="noopener">CREEPER last show</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/foxmoulderreleaseshow" target="_blank" rel="noopener">FOXMOULDER release show</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/zbrshow1" target="_blank" rel="noopener">ZBR Show #1 - Itto / Life In Vacuum / Congratulations / Sketchbooks / Fossil</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/liveconqldsc" target="_blank" rel="noopener">ZBR Show #2 - LIV / CONGRATS / QUIET LAKES / DINOSAUR SEX CHANGE show review</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/zbrshow3" target="_blank" rel="noopener">ZBR Show #3 - Reptilian / Two Knights / Congratulations / Total Bummer / Wimp City</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/zbrshow4" target="_blank" rel="noopener">ZBR show #4 - My Dad / Animal Faces / Worst Gift / Terry Green / Quiet Lakes</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/zbrshow5" target="_blank" rel="noopener">ZBR show #5 - LIV / Slates / Get Off The Cop / Sensei</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/zbrshow6" target="_blank" rel="noopener">ZBR Show #6 - LIV / POOL BOYS / TERRY GREEN / DINOSAUR SEX CHANGE / GET OFF THE COP</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/zbrshow7" target="_blank" rel="noopener">ZBR show #7 JOLIETTE / LIV / HOUSING / MOLLY DRAG / BUNT</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/zbrshow8" target="_blank" rel="noopener">ZBR SHOW #8 NOUVEAU / TERRY GREEN / FOSSIL / NANETTE / WIMP CITY</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/zbrshow9" target="_blank" rel="noopener">ZBR SHOW #9 HARRIS HAWK / BLOOD PHEASANT / SHAHMAN / FOSSIL / SALEM WITCHES / YOU ME AND THE MACHINE</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/zbr-minifest" target="_blank" rel="noopener">ZBR minifest</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/aba-fest" target="_blank" rel="noopener">AUSTIN BLOOD ALLIANCE 2-Day Fest</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/yusuke-locktender-shoto-show" target="_blank" rel="noopener">YUSUKE / LOCKTENDER / SHOTO full sets</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/cautioncongratulationsshow" target="_blank" rel="noopener">CAUTION CHILDREN / CONGRATULATIONS / NEW WINGS / FOXMOULDER / TWO CROSSES live show</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/nous-etions-shaman-atsuko-chiba-brauer" target="_blank" rel="noopener">NOUS ETIONS / SHAMAN / ATSUKO CHIBA / BRAUER</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/lifeinvacuum-show" target="_blank" rel="noopener">LIFE IN VACUUM / SLENDER LORIS / THE KETTLE BLACK live show</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/worstgift1stshow" target="_blank" rel="noopener">ITTO / BLACK LOVE / BIRD DEATH / WORST GIFT show review</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/atsukochiba-quietlakes-teleportoise" target="_blank" rel="noopener">ATSUKO CHIBA / QUIET LAKES / TELEPORTOISE</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/carrionspring-tsaaeb-show" target="_blank" rel="noopener">CARRION SPRING / THE SKY ABOVE AND EARTH BELOW show</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/un-show" target="_blank" rel="noopener">UNITED NATIONS / FRAMEWORKS / BLACK CLOUDS / FOXMOULDER show</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/skramdenyards-rip" target="_blank" rel="noopener">SKRAMDEN YARDS rip Capacities / Foxmoulder / Black Belt</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/shahman-housing" target="_blank" rel="noopener">SHAHMAN / TOQUE / HOUSING / DINOSAUR SEX CHANGE</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/lonely-animals-foxmoulder-terry-green" target="_blank" rel="noopener">LONELY ANIMALS / FOXMOULDER / TERRY GREEN</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/lockthefox" target="_blank" rel="noopener">LOCKTENDER / FOXMOULDER / RESPIRE / SHAHMAN / WOODLOUSE show reivew</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/pile-animal-faces-liv-worst-gift" target="_blank" rel="noopener">PILE / ANIMAL FACES / LIV / WORST GIFT show review</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/worstgift-taperelease" target="_blank" rel="noopener">EDHOCHULI / WORST GIFT / WOODLOUSE / SURGES show review</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/lordsnowaug5th2015" target="_blank" rel="noopener">LORD SNOW / LIZZY BOREDOM / WIMP CITY show review</a></li>
+        <li><a href="https://www.zegemabeachrecords.com/olam" target="_blank" rel="noopener">OLAM</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer>
     <p>&copy; 2026 Zegema Beach Records -- Canada</p>
-    <p><a href="#" data-view-link="store">Canada / Intl Store</a> &middot; <a href="#" data-view-link="usa">USA Store</a> &middot; <a href="#">Archives</a> &middot; <a href="#" data-view-link="contact">Contact</a></p>
+    <p><a href="#" data-view-link="store">Canada / Intl Store</a> &middot; <a href="#" data-view-link="usa">USA Store</a> &middot; <a href="#" data-view-link="archives">Archives</a> &middot; <a href="#" data-view-link="contact">Contact</a></p>
   </footer>
 
 </div>
@@ -1327,7 +1428,8 @@
     guestbookList: document.getElementById('guestbookListView'),
     store: document.getElementById('storeView'),
     pdp: document.getElementById('pdpView'),
-    search: document.getElementById('searchView')
+    search: document.getElementById('searchView'),
+    archives: document.getElementById('archivesView')
   };
   var viewLinks = document.querySelectorAll('[data-view-link]');
   var navHighlightAs = { pdp: 'store' };
