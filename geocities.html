@@ -443,6 +443,32 @@
   }
   .guestbook-entry-message{ color:var(--white); font-size:14px; line-height:1.5; }
 
+  .chat-page{ max-width:700px; margin:24px auto; padding:12px; text-align:center; }
+  .chat-page .search-icon{ display:block; width:40px; height:40px; margin:0 auto 10px; }
+  .chat-page > p{ color:var(--white); font-size:15px; line-height:1.6; margin:0 0 16px; }
+  .chat-online{
+    text-align:left; margin-bottom:10px;
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:12px; color:var(--ink);
+  }
+  .chat-online strong{ color:#19A800; }
+  .chat-log{
+    background:#000; border:3px groove var(--aqua); padding:10px 12px; margin-bottom:14px;
+    height:340px; overflow-y:auto; text-align:left;
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:13px;
+  }
+  .chat-line{ margin-bottom:6px; line-height:1.5; word-break:break-word; }
+  .chat-time{ color:var(--ink); font-size:11px; margin-right:6px; }
+  .chat-nick{ font-weight:bold; margin-right:4px; }
+  .chat-text{ color:var(--white); }
+  .chat-form{ display:flex; gap:8px; flex-wrap:wrap; text-align:left; }
+  .chat-form input{
+    padding:6px; font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:13px;
+    border:2px inset var(--silver); background:#fff; color:#000;
+    -webkit-appearance:none; appearance:none; border-radius:0;
+  }
+  .chat-nick-field{ flex:0 0 140px; }
+  .chat-msg-field{ flex:1 1 200px; }
+
   .site-search-field{
     display:block; font-family:"Fixedsys Excelsior","Courier New",monospace;
     font-weight:bold; font-size:13px; color:var(--white); margin-bottom:6px;
@@ -798,7 +824,7 @@
         <span class="icon"><img src="assets/camera-0.png" alt=""></span>
         <span class="qllabel">Instagram</span>
       </a>
-      <a class="quicklink" href="#">
+      <a class="quicklink" href="#" data-view-link="chatRoom">
         <span class="icon"><img src="assets/user_computer_pair-0.png" alt=""></span>
         <span class="qllabel">Chat Room</span>
       </a>
@@ -1033,7 +1059,7 @@
             <span class="icon"><img src="assets/camera-0.png" alt=""></span>
             <span class="qllabel">Instagram</span>
           </a>
-          <a class="quicklink" href="#">
+          <a class="quicklink" href="#" data-view-link="chatRoom">
             <span class="icon"><img src="assets/user_computer_pair-0.png" alt=""></span>
             <span class="qllabel">Chat Room</span>
           </a>
@@ -1275,6 +1301,20 @@
       <img src="assets/address_book-0.png" alt="Guestbook" class="search-icon">
       <p>Here's what everyone's been saying! <a class="starlink" href="#" data-view-link="guestbookSign">Sign the guestbook</a> yourself.</p>
       <div id="guestbookEntries" class="guestbook-entries"></div>
+    </div>
+  </div>
+
+  <div id="chatRoomView" hidden>
+    <div class="chat-page">
+      <img src="assets/user_computer_pair-0.png" alt="Chat Room" class="search-icon">
+      <p>Hang out with the ZBR crew! This chat log lives on your device only -- nobody else can see your messages (yet). Pretend it's 2004 and enjoy the vibes.</p>
+      <p class="chat-online"><strong>&#9679; 14 users online:</strong> skramz4life, xxlathebrainxx, VHS_forever, mothflame_screamo, basement_show_kid, dave_from_constrain, and 8 others</p>
+      <div class="chat-log" id="chatLog"></div>
+      <form class="chat-form" id="chatForm">
+        <input type="text" name="chatNick" class="chat-nick-field" placeholder="Nickname" aria-label="Nickname" maxlength="24" required>
+        <input type="text" name="chatMessage" class="chat-msg-field" placeholder="Say something..." aria-label="Message" maxlength="200" required>
+        <button type="submit" class="cart-btn" id="chatSend">SEND</button>
+      </form>
     </div>
   </div>
 
@@ -1554,7 +1594,8 @@
     store: document.getElementById('storeView'),
     pdp: document.getElementById('pdpView'),
     search: document.getElementById('searchView'),
-    archives: document.getElementById('archivesView')
+    archives: document.getElementById('archivesView'),
+    chatRoom: document.getElementById('chatRoomView')
   };
   var viewLinks = document.querySelectorAll('[data-view-link]');
   var navHighlightAs = { pdp: 'store' };
@@ -2522,6 +2563,96 @@
     guestbookForm.hidden = true;
     guestbookThanks.hidden = false;
     guestbookForm.reset();
+  });
+
+  var CHAT_STORAGE_KEY = 'zbrChat';
+  var CHAT_NICK_STORAGE_KEY = 'zbrChatNick';
+  var chatSeed = [
+    { nick: 'skramz4life', text: "anyone copping the coup d'etat lathe before they're gone??", time: '9:14 PM' },
+    { nick: 'xxlathebrainxx', text: 'already got mine. sounds insane on a real turntable', time: '9:15 PM' },
+    { nick: 'VHS_forever', text: 'just put on the beau navire demo for the 100th time this year', time: '9:16 PM' },
+    { nick: 'dave_from_constrain', text: 'haha hi yes this is really me. see you all at the release show', time: '9:17 PM' },
+    { nick: 'mothflame_screamo', text: "is the zampler #27 sold out yet? need that sinco art", time: '9:19 PM' },
+    { nick: 'skramz4life', text: 'nah still a few left, check the store', time: '9:20 PM' },
+    { nick: 'basement_show_kid', text: "ZBR fest can't come soon enough", time: '9:22 PM' },
+    { nick: 'xxlathebrainxx', text: "anyone else notice david's always awake at 4am posting news updates", time: '9:24 PM' },
+    { nick: 'VHS_forever', text: "the man doesn't sleep, he just presses more records", time: '9:25 PM' },
+    { nick: 'mothflame_screamo', text: 'screamo hours >>> business hours', time: '9:27 PM' }
+  ];
+  var chatNickColors = ['#FFEE00', '#19A800', '#C0DFFE', '#A500A8', '#1D64A7', '#ff6b6b'];
+
+  function chatNickColor(nick) {
+    var hash = 0;
+    for (var i = 0; i < nick.length; i++) { hash = (hash * 31 + nick.charCodeAt(i)) >>> 0; }
+    return chatNickColors[hash % chatNickColors.length];
+  }
+
+  function loadChat() {
+    try {
+      var parsed = JSON.parse(localStorage.getItem(CHAT_STORAGE_KEY));
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveChat() {
+    try {
+      localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(chatMessages));
+    } catch (e) { /* storage unavailable/full -- chat still works for this session */ }
+  }
+
+  var chatMessages = loadChat();
+  var chatLogEl = document.getElementById('chatLog');
+
+  function renderChat() {
+    chatLogEl.innerHTML = '';
+    chatSeed.concat(chatMessages).forEach(function (msg) {
+      var line = document.createElement('div');
+      line.className = 'chat-line';
+
+      var time = document.createElement('span');
+      time.className = 'chat-time';
+      time.textContent = '[' + msg.time + ']';
+
+      var nick = document.createElement('span');
+      nick.className = 'chat-nick';
+      nick.style.color = chatNickColor(msg.nick);
+      nick.textContent = '<' + msg.nick + '>';
+
+      var text = document.createElement('span');
+      text.className = 'chat-text';
+      text.textContent = ' ' + msg.text;
+
+      line.appendChild(time);
+      line.appendChild(nick);
+      line.appendChild(text);
+      chatLogEl.appendChild(line);
+    });
+    chatLogEl.scrollTop = chatLogEl.scrollHeight;
+  }
+  renderChat();
+
+  var chatForm = document.getElementById('chatForm');
+  var savedChatNick = localStorage.getItem(CHAT_NICK_STORAGE_KEY);
+  if (savedChatNick) chatForm.chatNick.value = savedChatNick;
+
+  chatForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!chatForm.reportValidity()) return;
+    var nick = chatForm.chatNick.value.trim();
+    var text = chatForm.chatMessage.value.trim();
+    if (!nick || !text) return;
+    chatMessages.push({
+      nick: nick,
+      text: text,
+      time: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+    });
+    saveChat();
+    try { localStorage.setItem(CHAT_NICK_STORAGE_KEY, nick); } catch (e) { /* storage unavailable */ }
+    renderChat();
+    chatForm.chatMessage.value = '';
+    chatForm.chatMessage.focus();
   });
 
   var siteSearchInput = document.getElementById('siteSearchInput');
