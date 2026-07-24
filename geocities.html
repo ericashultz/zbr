@@ -1747,7 +1747,11 @@
     if (view === 'chatRoom') {
       chatLogEl.scrollTop = chatLogEl.scrollHeight;
     }
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    if (window.innerWidth <= 700) {
+      document.querySelector('nav.mainnav').scrollIntoView({ block: 'start', behavior: 'instant' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
   }
 
   document.addEventListener('click', function (e) {
