@@ -1758,7 +1758,7 @@
     var link = e.target.closest('[data-view-link]');
     if (link) {
       e.preventDefault();
-      if (link.dataset.viewLink === 'store') {
+      if (link.dataset.viewLink === 'store' && link.dataset.storeReturn === undefined) {
         activeBandFilter = link.dataset.bandFilter || '';
         activeCategoryFilter = link.dataset.categoryFilter || '';
         activeVinylSizeFilter = '';
@@ -1767,6 +1767,10 @@
         renderStoreGrid();
       }
       showView(link.dataset.viewLink);
+      if (link.dataset.storeReturn !== undefined && lastOpenedProductId) {
+        var tile = document.querySelector('.product-tile[data-product-id="' + lastOpenedProductId + '"]');
+        if (tile) tile.scrollIntoView({ block: 'center', behavior: 'instant' });
+      }
     }
   });
 
@@ -2655,6 +2659,7 @@
   var activeVinylSizeFilter = '';
   var activeLabelFilter = '';
   var activeSpecialFilter = '';
+  var lastOpenedProductId = '';
 
   function escapeHtml(str) {
     var div = document.createElement('div');
@@ -2823,8 +2828,9 @@
   function openProduct(id) {
     var p = products.filter(function (item) { return item.id === id; })[0];
     if (!p) return;
+    lastOpenedProductId = id;
 
-    var html = '<a href="#" class="starlink pdp-back" data-view-link="store">&laquo; Back to Store</a>';
+    var html = '<a href="#" class="starlink pdp-back" data-view-link="store" data-store-return>&laquo; Back to Store</a>';
     html += '<article class="post">';
     if (p.soldOut) {
       html += '<span class="cat cat-soldout">' + escapeHtml(p.cat) + '</span>';
