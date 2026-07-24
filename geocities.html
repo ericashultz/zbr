@@ -1613,6 +1613,7 @@
       category: 'vinyl',
       vinylSize: '10',
       label: 'Zegema Beach Releases',
+      listenBeforeCart: true,
       soldOut: false
     },
     {
@@ -2276,30 +2277,38 @@
       html += '<p>' + para + '</p>';
     });
 
+    var addcartHtml = '';
     if (p.soldOut) {
-      html += '<p class="pdp-soldout-msg">This release is sold out in physical formats. Grab the digital download via the Bandcamp link above.</p>';
+      addcartHtml = '<p class="pdp-soldout-msg">This release is sold out in physical formats. Grab the digital download via the Bandcamp link above.</p>';
     } else {
-      html += '<div class="addcart pdp-addcart" data-product="' + escapeHtml(p.band + ' - ' + p.title) + '" data-price="' + p.price + '">';
-      html += '<span class="cart-price">' + escapeHtml(p.priceLabel) + '</span>';
-      html += '<div class="pdp-addcart-action">';
+      addcartHtml += '<div class="addcart pdp-addcart" data-product="' + escapeHtml(p.band + ' - ' + p.title) + '" data-price="' + p.price + '">';
+      addcartHtml += '<span class="cart-price">' + escapeHtml(p.priceLabel) + '</span>';
+      addcartHtml += '<div class="pdp-addcart-action">';
       if (p.variants) {
-        html += '<label class="cart-variant-wrap"><select class="cart-variant"><option value="" selected>Select Variant</option>';
+        addcartHtml += '<label class="cart-variant-wrap"><select class="cart-variant"><option value="" selected>Select Variant</option>';
         p.variants.forEach(function (v) {
-          html += '<option value="' + v.value + '"' + (v.available ? '' : ' disabled') + '>' + escapeHtml(v.label) + '</option>';
+          addcartHtml += '<option value="' + v.value + '"' + (v.available ? '' : ' disabled') + '>' + escapeHtml(v.label) + '</option>';
         });
-        html += '</select></label>';
+        addcartHtml += '</select></label>';
       } else {
-        html += '<label class="cart-qty-wrap">Qty:<input type="number" class="cart-qty" value="1" min="1" max="' + (p.maxQty || 99) + '"></label>';
+        addcartHtml += '<label class="cart-qty-wrap">Qty:<input type="number" class="cart-qty" value="1" min="1" max="' + (p.maxQty || 99) + '"></label>';
       }
-      html += '<a class="cart-btn" href="#">ADD TO CART</a>';
-      html += '</div>';
-      html += '</div>';
+      addcartHtml += '<a class="cart-btn" href="#">ADD TO CART</a>';
+      addcartHtml += '</div>';
+      addcartHtml += '</div>';
     }
 
+    var listenHtml = '';
     if (p.bcAlbumId) {
-      html += '<div class="bcplayer"><iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=' + p.bcAlbumId + '/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="' + escapeHtml(p.band + ' - ' + p.title) + ' on Bandcamp"><a href="' + p.listenUrl + '">' + escapeHtml(p.band + ' - ' + p.title) + '</a></iframe></div>';
+      listenHtml = '<div class="bcplayer"><iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=' + p.bcAlbumId + '/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="' + escapeHtml(p.band + ' - ' + p.title) + ' on Bandcamp"><a href="' + p.listenUrl + '">' + escapeHtml(p.band + ' - ' + p.title) + '</a></iframe></div>';
     } else {
-      html += '<p><a class="starlink" href="' + p.listenUrl + '" target="_blank" rel="noopener">Listen Now</a></p>';
+      listenHtml = '<p><a class="starlink" href="' + p.listenUrl + '" target="_blank" rel="noopener">Listen Now</a></p>';
+    }
+
+    if (p.listenBeforeCart) {
+      html += listenHtml + addcartHtml;
+    } else {
+      html += addcartHtml + listenHtml;
     }
     html += '</div>';
     html += '</div>';
