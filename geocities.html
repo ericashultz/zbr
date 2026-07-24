@@ -678,21 +678,27 @@
     .layout{ flex-direction:column; }
     h1.sitetitle{ font-size:34px; }
 
-    /* Reorder: posts, then Reviews/Features/Johnny's (they're part of the
-       July 20 posts), then pagination, then the remaining sidebar widgets. */
+    /* Reorder: posts, then that page's Reviews/Features/Johnny's widgets
+       (they're part of that page's post), then pagination, then the
+       remaining sidebar widgets. */
     .maincol{ display:contents; }
     .sidecol{ display:contents; }
     .post-page{ order:1; }
     #reviews-widget{ order:2; }
     #features-widget{ order:3; }
     #johnnys-widget{ order:4; }
-    .pagenav{ order:5; flex-basis:auto; }
-    .sidecol > .widget{ order:6; }
+    #reviews-widget-p2-1{ order:2; }
+    #reviews-widget-p2-2{ order:3; }
+    #reviews-widget-p2-3{ order:4; }
+    #features-widget-p2{ order:5; }
+    .pagenav{ order:6; flex-basis:auto; }
+    .sidecol > .widget{ order:7; }
 
     /* Safari doesn't reliably stretch flex items whose ancestor is
        display:contents, so force full width explicitly instead of
        relying on align-items:stretch. */
     .post-page, #reviews-widget, #features-widget, #johnnys-widget,
+    #reviews-widget-p2-1, #reviews-widget-p2-2, #reviews-widget-p2-3, #features-widget-p2,
     .pagenav, .sidecol > .widget{
       width:100%;
     }
@@ -889,12 +895,11 @@
       <div class="post-page" data-page="2" hidden>
         <article class="post">
           <span class="cat cat-news">News -- July 13, 2026</span>
-          <h2>Coup D'etat 7" Lathe Released!</h2>
-          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/fe260615-f274-471e-9cb8-34807ad0de36/promo+w-background.jpg?format=750w" alt="Coup D'etat 7 inch lathe promo photo">
-          <p>Coup D'etat just released their self-titled promo EP on a black 7" lathe cut, limited to 50 copies total. 30 of those went straight to the band, which leaves ZBR with just 20 to sell -- and lathes never last long once they're posted. Two re-recorded songs and a brand new one round out the tracklist, marking the band's peak to date with "new" guitarist Elle and the last recording to feature OG bassist Raine.</p>
-          <p>These are short, sharp, seething jams that clock in fast and leave a mark. If you've been following the band through the Zampler comps, this is your chance to grab their material on an actual physical format before it's gone. The band's touring on this one too, so their personal copies will likely disappear at merch tables before we even sell through ours.</p>
-          <p>Once these are gone, they're gone -- lathes don't get repressed.</p>
-          <p><a class="starlink" href="#">Shop Now</a></p>
+          <h2>Coup D'état 7" Lathe Released!</h2>
+          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/a060ef35-87ed-425f-98a9-77c43c5f5cc0/CoupPromo_Cover_RGB.png?format=750w" alt="Coup D'état promo EP cover art">
+          <p>Coup D'état just released the 'coup d'état the band the promo the ep' on black 7" lathe out of 50, with 30 going to the band I've only got 20 for ZBR. Two re-recorded songs and a brand new one (only the first two went on the lathe) highlight the band's peak to date and include "new" guitarist Elle and the last recording with OG bassist Raine.</p>
+          <p>These are pretty expensive but it's because we paid for the express option so the band could have them in hand for New Friends Fest in early August, so please don't think we're gouging, these have like a $3 profit per copy and that's it -- so it shall never be repressed! Snag it now!!!</p>
+          <p><a class="starlink" href="https://zegemabeachrecords.bandcamp.com/album/coup-d-tat-the-band-the-promo-the-ep" target="_blank" rel="noopener">Shop Now</a></p>
         </article>
       </div>
 
@@ -993,7 +998,7 @@
         </div>
       </div>
 
-      <div class="widget" id="reviews-widget">
+      <div class="widget" id="reviews-widget" data-sidebar-page="1">
         <h3 style="background:var(--royalblue);color:var(--white);">Reviews</h3>
         <p><strong>Orphan Donor's 'Ailments'</strong> got some love from <strong>This Noise Is Ours</strong>!</p>
         <a class="starlink" href="http://www.thisnoiseisours.com/2026/07/orphan-donor-ailments.html" target="_blank" rel="noopener">Read The Review</a>
@@ -1002,7 +1007,7 @@
         </div>
       </div>
 
-      <div class="widget" id="features-widget" style="border-color:#19A800;">
+      <div class="widget" id="features-widget" style="border-color:#19A800;" data-sidebar-page="1">
         <h3 style="background:#19A800;color:var(--white);">Features</h3>
         <p><strong>Operation X-Ray</strong> played some <strong>Coup D'etat</strong> as well as the new <strong>Hauzu</strong> song from the Zampler. Check it out!</p>
         <a class="starlink" href="https://soundcloud.com/cameron-dennison/operation-xray-ep-235?utm_source=clipboard&amp;utm_campaign=wtshare&amp;utm_medium=widget&amp;utm_content=https%253A%252F%252Fsoundcloud.com%252Fcameron-dennison%252Foperation-xray-ep-235" target="_blank" rel="noopener">Listen to Operation X-Ray</a>
@@ -1011,12 +1016,48 @@
         </div>
       </div>
 
-      <div class="widget" id="johnnys-widget">
+      <div class="widget" id="johnnys-widget" data-sidebar-page="1">
         <h3>Johnny's Reco-mmendations</h3>
         <p><strong>SNAG</strong> = This band has been kickin' it forever and has a split with Dave's New Zealand band <strong>Swallows Nest</strong> and ZBR released their first and second (aka two previous) full lengths.</p>
         <a class="starlink" href="#" data-view-link="store" data-band-filter="SNAG">Shop Now</a>
         <div class="bcplayer">
           <iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=781253572/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="All The Cages Holding Us Will One Day Turn To Dust by snag. on Bandcamp"><a href="https://snagmke.bandcamp.com/album/all-the-cages-holding-us-will-one-day-turn-to-dust">All The Cages Holding Us Will One Day Turn To Dust</a></iframe>
+        </div>
+      </div>
+
+      <div class="widget" id="reviews-widget-p2-1" data-sidebar-page="2" hidden>
+        <h3 style="background:var(--royalblue);color:var(--white);">Reviews</h3>
+        <p><strong>Concealer's 'This Room Could Be Heaven'</strong> got some love from <strong>Wall Of Sound</strong>! We're hoping to repress this asap cuz it's like...album of the year.</p>
+        <a class="starlink" href="https://www.wallofsoundau.com/news/26-albums-you-may-have-missed-in-2026-so-far" target="_blank" rel="noopener">Read The Review</a>
+        <div class="bcplayer">
+          <iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=3012910951/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="This Room Could Be Heaven by Concealer on Bandcamp"><a href="https://zegemabeachrecords.bandcamp.com/album/this-room-could-be-heaven">This Room Could Be Heaven by Concealer</a></iframe>
+        </div>
+      </div>
+
+      <div class="widget" id="reviews-widget-p2-2" data-sidebar-page="2" hidden>
+        <h3 style="background:var(--royalblue);color:var(--white);">Reviews</h3>
+        <p><strong>Dagerman.</strong> was reviewed by <strong>IYEZINE</strong> in The Queen Is Dead Vol.215.</p>
+        <a class="starlink" href="https://www.iyezine.com/buio-dentro-dagerman-lacasta/" target="_blank" rel="noopener">Read The Review</a>
+        <div class="bcplayer">
+          <iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=2719788109/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="Di Fronte a Noi il Nulla by Dagerman. on Bandcamp"><a href="https://zegemabeachrecords.bandcamp.com/album/di-fronte-a-noi-il-nulla">Di Fronte a Noi il Nulla by Dagerman.</a></iframe>
+        </div>
+      </div>
+
+      <div class="widget" id="reviews-widget-p2-3" data-sidebar-page="2" hidden>
+        <h3 style="background:var(--royalblue);color:var(--white);">Reviews</h3>
+        <p><strong>Rockambula</strong> gave the new <strong>Vibora</strong> a stellar review. 'Egin Ez Dugun Guztia' is down to single-digit copies!</p>
+        <a class="starlink" href="https://www.rockambula.com/i-dischi-che-non-ti-ho-detto-gennaio-giugno-2026-parte-i/" target="_blank" rel="noopener">Read The Review</a>
+        <div class="bcplayer">
+          <iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=3662440684/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="Egin Ez Dugun Guztia by Vibora on Bandcamp"><a href="https://zegemabeachrecords.bandcamp.com/album/egin-ez-dugun-guztia">Egin Ez Dugun Guztia by Vibora</a></iframe>
+        </div>
+      </div>
+
+      <div class="widget" id="features-widget-p2" style="border-color:#19A800;" data-sidebar-page="2" hidden>
+        <h3 style="background:#19A800;color:var(--white);">Features</h3>
+        <p><strong>Operation X-Ray</strong> played previously unreleased tracks from the Zampler -- this episode Andre focused on <strong>Senza</strong> (split 12" w/Rainmaking on Aug 24th) and <strong>Mourn Recif</strong> (Zampler exclusive, a b-side from their only recording session, band is now Cadere).</p>
+        <a class="starlink" href="https://soundcloud.com/cameron-dennison/operation-xray-ep-234-july-3" target="_blank" rel="noopener">Listen to Operation X-Ray</a>
+        <div class="bcplayer">
+          <iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=1056741751/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="Zampler #27 &#39;Take It Out Easy, Cadet&#39; by Zegema Beach Records on Bandcamp"><a href="https://zegemabeachrecords.bandcamp.com/album/zampler-27-take-it-out-easy-cadet">Zampler #27 'Take It Out Easy, Cadet'</a></iframe>
         </div>
       </div>
 
@@ -1429,11 +1470,15 @@
   var postPages = document.querySelectorAll('.post-page');
   var pageButtons = document.querySelectorAll('[data-page-nav]');
   var pagenavLabel = document.getElementById('pagenavLabel');
+  var sidebarPageWidgets = document.querySelectorAll('[data-sidebar-page]');
   var pageDates = { 1: 'July 20, 2026', 2: 'July 13, 2026', 3: 'July 3, 2026', 4: 'June 23, 2026' };
 
   function showPage(n) {
     postPages.forEach(function (page) {
       page.hidden = page.dataset.page !== n;
+    });
+    sidebarPageWidgets.forEach(function (widget) {
+      widget.hidden = widget.dataset.sidebarPage !== n;
     });
     pageButtons.forEach(function (btn) {
       btn.setAttribute('aria-current', btn.dataset.pageNav === n ? 'true' : 'false');
