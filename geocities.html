@@ -11,6 +11,12 @@
         url("assets/fonts/FixedsysExcelsior.woff") format("woff");
     font-weight:normal; font-style:normal; font-display:swap;
   }
+  @font-face{
+    font-family:"Fixedsys Excelsior";
+    src:url("assets/fonts/FixedsysExcelsior.woff2") format("woff2"),
+        url("assets/fonts/FixedsysExcelsior.woff") format("woff");
+    font-weight:bold; font-style:normal; font-display:swap;
+  }
 
   [hidden]{ display:none !important; }
 
@@ -286,7 +292,7 @@
     flex:1; text-align:center;
     background:linear-gradient(180deg,#ffffff,#d4d4d4);
     border:2px outset #ffffff;
-    color:#330000; font-weight:bold; font-family:"Fixedsys Excelsior","Courier New",monospace;
+    color:#000332; font-weight:bold; font-family:"Fixedsys Excelsior","Courier New",monospace;
     font-size:13px; padding:6px 4px; text-decoration:none;
   }
   .gb-btn:hover{ background:#1D64A7; border-color:var(--royalblue); color:var(--white); }
@@ -300,7 +306,7 @@
     text-align:center;
     background:linear-gradient(180deg,#ffffff,#d4d4d4);
     border:2px outset #ffffff;
-    color:#330000; font-weight:bold; font-family:"Fixedsys Excelsior","Courier New",monospace;
+    color:#000332; font-weight:bold; font-family:"Fixedsys Excelsior","Courier New",monospace;
     font-size:13px; padding:0 16px; text-decoration:none; cursor:pointer;
   }
   .cart-btn:hover{ background:#1D64A7; border-color:var(--royalblue); color:var(--white); }
@@ -314,6 +320,7 @@
     width:44px; height:34px; padding:0 4px; text-align:center;
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:13px;
     border:2px inset var(--silver); background:#fff; color:#000;
+    -webkit-appearance:none; appearance:none; border-radius:0;
   }
   .cart-variant-wrap{
     display:flex; align-items:center; gap:4px;
@@ -324,10 +331,15 @@
     margin-left:10px;
   }
   .cart-variant{
-    width:140px; height:34px; padding:0 4px; text-align:center;
+    width:140px; height:34px; padding:0 16px 0 4px; text-align:center;
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:13px;
     border:2px inset var(--silver); background:#fff; color:#000;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    -webkit-appearance:none; appearance:none; border-radius:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpolygon points='0,0 10,0 5,6' fill='%23000'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 4px center;
+    background-size:10px 6px;
   }
 
   .cart-count{
@@ -355,7 +367,7 @@
   .cart-row-name{ flex:1; min-width:160px; color:var(--white); font-weight:bold; }
   .cart-row-remove{
     background:linear-gradient(180deg,#ffffff,#d4d4d4);
-    border:2px outset #ffffff; color:#330000; font-weight:bold;
+    border:2px outset #ffffff; color:#000332; font-weight:bold;
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:12px;
     padding:4px 8px; cursor:pointer;
   }
@@ -486,7 +498,7 @@
     flex:1; text-align:center;
     background:linear-gradient(180deg,#ffffff,#d4d4d4);
     border:2px outset #ffffff;
-    color:#330000; font-weight:bold; font-family:"Fixedsys Excelsior","Courier New",monospace;
+    color:#000332; font-weight:bold; font-family:"Fixedsys Excelsior","Courier New",monospace;
     font-size:13px; padding:6px 4px; cursor:pointer;
   }
   .store-quicklabels button:hover{ background:#1D64A7; border-color:var(--royalblue); color:var(--white); }
@@ -654,6 +666,8 @@
     padding:14px 10px; font-family:"Fixedsys Excelsior","Courier New",monospace;
     font-size:11px; color:var(--silver);
   }
+  footer p a, footer p a:visited{ color:#C0DFFE; }
+  footer p a:hover, footer p a:visited:hover{ color:var(--white); }
 
   @media (max-width:980px){
     .pagewrap{ margin:0; border-width:4px; }
