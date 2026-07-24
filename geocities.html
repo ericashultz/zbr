@@ -204,7 +204,7 @@
   @media (max-width:700px){
     .post img.post-img-crop{ width:100% !important; height:180px !important; object-fit:cover !important; }
   }
-  .thumbstrip{ display:flex; gap:4px; margin:8px 0; }
+  .thumbstrip{ display:flex; flex-wrap:wrap; gap:4px; margin:8px 0; }
   .thumbstrip img{ width:24%; border:2px outset var(--silver); }
 
   .bcplayer{ margin:8px 0; border:2px inset var(--silver); line-height:0; }
@@ -746,6 +746,8 @@
     #reviews-widget-p2-3{ order:4; }
     #features-widget-p2{ order:5; }
     #johnnys-widget-p2{ order:6; }
+    #features-widget-p3{ order:2; }
+    #johnnys-widget-p3{ order:3; }
     .pagenav{ order:7; flex-basis:auto; }
     .sidecol > .widget{ order:8; }
 
@@ -754,6 +756,7 @@
        relying on align-items:stretch. */
     .post-page, #reviews-widget, #features-widget, #johnnys-widget,
     #reviews-widget-p2-1, #reviews-widget-p2-2, #reviews-widget-p2-3, #features-widget-p2, #johnnys-widget-p2,
+    #features-widget-p3, #johnnys-widget-p3,
     .pagenav, .sidecol > .widget{
       width:100%;
     }
@@ -1002,18 +1005,55 @@
       <div class="post-page" data-page="3" hidden>
         <article class="post" id="releases">
           <span class="cat cat-releases">Releases -- July 3, 2026</span>
-          <h2>Zampler #27 Released</h2>
-          <p>ZAMPLER #27, 'Take It Out Easy, Cadet,' dropped on June 30th and it's a big one -- 25 songs deep, with a stacked chunk of previously unreleased material from Senza, Our Future Is An Absolute Shadow, Poetry Of Torch, Coup D'etat, The Names Of Our Friends, Hauzu, Empathetic, and Mourn Recif.</p>
-          <p>As always, it's housed on cdr in the traditional Zampler packaging, and it's basically made-to-order -- place any order over $20 anytime and one gets thrown in automatically. No need to hunt for a separate listing, it just happens at checkout.</p>
-          <p>If you've collected any of the previous 26 installments you already know the drill: this is the cheapest, weirdest way to hear a snapshot of the whole roster at once.</p>
-          <a class="starlink" href="#">Shop ZBR</a>
+          <h2>Zampler #27 Released + Final Shirt Sale!</h2>
+          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/ad5776d4-f751-4f43-9659-986652ee3774/-square.jpg?format=750w" alt="Zampler 27 Take It Out Easy Cadet cover art">
+          <p>ZAMPLER #27 released on June 30th! 'Take It Out Easy, Cadet' houses 25 songs including a bunch of previously unreleased stuff from Senza, Our Future Is An Absolute Shadow, Poetry Of Torch, Coup D'etat, The Names Of Our Friends, Hauzu, Empathetic, and Mourn Recif. All bandcamp donations in the first 30 days for this go to the artist, shoutout Sinco from Constrain &lt;3</p>
+          <p>All orders placed from June 30th-July 6th will include a Zampler cd for free. I heard their might be a golden ticket in there somewhere!!!</p>
+          <div class="bcplayer">
+            <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1056741751/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="Zampler #27 &#39;Take It Out Easy, Cadet&#39; by Zegema Beach Records on Bandcamp"><a href="https://zegemabeachrecords.bandcamp.com/album/zampler-27-take-it-out-easy-cadet">Zampler #27 'Take It Out Easy, Cadet'</a></iframe>
+          </div>
         </article>
 
-        <div class="saleband">
-          <strong>T-SHIRT SALE!!!</strong>
-          <p style="color:var(--ink);">Thinning the closet from 150 shirts down to 45. Everything worn zero to five times, in very good to incredible condition. $8.50US to ship a shirt.</p>
-          <a class="starlink" href="#">Shop The Sale</a>
-        </div>
+        <article class="post">
+          <span class="cat cat-news">News</span>
+          <h2>Final T-Shirt Sale</h2>
+          <p>Oh shit yo the final T-shirts etc. sale just went up so I'm all outta shirts for sale. I cut down my personal collection from almost 200 to just over 50 so there's some insanely rare/awesome shit in there. Some cheap...some not so much lol. Remember, each order by July 6th gets a free Zampler #27!!!</p>
+          <div class="thumbstrip">
+            <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1783093301571-QRD11L6BCVC5GXA1NVZR/1007a+1.jpg?format=300w" alt="ZBR shirt sale photo">
+            <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1783093301685-FZKCEHLDNHUH4WZUUMEL/blood+1.jpg?format=300w" alt="ZBR shirt sale photo">
+            <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1783093303362-8PXLBPINHTXB1IXGOAK2/brahm.jpg?format=300w" alt="ZBR shirt sale photo">
+            <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1783093303603-8IVLGC9ZEJHN385N9QR6/coma.jpg?format=300w" alt="ZBR shirt sale photo">
+            <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1783093304842-HMLNTPML246YXL4ZJR9N/me+and+him+1.jpg?format=300w" alt="ZBR shirt sale photo">
+            <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1783093305119-DRYZOLK9YS734E8QXABE/shoganai.jpg?format=300w" alt="ZBR shirt sale photo">
+            <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1783093306495-FJKHEFDS11UI6XFNVAI6/sinema.jpg?format=300w" alt="ZBR shirt sale photo">
+            <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1783093306731-VWR2BSDWYUVZB5OW2SP1/votive.jpg?format=300w" alt="ZBR shirt sale photo">
+            <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1783093307756-XWBNGV9X6F2YAFXVDZ08/zbr+og.jpg?format=300w" alt="ZBR shirt sale photo">
+          </div>
+          <p><a class="starlink" href="#" data-view-link="store" data-category-filter="shirt">Shop Shirts</a></p>
+        </article>
+
+        <article class="post">
+          <span class="cat cat-releases">Interviews</span>
+          <h2>Gus Caldwell (Ostraca) on the OMSB Podcast</h2>
+          <p>Gus (bass/vocals) from Ostraca joined me on the most recent OMSB Podcast! We talked about a bunch of stuff including their sick new record (embedded below), bands that helped form him, his musical journey, and more!</p>
+          <div class="bcplayer">
+            <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1432719538/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="Podcast 198: Gus Caldwell (Ostraca, Absent Lights, Guerdon) by OMSB Podcast on Bandcamp"><a href="https://omsbpodcast.bandcamp.com/album/podcast-198-gus-caldwell-ostraca-absent-lights-guerdon">Podcast 198: Gus Caldwell</a></iframe>
+          </div>
+          <p><a class="starlink" href="https://openmindsaturatedbrain.blogspot.com/2026/06/podcast-198-gus-caldwell-ostraca-absent.html" target="_blank" rel="noopener">Read The Interview</a></p>
+          <div class="bcplayer">
+            <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3799033302/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="Thread by Ostraca on Bandcamp"><a href="https://ostraca.bandcamp.com/album/thread">Thread by Ostraca</a></iframe>
+          </div>
+        </article>
+
+        <article class="post">
+          <span class="cat cat-releases">Last Copy</span>
+          <h2>Apostles Of Eris x Encarsia</h2>
+          <p>Today's Last Fucking Copy goes to another CanaDave (now just Dave) release, as I am down to the final Apostles Of Eris x Encarsia split cassette. Arguably some of the best AOE material and pretty much the only proper release from the prog skramz gods Encarsia. This will not be made again. Snag it now below or forever hold your peace.</p>
+          <p><a class="starlink" href="https://zegemabeachrecords.bandcamp.com/album/split-14" target="_blank" rel="noopener">Shop Now</a></p>
+          <div class="bcplayer">
+            <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3181300521/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="Split by Apostles Of Eris + Encarsia on Bandcamp"><a href="https://zegemabeachrecords.bandcamp.com/album/split-14">Split by Apostles Of Eris + Encarsia</a></iframe>
+          </div>
+        </article>
       </div>
 
       <div class="post-page" data-page="4" hidden>
@@ -1163,6 +1203,24 @@
         <a class="starlink" href="https://valeskasuratt.bandcamp.com/album/beyond-recognition" target="_blank" rel="noopener">Shop Now</a>
         <div class="bcplayer">
           <iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=1727472732/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="Beyond Recognition by Valeska Suratt on Bandcamp"><a href="https://valeskasuratt.bandcamp.com/album/beyond-recognition">Beyond Recognition by Valeska Suratt</a></iframe>
+        </div>
+      </div>
+
+      <div class="widget" id="features-widget-p3" style="border-color:#19A800;" data-sidebar-page="3" hidden>
+        <h3 style="background:#19A800;color:var(--white);">Features</h3>
+        <p><strong>Everything Is Noise</strong> included the new <strong>Mal Criado</strong> album 'Ni Todo La Tierra Entera' in their monthly blast!</p>
+        <a class="starlink" href="https://everythingisnoise.net/features/the-noise-of-june-2026/" target="_blank" rel="noopener">Read The Feature</a>
+        <div class="bcplayer">
+          <iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=1575890970/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="Ni Todo La Tierra Entera by Mal Criado on Bandcamp"><a href="https://tombtreetapes.bandcamp.com/album/ni-todo-la-tierra-entera">Ni Todo La Tierra Entera by Mal Criado</a></iframe>
+        </div>
+      </div>
+
+      <div class="widget" id="johnnys-widget-p3" data-sidebar-page="3" hidden>
+        <h3>Johnny's Reco-mmendations</h3>
+        <p><strong>MIEKE</strong> = This Kiwi all-star just released another new jam, and I have the 12"LP for 'Frau Eva' on Softseed Music so you can snag it directly from this store!</p>
+        <a class="starlink" href="https://softseedmusic.bandcamp.com/album/frau-eva" target="_blank" rel="noopener">Shop Now</a>
+        <div class="bcplayer">
+          <iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=3236546299/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="Frau Eva by MIEKE on Bandcamp"><a href="https://softseedmusic.bandcamp.com/album/frau-eva">Frau Eva by MIEKE</a></iframe>
         </div>
       </div>
 
@@ -1672,7 +1730,7 @@
       e.preventDefault();
       if (link.dataset.viewLink === 'store') {
         activeBandFilter = link.dataset.bandFilter || '';
-        activeCategoryFilter = '';
+        activeCategoryFilter = link.dataset.categoryFilter || '';
         activeVinylSizeFilter = '';
         activeLabelFilter = '';
         activeSpecialFilter = link.dataset.specialFilter || '';
