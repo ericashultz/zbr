@@ -629,6 +629,9 @@
   .back-to-top:hover{ background:linear-gradient(180deg,#ffffff,#c9c9c9); }
   .back-to-top:active{ border-style:inset; }
   .back-to-top[hidden]{ display:none; }
+  @media (max-width:700px){
+    .back-to-top{ display:none; }
+  }
 
   @keyframes guestbookBorderBlink{
     0%, 49%{ border-color:#FFEE00; }
@@ -667,6 +670,14 @@
     #johnnys-widget{ order:4; }
     .pagenav{ order:5; flex-basis:auto; }
     .sidecol > .widget{ order:6; }
+
+    /* Safari doesn't reliably stretch flex items whose ancestor is
+       display:contents, so force full width explicitly instead of
+       relying on align-items:stretch. */
+    .post-page, #reviews-widget, #features-widget, #johnnys-widget,
+    .pagenav, .sidecol > .widget{
+      width:100%;
+    }
 
     .mobile-quicklinks{ display:block; margin:10px 12px 0; }
     #quicklinks-widget{ display:none; }
