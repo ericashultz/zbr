@@ -67,6 +67,7 @@
   .logoimg{
     height:76px; width:auto;
     mix-blend-mode:screen;
+    image-rendering:-webkit-optimize-contrast;
   }
   h1.sitetitle{
     font-family:"Arial Narrow",Arial,sans-serif;
@@ -229,6 +230,9 @@
   .starlink, .starlink:visited{
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; font-size:14px;
     color:#FFEE00; text-decoration:underline;
+  }
+  @media (max-width:700px){
+    .starlink{ font-size:15px; }
   }
   .starlink:hover, .starlink:visited:hover{ color:#19A800; }
 
@@ -417,16 +421,17 @@
   }
 
   .archives-page{ max-width:900px; margin:24px auto; padding:12px; }
-  .archives-page .search-icon{ display:block; width:40px; height:40px; margin:0 auto 10px; }
-  .archives-page > p{ color:var(--white); font-size:15px; line-height:1.6; max-width:640px; margin:0 auto 18px; text-align:center; }
   .archives-columns{ display:flex; gap:20px; flex-wrap:wrap; align-items:flex-start; }
-  .archives-section{ flex:1 1 320px; min-width:280px; }
-  .archive-list{ list-style:none; margin:0; padding:0; }
+  .archives-section{ flex:1 1 320px; min-width:280px; border:2px inset var(--silver); }
+  .archive-list{
+    list-style:none; margin:0; padding:8px 10px; background:#fff;
+    max-height:420px; overflow-y:auto; text-align:left;
+  }
   .archive-list li{ margin-bottom:2px; }
   .archive-list a{
     display:block; padding:4px 6px; text-decoration:none;
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:13px;
-    color:var(--aqua);
+    color:#1E61A8;
   }
   .archive-list a:hover{ background:#1D64A7; color:var(--white); }
 
@@ -750,6 +755,7 @@
     #johnnys-widget-p3{ order:3; }
     .pagenav{ order:7; flex-basis:auto; }
     .sidecol > .widget{ order:8; }
+    #guestbook-widget{ margin-top:20px; }
 
     /* Safari doesn't reliably stretch flex items whose ancestor is
        display:contents, so force full width explicitly instead of
@@ -1379,7 +1385,7 @@
   <div id="guestbookSignView" hidden>
     <div class="contact-page">
       <img src="assets/write_yellow-1.png" alt="Sign My Guestbook" class="search-icon">
-      <p>Leave a note -- it'll show up on the guestbook page for everyone to see!</p>
+      <p>Leave a note -- it'll show up on the <a class="starlink" href="#" data-view-link="guestbookList">guestbook page</a> for everyone to see!</p>
 
       <form id="guestbookForm" class="contact-form">
         <label class="contact-form-field">Name (required)
@@ -1440,11 +1446,12 @@
 
   <div id="archivesView" hidden>
     <div class="archives-page">
-      <img src="assets/directory_open_file_mydocs_2k-4.png" alt="Archives" class="search-icon">
-      <p>Dig through the ZBR archives -- years of band interviews and show recaps.</p>
       <div class="archives-columns">
-        <div class="archives-section widget">
-          <h3>Interviews</h3>
+        <div class="archives-section">
+          <div class="chat-titlebar">
+            <span>Interviews</span>
+            <span class="chat-titlebar-controls" aria-hidden="true">&#9632;&#9633;&#10005;</span>
+          </div>
           <ul class="archive-list">
         <li><a href="https://www.zegemabeachrecords.com/colinmay-interview" target="_blank" rel="noopener">MAY, COLIN (Phoenix Bodies/Brighter Arrows) Interview</a></li>
         <li><a href="https://www.zegemabeachrecords.com/interviews" target="_blank" rel="noopener">OMSB Interview Reel</a></li>
@@ -1485,8 +1492,11 @@
         <li><a href="https://www.zegemabeachrecords.com/youthnovel-interview" target="_blank" rel="noopener">YOUTH NOVEL interview</a></li>
           </ul>
         </div>
-        <div class="archives-section widget">
-          <h3>Shows &amp; Features</h3>
+        <div class="archives-section">
+          <div class="chat-titlebar">
+            <span>Shows &amp; Features</span>
+            <span class="chat-titlebar-controls" aria-hidden="true">&#9632;&#9633;&#10005;</span>
+          </div>
           <ul class="archive-list">
         <li><a href="https://www.zegemabeachrecords.com/the-world-that-summer-firstfull-set" target="_blank" rel="noopener">THE WORLD THAT SUMMER first/full set</a></li>
         <li><a href="https://www.zegemabeachrecords.com/congratulations-release-show-wnous" target="_blank" rel="noopener">CONGRATULATIONS release show w/NOUS ÉTIONS &amp; TERRY GREEN</a></li>
