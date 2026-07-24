@@ -2491,7 +2491,12 @@
       ],
       listenUrl: null,
       bcAlbumId: null,
-      variants: null,
+      variants: [
+        { value: 'pink-on-black-l', label: 'Pink logo on black t-shirt (L)', available: true },
+        { value: 'pink-on-black-xl', label: 'Pink logo on black t-shirt (XL)', available: true },
+        { value: 'pink-on-black-3xl', label: 'Pink logo on black t-shirt (3XL)', available: true }
+      ],
+      variantLabel: 'Select Size',
       category: 'shirt',
       soldOut: false
     },
@@ -2861,7 +2866,7 @@
       addcartHtml += '<span class="cart-price">' + escapeHtml(p.priceLabel) + '</span>';
       addcartHtml += '<div class="pdp-addcart-action">';
       if (p.variants) {
-        addcartHtml += '<label class="cart-variant-wrap"><select class="cart-variant"><option value="" selected>Select Variant</option>';
+        addcartHtml += '<label class="cart-variant-wrap"><select class="cart-variant"><option value="" selected>' + escapeHtml(p.variantLabel || 'Select Variant') + '</option>';
         p.variants.forEach(function (v) {
           addcartHtml += '<option value="' + v.value + '"' + (v.available ? '' : ' disabled') + '>' + escapeHtml(v.label) + '</option>';
         });
