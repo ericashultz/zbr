@@ -201,6 +201,9 @@
   .post p{ color:var(--white); font-size:14px; line-height:1.5; }
   .post img{ max-width:100%; border:4px ridge var(--silver); }
   .post img.post-img-crop{ width:100%; height:320px; object-fit:cover; object-position:top; }
+  @media (max-width:700px){
+    .post img.post-img-crop{ width:100% !important; height:320px !important; object-fit:cover !important; }
+  }
   .thumbstrip{ display:flex; gap:4px; margin:8px 0; }
   .thumbstrip img{ width:24%; border:2px outset var(--silver); }
 
@@ -446,20 +449,41 @@
   .chat-page{ max-width:700px; margin:24px auto; padding:12px; text-align:center; }
   .chat-page .search-icon{ display:block; width:40px; height:40px; margin:0 auto 10px; }
   .chat-page > p{ color:var(--white); font-size:15px; line-height:1.6; margin:0 0 16px; }
-  .chat-online{
-    text-align:left; margin-bottom:10px;
-    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:12px; color:var(--ink);
+
+  .chat-titlebar{
+    background:linear-gradient(90deg,var(--royalblue),#0b2d54);
+    color:#fff; font-family:"MS Sans Serif","Tahoma",sans-serif;
+    font-weight:bold; font-size:13px;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:4px 4px 4px 8px;
+    border:2px outset #fff; border-bottom:none;
+    text-align:left;
   }
-  .chat-online strong{ color:#19A800; }
+  .chat-titlebar-controls{ letter-spacing:3px; font-size:11px; opacity:0.85; }
+  .chat-window{
+    display:flex; border:2px inset var(--silver); margin-bottom:14px;
+  }
   .chat-log{
-    background:#000; border:3px groove var(--aqua); padding:10px 12px; margin-bottom:14px;
-    height:340px; overflow-y:auto; text-align:left;
+    background:#fff; padding:8px 10px;
+    height:340px; overflow-y:auto; text-align:left; flex:1; min-width:0;
     font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:13px;
   }
-  .chat-line{ margin-bottom:6px; line-height:1.5; word-break:break-word; }
-  .chat-time{ color:var(--ink); font-size:11px; margin-right:6px; }
-  .chat-nick{ font-weight:bold; margin-right:4px; }
-  .chat-text{ color:var(--white); }
+  .chat-line{ margin-bottom:5px; line-height:1.4; word-break:break-word; color:#000; }
+  .chat-time{ color:#888; font-size:11px; margin-right:4px; }
+  .chat-nick{ font-weight:bold; }
+  .chat-nick::after{ content:":"; }
+  .chat-text{ color:#000; }
+  .chat-userlist{
+    background:#fff; border-left:2px solid var(--silver);
+    width:150px; flex:0 0 150px; padding:8px; overflow-y:auto;
+    font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:12px; color:#000; text-align:left;
+  }
+  .chat-userlist-header{
+    font-weight:bold; margin:0 0 6px; padding-bottom:4px;
+    border-bottom:1px solid #999; color:#000;
+  }
+  .chat-userlist ul{ list-style:none; margin:0; padding:0; }
+  .chat-userlist li{ padding:2px 0; color:#1E61A8; }
   .chat-form{ display:flex; gap:8px; flex-wrap:wrap; text-align:left; }
   .chat-form input{
     padding:6px; font-family:"Fixedsys Excelsior","Courier New",monospace; font-size:13px;
@@ -468,6 +492,10 @@
   }
   .chat-nick-field{ flex:0 0 140px; }
   .chat-msg-field{ flex:1 1 200px; }
+  @media (max-width:700px){
+    .chat-window{ flex-direction:column; }
+    .chat-userlist{ width:100%; flex:0 0 auto; border-left:none; border-top:2px solid var(--silver); max-height:140px; }
+  }
 
   .site-search-field{
     display:block; font-family:"Fixedsys Excelsior","Courier New",monospace;
@@ -1307,9 +1335,29 @@
   <div id="chatRoomView" hidden>
     <div class="chat-page">
       <img src="assets/user_computer_pair-0.png" alt="Chat Room" class="search-icon">
-      <p>Hang out with the ZBR crew! This chat log lives on your device only -- nobody else can see your messages (yet). Pretend it's 2004 and enjoy the vibes.</p>
-      <p class="chat-online"><strong>&#9679; 14 users online:</strong> skramz4life, xxlathebrainxx, VHS_forever, mothflame_screamo, basement_show_kid, dave_from_constrain, and 8 others</p>
-      <div class="chat-log" id="chatLog"></div>
+      <p>This chat log lives on your device only -- nobody else can see your messages (yet).</p>
+      <div class="chat-titlebar">
+        <span>ZBR Chat Room</span>
+        <span class="chat-titlebar-controls" aria-hidden="true">&#9632;&#9633;&#10005;</span>
+      </div>
+      <div class="chat-window">
+        <div class="chat-log" id="chatLog"></div>
+        <div class="chat-userlist">
+          <div class="chat-userlist-header">10 people here</div>
+          <ul id="chatUserList">
+            <li>skramz4life</li>
+            <li>xxlathebrainxx</li>
+            <li>VHS_forever</li>
+            <li>mothflame_screamo</li>
+            <li>basement_show_kid</li>
+            <li>dave_from_constrain</li>
+            <li>wallofsound_stan</li>
+            <li>tapehoarder99</li>
+            <li>riffwitch</li>
+            <li>lathecollector</li>
+          </ul>
+        </div>
+      </div>
       <form class="chat-form" id="chatForm">
         <input type="text" name="chatNick" class="chat-nick-field" placeholder="Nickname" aria-label="Nickname" maxlength="24" required>
         <input type="text" name="chatMessage" class="chat-msg-field" placeholder="Say something..." aria-label="Message" maxlength="200" required>
@@ -1321,7 +1369,7 @@
   <div id="archivesView" hidden>
     <div class="archives-page">
       <img src="assets/directory_folder_options-4.png" alt="Archives" class="search-icon">
-      <p>Dig through the ZBR archives -- years of band interviews and show recaps from the scene. Everything below links out to the original post on the classic ZBR site.</p>
+      <p>Dig through the ZBR archives -- years of band interviews and show recaps.</p>
       <div class="archives-columns">
         <div class="archives-section widget">
           <h3>Interviews</h3>
@@ -2579,7 +2627,7 @@
     { nick: 'VHS_forever', text: "the man doesn't sleep, he just presses more records", time: '9:25 PM' },
     { nick: 'mothflame_screamo', text: 'screamo hours >>> business hours', time: '9:27 PM' }
   ];
-  var chatNickColors = ['#FFEE00', '#19A800', '#C0DFFE', '#A500A8', '#1D64A7', '#ff6b6b'];
+  var chatNickColors = ['#1E61A8', '#A500A8', '#CC0000', '#19A800', '#CC6600', '#000080'];
 
   function chatNickColor(nick) {
     var hash = 0;
@@ -2618,7 +2666,7 @@
       var nick = document.createElement('span');
       nick.className = 'chat-nick';
       nick.style.color = chatNickColor(msg.nick);
-      nick.textContent = '<' + msg.nick + '>';
+      nick.textContent = msg.nick;
 
       var text = document.createElement('span');
       text.className = 'chat-text';
