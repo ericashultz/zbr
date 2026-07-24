@@ -200,6 +200,7 @@
   .post-title-link:hover{ color:#FFEE00; }
   .post p{ color:var(--white); font-size:14px; line-height:1.5; }
   .post img{ max-width:100%; border:4px ridge var(--silver); }
+  .post img.post-img-crop{ width:100%; height:320px; object-fit:cover; object-position:top; }
   .thumbstrip{ display:flex; gap:4px; margin:8px 0; }
   .thumbstrip img{ width:24%; border:2px outset var(--silver); }
 
@@ -283,7 +284,7 @@
   .mobile-quicklinks-toggle .toggle-arrow{ float:right; transition:transform 0.15s ease; }
   .mobile-quicklinks-toggle[aria-expanded="true"] .toggle-arrow{ transform:rotate(180deg); }
   .mobile-quicklinks .quicklinks-grid{
-    padding:10px; margin:0; background:#000; border:3px groove var(--aqua); border-top:none;
+    padding:10px; margin:0; background:#000; border:3px groove #A500A8; border-top:none;
   }
   .mobile-quicklinks .quicklinks-grid.collapsed{ display:none; }
 
@@ -906,7 +907,7 @@
         <article class="post">
           <span class="cat cat-news">News</span>
           <h2>Beau Navire Demo 10" Restock</h2>
-          <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/8a1731a2-137b-4966-a96d-644ba1ad00c3/1000005554.jpg?format=750w" alt="Beau Navire demo 10 inch restock photo">
+          <img class="post-img-crop" src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/8a1731a2-137b-4966-a96d-644ba1ad00c3/1000005554.jpg?format=750w" alt="Beau Navire demo 10 inch restock photo">
           <p>I've got a Beau Navire restock for the Demo 10" going back up on Tuesday at 9am PST / 11am CST / 12pm EST. The last time we threw these up we sold 50 in 24 hours, but now there is no US store -- but for the love of science please remember that the $15CAD shipping price is actually just $10US. These are not available anywhere else and they are the OG pressing!!! Check the New Items/Specials page at drop time.</p>
         </article>
 
