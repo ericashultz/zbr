@@ -1248,10 +1248,14 @@
   var lightboxIndex = 0;
   var lightboxLastFocus = null;
 
+  function hiResSrc(url) {
+    return url.replace(/format=\d+w/, 'format=2500w');
+  }
+
   function showLightboxSlide(i) {
     lightboxIndex = (i + lightboxGallery.length) % lightboxGallery.length;
     var photo = lightboxGallery[lightboxIndex];
-    lightboxImg.src = photo.src;
+    lightboxImg.src = hiResSrc(photo.src);
     lightboxImg.alt = photo.alt;
     lightboxDots.querySelectorAll('.pdp-carousel-dot').forEach(function (dot, idx) {
       dot.setAttribute('aria-current', idx === lightboxIndex ? 'true' : 'false');
