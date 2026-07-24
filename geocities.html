@@ -492,6 +492,7 @@
   .chat-msg-field{ flex:1 1 200px; }
   @media (max-width:700px){
     .chat-window{ flex-direction:column; }
+    .chat-log{ flex:0 0 auto; height:280px; }
     .chat-userlist{ width:100%; flex:0 0 auto; border-left:none; border-top:2px solid var(--silver); max-height:140px; }
   }
 
@@ -1659,6 +1660,9 @@
         link.removeAttribute('aria-current');
       }
     });
+    if (view === 'chatRoom') {
+      chatLogEl.scrollTop = chatLogEl.scrollHeight;
+    }
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
