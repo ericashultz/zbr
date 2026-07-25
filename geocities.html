@@ -988,6 +988,7 @@
           <span class="cat cat-news">News</span>
           <h2>Sungaze Drops New Music Video</h2>
           <p>Sungaze released a new music video for one of my favourite tracks from their 'I'm No Longer Afraid Of Heights' 12"LP that Softseed Music released a few months back. Check out the video and scope the album below -- ZBR even has copies in the store for less than Bandcamp!</p>
+          <p><a class="starlink" href="#" data-product-id="sungaze-im-no-longer-afraid-of-heights">Shop Now</a></p>
           <a class="videolink" href="https://www.youtube.com/watch?v=SKhq5tjReRU" target="_blank" rel="noopener">
             <img src="https://i.ytimg.com/vi/SKhq5tjReRU/hqdefault.jpg" alt="Watch Sungaze - Another Life (Official Music Video) on YouTube">
             <span class="playbtn" aria-hidden="true"></span>
@@ -1747,7 +1748,7 @@
     if (view === 'chatRoom') {
       chatLogEl.scrollTop = chatLogEl.scrollHeight;
     }
-    if (window.innerWidth <= 700 && view !== 'usa') {
+    if (window.innerWidth <= 700 && view !== 'usa' && view !== 'search') {
       document.querySelector('nav.mainnav').scrollIntoView({ block: 'start', behavior: 'instant' });
     } else {
       window.scrollTo({ top: 0, behavior: 'instant' });
@@ -2338,6 +2339,32 @@
       category: 'vinyl',
       vinylSize: '7',
       label: 'Zegema Beach Releases',
+      soldOut: false
+    },
+    {
+      id: 'sungaze-im-no-longer-afraid-of-heights',
+      band: 'Sungaze',
+      title: "I'm No Longer Afraid of Heights (12\")",
+      cat: 'Releases',
+      price: 35.00,
+      priceLabel: 'CA$35.00',
+      image: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/309a3c7a-3cbb-451f-a687-1ae1b6f19b0d/cover.jpg?format=1500w',
+      imageAlt: "Sungaze I'm No Longer Afraid of Heights album cover art",
+      gallery: [
+        { src: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/309a3c7a-3cbb-451f-a687-1ae1b6f19b0d/cover.jpg?format=1500w', alt: "Sungaze I'm No Longer Afraid of Heights album cover art" },
+        { src: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/3ad9520a-62e4-4e56-9dc7-df78bffaf842/vinyl+promo.jpg?format=750w', alt: 'Sungaze I\'m No Longer Afraid of Heights vinyl promo photo' }
+      ],
+      description: [
+        "For fans of: Smush, She's Green, Figure Eight, Wednesday, and Leavs.",
+        'Cincinnati, Ohio\'s SUNGAZE have been releasing steadily for nearly a decade now, and with this, their fourth full length album, the band pushes their unique and gorgeous sound into its most consistent and accessible for yet. Featuring 10 songs of dreamy/nostalgic shoegaze rock, listeners are in for a treat with tracks like "Another Life" (very Smush & She\'s Green-esque with huge riffs), "House on the Hill" and "Sold Out" (soaring vocals), "Always Looking Behind" (epic/dreamy/beautiful), etc. The record comes on clear coke bottle vinyl with a bunch of additional art like printed inner-sleeves and a double-sided insert.',
+        '12"s /250 on coke bottle clear, includes printed inner-sleeves, double-sided insert, and download code.'
+      ],
+      listenUrl: 'https://softseedmusic.bandcamp.com/album/im-no-longer-afraid-of-heights',
+      bcAlbumId: '1428819205',
+      variants: null,
+      category: 'vinyl',
+      vinylSize: '12',
+      label: 'Softseed Music',
       soldOut: false
     },
     {
