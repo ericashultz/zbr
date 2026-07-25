@@ -1747,7 +1747,7 @@
     if (view === 'chatRoom') {
       chatLogEl.scrollTop = chatLogEl.scrollHeight;
     }
-    if (window.innerWidth <= 700) {
+    if (window.innerWidth <= 700 && view !== 'usa') {
       document.querySelector('nav.mainnav').scrollIntoView({ block: 'start', behavior: 'instant' });
     } else {
       window.scrollTo({ top: 0, behavior: 'instant' });
