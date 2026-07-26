@@ -189,13 +189,6 @@
   .cat-releases{ background:#1D64A7; }
   .post .cat-soldout{ background:#cc0000; border-color:#cc0000; color:var(--white); }
 
-  .post.post-lastcopy{ background:#FF9100; border-color:#000; }
-  .post-lastcopy .cat{ background:#000; border-color:#000; color:#FF9100; }
-  .post-lastcopy h2, .post-lastcopy h3{ color:#000; text-shadow:1px 1px 0 #fff; }
-  .post-lastcopy p{ color:#000; }
-  .post-lastcopy .starlink, .post-lastcopy .starlink:visited{ color:#000; }
-  .post-lastcopy .starlink:hover, .post-lastcopy .starlink:visited:hover{ color:#fff; }
-
   .post h2, .post h3{
     font-family:"Arial Narrow",Arial,sans-serif;
     font-weight:bold; font-style:italic;
@@ -753,13 +746,16 @@
     #reviews-widget{ order:2; }
     #features-widget{ order:3; }
     #johnnys-widget{ order:4; }
+    #lastcopy-widget-snag{ order:5; }
     #reviews-widget-p2-1{ order:2; }
     #reviews-widget-p2-2{ order:3; }
     #reviews-widget-p2-3{ order:4; }
     #features-widget-p2{ order:5; }
     #johnnys-widget-p2{ order:6; }
+    #lastcopy-widget-agentmulder{ order:7; }
     #features-widget-p3{ order:2; }
     #johnnys-widget-p3{ order:3; }
+    #lastcopy-widget-apostlesoferis{ order:4; }
     .pagenav{ order:7; flex-basis:auto; }
     .sidecol > .widget{ order:8; }
     #guestbook-widget{ margin-top:20px; }
@@ -767,9 +763,9 @@
     /* Safari doesn't reliably stretch flex items whose ancestor is
        display:contents, so force full width explicitly instead of
        relying on align-items:stretch. */
-    .post-page, #reviews-widget, #features-widget, #johnnys-widget,
-    #reviews-widget-p2-1, #reviews-widget-p2-2, #reviews-widget-p2-3, #features-widget-p2, #johnnys-widget-p2,
-    #features-widget-p3, #johnnys-widget-p3,
+    .post-page, #reviews-widget, #features-widget, #johnnys-widget, #lastcopy-widget-snag,
+    #reviews-widget-p2-1, #reviews-widget-p2-2, #reviews-widget-p2-3, #features-widget-p2, #johnnys-widget-p2, #lastcopy-widget-agentmulder,
+    #features-widget-p3, #johnnys-widget-p3, #lastcopy-widget-apostlesoferis,
     .pagenav, .sidecol > .widget{
       width:100%;
     }
@@ -930,16 +926,6 @@
           <img src="https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/959e2021-d62a-4aa2-8c2f-4b0e80434d5c/0-0+promo.jpg?format=2500w" alt="Hillsboro promo photo" style="margin-top:20px;">
         </article>
 
-        <article class="post post-lastcopy">
-          <span class="cat cat-releases">Last Copy</span>
-          <h2>Snag</h2>
-          <p>In conjunction with our Johnny's Reco-mmendations is our good friends <strong>Snag</strong>. We released their split cassette with <strong>Swallows Nest</strong> (one left!), their debut 12"LP, and their sophomore 12"LP (one left!), which makes them Today's Last Fucking Copy so snag it now or forever hold your peace!</p>
-          <p><a class="starlink" href="#" data-view-link="store" data-band-filter="SNAG">Shop Now</a></p>
-          <div class="bcplayer">
-            <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3279434931/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="Snag / Swallows Nest split on Bandcamp"><a href="https://zegemabeachrecords.bandcamp.com/album/snag-swallows-nest-split">Snag / Swallows Nest split</a></iframe>
-          </div>
-        </article>
-
         <article class="post">
           <span class="cat cat-releases">Releases</span>
           <h2><a href="#" class="post-title-link" data-product-id="snag-death-doula">Snag - Death Doula 12" LP</a></h2>
@@ -1008,15 +994,6 @@
           </div>
         </article>
 
-        <article class="post post-lastcopy">
-          <span class="cat cat-releases">Last Copy</span>
-          <h2>Agent Mulder</h2>
-          <p>Today's Last Fucking Copy goes to Agent Mulder's debut EP which somehow has one tape left, snag it! Sassy metallic hardcore from Canada (now dead, so it'll never be made again!).</p>
-          <p><a class="starlink" href="https://tombtreetapes.bandcamp.com/album/and-all-i-loved-i-loved-alone" target="_blank" rel="noopener">Shop Now</a></p>
-          <div class="bcplayer">
-            <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=1035207150/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="And All I Loved, I Loved Alone by Agent Mulder on Bandcamp"><a href="https://tombtreetapes.bandcamp.com/album/and-all-i-loved-i-loved-alone">And All I Loved, I Loved Alone by Agent Mulder</a></iframe>
-          </div>
-        </article>
       </div>
 
       <div class="post-page" data-page="3" hidden>
@@ -1078,15 +1055,6 @@
           </div>
         </article>
 
-        <article class="post post-lastcopy">
-          <span class="cat cat-releases">Last Copy</span>
-          <h2>Apostles Of Eris x Encarsia</h2>
-          <p>Today's Last Fucking Copy goes to another CanaDave (now just Dave) release, as I am down to the final Apostles Of Eris x Encarsia split cassette. Arguably some of the best AOE material and pretty much the only proper release from the prog skramz gods Encarsia. This will not be made again. Snag it now below or forever hold your peace.</p>
-          <p><a class="starlink" href="https://zegemabeachrecords.bandcamp.com/album/split-14" target="_blank" rel="noopener">Shop Now</a></p>
-          <div class="bcplayer">
-            <iframe style="border:0; width:100%; height:120px;" src="https://bandcamp.com/EmbeddedPlayer/album=3181300521/size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/" seamless title="Split by Apostles Of Eris + Encarsia on Bandcamp"><a href="https://zegemabeachrecords.bandcamp.com/album/split-14">Split by Apostles Of Eris + Encarsia</a></iframe>
-          </div>
-        </article>
       </div>
 
       <div class="post-page" data-page="4" hidden>
@@ -1194,6 +1162,15 @@
         </div>
       </div>
 
+      <div class="widget" id="lastcopy-widget-snag" style="border-color:#FF9100;" data-sidebar-page="1">
+        <h3 style="background:#FF9100;color:#000;">Last Copy</h3>
+        <p>In conjunction with our Johnny's Reco-mmendations is our good friends <strong>Snag</strong>. We released their split cassette with <strong>Swallows Nest</strong> (one left!), their debut 12"LP, and their sophomore 12"LP (one left!), which makes them Today's Last Fucking Copy so snag it now or forever hold your peace!</p>
+        <a class="starlink" href="#" data-view-link="store" data-band-filter="SNAG">Shop Now</a>
+        <div class="bcplayer">
+          <iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=3279434931/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="Snag / Swallows Nest split on Bandcamp"><a href="https://zegemabeachrecords.bandcamp.com/album/snag-swallows-nest-split">Snag / Swallows Nest split</a></iframe>
+        </div>
+      </div>
+
       <div class="widget" id="reviews-widget-p2-1" data-sidebar-page="2" hidden>
         <h3 style="background:var(--royalblue);color:var(--white);">Reviews</h3>
         <p><strong>Concealer's 'This Room Could Be Heaven'</strong> got some love from <strong>Wall Of Sound</strong>! We're hoping to repress this asap cuz it's like...album of the year.</p>
@@ -1239,6 +1216,15 @@
         </div>
       </div>
 
+      <div class="widget" id="lastcopy-widget-agentmulder" style="border-color:#FF9100;" data-sidebar-page="2" hidden>
+        <h3 style="background:#FF9100;color:#000;">Last Copy</h3>
+        <p>Today's Last Fucking Copy goes to <strong>Agent Mulder's</strong> debut EP which somehow has one tape left, snag it! Sassy metallic hardcore from Canada (now dead, so it'll never be made again!).</p>
+        <a class="starlink" href="https://tombtreetapes.bandcamp.com/album/and-all-i-loved-i-loved-alone" target="_blank" rel="noopener">Shop Now</a>
+        <div class="bcplayer">
+          <iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=1035207150/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="And All I Loved, I Loved Alone by Agent Mulder on Bandcamp"><a href="https://tombtreetapes.bandcamp.com/album/and-all-i-loved-i-loved-alone">And All I Loved, I Loved Alone by Agent Mulder</a></iframe>
+        </div>
+      </div>
+
       <div class="widget" id="features-widget-p3" style="border-color:#19A800;" data-sidebar-page="3" hidden>
         <h3 style="background:#19A800;color:var(--white);">Features</h3>
         <p><strong>Everything Is Noise</strong> included the new <strong>Mal Criado</strong> album 'Ni Todo La Tierra Entera' in their monthly blast!</p>
@@ -1254,6 +1240,15 @@
         <a class="starlink" href="https://softseedmusic.bandcamp.com/album/frau-eva" target="_blank" rel="noopener">Shop Now</a>
         <div class="bcplayer">
           <iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=3236546299/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="Frau Eva by MIEKE on Bandcamp"><a href="https://softseedmusic.bandcamp.com/album/frau-eva">Frau Eva by MIEKE</a></iframe>
+        </div>
+      </div>
+
+      <div class="widget" id="lastcopy-widget-apostlesoferis" style="border-color:#FF9100;" data-sidebar-page="3" hidden>
+        <h3 style="background:#FF9100;color:#000;">Last Copy</h3>
+        <p>Today's Last Fucking Copy goes to another CanaDave (now just Dave) release, as I am down to the final <strong>Apostles Of Eris x Encarsia</strong> split cassette. Arguably some of the best AOE material and pretty much the only proper release from the prog skramz gods Encarsia. This will not be made again. Snag it now below or forever hold your peace.</p>
+        <a class="starlink" href="https://zegemabeachrecords.bandcamp.com/album/split-14" target="_blank" rel="noopener">Shop Now</a>
+        <div class="bcplayer">
+          <iframe style="border:0; width:100%; height:42px;" src="https://bandcamp.com/EmbeddedPlayer/album=3181300521/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="Split by Apostles Of Eris + Encarsia on Bandcamp"><a href="https://zegemabeachrecords.bandcamp.com/album/split-14">Split by Apostles Of Eris + Encarsia</a></iframe>
         </div>
       </div>
 
