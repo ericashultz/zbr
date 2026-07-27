@@ -199,6 +199,7 @@
   .post-title-link, .post-title-link:visited{ color:inherit; text-decoration:none; }
   .post-title-link:hover{ color:#FFEE00; }
   .post p{ color:var(--white); font-size:14px; line-height:1.5; }
+  .post-readmore{ margin-left:4px; }
   .post img{ max-width:100%; border:4px ridge var(--silver); }
   .post img.post-img-crop{ width:100%; height:320px; object-fit:cover; object-position:top; }
   @media (max-width:700px){
@@ -2976,6 +2977,54 @@
       openProduct(tile.dataset.productId);
     }
   });
+
+  function setupReadMore() {
+    if (window.innerWidth > 700) return;
+    var CHAR_LIMIT = 500;
+    document.querySelectorAll('.post-page .post').forEach(function (post) {
+      if (post.querySelector('img, .bcplayer, .videolink, .addcart, .pdp-carousel')) return;
+      var paragraphs = Array.prototype.slice.call(post.querySelectorAll('p'));
+      if (!paragraphs.length) return;
+      var fullText = paragraphs.map(function (p) { return p.textContent; }).join(' ');
+      if (fullText.length <= CHAR_LIMIT) return;
+
+      var cut = fullText.lastIndexOf(' ', CHAR_LIMIT);
+      var truncated = fullText.slice(0, cut > 0 ? cut : CHAR_LIMIT) + '…';
+
+      var fullWrap = document.createElement('div');
+      fullWrap.className = 'post-full-text';
+      fullWrap.hidden = true;
+      post.insertBefore(fullWrap, paragraphs[0]);
+      paragraphs.forEach(function (p) { fullWrap.appendChild(p); });
+
+      var preview = document.createElement('p');
+      preview.className = 'post-preview';
+      preview.textContent = truncated + ' ';
+      var readMoreLink = document.createElement('a');
+      readMoreLink.href = '#';
+      readMoreLink.className = 'starlink post-readmore';
+      readMoreLink.textContent = 'Read More';
+      readMoreLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        preview.hidden = true;
+        fullWrap.hidden = false;
+      });
+      preview.appendChild(readMoreLink);
+      post.insertBefore(preview, fullWrap);
+
+      var readLessLink = document.createElement('a');
+      readLessLink.href = '#';
+      readLessLink.className = 'starlink post-readmore';
+      readLessLink.textContent = 'Read Less';
+      readLessLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        fullWrap.hidden = true;
+        preview.hidden = false;
+      });
+      fullWrap.appendChild(readLessLink);
+    });
+  }
+  setupReadMore();
 
   renderBandList();
   renderStoreGrid();
