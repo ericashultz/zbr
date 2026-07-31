@@ -3029,6 +3029,15 @@
   }
   setupReadMore();
 
+  (function debugHeadlineSize() {
+    var h2 = document.querySelector('.post h2');
+    if (!h2) return;
+    var badge = document.createElement('div');
+    badge.textContent = 'DEBUG font-size: ' + getComputedStyle(h2).fontSize + ' | width: ' + window.innerWidth + 'px';
+    badge.style.cssText = 'position:fixed; top:0; left:0; right:0; z-index:99999; background:#ff00ff; color:#000; font-size:14px; font-family:monospace; padding:6px; text-align:center;';
+    document.body.appendChild(badge);
+  })();
+
   function setupMobileBcPlayers() {
     if (window.innerWidth > 700) return;
     document.querySelectorAll('.post-page .bcplayer iframe').forEach(function (iframe) {
