@@ -215,6 +215,7 @@
   .thumbstrip img{ width:24%; border:2px outset var(--silver); }
 
   .bcplayer{ margin:8px 0; border:2px inset var(--silver); line-height:0; }
+  .widget .bcplayer, .bcplayer-compact{ border-bottom-color:#888; border-right-color:#888; }
   .videolink{
     display:block; position:relative; margin:8px 0;
     line-height:0;
@@ -610,6 +611,7 @@
 
   @media (max-width:700px){
     .store-sidebar{ flex:1 1 100%; width:100%; }
+    .store-page{ margin-top:0; padding-top:4px; }
   }
 
   .store-grid{
@@ -3031,6 +3033,7 @@
     document.querySelectorAll('.post-page .bcplayer iframe').forEach(function (iframe) {
       iframe.src = iframe.src.replace('size=large', 'size=small').replace('artwork=small/', '');
       iframe.setAttribute('style', iframe.getAttribute('style').replace('height:120px', 'height:42px'));
+      iframe.closest('.bcplayer').classList.add('bcplayer-compact');
     });
   }
   setupMobileBcPlayers();
