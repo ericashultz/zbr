@@ -3042,6 +3042,18 @@
   renderBandList();
   renderStoreGrid();
 
+  function setupSidebarSectionDefaults() {
+    if (window.innerWidth <= 700) return;
+    ['bandList', 'merchList', 'labelList'].forEach(function (id) {
+      var list = document.getElementById(id);
+      if (!list) return;
+      list.classList.remove('collapsed');
+      var btn = list.previousElementSibling;
+      if (btn && btn.hasAttribute('data-toggle-section')) btn.setAttribute('aria-expanded', 'true');
+    });
+  }
+  setupSidebarSectionDefaults();
+
   var contactForm = document.getElementById('contactForm');
   var contactThanks = document.getElementById('contactThanks');
   document.getElementById('contactSubmit').addEventListener('click', function (e) {
