@@ -641,6 +641,9 @@
 
   .pdp-page{ max-width:900px; margin:24px auto; padding:12px; }
   .pdp-back{ display:block; margin-bottom:14px; }
+  .archive-pullquote{ font-style:italic; border-left:3px solid var(--aqua); padding-left:12px; margin:16px 0; }
+  .archive-pullquote-attr{ font-style:normal; color:var(--ink); font-size:13px; }
+  .archive-video-caption{ font-size:13px; color:var(--ink); margin:-4px 0 12px; }
   .pdp-soldout-msg{
     color:#ff6b6b; font-weight:bold; font-family:"Fixedsys Excelsior","Courier New",monospace;
     font-size:13px; margin-top:8px;
@@ -1336,6 +1339,10 @@
     <div class="pdp-page" id="pdpContent"></div>
   </div>
 
+  <div id="archiveDetailView" hidden>
+    <div class="pdp-page" id="archiveDetailContent"></div>
+  </div>
+
   <div id="searchView" hidden>
     <div class="contact-page">
       <img src="assets/search_directory-5.png" alt="" class="search-icon">
@@ -1465,7 +1472,7 @@
             <span class="chat-titlebar-controls" aria-hidden="true">&#9632;&#9633;&#10005;</span>
           </div>
           <ul class="archive-list">
-        <li><a href="#" data-modal-target="tmpl-colinmay" data-modal-title="MAY, COLIN (Phoenix Bodies/Brighter Arrows) Interview">MAY, COLIN (Phoenix Bodies/Brighter Arrows) Interview</a></li>
+        <li><a href="#" data-archive-detail="colinmay">MAY, COLIN (Phoenix Bodies/Brighter Arrows) Interview</a></li>
         <li><a href="https://www.zegemabeachrecords.com/interviews" target="_blank" rel="noopener">OMSB Interview Reel</a></li>
         <li><a href="https://www.zegemabeachrecords.com/adolina-interview" target="_blank" rel="noopener">ADOLINA Interview</a></li>
         <li><a href="https://www.zegemabeachrecords.com/apollo18-interview" target="_blank" rel="noopener">APOLLO 18 Interview</a></li>
@@ -1503,13 +1510,6 @@
         <li><a href="https://www.zegemabeachrecords.com/timeasacolorducthearts-interview" target="_blank" rel="noopener">TIME AS A COLOR / DUCT HEARTS interview</a></li>
         <li><a href="https://www.zegemabeachrecords.com/youthnovel-interview" target="_blank" rel="noopener">YOUTH NOVEL interview</a></li>
           </ul>
-          <template id="tmpl-colinmay">
-            <span class="cat cat-releases">Interview</span>
-            <h2>MAY, COLIN (Phoenix Bodies/Brighter Arrows) Interview</h2>
-            <p>Part of the (((((OPENmind/SATURATEDbrain))))) interview series, this one sits down with <strong>Colin May</strong> -- a fixture across <strong>Brighter Arrows</strong>, <strong>Phoenix Bodies</strong>, <strong>Mara'akate</strong>, and <strong>Hospital</strong> -- to talk through his projects and the scene around them.</p>
-            <p>Head over to the original post on Zegema Beach Records for the full conversation.</p>
-            <p><a class="starlink" href="https://www.zegemabeachrecords.com/colinmay-interview" target="_blank" rel="noopener">Read Full Interview</a></p>
-          </template>
         </div>
         <div class="archives-section">
           <div class="chat-titlebar">
@@ -1744,10 +1744,11 @@
     pdp: document.getElementById('pdpView'),
     search: document.getElementById('searchView'),
     archives: document.getElementById('archivesView'),
+    archiveDetail: document.getElementById('archiveDetailView'),
     chatRoom: document.getElementById('chatRoomView')
   };
   var viewLinks = document.querySelectorAll('[data-view-link]');
-  var navHighlightAs = { pdp: 'store' };
+  var navHighlightAs = { pdp: 'store', archiveDetail: 'archives' };
   var mobileQuicklinks = document.getElementById('mobileQuicklinks');
 
   function showView(view) {
@@ -2699,6 +2700,7 @@
   var storeQuicklabels = document.querySelector('.store-quicklabels');
   var storeSearch = document.getElementById('storeSearch');
   var pdpContent = document.getElementById('pdpContent');
+  var archiveDetailContent = document.getElementById('archiveDetailContent');
   var activeBandFilter = '';
   var activeCategoryFilter = '';
   var activeVinylSizeFilter = '';
@@ -2986,6 +2988,71 @@
     if (tile) {
       e.preventDefault();
       openProduct(tile.dataset.productId);
+    }
+  });
+
+  var archiveEntries = {
+    colinmay: {
+      title: 'MAY, COLIN (Phoenix Bodies/Brighter Arrows) Interview',
+      cat: 'Interview',
+      image: 'https://images.squarespace-cdn.com/content/v1/51f9e29ee4b0d46ee28f3709/1448930637118-1844E595PCX9ZMID0Y5E/image-asset.jpeg?format=1500w',
+      imageAlt: 'Colin May interview photo',
+      paragraphs: [
+        'Dave first crossed paths with Colin May at a gutted, sweaty show in Cleveland headlined by Phoenix Bodies, La Quiete, Ed Gein, and Storm The Bastille -- one of those nights that reshuffles your whole sense of what a show can be. The two started talking, kept in touch, and spent years trading burned CDs through the actual mail before Dave decided it was finally time to sit Colin down for a proper interview.',
+        "Colin's musical history runs through Hospital, Phoenix Bodies, Mara'akate, and now Brighter Arrows, and the interview traces how each one grew out of the last -- shared members, basement recording sessions, and a rotating cast of vocalists (including a stretch where Colin handled vocals himself as a placeholder). One of the wilder stories: the Hospital session was tracked at a rural studio compound that, unbeknownst to the band at the time, was under DEA surveillance and got raided a few days after they left.",
+        "A big chunk of the conversation is devoted to Mara'akate's repeated tours with the Italian band La Quiete, first meeting overseas in 2003 and reconnecting across three more tours through the 2000s. Colin describes the band and their circle as some of the warmest, most talented people he's toured with, contrasting the joy of playing alongside them with the slightly demoralizing feeling of watching a band that good every night.",
+        "The interview also digs into the tangle of split releases Colin's bands put out over the years -- with Enkephalin, Raein, Tyranny of Shaw, Shikari, The Dream Is Dead, La Quiete, and HeWhoCorrupts among others -- most of which trace back to friendships made on tour rather than any calculated plan.",
+        "On Brighter Arrows and where he's at now, Colin talks about a more balanced creative energy than in his earlier bands, plus his general philosophy on staying positive -- something he says takes conscious effort more than natural disposition.",
+        'Colin turned the interview around at the end, asking Dave six questions of his own. Dave\'s answers cover his most memorable live shows (the Cleveland night that kicked off this whole friendship among them), his time doing vocals for мятеж, his plans for Zegema Beach Records (including the Protest The Hero box set and an ambitious 8-way split album), and what keeps him positive day to day -- these days, mostly his son.'
+      ],
+      pullQuote: { text: "You're not batshit crazy.", attribution: 'Colin May' },
+      videos: [
+        { id: '63QyNelPhpc', title: 'Brighter Arrows - "The Occupation"' },
+        { id: "U67VxIUEgqo", title: "Mara'akate - \"Two Dissimilar Materials\"" },
+        { id: 'nYckTq2nLHE', title: 'Hospital - "1"' },
+        { id: 'qTin5JDwAsE', title: 'Phoenix Bodies - "Raise The Bullshit Flag"' },
+        { id: 'Y1PCCnN9u1o', title: 'The World That Summer - "The Standard Gravity of Impending Doom" (Live)' }
+      ]
+    }
+  };
+
+  function openArchiveDetail(id) {
+    var entry = archiveEntries[id];
+    if (!entry) return;
+
+    var html = '<a href="#" class="starlink pdp-back" data-view-link="archives">&laquo; Back to Archives</a>';
+    html += '<article class="post">';
+    html += '<span class="cat cat-releases">' + escapeHtml(entry.cat) + '</span>';
+    html += '<h2>' + escapeHtml(entry.title) + '</h2>';
+    if (entry.image) {
+      html += '<img src="' + entry.image + '" alt="' + escapeHtml(entry.imageAlt || '') + '">';
+    }
+    entry.paragraphs.forEach(function (para) {
+      html += '<p>' + para + '</p>';
+    });
+    if (entry.pullQuote) {
+      html += '<p class="archive-pullquote">&ldquo;' + escapeHtml(entry.pullQuote.text) + '&rdquo; <span class="archive-pullquote-attr">-- ' + escapeHtml(entry.pullQuote.attribution) + '</span></p>';
+    }
+    if (entry.videos && entry.videos.length) {
+      entry.videos.forEach(function (video) {
+        html += '<a class="videolink" href="https://www.youtube.com/watch?v=' + video.id + '" target="_blank" rel="noopener">';
+        html += '<img src="https://i.ytimg.com/vi/' + video.id + '/hqdefault.jpg" alt="Watch ' + escapeHtml(video.title) + ' on YouTube">';
+        html += '<span class="playbtn" aria-hidden="true"></span>';
+        html += '</a>';
+        html += '<p class="archive-video-caption">' + video.title + '</p>';
+      });
+    }
+    html += '</article>';
+
+    archiveDetailContent.innerHTML = html;
+    showView('archiveDetail');
+  }
+
+  document.addEventListener('click', function (e) {
+    var trigger = e.target.closest('[data-archive-detail]');
+    if (trigger) {
+      e.preventDefault();
+      openArchiveDetail(trigger.dataset.archiveDetail);
     }
   });
 
