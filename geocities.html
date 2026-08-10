@@ -448,6 +448,7 @@
   .archive-list a:hover{ background:#1D64A7; color:var(--white); }
 
   .guestbook-entries{ display:flex; flex-direction:column; gap:12px; margin-top:20px; }
+  .guestbook-empty{ color:var(--ink); font-size:14px; text-align:center; margin-top:20px; }
   .guestbook-entry{
     background:#000; border:3px groove var(--aqua); padding:10px 12px; text-align:left;
   }
@@ -3165,7 +3166,12 @@
 
   function renderGuestbook() {
     guestbookEntriesEl.innerHTML = '';
-    guestbookEntries.concat(guestbookSeed).forEach(function (entry) {
+    var allEntries = guestbookEntries.concat(guestbookSeed);
+    if (!allEntries.length) {
+      guestbookEntriesEl.innerHTML = '<p class="guestbook-empty">No entries yet -- be the first to sign!</p>';
+      return;
+    }
+    allEntries.forEach(function (entry) {
       var row = document.createElement('div');
       row.className = 'guestbook-entry';
 
