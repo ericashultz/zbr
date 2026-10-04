@@ -140,27 +140,6 @@
   .sidecol{ flex:1; min-width:0; }
 
   /* ==== PAGINATION BY POST DATE ==== */
-  /* ==== USA STORE (UNDER CONSTRUCTION) VIEW ==== */
-  .construction-panel{
-    max-width:640px; margin:24px auto; padding:12px;
-    text-align:center;
-  }
-  .construction-panel .stripes{
-    height:22px; margin:0 0 24px;
-    background-color:#ffff00;
-    background-image:repeating-linear-gradient(-45deg, #000 0 10px, #ffff00 10px 20px);
-    border-top:3px solid #000; border-bottom:3px solid #000;
-  }
-  .construction-panel .stripes:last-child{ margin:24px 0 0; }
-  .construction-panel .digger{ margin:0 0 18px; }
-  .construction-panel .digger img{ width:40px; height:40px; }
-  .construction-panel h2{
-    font-family:"Arial Narrow",Arial,sans-serif;
-    font-weight:bold; font-style:italic;
-    color:var(--white); font-size:32px; margin:0 0 14px;
-  }
-  .construction-panel p{ font-size:15px; line-height:1.6; margin:0; color:var(--ink); }
-
   .pagenav{ flex-basis:100%; order:1; text-align:center; margin-top:6px; padding-top:6px; }
   .pagenav-label{
     display:block; margin-bottom:10px;
@@ -848,16 +827,16 @@
   <nav class="mainnav" aria-label="Main">
     <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="mainnav-list">&#9776; MENU</button>
     <ul id="mainnav-list">
-      <li><a href="#" data-view-link="home" aria-current="page">Home</a></li>
-      <li><a href="#" data-view-link="store">Canada / Intl Store</a></li>
-      <li><a href="#" data-view-link="usa">USA Store</a></li>
+      <li><a href="#" data-view-link="store" aria-current="page">Canada / Intl Store</a></li>
+      <li><a href="https://persistentvisionrecords.com/collections/zegema-beach-records" target="_blank" rel="noopener">USA Store</a></li>
+      <li><a href="#" data-view-link="home">News</a></li>
       <li><a href="#" data-view-link="search">Search</a></li>
       <li><a href="#" data-view-link="contact">Contact</a></li>
       <li><a href="#" data-view-link="cart">View Cart <span id="cartCount" class="cart-count" hidden>0</span></a></li>
     </ul>
   </nav>
 
-  <div class="mobile-quicklinks" id="mobileQuicklinks">
+  <div class="mobile-quicklinks" id="mobileQuicklinks" hidden>
     <button type="button" class="mobile-quicklinks-toggle" data-toggle-section aria-expanded="false">Quick Links <span class="toggle-arrow">&#9660;</span></button>
     <div class="quicklinks-grid collapsed" id="mobileQuicklinksGrid">
       <a class="quicklink" href="https://omsbpodcast.bandcamp.com/" target="_blank" rel="noopener">
@@ -887,7 +866,7 @@
     </div>
   </div>
 
-  <div id="homeView">
+  <div id="homeView" hidden>
 
   <main id="main" class="layout">
     <div class="maincol">
@@ -1282,7 +1261,7 @@
 
   </div>
 
-  <div id="storeView" hidden>
+  <div id="storeView">
     <div class="store-page">
       <div class="store-layout">
         <aside class="store-sidebar">
@@ -1351,15 +1330,6 @@
         <input type="text" id="siteSearchInput" placeholder="Search band names, releases, news...">
       </label>
       <div id="siteSearchResults"></div>
-    </div>
-  </div>
-
-  <div id="usaStoreView" hidden>
-    <div class="construction-panel">
-      <div class="digger" aria-hidden="true"><img src="assets/directory_folder_options-4.png" alt=""></div>
-      <h2>Under Construction</h2>
-      <p>Check back soon -- in the meantime, the Canada / International store and Bandcamp are open for business!</p>
-      <div class="stripes" aria-hidden="true"></div>
     </div>
   </div>
 
@@ -1557,7 +1527,7 @@
 
   <footer>
     <p>&copy; 2026 Zegema Beach Records -- Canada</p>
-    <p><a href="#" data-view-link="store">Canada / Intl Store</a> &middot; <a href="#" data-view-link="usa">USA Store</a> &middot; <a href="https://zegemabeachrecords.bandcamp.com/" target="_blank" rel="noopener">Bandcamp</a> &middot; <a href="#" data-view-link="archives">Archives</a> &middot; <a href="#" data-view-link="contact">Contact</a></p>
+    <p><a href="#" data-view-link="store">Canada / Intl Store</a> &middot; <a href="https://persistentvisionrecords.com/collections/zegema-beach-records" target="_blank" rel="noopener">USA Store</a> &middot; <a href="https://zegemabeachrecords.bandcamp.com/" target="_blank" rel="noopener">Bandcamp</a> &middot; <a href="#" data-view-link="archives">Archives</a> &middot; <a href="#" data-view-link="contact">Contact</a></p>
   </footer>
 
 </div>
@@ -1736,7 +1706,6 @@
 
   var views = {
     home: document.getElementById('homeView'),
-    usa: document.getElementById('usaStoreView'),
     cart: document.getElementById('cartView'),
     contact: document.getElementById('contactView'),
     guestbookSign: document.getElementById('guestbookSignView'),
@@ -1768,7 +1737,7 @@
     if (view === 'chatRoom') {
       chatLogEl.scrollTop = chatLogEl.scrollHeight;
     }
-    if (window.innerWidth <= 700 && view !== 'usa' && view !== 'search') {
+    if (window.innerWidth <= 700 && view !== 'search') {
       document.querySelector('nav.mainnav').scrollIntoView({ block: 'start', behavior: 'instant' });
     } else {
       window.scrollTo({ top: 0, behavior: 'instant' });
