@@ -1,0 +1,117 @@
+/* ZBR GeoCities redesign -- Squarespace 7.0 Custom CSS (v1) */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+/* ---- Page + starfield ---- */
+html, body{
+  background-color:#000033 !important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Ccircle cx='10' cy='10' r='1' fill='%2319A800'/%3E%3Ccircle cx='40' cy='60' r='1' fill='%2319A800'/%3E%3Ccircle cx='70' cy='20' r='1' fill='%2319A800'/%3E%3Ccircle cx='90' cy='80' r='1.5' fill='%2319A800'/%3E%3Ccircle cx='25' cy='90' r='1' fill='%2319A800'/%3E%3Ccircle cx='55' cy='35' r='1' fill='%2319A800'/%3E%3C/svg%3E") !important;
+  background-size:100px 100px !important;
+  color:#d9d9d9 !important;
+  font-family:Arial, sans-serif !important;
+}
+#site{ background:transparent !important; }
+#canvas{
+  max-width:980px; margin:14px auto !important;
+  background:#000011 !important;
+  border:6px ridge #1E61A8;
+}
+#pageWrapper, #page{ background:transparent !important; }
+
+a{ color:#C0DEFF; }
+a:hover{ color:#fff; background:#000; }
+
+/* ---- Header ---- */
+#headerWrapper{ background:#150029 !important; border-bottom:4px solid #C0DEFF !important; }
+#header{ text-align:center; }
+h1.logo img{ max-height:100px; width:auto; mix-blend-mode:screen; }
+p.site-tagline{ color:#fff !important; font:14px/1.5 Arial, sans-serif !important; margin:16px 0 !important; }
+
+/* ---- Nav: beveled 90s buttons ---- */
+#navBlock{
+  background:#c0c0c0 !important;
+  border-top:3px outset #c0c0c0; border-bottom:3px outset #c0c0c0;
+  padding:6px; text-align:center;
+}
+nav.main-nav ul{ display:flex; flex-wrap:wrap; justify-content:center; gap:4px; margin:0; padding:0; list-style:none; }
+nav.main-nav ul li{ float:none !important; margin:0 !important; }
+nav.main-nav ul li a{
+  display:inline-block;
+  background:linear-gradient(180deg,#e8e8e8,#a0a0a0) !important;
+  border:2px outset #fff;
+  color:#000066 !important;
+  font:bold 12px Tahoma, "MS Sans Serif", sans-serif !important;
+  text-decoration:none; text-transform:none !important; letter-spacing:0 !important;
+  padding:6px 10px;
+}
+nav.main-nav ul li a:hover{ background:linear-gradient(180deg,#fff,#c9c9c9) !important; color:#000 !important; }
+nav.main-nav ul li.active-link a{ border-style:inset; background:linear-gradient(180deg,#a0a0a0,#e8e8e8) !important; }
+nav.main-nav .subnav{ background:#c0c0c0 !important; border:2px outset #fff; padding:4px; }
+
+/* ---- News posts ---- */
+article.hentry{
+  background:#000 !important; border:3px ridge #C0DEFF;
+  padding:20px; margin-bottom:16px;
+}
+h1.entry-title, h2.entry-title{
+  font:bold italic 26px "Arial Narrow", Arial, sans-serif !important;
+  color:#fff !important; text-shadow:1px 1px 0 #660066; margin:4px 0 8px !important;
+  text-transform:none !important; letter-spacing:0 !important;
+}
+.entry-title a{ color:inherit !important; text-decoration:none; }
+.entry-title a:hover{ color:#FFEE00 !important; background:none; }
+article.hentry p{ color:#fff !important; font-size:15px; line-height:1.5; }
+article.hentry .date a{
+  display:inline-block;
+  background:#1D64A7; border:2px outset #1D64A7; color:#fff !important;
+  font:bold 15px "VT323","Courier New",monospace; padding:0 8px;
+}
+article.hentry img{ border:4px ridge #c0c0c0; max-width:100%; }
+
+/* ---- Store grid ---- */
+.product{ background:#000; border:3px ridge #C0DEFF; padding:8px; }
+.product-title{ color:#fff !important; font-weight:bold; text-transform:none !important; }
+.product-price{ color:#C0DEFF !important; font-family:"VT323","Courier New",monospace !important; font-size:18px; }
+.product-image img{ border:4px ridge #c0c0c0; }
+.product-mark{ background:#cc0000 !important; color:#fff !important; border-radius:0 !important; }
+
+/* ---- Buttons ---- */
+.sqs-add-to-cart-button, .sqs-block-button-element, input[type="submit"], button.sqs-add-to-cart-button{
+  font:bold 18px "VT323","Courier New",monospace !important;
+  background:linear-gradient(180deg,#e8e8e8,#a0a0a0) !important;
+  border:2px outset #fff !important; color:#000 !important; border-radius:0 !important; box-shadow:none !important;
+}
+.sqs-add-to-cart-button:hover{ background:linear-gradient(180deg,#fff,#c9c9c9) !important; }
+
+/* ---- Footer ---- */
+#footerWrapper, #footer{
+  background:#000 !important; text-align:center;
+  border-top:4px double #C0DEFF;
+  font:11px "Courier New", monospace; color:#c0c0c0 !important;
+}
+#footer a{ color:#C0DFFE; } #footer a:hover{ color:#FFEE00; background:none; }
+
+/* ---- Fixes found while testing ---- */
+/* Template's full-bleed "promoted" gallery spills outside the frame */
+article.hentry .special-content{ margin:0 0 12px !important; width:100% !important; max-width:100% !important; overflow:hidden; }
+article.hentry .special-content .sqs-block-gallery,
+article.hentry .special-content .sqs-gallery-container{ width:100% !important; max-width:100% !important; left:0 !important; }
+/* Store grid: swap the float layout for CSS grid so uneven tile heights don't leave gaps */
+#productList{ display:grid !important; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:14px; padding:0 14px; }
+#productList .product{ float:none !important; width:auto !important; margin:0 !important; clear:none !important; }
+#productList::before, #productList::after{ display:none !important; }
+
+/* ---- v2: logo, green title, centered tagline, full-width compact nav ---- */
+#header{ text-align:center; padding:14px 0 0 !important; max-width:none !important; width:auto !important; margin:0 !important; }
+#headerInfo{ width:100% !important; max-width:none !important; margin:0 !important; padding:0 !important; }
+#headerInfo .site-description{ display:none !important; }
+h1.logo{ margin:0 !important; padding:0 10px; }
+h1.logo a{ display:block !important; width:auto !important; }
+h1.logo a:hover{ background:none; }
+h1.logo img{ height:100px !important; width:auto !important; max-width:100% !important; mix-blend-mode:screen; }
+h1.logo a::after{ content:"Zegema Beach Records"; display:block; margin-top:6px; font:bold italic 48px "Arial Narrow", Arial, sans-serif; letter-spacing:1px; color:#19A800; text-transform:none; }
+p.site-tagline{ color:#fff !important; font:14px/1.5 Arial, sans-serif !important; text-align:center !important; width:auto !important; max-width:none !important; margin:16px 0 !important; padding:0 14px; }
+#navBlock{ padding:6px !important; margin:0 !important; box-sizing:border-box; width:100% !important; }
+nav.main-nav{ padding:0 !important; margin:0 !important; border:0 !important; }
+nav.main-nav ul li{ float:none !important; margin:0 !important; padding:0 !important; border:0 !important; }
+#navBlock nav.main-nav ul li a{ font:bold 14px Tahoma, "MS Sans Serif", sans-serif !important; padding:9px 16px !important; line-height:1.2 !important; }
+@media (max-width:980px){ h1.logo a::after{ font-size:34px; } h1.logo img{ height:76px !important; } }
