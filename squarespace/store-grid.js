@@ -95,6 +95,7 @@
     if (/[a-z]/.test(w)) return w;                                   // already mixed/lower case
     if (KEEP_AS_IS[w]) return KEEP_AS_IS[w];
     if (/(?:[A-Z]\.){2,}/.test(w)) return w;                          // initialisms: A.C., I.O.
+    if (/[A-Za-z]\d|\d[A-Za-z]/.test(w)) return w;                   // digits glued to letters: 124C41+, .22LR, 3RD
     var letters = w.replace(/[^A-Za-zÀ-ÿ]/g, '');
     if (letters.length > 1 && letters.length <= 5 && !/[AEIOUYÀ-ÿ]/.test(letters)) return w; // DSGNS, TNG, ZBR
     return w.toLowerCase().replace(/(^|[-\/(\[+&"“])([a-zà-ÿ])/g, function (m, a, c) { return a + c.toUpperCase(); });
