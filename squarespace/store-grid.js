@@ -15,7 +15,7 @@
   var BASE = 'https://zbr-rho.vercel.app';
   try { if (document.currentScript && document.currentScript.src) BASE = new URL(document.currentScript.src).origin; } catch (e) { /* keep default */ }
   var CATALOG_URL = BASE + '/api/catalog';
-  var PAGE_SIZE = 120;
+  var PAGE_SIZE = 40; // products per page
   var MOBILE_MAX = 900; // phones + tablets: stacked sidebar, collapsed filter menus (matches the nav's mobile menu)
 
   var VINYL = ['v12', 'v7', 'vo'];
@@ -74,12 +74,17 @@
     '#zbr-store .zs-price.zs-soldout{color:#ff6b6b}' +
     '#zbr-store .zs-msg{color:#d9d9d9;font-size:14px;padding:10px 2px}' +
     '#zbr-store .zs-msg a{color:#C0DEFF}' +
-    '#zbr-store .zs-morewrap{text-align:center;margin:18px 0 4px}' +
-    '#zbr-store .zs-more{background:linear-gradient(180deg,#fff,#d4d4d4);border:2px outset #fff;color:#000332;font:bold 13px "Fixedsys Excelsior","Courier New",monospace;padding:8px 18px}' +
-    '#zbr-store .zs-more:hover{background:#1D64A7;border-color:#1E61A8;color:#fff}' +
+    '#zbr-store .zs-pagenav{text-align:center;margin:18px 0 4px;padding-top:6px}' +
+    '#zbr-store .zs-pagenav-label{display:block;margin:0 0 10px;font:12px "Fixedsys Excelsior","Courier New",monospace;color:#d9d9d9;text-transform:none;letter-spacing:0}' +
+    '#zbr-store .zs-pagenav-buttons{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px 0}' +
+    '#zbr-store .zs-pagenav button{background:linear-gradient(180deg,#e8e8e8,#a0a0a0);border:2px outset #fff;color:#000066;font:bold 13px "MS Sans Serif",Tahoma,sans-serif;width:34px;height:30px;margin:0 3px;padding:0}' +
+    '#zbr-store .zs-pagenav button:hover{background:linear-gradient(180deg,#fff,#c9c9c9);color:#000}' +
+    '#zbr-store .zs-pagenav button[aria-current="true"]{border-style:inset;background:linear-gradient(180deg,#a0a0a0,#e8e8e8)}' +
+    '#zbr-store .zs-pagenav button[disabled]{opacity:.45;cursor:default;background:linear-gradient(180deg,#e8e8e8,#a0a0a0);color:#000066}' +
+    '#zbr-store .zs-pagenav .zs-gap{display:inline-block;width:20px;text-align:center;color:#d9d9d9;font:bold 13px "Fixedsys Excelsior","Courier New",monospace}' +
     // Squarespace caps normal pages at 710px; let the store page use the full frame like the redesign (4 columns)
     'body.zbr-store-page #page{max-width:none!important;margin-left:0!important;margin-right:0!important;padding-bottom:24px!important}' +
-    '@media (max-width:' + MOBILE_MAX + 'px){#zbr-store{padding:4px 12px 12px}#zbr-store .zs-sidebar{flex:1 1 100%;width:100%}}';
+    '@media (max-width:' + MOBILE_MAX + 'px){#zbr-store{padding:4px 12px 12px}#zbr-store .zs-sidebar{flex:1 1 100%;width:100%}#zbr-store .zs-pagenav button{width:32px;margin:0 2px}#zbr-store .zs-pagenav .zs-gap{width:16px}}';
 
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
@@ -137,7 +142,7 @@
   function build(root, items) {
     var mq = window.matchMedia('(max-width:' + MOBILE_MAX + 'px)');
     var collapsedByDefault = mq.matches;
-    var st = { band: '', cat: '', size: '', label: '', special: '', query: '', shown: PAGE_SIZE };
+    var st = { band: '', cat: '', size: '', label: '', special: '', query: '', page: 1 };
 
     items.forEach(function (p) { p.b = prettyBand(p.b); });
 
@@ -185,11 +190,11 @@
           section('Merch', merchHtml) +
           section('Labels', labelsHtml) +
         '</aside>' +
-        '<div class="zs-main"><div class="zs-grid"></div><div class="zs-morewrap"></div></div>' +
+        '<div class="zs-main"><div class="zs-grid"></div><nav class="zs-pagenav" aria-label="Store pages"></nav></div>' +
       '</div>';
 
     var grid = root.querySelector('.zs-grid');
-    var moreWrap = root.querySelector('.zs-morewrap');
+    var pager = root.querySelector('.zs-pagenav');
     var search = root.querySelector('.zs-search input');
 
     function hasFmt(p, code) { return !!p.f && p.f.indexOf(code) !== -1; }
@@ -210,15 +215,48 @@
       return (p.r ? 'from ' : '') + 'CA$' + p.p.toFixed(2);
     }
 
+    // Page numbers to show: first, last, and the pages around the current one, with "..." gaps.
+    function pageList(cur, n, around) {
+      var keep = {};
+      keep[1] = 1; keep[n] = 1;
+      for (var i = cur - around; i <= cur + around; i++) if (i >= 1 && i <= n) keep[i] = 1;
+      var nums = Object.keys(keep).map(Number).sort(function (a, b) { return a - b; });
+      var out = [], prev = 0;
+      nums.forEach(function (x) {
+        if (prev && x - prev === 2) out.push(prev + 1);
+        else if (prev && x - prev > 2) out.push('gap');
+        out.push(x);
+        prev = x;
+      });
+      return out;
+    }
+
+    function renderPager(total, pages) {
+      if (pages <= 1) { pager.innerHTML = ''; return; }
+      var from = (st.page - 1) * PAGE_SIZE + 1, to = Math.min(total, st.page * PAGE_SIZE);
+      var around = mq.matches ? 1 : 2;
+      var btns = '<button type="button" data-zs-page="prev" aria-label="Previous page"' + (st.page === 1 ? ' disabled' : '') + '>&lsaquo;</button>' +
+        pageList(st.page, pages, around).map(function (x) {
+          return x === 'gap'
+            ? '<span class="zs-gap" aria-hidden="true">&hellip;</span>'
+            : '<button type="button" data-zs-page="' + x + '" aria-label="Page ' + x + '" aria-current="' + (x === st.page ? 'true' : 'false') + '">' + x + '</button>';
+        }).join('') +
+        '<button type="button" data-zs-page="next" aria-label="Next page"' + (st.page === pages ? ' disabled' : '') + '>&rsaquo;</button>';
+      pager.innerHTML = '<span class="zs-pagenav-label">Showing ' + from.toLocaleString('en-US') + '-' + to.toLocaleString('en-US') + ' of ' + total.toLocaleString('en-US') + '</span>' +
+        '<div class="zs-pagenav-buttons">' + btns + '</div>';
+    }
+
     function render() {
       var q = norm(st.query);
       var filtered = items.filter(function (p) { return matches(p, q); });
+      var pages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+      if (st.page > pages) st.page = pages;
 
       if (!filtered.length) {
         grid.innerHTML = '<p class="zs-msg">No releases match that search.</p>';
-        moreWrap.innerHTML = '';
+        pager.innerHTML = '';
       } else {
-        grid.innerHTML = filtered.slice(0, st.shown).map(function (p) {
+        grid.innerHTML = filtered.slice((st.page - 1) * PAGE_SIZE, st.page * PAGE_SIZE).map(function (p) {
           return '<a class="zs-tile" href="' + esc(p.u) + '">' +
             '<span class="zs-imgbox">' + (p.i ? '<img src="' + esc(p.i) + '" alt="' + esc((p.b ? p.b + ' - ' : '') + p.n) + '" loading="lazy">' : '') + '</span>' +
             (p.b ? '<span class="zs-band' + (longestWord(p.b) >= 15 ? ' zs-tight' : '') + '">' + esc(p.b) + '</span>' : '') +
@@ -226,10 +264,7 @@
             '<span class="zs-price' + (p.s ? ' zs-soldout' : '') + '">' + esc(priceLabel(p)) + '</span>' +
             '</a>';
         }).join('');
-        var remaining = filtered.length - st.shown;
-        moreWrap.innerHTML = remaining > 0
-          ? '<button type="button" class="zs-more" data-zs-more>Show more (' + remaining + ' more)</button>'
-          : '';
+        renderPager(filtered.length, pages);
       }
 
       // aria-current state, same rules as the redesign
@@ -253,11 +288,11 @@
       // One filter group at a time, like the redesign; search stays on top of it.
       st.band = next.band || ''; st.cat = next.cat || ''; st.size = next.size || '';
       st.label = next.label || ''; st.special = next.special || '';
-      st.shown = PAGE_SIZE;
+      st.page = 1;
       render();
     }
 
-    search.addEventListener('input', function () { st.query = search.value; st.shown = PAGE_SIZE; render(); });
+    search.addEventListener('input', function () { st.query = search.value; st.page = 1; render(); });
 
     root.addEventListener('click', function (e) {
       var t = e.target.closest('button');
@@ -286,9 +321,15 @@
       } else if (t.hasAttribute('data-zs-special')) {
         var s = t.getAttribute('data-zs-special');
         setFilter({ special: st.special === s ? '' : s });
-      } else if (t.hasAttribute('data-zs-more')) {
-        st.shown += PAGE_SIZE;
-        render();
+      } else if (t.hasAttribute('data-zs-page')) {
+        var target = t.getAttribute('data-zs-page');
+        var cur = st.page;
+        st.page = target === 'prev' ? cur - 1 : target === 'next' ? cur + 1 : parseInt(target, 10);
+        if (st.page !== cur) {
+          render();
+          var top = root.querySelector('.zs-main').getBoundingClientRect().top + window.pageYOffset - 12;
+          window.scrollTo(0, Math.max(0, top)); // back to the top of the grid, like the news pagination
+        }
       }
     });
 
