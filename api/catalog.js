@@ -76,8 +76,7 @@ function slim(item, col) {
     n: name,
     u: item.fullUrl,
     i: item.assetUrl ? item.assetUrl + '?format=500w' : '',
-    p: min / 100,
-    a: item.addedOn || 0
+    p: min / 100
   };
   if (max !== min) out.r = 1; // price is a range -> "from"
   if (soldOut) out.s = 1;
@@ -98,7 +97,6 @@ async function buildCatalog() {
     if (r.status === 'fulfilled') items.push.apply(items, r.value);
     else failed.push(COLLECTIONS[idx].slug);
   });
-  items.sort((x, y) => y.a - x.a);
   return { generatedAt: new Date().toISOString(), count: items.length, failed, items };
 }
 
