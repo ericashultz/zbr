@@ -16,7 +16,7 @@
   try { if (document.currentScript && document.currentScript.src) BASE = new URL(document.currentScript.src).origin; } catch (e) { /* keep default */ }
   var CATALOG_URL = BASE + '/api/catalog';
   var PAGE_SIZE = 120;
-  var MOBILE_MAX = 700;
+  var MOBILE_MAX = 900; // phones + tablets: stacked sidebar, collapsed filter menus (matches the nav's mobile menu)
 
   var VINYL = ['v12', 'v7', 'vo'];
   var MERCH = [
@@ -75,7 +75,9 @@
     '#zbr-store .zs-morewrap{text-align:center;margin:18px 0 4px}' +
     '#zbr-store .zs-more{background:linear-gradient(180deg,#fff,#d4d4d4);border:2px outset #fff;color:#000332;font:bold 13px "Fixedsys Excelsior","Courier New",monospace;padding:8px 18px}' +
     '#zbr-store .zs-more:hover{background:#1D64A7;border-color:#1E61A8;color:#fff}' +
-    '@media (max-width:700px){#zbr-store{padding:4px 12px 12px}#zbr-store .zs-sidebar{flex:1 1 100%;width:100%}}';
+    // Squarespace caps normal pages at 710px; let the store page use the full frame like the redesign (4 columns)
+    'body.zbr-store-page #page{max-width:none!important;margin-left:0!important;margin-right:0!important;padding-bottom:24px!important}' +
+    '@media (max-width:' + MOBILE_MAX + 'px){#zbr-store{padding:4px 12px 12px}#zbr-store .zs-sidebar{flex:1 1 100%;width:100%}}';
 
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
@@ -88,6 +90,7 @@
     var root = document.getElementById('zbr-store');
     if (!root || root.getAttribute('data-zs-ready')) return;
     root.setAttribute('data-zs-ready', '1');
+    document.body.classList.add('zbr-store-page');
 
     if (!document.getElementById('zbr-store-css')) {
       var style = document.createElement('style');
@@ -111,7 +114,8 @@
   }
 
   function build(root, items) {
-    var collapsedByDefault = window.matchMedia('(max-width:' + MOBILE_MAX + 'px)').matches;
+    var mq = window.matchMedia('(max-width:' + MOBILE_MAX + 'px)');
+    var collapsedByDefault = mq.matches;
     var st = { band: '', cat: '', size: '', label: '', special: '', query: '', shown: PAGE_SIZE };
 
     // Bands A-Z: unique (case-insensitive), skipping the label's own name
@@ -264,6 +268,15 @@
         render();
       }
     });
+
+    function applyMenuDefaults() {
+      root.querySelectorAll('[data-zs-toggle]').forEach(function (btn) {
+        btn.nextElementSibling.classList.toggle('zs-collapsed', mq.matches);
+        btn.setAttribute('aria-expanded', mq.matches ? 'false' : 'true');
+      });
+    }
+    if (mq.addEventListener) mq.addEventListener('change', applyMenuDefaults);
+    else if (mq.addListener) mq.addListener(applyMenuDefaults);
 
     render();
   }

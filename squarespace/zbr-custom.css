@@ -115,3 +115,25 @@ nav.main-nav{ padding:0 !important; margin:0 !important; border:0 !important; }
 nav.main-nav ul li{ float:none !important; margin:0 !important; padding:0 !important; border:0 !important; }
 #navBlock nav.main-nav ul li a{ font:bold 14px Tahoma, "MS Sans Serif", sans-serif !important; padding:9px 16px !important; line-height:1.2 !important; }
 @media (max-width:980px){ h1.logo a::after{ font-size:34px; } h1.logo img{ height:76px !important; } }
+
+/* ---- v3: nav buttons sized like the redesign + mobile menu below 900px (phones & tablets) ---- */
+/* The template swaps to its dropdown menu at 640px; this moves that break up to 900px. */
+#navBlock nav.main-nav{ padding:0 !important; border:0 !important; position:relative; }
+#navBlock nav.main-nav ul li a{ font:bold 12px Tahoma, "MS Sans Serif", sans-serif !important; padding:6px 10px !important; line-height:normal !important; }
+@media (min-width:901px){
+  nav.main-nav select{ display:none !important; }
+}
+@media (max-width:900px){
+  nav.main-nav ul{ display:none !important; }
+  nav.main-nav:before{ display:none !important; }
+  nav.main-nav select{
+    display:block !important; width:100% !important; box-sizing:border-box; margin:0 !important;
+    padding:10px 40px 10px 10px !important;
+    background:linear-gradient(180deg,#e8e8e8,#a0a0a0) !important;
+    border:2px outset #fff !important; border-radius:0 !important;
+    color:#000066 !important; font:bold 14px Tahoma, "MS Sans Serif", sans-serif !important;
+    text-transform:none !important; text-align:center; text-align-last:center;
+    -webkit-appearance:none; appearance:none;
+  }
+  nav.main-nav::after{ content:"\2630"; position:absolute; right:16px; top:50%; transform:translateY(-50%); color:#000066; font-size:16px; pointer-events:none; z-index:2; }
+}
