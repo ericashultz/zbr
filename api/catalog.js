@@ -54,6 +54,16 @@ async function getJson(url) {
   }
 }
 
+// Many products keep their real cover in a child image record (items[0]); their own
+// assetUrl is only a folder path (ends in "/" or a bare numeric id) and renders as a placeholder.
+function imageUrl(item) {
+  const own = item.assetUrl || '';
+  const isFolder = own.endsWith('/') || /^\d+$/.test(own.split('/').pop());
+  if (own && !isFolder) return own;
+  const child = (item.items || []).find(k => k && k.assetUrl);
+  return child ? child.assetUrl : own;
+}
+
 function slim(item, col) {
   const sc = item.structuredContent || {};
   const variants = sc.variants || [];
@@ -75,7 +85,7 @@ function slim(item, col) {
     b: band,
     n: name,
     u: item.fullUrl,
-    i: item.assetUrl ? item.assetUrl + '?format=500w' : '',
+    i: imageUrl(item) ? imageUrl(item) + '?format=500w' : '',
     p: min / 100
   };
   if (max !== min) out.r = 1; // price is a range -> "from"
