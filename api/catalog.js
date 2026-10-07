@@ -64,6 +64,12 @@ function imageUrl(item) {
   return child ? child.assetUrl : own;
 }
 
+// Squarespace stores titles with HTML entities (e.g. "&amp;"); the grid escapes text itself.
+function decodeEntities(str) {
+  return str.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"').replace(/&#39;|&#x27;/g, "'");
+}
+
 function slim(item, col) {
   const sc = item.structuredContent || {};
   const variants = sc.variants || [];
@@ -76,7 +82,7 @@ function slim(item, col) {
   const fmts = new Set(col.fmt || []);
   (item.categories || []).forEach(c => (CATEGORY_FORMATS[String(c).toLowerCase()] || []).forEach(f => fmts.add(f)));
 
-  const title = String(item.title || '').trim();
+  const title = decodeEntities(String(item.title || '')).trim();
   const dash = title.indexOf(' - ');
   const band = dash > 0 ? title.slice(0, dash).trim() : '';
   const name = dash > 0 ? title.slice(dash + 3).trim() : title;

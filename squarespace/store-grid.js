@@ -65,9 +65,11 @@
     '#zbr-store .zs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px}' +
     '#zbr-store a.zs-tile{display:block;text-align:center;text-decoration:none;background:#000;border:3px groove #C0DEFF;padding:8px;color:#fff}' +
     '#zbr-store a.zs-tile:hover{border-color:#1D64A7;background:#000}' +
-    '#zbr-store .zs-tile img{display:block;width:100%;height:auto;border:2px outset #c0c0c0;margin:0 0 6px;background:#111}' +
-    '#zbr-store .zs-band{display:block;font:bold 12px Arial,sans-serif;color:#FFEE00;text-transform:none;letter-spacing:0}' +
-    '#zbr-store .zs-name{display:block;font:11px Arial,sans-serif;color:#fff;margin:2px 0;text-transform:none;letter-spacing:0}' +
+    '#zbr-store .zs-imgbox{display:block;position:relative;aspect-ratio:1/1;margin:0 0 6px}' +
+    '#zbr-store .zs-imgbox img{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:block;width:auto;height:auto;max-width:100%;max-height:100%;margin:0;border:2px outset #c0c0c0;background:#111}' +
+    '#zbr-store .zs-band{display:block;font:bold 12px Arial,sans-serif;color:#FFEE00;text-transform:none;letter-spacing:0;overflow-wrap:anywhere;word-break:break-word}' +
+    '#zbr-store .zs-band.zs-tight{font-size:10px}' +
+    '#zbr-store .zs-name{display:block;font:11px Arial,sans-serif;color:#fff;margin:2px 0;text-transform:none;letter-spacing:0;overflow-wrap:anywhere;word-break:break-word}' +
     '#zbr-store .zs-price{display:block;font:bold 12px "Fixedsys Excelsior","Courier New",monospace;color:#C0DFFE;text-transform:none;letter-spacing:0}' +
     '#zbr-store .zs-price.zs-soldout{color:#ff6b6b}' +
     '#zbr-store .zs-msg{color:#d9d9d9;font-size:14px;padding:10px 2px}' +
@@ -85,6 +87,24 @@
     });
   }
   function norm(s) { return String(s || '').trim().toLowerCase(); }
+
+  // Band names are stored in ALL CAPS; show them in normal capitalization like the redesign.
+  // Only fully-capitalized words are changed, so "BARONESS x UNPERSONS" -> "Baroness x Unpersons".
+  var KEEP_AS_IS = { 'SNAG': 'SNAG', 'NOFX': 'NOFX' }; // stylized names that stay all caps (add more here)
+  function caseWord(w) {
+    if (/[a-z]/.test(w)) return w;                                   // already mixed/lower case
+    if (KEEP_AS_IS[w]) return KEEP_AS_IS[w];
+    if (/(?:[A-Z]\.){2,}/.test(w)) return w;                          // initialisms: A.C., I.O.
+    var letters = w.replace(/[^A-Za-zÀ-ÿ]/g, '');
+    if (letters.length > 1 && letters.length <= 5 && !/[AEIOUYÀ-ÿ]/.test(letters)) return w; // DSGNS, TNG, ZBR
+    return w.toLowerCase().replace(/(^|[-\/(\[+&"“])([a-zà-ÿ])/g, function (m, a, c) { return a + c.toUpperCase(); });
+  }
+  function prettyBand(b) {
+    return String(b || '').split(/(\s+)/).map(function (t) { return /^\s+$/.test(t) ? t : caseWord(t); }).join('');
+  }
+  function longestWord(s) {
+    return String(s).split(/[\s\/&+-]+/).reduce(function (m, w) { return Math.max(m, w.length); }, 0);
+  }
 
   function init() {
     var root = document.getElementById('zbr-store');
@@ -117,6 +137,8 @@
     var mq = window.matchMedia('(max-width:' + MOBILE_MAX + 'px)');
     var collapsedByDefault = mq.matches;
     var st = { band: '', cat: '', size: '', label: '', special: '', query: '', shown: PAGE_SIZE };
+
+    items.forEach(function (p) { p.b = prettyBand(p.b); });
 
     // Bands A-Z: unique (case-insensitive), skipping the label's own name
     var seen = {}, bands = [];
@@ -197,8 +219,8 @@
       } else {
         grid.innerHTML = filtered.slice(0, st.shown).map(function (p) {
           return '<a class="zs-tile" href="' + esc(p.u) + '">' +
-            (p.i ? '<img src="' + esc(p.i) + '" alt="' + esc((p.b ? p.b + ' - ' : '') + p.n) + '" loading="lazy">' : '') +
-            (p.b ? '<span class="zs-band">' + esc(p.b) + '</span>' : '') +
+            '<span class="zs-imgbox">' + (p.i ? '<img src="' + esc(p.i) + '" alt="' + esc((p.b ? p.b + ' - ' : '') + p.n) + '" loading="lazy">' : '') + '</span>' +
+            (p.b ? '<span class="zs-band' + (longestWord(p.b) >= 15 ? ' zs-tight' : '') + '">' + esc(p.b) + '</span>' : '') +
             '<span class="zs-name">' + esc(p.n) + '</span>' +
             '<span class="zs-price' + (p.s ? ' zs-soldout' : '') + '">' + esc(priceLabel(p)) + '</span>' +
             '</a>';
