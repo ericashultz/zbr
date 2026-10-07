@@ -122,7 +122,8 @@
       seen[k] = 1;
       bands.push(p.b);
     });
-    bands.sort(function (a, b) { return a.localeCompare(b, undefined, { sensitivity: 'base', numeric: true }); });
+    function sortKey(b) { return b.replace(/^[^A-Za-z0-9\u00C0-\uFFFF]+/, '') || b; } // ignore leading punctuation like "..." or "["
+    bands.sort(function (a, b) { return sortKey(a).localeCompare(sortKey(b), undefined, { sensitivity: 'base', numeric: true }); });
 
     function section(title, listHtml) {
       return '<div class="zs-section">' +
