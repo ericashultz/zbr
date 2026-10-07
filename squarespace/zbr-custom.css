@@ -129,11 +129,11 @@ nav.main-nav ul li{ float:none !important; margin:0 !important; padding:0 !impor
   nav.main-nav select{
     display:block !important; width:100% !important; box-sizing:border-box; margin:0 !important;
     padding:10px 40px 10px 10px !important;
-    background:linear-gradient(180deg,#e8e8e8,#a0a0a0) !important;
+    /* the menu icon is a background image because the native dropdown paints over pseudo-elements */
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='14' viewBox='0 0 16 14'%3E%3Crect width='16' height='2' fill='%23000066'/%3E%3Crect y='6' width='16' height='2' fill='%23000066'/%3E%3Crect y='12' width='16' height='2' fill='%23000066'/%3E%3C/svg%3E") no-repeat right 14px center / 16px 14px, linear-gradient(180deg,#e8e8e8,#a0a0a0) !important;
     border:2px outset #fff !important; border-radius:0 !important;
     color:#000066 !important; font:bold 14px Tahoma, "MS Sans Serif", sans-serif !important;
     text-transform:none !important; text-align:center; text-align-last:center;
     -webkit-appearance:none; appearance:none;
   }
-  nav.main-nav::after{ content:"\2630"; position:absolute; right:16px; top:50%; transform:translateY(-50%); color:#000066; font-size:16px; pointer-events:none; z-index:2; }
 }
