@@ -1,24 +1,10 @@
-/*
- * ZBR Canada / Intl Store -- filterable product grid for Squarespace.
- *
- * Usage (Squarespace Code Block on the Store page, "Display Source" OFF):
- *   <div id="zbr-store"></div>
- *   <script src="https://zbr-rho.vercel.app/squarespace/store-grid.js"></script>
- *
- * Products come from /api/catalog (a slim, cached copy of the store's collections).
- * Every tile links to the real Squarespace product page, so cart/checkout stay native.
- * Filters mirror the redesign: search, New Items / Steals, Bands A-Z, Merch, Labels.
- *
- * Site mode (no Vercel API): add data-source="site" to the script tag and the grid reads the
- * store collections straight from the Squarespace site it is running on, so every link uses
- * that site's real product addresses. The slimmed catalog is cached in the browser for an hour.
- *   <script src="https://zbr-rho.vercel.app/squarespace/store-grid.js" data-source="site"></script>
- */
+<div id="zbr-store"></div>
+<script>
 (function () {
   'use strict';
 
   var BASE = 'https://zbr-rho.vercel.app';
-  var SITE_MODE = false;
+  var SITE_MODE = true;
   try {
     var me = document.currentScript;
     if (me && me.src) BASE = new URL(me.src).origin;
@@ -500,3 +486,4 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
+</script>
