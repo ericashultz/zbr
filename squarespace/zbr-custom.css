@@ -426,3 +426,15 @@ article.hentry .special-content .sqs-layout, article.hentry .special-content .sq
 article.hentry .special-content .sqs-gallery-container, article.hentry .special-content .sqs-gallery{ width:100% !important; max-width:100% !important; margin-left:0 !important; margin-right:0 !important; padding-left:0 !important; padding-right:0 !important; left:0 !important; box-sizing:border-box; }
 /* the redesign shows one photo per post; the arrows on the photo still page through the rest */
 article.hentry .sqs-gallery-thumbnails{ display:none !important; }
+
+/* ---- News page, phones & tablets: Quick Links as a collapsed purple bar under the main menu ---- */
+.zbr-mobile-quick{ display:none; }
+@media (max-width:900px){
+  .zbr-mobile-quick{ display:block; margin:10px 12px 0; }
+  .zbr-w-quick{ display:none !important; }
+}
+.zbr-mq-toggle{ display:block; width:100%; text-align:left; background:#A500A8; color:#fff; border:0; border-radius:0; font:bold 14px "Fixedsys Excelsior","Courier New",monospace; padding:8px 10px; cursor:pointer; }
+.zbr-mq-arrow{ float:right; transition:transform .15s ease; }
+.zbr-mq-toggle[aria-expanded="true"] .zbr-mq-arrow{ transform:rotate(180deg); }
+.zbr-mq-grid{ padding:10px !important; margin:0; background:#000; border:3px groove #A500A8; border-top:0; }
+.zbr-mq-grid.zbr-collapsed{ display:none; }

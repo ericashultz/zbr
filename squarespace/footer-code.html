@@ -129,6 +129,27 @@
           layout.appendChild(main);
           layout.appendChild(side);
           page.appendChild(layout);
+
+          // Phones and tablets: Quick Links becomes a collapsed bar under the main menu
+          var quick = side.querySelector('.zbr-w-quick .zbr-quicklinks');
+          if (quick) {
+            var mq = document.createElement('div');
+            mq.className = 'zbr-mobile-quick';
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'zbr-mq-toggle';
+            btn.setAttribute('aria-expanded', 'false');
+            btn.innerHTML = 'Quick Links <span class="zbr-mq-arrow">&#9660;</span>';
+            var grid = quick.cloneNode(true);
+            grid.className = 'zbr-quicklinks zbr-mq-grid zbr-collapsed';
+            btn.addEventListener('click', function () {
+              var collapsed = grid.classList.toggle('zbr-collapsed');
+              btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+            });
+            mq.appendChild(btn);
+            mq.appendChild(grid);
+            page.insertBefore(mq, layout);
+          }
         })
         .catch(function () {});
     }
