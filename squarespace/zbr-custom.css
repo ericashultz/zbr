@@ -380,3 +380,9 @@ article.hentry .sqs-block-image img{ width:100% !important; height:auto !importa
 article.hentry .article-meta-top{ align-self:flex-start; text-align:left !important; }
 article.hentry .post > header, article.hentry h1.entry-title, article.hentry h2.entry-title{ border:0 !important; box-shadow:none !important; }
 article.hentry .post > header::after, article.hentry .post > header::before{ display:none !important; }
+
+/* ---- News list: short previews with "Read More" (links added by the footer script) ---- */
+article.hentry.zbr-clamped .post > .body.entry-content{ max-height:150px; overflow:hidden !important; }
+article.hentry.zbr-clamped .post > .body.entry-content::after{ content:""; display:block; }
+a.zbr-readmore, a.zbr-readmore:visited{ order:4; display:inline-block; align-self:flex-start; margin:8px 0 0; font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline; cursor:pointer; background:none !important; }
+a.zbr-readmore:hover{ color:#19A800 !important; }
