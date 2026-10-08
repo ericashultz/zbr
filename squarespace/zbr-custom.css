@@ -375,7 +375,7 @@ article.hentry .special-content{ margin:0 0 14px !important; }
 article.hentry .special-content .sqs-gallery{ height:360px !important; }
 article.hentry .special-content .sqs-gallery .slide{ height:100% !important; }
 article.hentry .special-content .sqs-gallery .slide img{ position:static !important; left:0 !important; top:0 !important; width:100% !important; height:100% !important; max-width:none !important; object-fit:cover !important; object-position:top; border:4px ridge #c0c0c0; box-sizing:border-box; }
-article.hentry .sqs-block-image img{ width:100% !important; height:auto !important; max-height:420px; object-fit:cover; object-position:top; }
+article.hentry .sqs-block-image img{ width:100% !important; height:100% !important; max-height:none !important; object-fit:contain !important; }
 @media (max-width:700px){ article.hentry{ padding:14px; } article.hentry .special-content .sqs-gallery{ height:240px !important; } article.hentry h1.entry-title, article.hentry h2.entry-title{ font-size:24px !important; } }
 article.hentry .article-meta-top{ align-self:flex-start; text-align:left !important; }
 article.hentry .post > header, article.hentry h1.entry-title, article.hentry h2.entry-title{ border:0 !important; box-shadow:none !important; }
