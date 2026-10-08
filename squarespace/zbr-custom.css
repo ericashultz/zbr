@@ -445,13 +445,5 @@ article.hentry .sqs-gallery-thumbnails img.sqs-active-slide{ border-color:#FFEE0
 .zbr-mq-grid{ padding:10px !important; margin:0; background:#000; border:3px groove #A500A8; border-top:0; }
 .zbr-mq-grid.zbr-collapsed{ display:none; }
 
-/* ---- News list: numbered page buttons like the redesign (built by the footer script; the native Newer/Older is hidden when they work) ---- */
-nav.page.pagination.zbr-hidden{ display:none !important; }
-.zbr-pagenav{ text-align:center; margin:16px 0; }
-.zbr-pagenav-label{ display:block; margin-bottom:10px; font:12px "Fixedsys Excelsior","Courier New",monospace; color:#d9d9d9; }
-.zbr-pg{ display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; width:34px; height:30px; margin:0 3px; padding:0; background:linear-gradient(180deg,#e8e8e8,#a0a0a0); border:2px outset #fff; color:#000066 !important; font:bold 13px Tahoma,"MS Sans Serif",sans-serif; text-decoration:none !important; vertical-align:middle; }
-a.zbr-pg:hover{ background:linear-gradient(180deg,#ffffff,#c9c9c9); color:#000 !important; }
-.zbr-pg[aria-current="true"]{ border-style:inset; background:linear-gradient(180deg,#a0a0a0,#e8e8e8); }
-.zbr-pg-off{ opacity:.5; }
-.zbr-pg-gap{ display:inline-block; margin:0 3px; color:#d9d9d9; font:bold 13px "Fixedsys Excelsior","Courier New",monospace; vertical-align:middle; }
-@media (max-width:700px){ .zbr-pg{ width:32px; margin:0 2px; } }
+/* header: a little more room under the tagline so it balances the space above it */
+p.site-tagline{ margin:16px 0 30px !important; }
