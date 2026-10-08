@@ -317,3 +317,20 @@ body.view-item .product-excerpt > p:first-child[style*="text-align: center"]{ di
 #sqs-cart-container .cart-row-title{ display:block; white-space:normal !important; overflow:visible !important; text-overflow:clip !important; }
 /* the template pins the subtotal/checkout bar to the bottom in a grey panel; make it part of the page instead */
 #sqs-cart-container div:has(> .cart-summary){ position:static !important; background:none !important; padding:0 !important; margin:0 !important; width:auto !important; max-width:100% !important; box-shadow:none !important; }
+
+/* ---- v7b: cart rows as one line (name left; qty, price, remove right) like the redesign ---- */
+@media (min-width:701px){ #sqs-cart-container .cart-row{ flex-wrap:nowrap !important; } }
+#sqs-cart-container .cart-row-desc{ flex:1 1 0 !important; min-width:0 !important; }
+#sqs-cart-container .cart-row-qty{ display:flex !important; align-items:center; gap:6px; flex:0 0 auto; }
+#sqs-cart-container .cart-row-qty::before{ content:"Qty:"; font:bold 13px "Fixedsys Excelsior","Courier New",monospace; color:#d9d9d9; }
+#sqs-cart-container .cart-row-qty-dec, #sqs-cart-container .cart-row-qty-inc{ width:24px !important; min-width:24px !important; height:26px !important; padding:0 !important; }
+#sqs-cart-container .cart-row-qty-dec svg, #sqs-cart-container .cart-row-qty-inc svg{ width:10px !important; height:10px !important; }
+#sqs-cart-container .cart-row-qty-input{ width:36px !important; height:26px !important; }
+#sqs-cart-container .cart-row-price{ flex:0 0 auto; margin:0 6px !important; white-space:nowrap; }
+#sqs-cart-container .cart-row-remove{ display:inline-flex !important; align-items:center; gap:4px; width:auto !important; min-width:0 !important; height:auto !important; padding:4px 8px !important; font:bold 12px "Fixedsys Excelsior","Courier New",monospace !important; }
+#sqs-cart-container .cart-row-remove svg{ width:9px !important; height:9px !important; }
+#sqs-cart-container .cart-row-remove::after{ content:"REMOVE"; }
+#sqs-cart-container .cart-checkout a{ color:#1E61A8 !important; }
+#sqs-cart-container .cart-checkout a::before{ content:""; display:inline-block; width:14px; height:14px; margin-right:4px; background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAElBMVEUAAACAgADAwMAAAAD//////wB5dF8UAAAAAXRSTlMAQObYZgAAAAFiS0dEBI9o2VEAAAAHdElNRQfiBhgXEB29GFGEAAAAQklEQVQI12NgYGAQFGQAA0ZlQwMwQ8iAURjMEAYjFIagoLAASK0gEICERFyAAMwIBQIwAygjREBEEKbdGAQgtoIBAFjwChFp9/y1AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE4LTA2LTI0VDIzOjE2OjI5LTA0OjAwQFmfnAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOC0wNi0yNFQyMzoxNjoyOS0wNDowMDEEJyAAAAAASUVORK5CYII=") no-repeat center / 14px 14px; }
+#sqs-cart-container .cart-checkout a:hover{ color:#fff !important; }
+@media (max-width:700px){ #sqs-cart-container .cart-row-qty{ order:2; } #sqs-cart-container .cart-row-price{ order:3; } #sqs-cart-container .cart-row > div:last-child{ order:4; margin-left:auto; } }
