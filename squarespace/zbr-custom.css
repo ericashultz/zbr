@@ -272,3 +272,8 @@ body.view-item .product-excerpt > p:first-child[style*="text-align: center"]{ di
 .search-result .sqs-content, .search-result .sqs-content span{ color:#d9d9d9 !important; font:13px/1.5 Arial,sans-serif !important; }
 .search-result em{ background:#FFEE00; color:#000; font-style:normal; }
 .sqs-search-page-notice{ text-align:center; color:#d9d9d9; font-size:14px; margin-top:20px; }
+.sqs-search-page-input{ margin-bottom:0 !important; }
+.sqs-search-page-output{ margin:0 !important; padding:0 !important; }
+.sqs-search-page-notice.hide{ display:none !important; }
+.search-result .sqs-search-container-item{ border:0 !important; padding:0 !important; margin:0 !important; background:none !important; }
+.search-result .sqs-content{ padding:0 !important; margin:0 !important; border:0 !important; }
