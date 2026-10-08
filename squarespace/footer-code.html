@@ -1,0 +1,137 @@
+<script>
+(function () {
+  // "Search" and "View Cart" are link pages, so mark them as the current page by hand
+  var path = location.pathname.replace(/\/$/, '');
+  [].forEach.call(document.querySelectorAll('nav.main-nav ul li a'), function (l) {
+    var h = (l.getAttribute('href') || '').replace(/\/$/, '');
+    if ((path === '/search' || path === '/cart') && h === path) l.parentNode.classList.add('active-link');
+  });
+
+  // Product page: "Back to Store" link returns to the store at the same filters, page and scroll position
+  var back = document.querySelector('#productNav a');
+  if (back) {
+    back.href = '/';
+    back.innerHTML = '&laquo; Back to Store';
+    back.addEventListener('click', function () {
+      try { sessionStorage.setItem('zbr-store-restore', '1'); } catch (e) {}
+    });
+  }
+
+  // Phone menu: remove the "Navigation" label entry
+  var label = document.querySelector('nav.main-nav select option.mobile-select-label');
+  if (label) label.parentNode.removeChild(label);
+
+  // Product page: Bandcamp links in the description become players at the bottom
+  var ex = document.querySelector('.product-excerpt');
+  var details = document.getElementById('productDetails');
+  if (ex && details) {
+    [].slice.call(ex.querySelectorAll('a[href*="bandcamp.com/album/"], a[href*="bandcamp.com/track/"]')).forEach(function (a) {
+      var url = a.href.split('?')[0].split('#')[0];
+      var box = document.createElement('div');
+      box.className = 'zbr-bcplayer';
+      var f = document.createElement('iframe');
+      f.src = 'https://bandcamp.com/EmbeddedPlayer/url=' + encodeURIComponent(url) + '/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/';
+      f.title = 'Bandcamp player';
+      f.setAttribute('seamless', '');
+      f.setAttribute('loading', 'lazy');
+      box.appendChild(f);
+      var p = a.closest('p');
+      var rest = p ? p.textContent.replace(a.textContent, '').replace(/\s+/g, ' ').trim() : '';
+      if (p && rest.length <= 20) { p.parentNode.removeChild(p); } else { a.parentNode.removeChild(a); }
+      details.appendChild(box);
+    });
+  }
+
+  // "View Cart" button: item count badge
+  var cartLink = document.querySelector('nav.main-nav ul li a[href$="/cart"]');
+  if (cartLink) {
+    var badge = document.createElement('span');
+    badge.className = 'zbr-cart-count';
+    badge.hidden = true;
+    cartLink.appendChild(badge);
+    var updateCart = function () {
+      fetch('/api/commerce/shopping-cart', { credentials: 'same-origin' })
+        .then(function (r) { return r.json(); })
+        .then(function (c) {
+          var n = (c.entries || []).reduce(function (s, e) { return s + (e.quantity || 0); }, 0);
+          badge.textContent = n;
+          badge.hidden = !n;
+        })
+        .catch(function () {});
+    };
+    updateCart();
+    document.addEventListener('click', function (e) {
+      if (e.target.closest && e.target.closest('.sqs-add-to-cart-button, .cart-row-remove, .cart-row-qty-dec, .cart-row-qty-inc')) setTimeout(updateCart, 1500);
+    });
+  }
+
+  // Search page: placeholder text and "Start typing" hint
+  var tries = 0;
+  (function waitForSearch() {
+    var inp = document.querySelector('.sqs-search-page-input input');
+    if (!inp) { if (++tries < 40) setTimeout(waitForSearch, 150); return; }
+    inp.placeholder = 'Search band names, releases, news...';
+    var wrap = inp.closest('.sqs-search-page-input');
+    var hint = document.createElement('p');
+    hint.className = 'zbr-search-hint';
+    hint.textContent = 'Start typing to search news posts and releases.';
+    wrap.parentNode.insertBefore(hint, wrap.nextSibling);
+    var sync = function () { hint.style.display = inp.value.trim() ? 'none' : ''; };
+    inp.addEventListener('input', sync);
+    sync();
+    setTimeout(sync, 300);
+  })();
+
+  // News list: tidy titles, short previews with Read More, and the two-column layout with the sidebar boxes
+  if (document.body.classList.contains('view-list') && document.body.classList.contains('collection-type-blog')) {
+    [].forEach.call(document.querySelectorAll('article.hentry h1.entry-title a, article.hentry h2.entry-title a'), function (a) {
+      a.textContent = a.textContent.replace(/^\s*\d{4}\s*-\s*\d{1,2}\s*-\s*\d{1,2}\s*\/{2,3}\s*/, '');
+    });
+    [].forEach.call(document.querySelectorAll('article.hentry'), function (art) {
+      var body = art.querySelector('.post > .body.entry-content');
+      if (!body) return;
+      var long = body.textContent.replace(/\s+/g, ' ').length > 220 || body.querySelector('iframe, .sqs-block-image, .sqs-block-video, .sqs-block-embed, .sqs-block-horizontalrule');
+      if (!long) return;
+      art.classList.add('zbr-clamped');
+      var more = document.createElement('a');
+      more.className = 'zbr-readmore';
+      more.href = '#';
+      more.textContent = 'Read More';
+      more.addEventListener('click', function (e) {
+        e.preventDefault();
+        var open = art.classList.toggle('zbr-clamped');
+        more.textContent = open ? 'Read More' : 'Read Less';
+      });
+      body.parentNode.insertBefore(more, body.nextSibling);
+    });
+
+    var page = document.getElementById('page');
+    if (page) {
+      fetch('/news-sidebar', { credentials: 'same-origin' })
+        .then(function (r) { return r.ok ? r.text() : ''; })
+        .then(function (html) {
+          if (!html) return;
+          var doc = new DOMParser().parseFromString(html, 'text/html');
+          var blk = null;
+          [].some.call(doc.querySelectorAll('.sqs-block-code .sqs-block-content, .sqs-block-html .sqs-block-content'), function (b) {
+            if (b.querySelector('.zbr-widget')) { blk = b; return true; }
+            return false;
+          });
+          if (!blk || document.getElementById('zbr-news-layout')) return;
+          var layout = document.createElement('div');
+          layout.id = 'zbr-news-layout';
+          var main = document.createElement('div');
+          main.id = 'zbr-news-main';
+          while (page.firstChild) main.appendChild(page.firstChild);
+          var side = document.createElement('aside');
+          side.id = 'zbr-sidebar';
+          side.innerHTML = blk.innerHTML;
+          layout.appendChild(main);
+          layout.appendChild(side);
+          page.appendChild(layout);
+        })
+        .catch(function () {});
+    }
+  }
+})();
+</script>
