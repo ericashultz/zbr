@@ -1,5 +1,11 @@
 <script>
 (function () {
+  // Photo slideshows: switch off auto-advance (runs before the template starts the slideshows)
+  [].forEach.call(document.querySelectorAll('.sqs-block-gallery[data-block-json]'), function (b) {
+    var j = b.getAttribute('data-block-json');
+    if (j) b.setAttribute('data-block-json', j.replace('"autoplay":true', '"autoplay":false'));
+  });
+
   // "Search" and "View Cart" are link pages, so mark them as the current page by hand
   var path = location.pathname.replace(/\/$/, '');
   [].forEach.call(document.querySelectorAll('nav.main-nav ul li a'), function (l) {
