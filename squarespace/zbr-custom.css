@@ -315,4 +315,4 @@ body.view-item .product-excerpt > p:first-child[style*="text-align: center"]{ di
 @media (max-width:700px){ #sqs-cart-container .cart-row-remove{ margin-left:auto; } }
 #sqs-cart-container .cart-row-title{ display:block; white-space:normal !important; overflow:visible !important; text-overflow:clip !important; }
 /* the template pins the subtotal/checkout bar to the bottom in a grey panel; make it part of the page instead */
-#sqs-cart-container div:has(> .cart-summary){ position:static !important; background:none !important; padding:0 !important; width:auto !important; box-shadow:none !important; }
+#sqs-cart-container div:has(> .cart-summary){ position:static !important; background:none !important; padding:0 !important; margin:0 !important; width:auto !important; max-width:100% !important; box-shadow:none !important; }
