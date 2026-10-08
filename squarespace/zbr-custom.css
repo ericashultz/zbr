@@ -313,3 +313,6 @@ body.view-item .product-excerpt > p:first-child[style*="text-align: center"]{ di
 #sqs-cart-container .cart-checkout a{ display:inline-flex !important; align-items:center; justify-content:center; box-sizing:border-box; width:auto !important; height:34px; padding:0 16px !important; background:linear-gradient(180deg,#ffffff,#d4d4d4) !important; border:2px outset #fff !important; border-radius:0 !important; color:#000332 !important; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; text-transform:uppercase; letter-spacing:0 !important; text-decoration:none !important; }
 #sqs-cart-container .cart-checkout a:hover{ background:#1D64A7 !important; border-color:#2F7CC8 !important; color:#fff !important; }
 @media (max-width:700px){ #sqs-cart-container .cart-row-remove{ margin-left:auto; } }
+#sqs-cart-container .cart-row-title{ display:block; white-space:normal !important; overflow:visible !important; text-overflow:clip !important; }
+/* the template pins the subtotal/checkout bar to the bottom in a grey panel; make it part of the page instead */
+#sqs-cart-container div:has(> .cart-summary){ position:static !important; background:none !important; padding:0 !important; width:auto !important; box-shadow:none !important; }
