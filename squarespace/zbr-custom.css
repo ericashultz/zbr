@@ -424,3 +424,5 @@ a.zbr-quicklink:active .zbr-ql-icon{ border-style:inset; }
 /* news photos: keep the template's grid wrappers inside the card so the slideshow isn't clipped on the right */
 article.hentry .special-content .sqs-layout, article.hentry .special-content .sqs-row, article.hentry .special-content .sqs-col-12, article.hentry .special-content .sqs-block, article.hentry .special-content .sqs-block-content,
 article.hentry .special-content .sqs-gallery-container, article.hentry .special-content .sqs-gallery{ width:100% !important; max-width:100% !important; margin-left:0 !important; margin-right:0 !important; padding-left:0 !important; padding-right:0 !important; left:0 !important; box-sizing:border-box; }
+/* the redesign shows one photo per post; the arrows on the photo still page through the rest */
+article.hentry .sqs-gallery-thumbnails{ display:none !important; }
