@@ -475,7 +475,7 @@ article.hentry .zbr-bcplayer{ margin:8px 0 14px; }
 article.hentry img{ box-sizing:border-box !important; max-width:100% !important; }
 
 /* ---- News page: "Shop Now" and other call-to-action links look like the redesign's yellow pixel-font links ---- */
-article.hentry .sqs-block-button-container, #zbr-sidebar .sqs-block-button-container{ text-align:left !important; margin:0 0 16px !important; }
+article.hentry [class*="sqs-block-button-container"], #zbr-sidebar [class*="sqs-block-button-container"]{ text-align:left !important; margin:0 0 16px !important; }
 article.hentry a.sqs-block-button-element, article.hentry a.sqs-block-button-element--small, article.hentry a.sqs-block-button-element--medium, article.hentry a.sqs-block-button-element--large, a.zbr-cta, a.zbr-cta:visited{
   display:inline-block !important; width:auto !important; height:auto !important; min-height:0 !important;
   background:none !important; border:0 !important; box-shadow:none !important; border-radius:0 !important;
