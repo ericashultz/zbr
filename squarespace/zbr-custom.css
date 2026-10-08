@@ -215,7 +215,7 @@ body.view-item #productGallery.zs-carousel #productSlideshow{ position:relative 
 body.view-item #productGallery.zs-carousel #productSlideshow .slide{ position:absolute !important; top:0; left:0; width:100% !important; height:100% !important; margin:0 !important; display:none !important; }
 body.view-item #productGallery.zs-carousel #productSlideshow .slide.zs-cur{ display:block !important; }
 body.view-item #productGallery.zs-carousel #productSlideshow .slide img{ position:static !important; width:100% !important; height:100% !important; max-width:none !important; object-fit:contain !important; object-position:center; border:0 !important; }
-.zs-car-prev, .zs-car-next{ position:absolute; top:50%; transform:translateY(-50%); z-index:5; width:30px; height:30px; padding:0; background:rgba(0,0,0,.6); border:2px outset #c0c0c0; border-radius:0; color:#fff; font-size:12px; line-height:1; cursor:pointer; }
+.zs-car-prev, .zs-car-next{ position:absolute; top:50%; transform:translateY(-50%); z-index:1000; /* the template gives its slides z-index ~889 */ width:30px; height:30px; padding:0; background:rgba(0,0,0,.6); border:2px outset #c0c0c0; border-radius:0; color:#fff; font-size:12px; line-height:1; cursor:pointer; }
 .zs-car-prev:active, .zs-car-next:active{ border-style:inset; }
 .zs-car-prev{ left:6px; } .zs-car-next{ right:6px; }
 .zs-car-dots{ display:flex; justify-content:center; gap:6px; margin-top:8px; }
