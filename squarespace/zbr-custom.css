@@ -467,3 +467,7 @@ article.hentry .zbr-bcplayer{ margin:8px 0 14px; }
 
 /* body copy in the redesign's font (Arial) */
 .sqs-html-content, .sqs-html-content p, .sqs-html-content li, .sqs-html-content span, .sqs-html-content em, .sqs-html-content strong, .sqs-html-content a, .sqs-html-content blockquote{ font-family:Arial, sans-serif !important; }
+
+/* Newer / Older centred across the whole News page */
+#zbr-news-layout ~ nav.page.pagination, #zbr-news-layout ~ nav.page.pagination .content-wrapper{ width:100% !important; max-width:none !important; margin-left:0 !important; margin-right:0 !important; text-align:center; }
+#zbr-news-layout ~ nav.page.pagination ul{ justify-content:center; }
