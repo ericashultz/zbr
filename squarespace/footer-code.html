@@ -124,15 +124,24 @@
       var T = [], acc = 0, idxOf = {};
       TS.forEach(function (x, n) { acc = n === 0 ? parseInt(x, 36) : acc - parseInt(x, 36); T.push(acc); idxOf[acc] = n; });
       var size = 5;
-      fetch(base + '?format=json', { credentials: 'same-origin' })
-        .then(function (r) { return r.json(); })
-        .then(function (d) {
-          var items = d.items || [], i = -1, p = -1, n;
-          for (n = 0; n < items.length; n++) { if (idxOf[items[n].publishOn] !== undefined) { i = n; p = idxOf[items[n].publishOn]; break; } }
-          if (i < 0) return;
+      // find the newest post we have a time for (new posts since the table was built come before it)
+      function locate(url, seen, tries) {
+        return fetch(url, { credentials: 'same-origin' })
+          .then(function (r) { return r.json(); })
+          .then(function (d) {
+            var items = d.items || [], n;
+            if (seen === 0 && d.pagination && d.pagination.nextPage && items.length) size = items.length;
+            for (n = 0; n < items.length; n++) { if (idxOf[items[n].publishOn] !== undefined) return { i: seen + n, p: idxOf[items[n].publishOn], d: d }; }
+            if (tries > 0 && d.pagination && d.pagination.nextPage) return locate(base + '?format=json&offset=' + d.pagination.nextPageOffset, seen + items.length, tries - 1);
+            return null;
+          });
+      }
+      locate(base + '?format=json', 0, 6)
+        .then(function (loc) {
+          if (!loc) return;
+          var i = loc.i, p = loc.p;
           var total = (T.length - p) + i;
           var pages = Math.ceil(total / size);
-          if (d.pagination && d.pagination.pageSize) size = d.pagination.pageSize;
           var q = location.search.match(/[?&]offset=(\d+)/);
           var current = 1;
           if (q) {
