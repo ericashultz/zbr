@@ -471,3 +471,5 @@ article.hentry .zbr-bcplayer{ margin:8px 0 14px; }
 /* Newer / Older centred across the whole News page */
 #zbr-news-layout ~ nav.page.pagination, #zbr-news-layout ~ nav.page.pagination .content-wrapper{ width:100% !important; max-width:none !important; margin-left:0 !important; margin-right:0 !important; text-align:center; }
 #zbr-news-layout ~ nav.page.pagination ul{ justify-content:center; }
+/* image frames count inside the image's width, so photos never poke past the card */
+article.hentry img{ box-sizing:border-box !important; max-width:100% !important; }
