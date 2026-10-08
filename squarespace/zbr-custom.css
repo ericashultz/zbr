@@ -182,7 +182,7 @@ body.view-item .variant-select-wrapper select{
   background-repeat:no-repeat; background-position:right 6px center; background-size:10px 6px;
 }
 body.view-item .variant-select-wrapper::after{ display:none !important; }
-body.view-item .product-quantity-input input{ width:44px; height:34px; padding:0 4px; text-align:center; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; border:2px inset #c0c0c0; border-radius:0; background:#fff; color:#000; }
+body.view-item .product-quantity-input input{ box-sizing:border-box !important; width:44px !important; height:34px !important; min-height:0 !important; margin:0 !important; padding:0 4px !important; text-align:center; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; border:2px inset #c0c0c0 !important; border-radius:0 !important; background:#fff !important; color:#000 !important; }
 /* radio-style options (some products) as small beveled buttons */
 body.view-item .variant-radiobtn-wrapper label{ display:inline-block; margin:0 6px 6px 0; padding:4px 10px; font:bold 12px "Fixedsys Excelsior","Courier New",monospace !important; color:#000332 !important; background:linear-gradient(180deg,#fff,#d4d4d4) !important; border:2px outset #fff !important; border-radius:0 !important; text-transform:none !important; letter-spacing:0 !important; cursor:pointer; }
 body.view-item .variant-radiobtn:checked + label{ border-style:inset !important; background:linear-gradient(180deg,#d4d4d4,#fff) !important; }
@@ -203,6 +203,24 @@ body.view-item .sqs-add-to-cart-button:active{ border-style:inset !important; }
 body.view-item .product-mark.sold-out{ position:static !important; float:none !important; display:inline-block !important; margin:0 0 8px !important; padding:2px 8px !important; background:#cc0000 !important; border:2px outset #cc0000 !important; border-radius:0 !important; color:#fff !important; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; text-transform:uppercase; letter-spacing:0 !important; }
 body.view-item .product-mark.sold-out ~ .sqs-add-to-cart-button-wrapper{ display:none !important; }
 body.view-item .product-sharing{ display:none !important; }
+
+/* hide the centered catalog-number line ("BAND 'Title' 12"LP (ZBR150)") that starts many descriptions */
+body.view-item .product-excerpt > p:first-child[style*="text-align:center"],
+body.view-item .product-excerpt > p:first-child[style*="text-align: center"]{ display:none !important; }
+
+/* photo carousel (turned on by product-page.js; without the script the photos just stack) */
+body.view-item #productGallery.zs-carousel{ position:relative; }
+body.view-item #productGallery.zs-carousel .intrinsic, body.view-item #productGallery.zs-carousel .intrinsic .wrapper{ position:static !important; height:auto !important; padding-bottom:0 !important; }
+body.view-item #productGallery.zs-carousel #productSlideshow{ position:relative !important; width:100% !important; height:auto !important; aspect-ratio:750 / 725; overflow:hidden !important; background:#000; border:4px ridge #c0c0c0; box-sizing:border-box; }
+body.view-item #productGallery.zs-carousel #productSlideshow .slide{ position:absolute !important; top:0; left:0; width:100% !important; height:100% !important; margin:0 !important; display:none !important; }
+body.view-item #productGallery.zs-carousel #productSlideshow .slide.zs-cur{ display:block !important; }
+body.view-item #productGallery.zs-carousel #productSlideshow .slide img{ position:static !important; width:100% !important; height:100% !important; max-width:none !important; object-fit:contain !important; object-position:center; border:0 !important; }
+.zs-car-prev, .zs-car-next{ position:absolute; top:50%; transform:translateY(-50%); z-index:5; width:30px; height:30px; padding:0; background:rgba(0,0,0,.6); border:2px outset #c0c0c0; border-radius:0; color:#fff; font-size:12px; line-height:1; cursor:pointer; }
+.zs-car-prev:active, .zs-car-next:active{ border-style:inset; }
+.zs-car-prev{ left:6px; } .zs-car-next{ right:6px; }
+.zs-car-dots{ display:flex; justify-content:center; gap:6px; margin-top:8px; }
+.zs-car-dot{ display:inline-block; width:10px; height:10px; border-radius:50%; background:#c0c0c0; border:1px solid #000; cursor:pointer; }
+.zs-car-dot[aria-current="true"]{ background:#FFEE00; }
 
 @media (max-width:700px){
   body.view-item #productWrapper{ padding:12px; margin:12px 8px; }
