@@ -494,3 +494,5 @@ article.hentry a.sqs-block-button-element:hover, a.zbr-cta:hover{ color:#19A800 
 article.hentry .sqs-block-button, #zbr-sidebar .sqs-block-button{ padding-top:0 !important; padding-bottom:0 !important; margin-top:0 !important; margin-bottom:8px !important; min-height:0 !important; }
 article.hentry .sqs-block-button .sqs-block-content, #zbr-sidebar .sqs-block-button .sqs-block-content{ padding:0 !important; margin:0 !important; min-height:0 !important; }
 article.hentry [class*="sqs-block-button-container"], #zbr-sidebar [class*="sqs-block-button-container"]{ margin:0 !important; padding:0 !important; min-height:0 !important; line-height:1.25 !important; }
+/* space between a CTA link and the Bandcamp player that follows it */
+article.hentry .sqs-block-button + .zbr-bcplayer, article.hentry p:has(> a.zbr-cta) + .zbr-bcplayer{ margin-top:18px !important; }
