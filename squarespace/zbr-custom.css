@@ -205,7 +205,7 @@ body.view-item #productDetails > .product-mark{ order:0; }
 body.view-item #productDetails > h1.product-title{ order:1; }
 body.view-item #productDetails > .product-excerpt{ order:2; }
 body.view-item #productDetails > .product-price{ order:3; flex:0 0 100%; margin:12px 0 4px !important; padding:0 !important; }
-body.view-item #productDetails > .product-variants{ order:4; flex:0 0 auto; max-width:100%; margin:0 !important; }
+body.view-item #productDetails > .product-variants{ order:4; flex:0 0 100%; margin:0 !important; }
 body.view-item #productDetails > .product-quantity-input{ order:5; }
 body.view-item #productDetails > .sqs-add-to-cart-button-wrapper{ order:6; }
 body.view-item #productDetails > .product-sharing{ order:7; }
