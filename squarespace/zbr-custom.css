@@ -355,3 +355,25 @@ body.view-item .product-excerpt > p:first-child[style*="text-align: center"]{ di
 #sqs-cart-container .cart-row{ gap:14px !important; }
 /* the cart badge is a small round pill like the redesign's */
 .zbr-cart-count{ box-sizing:border-box; min-width:16px; padding:1px 4px; line-height:1.2; }
+
+/* ---- v8: News posts like the redesign (date tag, italic title, framed photo, text) ---- */
+article.hentry .content-wrapper{ display:flex !important; flex-direction:column; }
+article.hentry .content-wrapper > .post{ display:contents !important; }
+article.hentry .post > header{ order:1; display:flex; flex-direction:column; margin:0 !important; padding:0 !important; }
+article.hentry .special-content{ order:2; }
+article.hentry .post > .body.entry-content{ order:3; }
+article.hentry .post > footer.article-meta{ display:none !important; }
+article.hentry, article.hentry .sqs-block-content, article.hentry .sqs-html-content, article.hentry p{ text-align:left !important; }
+/* date tag first, like the redesign's blue "News -- date" tag */
+article.hentry .article-meta-top{ display:block !important; order:-1; margin:0 0 6px !important; padding:0 !important; }
+article.hentry .article-meta-top .location, article.hentry .article-meta-top .author{ display:none !important; }
+article.hentry .article-meta-top .date a{ display:inline-block; background:#1D64A7 !important; border:2px outset #1D64A7 !important; color:#fff !important; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; padding:2px 8px !important; text-decoration:none; }
+article.hentry .article-meta-top .date a::before{ content:"News -- "; }
+article.hentry h1.entry-title, article.hentry h2.entry-title{ text-align:left !important; margin:4px 0 12px !important; }
+/* photos: framed, cropped from the top like the redesign (no huge full-bleed slideshow) */
+article.hentry .special-content{ margin:0 0 14px !important; }
+article.hentry .special-content .sqs-gallery{ height:360px !important; }
+article.hentry .special-content .sqs-gallery .slide{ height:100% !important; }
+article.hentry .special-content .sqs-gallery .slide img{ position:static !important; left:0 !important; top:0 !important; width:100% !important; height:100% !important; max-width:none !important; object-fit:cover !important; object-position:top; border:4px ridge #c0c0c0; box-sizing:border-box; }
+article.hentry .sqs-block-image img{ width:100% !important; height:auto !important; max-height:420px; object-fit:cover; object-position:top; }
+@media (max-width:700px){ article.hentry{ padding:14px; } article.hentry .special-content .sqs-gallery{ height:240px !important; } article.hentry h1.entry-title, article.hentry h2.entry-title{ font-size:24px !important; } }
