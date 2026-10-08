@@ -72,6 +72,8 @@
     track.appendChild(prev); track.appendChild(next);
     gal.appendChild(dots);
     gal.classList.add('zs-carousel');
+    var thumbs = document.getElementById('productThumbnails'); // the template's own thumbnail strip would fight the dots
+    if (thumbs) thumbs.style.display = 'none';
     show(0);
   }
 
