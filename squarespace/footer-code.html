@@ -164,21 +164,41 @@
     [].forEach.call(document.querySelectorAll('article.hentry h1.entry-title a, article.hentry h2.entry-title a'), function (a) {
       a.textContent = a.textContent.replace(/^\s*\d{4}\s*-\s*\d{1,2}\s*-\s*\d{1,2}\s*\/{2,3}\s*/, '');
     });
+    // "Read More" follows the redesign's rules: only text-only cards (no photo, slideshow or call-to-action link)
+    // with more than 500 characters are shortened. The first 500 characters show, then "Read More" opens the rest.
     [].forEach.call(document.querySelectorAll('article.hentry'), function (art) {
       var body = art.querySelector('.post > .body.entry-content');
       if (!body) return;
-      if (textOf([].slice.call(body.querySelectorAll('.sqs-block-html'))).length <= 330) return;
-      art.classList.add('zbr-clamped');
+      if (art.querySelector('.special-content, .sqs-block-image, .sqs-block-button, .sqs-block-gallery, a.zbr-cta')) return;
+      var texts = [].slice.call(body.querySelectorAll('.sqs-block-html'));
+      if (!texts.length) return;
+      var paras = [];
+      texts.forEach(function (t) { [].forEach.call(t.querySelectorAll('.sqs-html-content p'), function (p) { paras.push(p); }); });
+      var full = paras.map(function (p) { return p.textContent; }).join(' ').replace(/\s+/g, ' ').trim();
+      if (full.length <= 500) return;
+      var cut = full.lastIndexOf(' ', 500);
+      var preview = document.createElement('p');
+      preview.className = 'zbr-preview';
+      preview.appendChild(document.createTextNode(full.slice(0, cut > 0 ? cut : 500) + '… '));
       var more = document.createElement('a');
       more.className = 'zbr-readmore';
       more.href = '#';
       more.textContent = 'Read More';
-      more.addEventListener('click', function (e) {
-        e.preventDefault();
-        var open = art.classList.toggle('zbr-clamped');
-        more.textContent = open ? 'Read More' : 'Read Less';
-      });
-      body.parentNode.insertBefore(more, body.nextSibling);
+      preview.appendChild(more);
+      var firstBlock = texts[0].querySelector('.sqs-html-content');
+      texts[0].classList.add('zbr-first-text');
+      firstBlock.insertBefore(preview, firstBlock.firstChild);
+      var lessWrap = document.createElement('p');
+      lessWrap.className = 'zbr-less-wrap';
+      var less = document.createElement('a');
+      less.className = 'zbr-readmore';
+      less.href = '#';
+      less.textContent = 'Read Less';
+      lessWrap.appendChild(less);
+      texts[texts.length - 1].querySelector('.sqs-html-content').appendChild(lessWrap);
+      art.classList.add('zbr-collapsed');
+      more.addEventListener('click', function (e) { e.preventDefault(); art.classList.remove('zbr-collapsed'); });
+      less.addEventListener('click', function (e) { e.preventDefault(); art.classList.add('zbr-collapsed'); });
     });
 
     // sidebar widgets taken from the post (compact Bandcamp players)

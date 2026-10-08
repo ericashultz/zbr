@@ -381,11 +381,15 @@ article.hentry .article-meta-top{ align-self:flex-start; text-align:left !import
 article.hentry .post > header, article.hentry h1.entry-title, article.hentry h2.entry-title{ border:0 !important; box-shadow:none !important; }
 article.hentry .post > header::after, article.hentry .post > header::before{ display:none !important; }
 
-/* ---- News list: short previews with "Read More" (links added by the footer script) ---- */
-article.hentry.zbr-clamped .post > .body.entry-content{ max-height:150px; overflow:hidden !important; }
-article.hentry.zbr-clamped .post > .body.entry-content::after{ content:""; display:block; }
-a.zbr-readmore, a.zbr-readmore:visited{ order:4; display:inline-block; align-self:flex-start; margin:8px 0 0; font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline; cursor:pointer; background:none !important; }
+/* ---- News cards: "Read More" like the redesign (first 500 characters, then the rest on request) ---- */
+a.zbr-readmore, a.zbr-readmore:visited{ font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline; cursor:pointer; background:none !important; }
 a.zbr-readmore:hover{ color:#19A800 !important; }
+.zbr-preview{ display:none; margin:0 0 8px; }
+article.hentry.zbr-collapsed .zbr-preview{ display:block; }
+article.hentry.zbr-collapsed .sqs-block-html .sqs-html-content > *:not(.zbr-preview){ display:none !important; }
+article.hentry.zbr-collapsed .sqs-block-html:not(.zbr-first-text){ display:none !important; }
+article.hentry.zbr-collapsed .zbr-less-wrap{ display:none !important; }
+.zbr-less-wrap{ margin:8px 0 0; }
 
 /* ---- News list: Newer / Older as beveled buttons like the redesign's page buttons ---- */
 nav.page.pagination{ background:none !important; border:0 !important; margin:16px 0 !important; padding:0 !important; }
