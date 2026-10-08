@@ -260,9 +260,12 @@ body.view-item .product-excerpt > p:first-child[style*="text-align: center"]{ di
 }
 
 /* ---- v6: Search page like the redesign ---- */
-.sqs-search-page-content{ padding:12px; box-sizing:border-box; text-align:left; }
+.sqs-search-page-content{ max-width:640px; margin:24px auto; padding:12px; box-sizing:border-box; text-align:center; }
+.sqs-search-page-content::before{ content:""; display:block; width:40px; height:40px; margin:0 auto 10px; background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAKlBMVEUAAACZmQAEBAT//////5nMzGaGhob/zJnAwMAA//8AgIAAAP8AAICAgAD8SDm2AAAAAXRSTlMAQObYZgAAAAFiS0dEAxEMTPIAAAAHdElNRQfiBhoAMhGgfCbxAAABtUlEQVQ4y32Uv07DMBDG271LW3UvHoiEWFAYWjGBLHthYeAFqBSlnS38AJUq0jVLgK0T5A1QO3Wlr9B34f4lgST0G6LoPv/ufD4nnc4J9UmDRrwbkq7GdWOoWXWkey3G7bgdqCMlUEcqoIaMHis99AvBkmHYqrGkMlEUeScZnbV2wIaJsyxTXoLaaceGmU9BiXIY0tpqL0ScpSkgbwEGHYkMk+B60MZZsCzmYyNNwwy1cbgeLCHm05CAZA25KCzETAAoYjkREyYJw4RFudDzZCzTCRPZxltty10BMS0JZ7FFrgFEVhLUupVUyfQXQfINgvOUNSrCO7YolY4LAg6LlnvpPE6EWAdU3GvPhHkpS8CBU205xE8BcFMAwG6Z0IsPAvLzAPu2ZQ1rFsjkKnqiXL7YldZ3F3meq9kqCnCs1hejBUcp9bycAOKhgBA4AY2ji8PVLqD2iuIYhvM2y5vtHoDirDCMFwqQ1+0ucJiLCAzzRO+/3rd7j1V8QfBA3TciVhrEGwkF6HIIQtsd9Ssdj4ic8Xeg/ugSEXxpfMKINIKoHiKtv4lTSLsByKHd6B3+MaABfP4A/GM5Iiuf48sAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTgtMDYtMjZUMDA6NTA6MTctMDQ6MDD4Km3nAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE4LTA2LTI2VDAwOjUwOjE3LTA0OjAwiXfVWwAAAABJRU5ErkJggg==") no-repeat center / 40px 40px; }
+.zbr-search-hint{ text-align:center; color:#fff; font:15px/1.4 Arial,sans-serif; margin:14px 0 0; }
+.sqs-search-page-input input::placeholder{ color:#757575; }
 .sqs-search-page-input{ position:relative; background:none !important; border:0 !important; padding:0 !important; height:auto !important; min-height:0 !important; box-shadow:none !important; }
-.sqs-search-page-input::before{ content:"Search the site"; display:block; margin-bottom:6px; font:bold 13px "Fixedsys Excelsior","Courier New",monospace; color:#fff; }
+.sqs-search-page-input::before{ content:"Search the site"; display:block; margin-bottom:6px; text-align:center; font:bold 13px "Fixedsys Excelsior","Courier New",monospace; color:#fff; }
 .sqs-search-page-input input{ display:block; width:100%; box-sizing:border-box; height:auto !important; padding:8px !important; font:14px "Fixedsys Excelsior","Courier New",monospace !important; border:2px inset #c0c0c0 !important; border-radius:0 !important; background:#fff !important; color:#000 !important; box-shadow:none !important; text-transform:none !important; letter-spacing:0 !important; }
 .sqs-search-page-result .search-results{ display:flex; flex-direction:column; gap:12px; margin-top:20px; }
 .search-result{ background:#000 !important; border:3px groove #C0DEFF !important; padding:10px 12px !important; cursor:pointer; margin:0 !important; }
