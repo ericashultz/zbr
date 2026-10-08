@@ -13,12 +13,14 @@
     if ((path === '/search' || path === '/cart') && h === path) l.parentNode.classList.add('active-link');
   });
 
-  // Contact page: hide the empty (non-breaking-space) paragraph that adds a gap above the form
-  if (document.querySelector('.sqs-block-form')) {
-    [].forEach.call(document.querySelectorAll('.sqs-block-html p'), function (p) {
-      if (!p.textContent.replace(/\u00a0/g, '').trim() && !p.querySelector('img, iframe')) p.classList.add('zbr-empty');
-    });
-  }
+  // Text blocks: hide empty (non-breaking-space) paragraphs at the end of a block, which only add stray gaps
+  [].forEach.call(document.querySelectorAll('.sqs-block-html .sqs-html-content'), function (box) {
+    var last = box.lastElementChild;
+    while (last && last.tagName === 'P' && !last.textContent.replace(/\u00a0/g, '').trim() && !last.querySelector('img, iframe')) {
+      last.classList.add('zbr-empty');
+      last = last.previousElementSibling;
+    }
+  });
 
   // Product page: "Back to Store" link returns to the store at the same filters, page and scroll position
   var back = document.querySelector('#productNav a');
