@@ -394,3 +394,24 @@ nav.page.pagination li{ float:none !important; margin:0 !important; padding:0 !i
 nav.page.pagination li a, nav.page.pagination li span{ display:inline-flex; align-items:center; gap:6px; height:30px; padding:0 12px; box-sizing:border-box; background:linear-gradient(180deg,#ffffff,#d4d4d4) !important; border:2px outset #fff !important; border-radius:0 !important; color:#000332 !important; font:bold 12px "Fixedsys Excelsior","Courier New",monospace !important; text-transform:uppercase; letter-spacing:0 !important; text-decoration:none !important; }
 nav.page.pagination li a:hover{ background:#1D64A7 !important; border-color:#2F7CC8 !important; color:#fff !important; }
 nav.page.pagination li span{ opacity:.5; cursor:default; }
+
+/* ---- v9: News page two columns: posts left, boxes right (the boxes come from the "News Sidebar" page via the footer script) ---- */
+#zbr-news-layout{ display:flex; gap:16px; align-items:flex-start; }
+#zbr-news-main{ flex:1 1 0; min-width:0; }
+#zbr-sidebar{ flex:0 0 280px; width:280px; box-sizing:border-box; text-align:left; }
+#zbr-news-main article.hentry .content-wrapper{ max-width:none !important; }
+.zbr-widget{ background:#000; border:3px ridge #C0DEFF; margin:0 0 12px; padding:0 0 10px; box-sizing:border-box; }
+.zbr-widget h3{ margin:0 0 8px !important; padding:4px 8px !important; background:#1E61A8; color:#fff !important; font:bold 12px "Fixedsys Excelsior","Courier New",monospace !important; text-align:left !important; text-transform:none !important; letter-spacing:0 !important; }
+.zbr-widget p{ margin:0 0 6px !important; padding:0 10px; color:#fff !important; font:13px/1.5 Arial,sans-serif !important; text-align:left !important; }
+.zbr-widget a.zbr-wlink{ font:bold 13px "Fixedsys Excelsior","Courier New",monospace; color:#FFEE00 !important; text-decoration:underline; }
+.zbr-widget a.zbr-wlink:hover{ color:#19A800 !important; background:none; }
+.zbr-widget .zbr-bcplayer{ margin:8px 10px 0; }
+.zbr-w-quick{ border-color:#A500A8; } .zbr-w-quick h3{ background:#A500A8; }
+.zbr-w-features{ border-color:#19A800; } .zbr-w-features h3{ background:#19A800; }
+.zbr-w-lastcopy{ border-color:#fff; } .zbr-w-lastcopy h3{ background:#fff; color:#000 !important; }
+.zbr-quicklinks{ display:grid; grid-template-columns:repeat(3,1fr); gap:6px; padding:0 8px; }
+a.zbr-quicklink{ display:flex; flex-direction:column; align-items:center; gap:4px; padding:6px 2px; text-align:center; text-decoration:none !important; border:2px outset transparent; }
+a.zbr-quicklink:hover{ background:#1D64A7 !important; border-color:#2F7CC8; }
+.zbr-ql-icon img{ display:block; width:32px; height:32px; border:0 !important; image-rendering:pixelated; }
+.zbr-ql-label{ font:bold 11px "Fixedsys Excelsior","Courier New",monospace; color:#C0DFFE; }
+@media (max-width:900px){ #zbr-news-layout{ flex-direction:column; } #zbr-sidebar{ flex:0 0 auto; width:100%; } }
