@@ -414,4 +414,4 @@ a.zbr-quicklink{ display:flex; flex-direction:column; align-items:center; gap:4p
 a.zbr-quicklink:hover{ background:#1D64A7 !important; border-color:#2F7CC8; }
 .zbr-ql-icon img{ display:block; width:32px; height:32px; border:0 !important; image-rendering:pixelated; }
 .zbr-ql-label{ font:bold 11px "Fixedsys Excelsior","Courier New",monospace; color:#C0DFFE; }
-@media (max-width:900px){ #zbr-news-layout{ flex-direction:column; } #zbr-sidebar{ flex:0 0 auto; width:100%; } }
+@media (max-width:900px){ #zbr-news-layout{ flex-direction:column; align-items:stretch; } #zbr-news-main{ flex:0 0 auto; width:100%; } #zbr-sidebar{ flex:0 0 auto; width:100%; } }
