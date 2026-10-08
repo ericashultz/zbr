@@ -446,4 +446,4 @@ article.hentry .sqs-gallery-thumbnails img.sqs-active-slide{ border-color:#FFEE0
 .zbr-mq-grid.zbr-collapsed{ display:none; }
 
 /* header: a little more room under the tagline so it balances the space above it */
-p.site-tagline{ margin:16px 0 30px !important; }
+p.site-tagline{ margin:16px 0 24px !important; }
