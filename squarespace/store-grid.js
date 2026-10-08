@@ -26,6 +26,8 @@
   } catch (e) { /* keep defaults */ }
   var CATALOG_URL = BASE + '/api/catalog';
   var PAGE_SIZE = 40; // products per page
+  var STATE_KEY = 'zbr-store-state'; // filters, page and scroll position, saved when a product is opened
+  var RESTORE_KEY = 'zbr-store-restore'; // set by the product page's "Back to Store" link
   var MOBILE_MAX = 900; // phones + tablets: stacked sidebar, collapsed filter menus (matches the nav's mobile menu)
 
   var VINYL = ['v12', 'v7', 'vo'];
@@ -466,7 +468,34 @@
     if (mq.addEventListener) mq.addEventListener('change', applyMenuDefaults);
     else if (mq.addListener) mq.addListener(applyMenuDefaults);
 
-    render();
+    // Remember where the visitor was when they open a product, so "Back to Store" can return there.
+    root.addEventListener('click', function (e) {
+      var tile = e.target.closest && e.target.closest('a.zs-tile');
+      if (!tile) return;
+      try {
+        sessionStorage.setItem(STATE_KEY, JSON.stringify({
+          t: Date.now(), y: window.pageYOffset,
+          band: st.band, cat: st.cat, size: st.size, label: st.label, special: st.special, query: st.query, page: st.page
+        }));
+      } catch (err) { /* no storage: back link just lands on the first page */ }
+    });
+
+    var saved = null, flag = '', navType = '';
+    try { saved = JSON.parse(sessionStorage.getItem(STATE_KEY) || 'null'); } catch (err) { /* ignore */ }
+    try { flag = sessionStorage.getItem(RESTORE_KEY) || ''; sessionStorage.removeItem(RESTORE_KEY); } catch (err) { /* ignore */ }
+    try { navType = performance.getEntriesByType('navigation')[0].type; } catch (err) { /* ignore */ }
+
+    if (saved && saved.t && Date.now() - saved.t < 60 * 60 * 1000 && (flag === '1' || navType === 'back_forward')) {
+      ['band', 'cat', 'size', 'label', 'special', 'query'].forEach(function (k) { st[k] = saved[k] || ''; });
+      st.page = saved.page || 1;
+      search.value = st.query;
+      render();
+      var y = saved.y || 0;
+      setTimeout(function () { window.scrollTo(0, y); }, 0);
+      setTimeout(function () { window.scrollTo(0, y); }, 400); // again once fonts and images settle
+    } else {
+      render();
+    }
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
