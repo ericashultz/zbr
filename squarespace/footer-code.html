@@ -23,17 +23,40 @@
     if (last && last.tagName === 'P') last.classList.add('zbr-last');
   });
 
-  // CTA button blocks: skip empty blocks above them, then mark the block before and the CTA itself for even spacing
+  // CTA button blocks: hide empty blocks above them, then measure and set the gap to the text above
+  // (the gap below a CTA, to the player, is fixed by the CSS at 18px; a little less above matches it by eye)
   [].forEach.call(document.querySelectorAll('article.hentry .sqs-block-button'), function (btn) {
     var prev = btn.previousElementSibling;
     while (prev && (prev.classList.contains('sqs-block-spacer') ||
-      (prev.classList.contains('sqs-block-html') && !prev.textContent.replace(/\u00a0/g, '').trim() && !prev.querySelector('img, iframe')))) {
+      (prev.classList.contains('sqs-block-html') && !prev.textContent.replace(/ /g, '').trim() && !prev.querySelector('img, iframe')))) {
       prev.classList.add('zbr-empty');
       prev = prev.previousElementSibling;
     }
-    if (prev) prev.classList.add('zbr-before-cta');
-    btn.classList.add('zbr-cta-gap');
+    if (prev && !prev.classList.contains('sqs-block-button')) { prev.classList.add('zbr-before-cta'); btn.classList.add('zbr-cta-gap'); }
   });
+  var evenCtaSpacing = function () {
+    [].forEach.call(document.querySelectorAll('article.hentry .sqs-block-button'), function (btn) {
+      var link = btn.querySelector('a');
+      var card = btn.closest('article.hentry');
+      if (!link || !card) return;
+      var blocks = [].slice.call(card.querySelectorAll('.sqs-block, .zbr-bcplayer'));
+      var i = blocks.indexOf(btn), prev = null, k;
+      for (k = i - 1; k >= 0; k--) { if (blocks[k].getBoundingClientRect().height > 0) { prev = blocks[k]; break; } }
+      if (!prev || prev.classList.contains('sqs-block-button')) return;   // stacked CTAs keep their small gap
+      var bottom = 0;
+      [].forEach.call(prev.querySelectorAll('p, li, h1, h2, h3, h4, iframe, img'), function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.height > 0) bottom = Math.max(bottom, r.bottom);
+      });
+      if (!bottom) bottom = prev.getBoundingClientRect().bottom;
+      var gap = link.getBoundingClientRect().top - bottom;
+      var cur = parseFloat(getComputedStyle(btn).marginTop) || 0;
+      btn.style.setProperty('margin-top', Math.max(0, cur + (14 - gap)) + 'px', 'important');
+    });
+  };
+  if (document.readyState === 'complete') evenCtaSpacing();
+  else window.addEventListener('load', function () { evenCtaSpacing(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(evenCtaSpacing, 300); });
 
   // Product page: "Back to Store" link returns to the store at the same filters, page and scroll position
   var back = document.querySelector('#productNav a');
