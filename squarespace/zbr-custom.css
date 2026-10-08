@@ -261,7 +261,7 @@ body.view-item .product-excerpt > p:first-child[style*="text-align: center"]{ di
 
 /* ---- v6: Search page like the redesign ---- */
 .sqs-search-page-content{ padding:12px; box-sizing:border-box; text-align:left; }
-.sqs-search-page-input{ position:relative; }
+.sqs-search-page-input{ position:relative; background:none !important; border:0 !important; padding:0 !important; height:auto !important; min-height:0 !important; box-shadow:none !important; }
 .sqs-search-page-input::before{ content:"Search the site"; display:block; margin-bottom:6px; font:bold 13px "Fixedsys Excelsior","Courier New",monospace; color:#fff; }
 .sqs-search-page-input input{ display:block; width:100%; box-sizing:border-box; height:auto !important; padding:8px !important; font:14px "Fixedsys Excelsior","Courier New",monospace !important; border:2px inset #c0c0c0 !important; border-radius:0 !important; background:#fff !important; color:#000 !important; box-shadow:none !important; text-transform:none !important; letter-spacing:0 !important; }
 .sqs-search-page-result .search-results{ display:flex; flex-direction:column; gap:12px; margin-top:20px; }
