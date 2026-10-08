@@ -8,12 +8,22 @@
  * Products come from /api/catalog (a slim, cached copy of the store's collections).
  * Every tile links to the real Squarespace product page, so cart/checkout stay native.
  * Filters mirror the redesign: search, New Items / Steals, Bands A-Z, Merch, Labels.
+ *
+ * Site mode (no Vercel API): add data-source="site" to the script tag and the grid reads the
+ * store collections straight from the Squarespace site it is running on, so every link uses
+ * that site's real product addresses. The slimmed catalog is cached in the browser for an hour.
+ *   <script src="https://zbr-rho.vercel.app/squarespace/store-grid.js" data-source="site"></script>
  */
 (function () {
   'use strict';
 
   var BASE = 'https://zbr-rho.vercel.app';
-  try { if (document.currentScript && document.currentScript.src) BASE = new URL(document.currentScript.src).origin; } catch (e) { /* keep default */ }
+  var SITE_MODE = false;
+  try {
+    var me = document.currentScript;
+    if (me && me.src) BASE = new URL(me.src).origin;
+    if (me && me.getAttribute('data-source') === 'site') SITE_MODE = true;
+  } catch (e) { /* keep defaults */ }
   var CATALOG_URL = BASE + '/api/catalog';
   var PAGE_SIZE = 40; // products per page
   var MOBILE_MAX = 900; // phones + tablets: stacked sidebar, collapsed filter menus (matches the nav's mobile menu)
@@ -112,6 +122,117 @@
     return String(s).split(/[\s\/&+-]+/).reduce(function (m, w) { return Math.max(m, w.length); }, 0);
   }
 
+  // ---- Site mode: build the slim catalog in the browser from this site's own collections ----
+  // Mirrors api/catalog.js (keep the two in sync).
+  var SITE_COLLECTIONS = [
+    { slug: 'zegema-beach-releases', label: 'Zegema Beach Releases' },
+    { slug: 'tomb-tree-tapes', label: 'Tomb Tree' },
+    { slug: 'softseed', label: 'Softseed Music' },
+    { slug: 'specials', special: 'new' },
+    { slug: 'steals', special: 'steals' },
+    { slug: '12inches', fmt: ['v12'] },
+    { slug: '12distro2', fmt: ['v12'] },
+    { slug: 'distro-7inch', fmt: ['v7'] },
+    { slug: 'oddvinyl', fmt: ['vo'] },
+    { slug: 'cassettes', fmt: ['tape'] },
+    { slug: 'cds', fmt: ['cd'] },
+    { slug: 'shirts', fmt: ['shirt'] },
+    { slug: 'posters1', fmt: ['poster'] },
+    { slug: 'posters2', fmt: ['poster'] },
+    { slug: 'buttons', fmt: ['button'] },
+    { slug: 'stickers', fmt: ['sticker'] }
+  ];
+  var CATEGORY_FORMATS = {
+    '12"': ['v12'], '2x12"': ['v12'], 'cd/12"': ['v12', 'cd'],
+    '7"': ['v7'],
+    '10"': ['vo'], '5"': ['vo'], '6"': ['vo'], '8"': ['vo'], '9"': ['vo'],
+    'cassette': ['tape'],
+    'cd': ['cd'], 'cds': ['cd'], '3"cd': ['cd'],
+    't-shirt': ['shirt'], 'shirts': ['shirt'], 'crewneck': ['shirt'], 'hooded sweatshirt': ['shirt'], 'hoodie': ['shirt'],
+    'poster': ['poster'],
+    'button': ['button'], 'pin': ['button'],
+    'sticker': ['sticker'], 'patch/sticker': ['sticker'], 'patch': ['sticker']
+  };
+  var CACHE_KEY = 'zbr-store-catalog-v1';
+  var CACHE_MS = 60 * 60 * 1000;
+
+  function decodeEntities(str) {
+    return str.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"').replace(/&#39;|&#x27;/g, "'");
+  }
+  function siteImage(item) {
+    var own = item.assetUrl || '';
+    var isFolder = own.slice(-1) === '/' || /^\d+$/.test(own.split('/').pop());
+    if (own && !isFolder) return own;
+    var kids = item.items || [];
+    for (var k = 0; k < kids.length; k++) if (kids[k] && kids[k].assetUrl) return kids[k].assetUrl;
+    return own;
+  }
+  function slimItem(item, col) {
+    var sc = item.structuredContent || {};
+    var variants = sc.variants || [];
+    var cents = variants.map(function (v) { return v.onSale && v.salePrice > 0 ? v.salePrice : v.price; })
+      .filter(function (n) { return typeof n === 'number'; });
+    if (!cents.length && typeof sc.priceCents === 'number') cents.push(sc.priceCents);
+    var min = cents.length ? Math.min.apply(null, cents) : 0;
+    var max = cents.length ? Math.max.apply(null, cents) : 0;
+    var soldOut = variants.length > 0 && variants.every(function (v) { return !v.unlimited && v.qtyInStock === 0; });
+
+    var fmts = {};
+    (col.fmt || []).forEach(function (f) { fmts[f] = 1; });
+    (item.categories || []).forEach(function (c) {
+      (CATEGORY_FORMATS[String(c).toLowerCase()] || []).forEach(function (f) { fmts[f] = 1; });
+    });
+
+    var title = decodeEntities(String(item.title || '')).trim();
+    var dash = title.indexOf(' - ');
+    var img = siteImage(item);
+    var out = {
+      b: dash > 0 ? title.slice(0, dash).trim() : '',
+      n: dash > 0 ? title.slice(dash + 3).trim() : title,
+      u: item.fullUrl,
+      i: img ? img + '?format=500w' : '',
+      p: min / 100
+    };
+    if (max !== min) out.r = 1;
+    if (soldOut) out.s = 1;
+    if (Object.keys(fmts).length) out.f = Object.keys(fmts);
+    if (col.label) out.l = col.label;
+    if (col.special) out.sp = col.special;
+    return out;
+  }
+  function loadFromSite(root) {
+    try {
+      var cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+      if (cached && cached.items && cached.items.length && Date.now() - cached.t < CACHE_MS) {
+        return Promise.resolve({ items: cached.items });
+      }
+    } catch (e) { /* no storage: fetch fresh */ }
+
+    var done = 0, failed = 0;
+    var msg = root.querySelector('.zs-msg');
+    return Promise.all(SITE_COLLECTIONS.map(function (col) {
+      return fetch('/' + col.slug + '?format=json', { credentials: 'same-origin' })
+        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function (data) {
+          return (data.items || []).filter(function (i) { return i.fullUrl; }).map(function (i) { return slimItem(i, col); });
+        })
+        .catch(function () { failed++; return []; }) // a missing page just leaves its products out
+        .then(function (list) {
+          done++;
+          if (msg) msg.innerHTML = 'Loading the store&hellip; ' + done + ' of ' + SITE_COLLECTIONS.length;
+          return list;
+        });
+    })).then(function (lists) {
+      var items = [].concat.apply([], lists);
+      if (!items.length) throw new Error('empty');
+      if (!failed) {
+        try { localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), items: items })); } catch (e) { /* ignore */ }
+      }
+      return { items: items };
+    });
+  }
+
   function init() {
     var root = document.getElementById('zbr-store');
     if (!root || root.getAttribute('data-zs-ready')) return;
@@ -127,8 +248,10 @@
 
     root.innerHTML = '<p class="zs-msg">Loading the store&hellip;</p>';
 
-    fetch(CATALOG_URL)
-      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    var loading = SITE_MODE
+      ? loadFromSite(root)
+      : fetch(CATALOG_URL).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
+    loading
       .then(function (catalog) { build(root, catalog.items || []); })
       .catch(function () {
         root.innerHTML = '<p class="zs-msg">The store grid couldn\'t load right now. You can still browse: ' +
