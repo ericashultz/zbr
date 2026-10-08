@@ -334,3 +334,7 @@ body.view-item .product-excerpt > p:first-child[style*="text-align: center"]{ di
 #sqs-cart-container .cart-checkout a::before{ content:""; display:inline-block; width:14px; height:14px; margin-right:4px; background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAElBMVEUAAACAgADAwMAAAAD//////wB5dF8UAAAAAXRSTlMAQObYZgAAAAFiS0dEBI9o2VEAAAAHdElNRQfiBhgXEB29GFGEAAAAQklEQVQI12NgYGAQFGQAA0ZlQwMwQ8iAURjMEAYjFIagoLAASK0gEICERFyAAMwIBQIwAygjREBEEKbdGAQgtoIBAFjwChFp9/y1AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE4LTA2LTI0VDIzOjE2OjI5LTA0OjAwQFmfnAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOC0wNi0yNFQyMzoxNjoyOS0wNDowMDEEJyAAAAAASUVORK5CYII=") no-repeat center / 14px 14px; }
 #sqs-cart-container .cart-checkout a:hover{ color:#fff !important; }
 @media (max-width:700px){ #sqs-cart-container .cart-row-qty{ order:2; } #sqs-cart-container .cart-row-price{ order:3; } #sqs-cart-container .cart-row > div:last-child{ order:4; margin-left:auto; } }
+
+/* ---- cart count badge on the "View Cart" nav button (added by the footer script) ---- */
+.zbr-cart-count{ display:inline-block; min-width:16px; margin-left:4px; padding:1px 5px; background:#A500A8; color:#fff; border-radius:8px; font:bold 11px "Fixedsys Excelsior","Courier New",monospace; text-align:center; vertical-align:middle; }
+.zbr-cart-count[hidden]{ display:none; }
