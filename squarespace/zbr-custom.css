@@ -528,4 +528,4 @@ article.hentry .sqs-block-button + .zbr-bcplayer, article.hentry p:has(> a.zbr-c
 /* news cards: the space above a CTA link equals the space below it (18px) */
 article.hentry .zbr-before-cta{ padding-bottom:0 !important; margin-bottom:0 !important; }
 article.hentry .zbr-before-cta .sqs-html-content > p.zbr-last, article.hentry .zbr-before-cta .sqs-html-content > *:last-child{ margin-bottom:0 !important; }
-article.hentry .sqs-block-button.zbr-cta-gap{ margin-top:18px !important; }
+article.hentry .sqs-block-button.zbr-cta-gap{ margin-top:14px; }
