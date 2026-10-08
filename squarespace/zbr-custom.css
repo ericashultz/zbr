@@ -159,8 +159,7 @@ body.view-item #productGallery .intrinsic, body.view-item #productGallery .intri
 body.view-item #productSlideshow{ position:static !important; height:auto !important; width:100% !important; }
 body.view-item #productSlideshow .slide{ position:relative !important; height:auto !important; width:100% !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important; margin:0 0 10px !important; overflow:visible !important; }
 body.view-item #productSlideshow .slide img{ position:static !important; left:0 !important; top:0 !important; width:100% !important; height:auto !important; max-width:100% !important; display:block; border:4px ridge #c0c0c0 !important; box-sizing:border-box; }
-/* the template shows one title above the photo on phones and one beside it on desktop */
-body.view-item h1.product-title.mobile{ display:none !important; }
+/* (the template shows one title above the photo on phones and one beside it on desktop; both are styled below) */
 
 /* title: bold italic with the purple shadow, like the redesign's post headlines */
 body.view-item h1.product-title{
