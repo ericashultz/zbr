@@ -192,6 +192,12 @@ body.view-item .variant-radiobtn-wrapper label{ display:inline-block; margin:0 6
 body.view-item .variant-radiobtn:checked + label{ border-style:inset !important; background:linear-gradient(180deg,#d4d4d4,#fff) !important; }
 body.view-item .variant-radiobtn.variant-unavailable + label{ opacity:.5; text-decoration:line-through; }
 
+/* quantity box and Add to Cart sit side by side; the Bandcamp player (added last by the footer script) goes underneath */
+body.view-item #productDetails{ display:flex !important; flex-wrap:wrap; align-items:flex-end; column-gap:12px; }
+body.view-item #productDetails > *{ flex:0 0 100%; min-width:0; box-sizing:border-box; }
+body.view-item #productDetails > .product-mark{ flex:0 0 auto; margin-right:100%; }
+body.view-item #productDetails > .product-quantity-input, body.view-item #productDetails > .sqs-add-to-cart-button-wrapper{ flex:0 0 auto; }
+body.view-item #productDetails > .sqs-add-to-cart-button-wrapper{ margin-top:0 !important; }
 /* add to cart: the redesign's beveled button */
 body.view-item .sqs-add-to-cart-button-wrapper{ margin-top:14px; }
 body.view-item .sqs-add-to-cart-button{
