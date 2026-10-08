@@ -521,3 +521,6 @@ article.hentry .sqs-block-button + .zbr-bcplayer, article.hentry p:has(> a.zbr-c
 .sqs-block-form .form-button-wrapper button:active{ border-style:inset !important; }
 .sqs-block-form .form-button-wrapper button span{ font:inherit !important; color:inherit !important; text-transform:inherit !important; }
 .sqs-block-form .sqs-form-block-submission-html, .sqs-block-form .form-submission-text, .sqs-block-form .form-submission-html{ text-align:center; color:#19A800 !important; font:bold 15px Arial,sans-serif !important; margin-top:16px; }
+.zbr-empty{ display:none !important; }
+.sqs-layout:has(.sqs-block-form) .sqs-block{ padding-top:0 !important; padding-bottom:0 !important; }
+.sqs-layout:has(.sqs-block-form) .sqs-block-html p:last-of-type{ margin-bottom:0 !important; }
