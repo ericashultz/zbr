@@ -208,6 +208,10 @@ body.view-item .product-mark.sold-out{ position:static !important; float:none !i
 body.view-item .product-mark.sold-out ~ .sqs-add-to-cart-button-wrapper{ display:none !important; }
 body.view-item .product-sharing{ display:none !important; }
 
+/* Bandcamp player (inserted by the footer script in place of the "Listen here" link) */
+.zbr-bcplayer{ margin:8px 0 14px; border:2px inset #c0c0c0; line-height:0; background:#000; }
+.zbr-bcplayer iframe{ display:block; border:0; width:100%; height:120px; }
+
 /* hide the centered catalog-number line ("BAND 'Title' 12"LP (ZBR150)") that starts many descriptions */
 body.view-item .product-excerpt > p:first-child[style*="text-align:center"],
 body.view-item .product-excerpt > p:first-child[style*="text-align: center"]{ display:none !important; }
