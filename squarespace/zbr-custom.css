@@ -424,8 +424,14 @@ a.zbr-quicklink:active .zbr-ql-icon{ border-style:inset; }
 /* news photos: keep the template's grid wrappers inside the card so the slideshow isn't clipped on the right */
 article.hentry .special-content .sqs-layout, article.hentry .special-content .sqs-row, article.hentry .special-content .sqs-col-12, article.hentry .special-content .sqs-block, article.hentry .special-content .sqs-block-content,
 article.hentry .special-content .sqs-gallery-container, article.hentry .special-content .sqs-gallery{ width:100% !important; max-width:100% !important; margin-left:0 !important; margin-right:0 !important; padding-left:0 !important; padding-right:0 !important; left:0 !important; box-sizing:border-box; }
-/* the redesign shows one photo per post; the arrows on the photo still page through the rest */
-article.hentry .sqs-gallery-thumbnails{ display:none !important; }
+/* news photo slideshows look like the product page's: framed photo on black, small thumbnails below with a yellow current one */
+article.hentry .special-content .sqs-gallery{ background:#000; border:4px ridge #c0c0c0; box-sizing:border-box; overflow:hidden; }
+article.hentry .special-content .sqs-gallery .slide img{ object-fit:contain !important; border:0 !important; }
+article.hentry .sqs-gallery-controls{ display:none !important; }
+article.hentry .sqs-gallery-thumbnails{ display:block !important; height:auto !important; margin:8px 0 0 !important; overflow:visible !important; }
+article.hentry .sqs-gallery-thumbnails .sqs-wrapper{ position:static !important; left:0 !important; width:auto !important; transform:none !important; display:flex !important; flex-wrap:wrap; gap:6px; }
+article.hentry .sqs-gallery-thumbnails img{ position:static !important; float:none !important; display:block !important; width:52px !important; height:52px !important; margin:0 !important; padding:0 !important; object-fit:cover; border:2px outset #c0c0c0 !important; box-sizing:border-box; opacity:.75; cursor:pointer; }
+article.hentry .sqs-gallery-thumbnails img.sqs-active-slide{ border-color:#FFEE00 !important; opacity:1; }
 
 /* ---- News page, phones & tablets: Quick Links as a collapsed purple bar under the main menu ---- */
 .zbr-mobile-quick{ display:none; }
