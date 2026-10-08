@@ -447,3 +447,5 @@ article.hentry .sqs-gallery-thumbnails img.sqs-active-slide{ border-color:#FFEE0
 
 /* header: a little more room under the tagline so it balances the space above it */
 p.site-tagline{ margin:16px 0 24px !important; }
+/* phones and tablets: the smaller headline leaves less built-in room, so add a little under the tagline */
+@media (max-width:980px){ p.site-tagline{ margin-bottom:32px !important; } }
