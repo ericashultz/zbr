@@ -198,6 +198,16 @@ body.view-item #productDetails > *{ flex:0 0 100%; min-width:0; box-sizing:borde
 body.view-item #productDetails > .product-mark{ flex:0 0 auto; margin-right:100%; }
 body.view-item #productDetails > .product-quantity-input, body.view-item #productDetails > .sqs-add-to-cart-button-wrapper{ flex:0 0 auto; }
 body.view-item #productDetails > .sqs-add-to-cart-button-wrapper{ margin:0 !important; }
+/* price sits on the same row as the option menu, quantity and Add to Cart, like the redesign */
+body.view-item #productDetails > .product-mark{ order:0; }
+body.view-item #productDetails > h1.product-title{ order:1; }
+body.view-item #productDetails > .product-excerpt{ order:2; }
+body.view-item #productDetails > .product-price{ order:3; flex:0 0 auto; height:34px; line-height:34px; margin:0 6px 0 0 !important; padding:0 !important; }
+body.view-item #productDetails > .product-variants{ order:4; flex:0 0 auto; max-width:100%; margin:0 !important; }
+body.view-item #productDetails > .product-quantity-input{ order:5; }
+body.view-item #productDetails > .sqs-add-to-cart-button-wrapper{ order:6; }
+body.view-item #productDetails > .product-sharing{ order:7; }
+body.view-item #productDetails > .zbr-bcplayer{ order:8; }
 /* add to cart: the redesign's beveled button */
 body.view-item .sqs-add-to-cart-button-wrapper{ margin-top:14px; }
 body.view-item .sqs-add-to-cart-button{
