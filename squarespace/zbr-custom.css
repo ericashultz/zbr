@@ -280,3 +280,36 @@ body.view-item .product-excerpt > p:first-child[style*="text-align: center"]{ di
 .sqs-search-page-notice.hide{ display:none !important; }
 .search-result .sqs-search-container-item{ border:0 !important; padding:0 !important; margin:0 !important; background:none !important; }
 .search-result .sqs-content{ padding:0 !important; margin:0 !important; border:0 !important; }
+
+/* ---- v7: Cart page like the redesign ---- */
+#sqs-cart-root{ max-width:640px; margin:24px auto; padding:12px; box-sizing:border-box; }
+#sqs-cart-container .cart-title{ display:none !important; }
+/* empty cart: recycle bin icon + the redesign's message */
+#sqs-cart-container .empty-message{ font-size:0 !important; text-align:center !important; margin:0 !important; }
+#sqs-cart-container .empty-message::before{ content:""; display:block; width:40px; height:40px; margin:0 auto 10px; background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAElBMVEUAAAB/f3////8AAADAwMAAgADr1htoAAAAAXRSTlMAQObYZgAAAAFiS0dEAmYLfGQAAAAHdElNRQfiBhoAMBmckcxBAAABE0lEQVQ4y3XS7c2EMAgA4Da3wIv2BtBbQOMEXugAb1L2X+Wg2E8rvwwPpZRozBUWzDBgWkdiYV32gUg57NiLlAOD68RKuUIr0wIKgK1MUEEt5YRrxX6XGopYVNkh9ipiUSVDEoYoDK4Vp1IBrn8JWBhSL8RPBr0n5b8VRLk+12WuQES78u62NFaSWA49sMTyFk4i6XItrgIiCh5PqEBvD54ow6zbcpwL8UwP6AX8AOIJvIF9asUQgr7krIcSwEeI4Xs4H8A4ASowpz/IvQN6mesGnCIq41bgveT/e7Bx60RuAPgO5R1bBqdT3cDs6Yfo4ZWkhyw3SHI2Q10CYzCvA8ZgDIvAsZm7MBxmEAfMwzxLbvMDNeCFZkgsWwgAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTgtMDYtMjZUMDA6NDg6MjUtMDQ6MDAzY+QZAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE4LTA2LTI2VDAwOjQ4OjI1LTA0OjAwQj5cpQAAAABJRU5ErkJggg==") no-repeat center / 40px 40px; }
+#sqs-cart-container .empty-message::after{ content:"Your cart is empty -- go add some records!"; display:block; font:15px Arial,sans-serif; color:#d9d9d9; }
+#sqs-cart-container .cart-continue-button{ display:inline-flex !important; align-items:center; justify-content:center; box-sizing:border-box; height:34px; padding:0 16px !important; margin:16px auto 0 !important; background:linear-gradient(180deg,#ffffff,#d4d4d4) !important; border:2px outset #fff !important; border-radius:0 !important; color:#000332 !important; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; text-transform:uppercase; letter-spacing:0 !important; text-decoration:none; }
+#sqs-cart-container .cart-continue-button:hover{ background:#1D64A7 !important; border-color:#2F7CC8 !important; color:#fff !important; }
+/* items */
+#sqs-cart-container .cart-container{ display:flex !important; flex-direction:column; gap:10px; margin-bottom:16px; padding:0 !important; border:0 !important; }
+#sqs-cart-container .cart-row{ display:flex !important; align-items:center; flex-wrap:wrap; gap:10px; box-sizing:border-box; width:100% !important; margin:0 !important; background:#000 !important; border:3px groove #C0DEFF !important; padding:10px !important; font:13px "Fixedsys Excelsior","Courier New",monospace !important; color:#d9d9d9 !important; }
+#sqs-cart-container .cart-row-img-wrapper{ display:none !important; }
+#sqs-cart-container .cart-row-desc{ flex:1 1 160px; min-width:160px; padding:0 !important; margin:0 !important; }
+#sqs-cart-container .cart-row-title, #sqs-cart-container .cart-row-title:visited{ color:#fff !important; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; text-decoration:none !important; text-transform:none !important; letter-spacing:0 !important; }
+#sqs-cart-container .cart-row-title:hover{ color:#FFEE00 !important; background:none; }
+#sqs-cart-container .cart-row-variants, #sqs-cart-container .cart-row-variants *{ color:#c0c0c0 !important; font:12px "Fixedsys Excelsior","Courier New",monospace !important; }
+#sqs-cart-container .cart-row-qty{ margin:0 !important; padding:0 !important; }
+#sqs-cart-container .cart-row-qty > div > div{ display:flex !important; align-items:center; gap:4px; border:0 !important; }
+#sqs-cart-container .cart-row-qty-input{ box-sizing:border-box !important; width:44px !important; height:34px !important; padding:0 4px !important; text-align:center; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; border:2px inset #c0c0c0 !important; border-radius:0 !important; background:#fff !important; color:#000 !important; }
+#sqs-cart-container .cart-row-qty-dec, #sqs-cart-container .cart-row-qty-inc, #sqs-cart-container .cart-row-remove{ box-sizing:border-box; min-width:30px; height:30px; padding:0 8px !important; background:linear-gradient(180deg,#ffffff,#d4d4d4) !important; border:2px outset #fff !important; border-radius:0 !important; color:#000332 !important; cursor:pointer; }
+#sqs-cart-container .cart-row-qty-dec svg, #sqs-cart-container .cart-row-qty-inc svg, #sqs-cart-container .cart-row-remove svg{ fill:#000332 !important; stroke:#000332 !important; }
+#sqs-cart-container .cart-row-qty-dec:active, #sqs-cart-container .cart-row-qty-inc:active, #sqs-cart-container .cart-row-remove:active{ border-style:inset !important; }
+#sqs-cart-container .cart-row-price{ margin:0 !important; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; color:#fff !important; }
+/* subtotal + checkout */
+#sqs-cart-container .cart-summary{ display:flex !important; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; border:0 !important; border-top:2px groove #444 !important; padding:14px 0 0 !important; margin:0 !important; background:none !important; }
+#sqs-cart-container .cart-subtotal{ display:flex; gap:8px; align-items:baseline; margin:0 !important; }
+#sqs-cart-container .cart-subtotal p, #sqs-cart-container .cart-subtotal span{ margin:0 !important; font:15px "Fixedsys Excelsior","Courier New",monospace !important; color:#fff !important; }
+#sqs-cart-container .cart-subtotal-label::after{ content:":"; }
+#sqs-cart-container .cart-checkout a{ display:inline-flex !important; align-items:center; justify-content:center; box-sizing:border-box; width:auto !important; height:34px; padding:0 16px !important; background:linear-gradient(180deg,#ffffff,#d4d4d4) !important; border:2px outset #fff !important; border-radius:0 !important; color:#000332 !important; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; text-transform:uppercase; letter-spacing:0 !important; text-decoration:none !important; }
+#sqs-cart-container .cart-checkout a:hover{ background:#1D64A7 !important; border-color:#2F7CC8 !important; color:#fff !important; }
+@media (max-width:700px){ #sqs-cart-container .cart-row-remove{ margin-left:auto; } }
