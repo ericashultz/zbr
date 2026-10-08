@@ -51,7 +51,7 @@
       if (!bottom) bottom = prev.getBoundingClientRect().bottom;
       var gap = link.getBoundingClientRect().top - bottom;
       var cur = parseFloat(getComputedStyle(btn).marginTop) || 0;
-      btn.style.setProperty('margin-top', Math.max(0, cur + (14 - gap)) + 'px', 'important');
+      btn.style.setProperty('margin-top', Math.max(-160, cur + (14 - gap)) + 'px', 'important'); // can be negative when the space above comes from the block before it
     });
   };
   if (document.readyState === 'complete') evenCtaSpacing();
