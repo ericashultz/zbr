@@ -197,7 +197,7 @@ body.view-item #productDetails{ display:flex !important; flex-wrap:wrap; align-i
 body.view-item #productDetails > *{ flex:0 0 100%; min-width:0; box-sizing:border-box; }
 body.view-item #productDetails > .product-mark{ flex:0 0 auto; margin-right:100%; }
 body.view-item #productDetails > .product-quantity-input, body.view-item #productDetails > .sqs-add-to-cart-button-wrapper{ flex:0 0 auto; }
-body.view-item #productDetails > .sqs-add-to-cart-button-wrapper{ margin-top:0 !important; }
+body.view-item #productDetails > .sqs-add-to-cart-button-wrapper{ margin:0 !important; }
 /* add to cart: the redesign's beveled button */
 body.view-item .sqs-add-to-cart-button-wrapper{ margin-top:14px; }
 body.view-item .sqs-add-to-cart-button{
