@@ -154,11 +154,16 @@ body.view-item #productSummary{ display:flex !important; flex-wrap:wrap; gap:24p
 body.view-item #productSummary::before, body.view-item #productSummary::after{ display:none !important; }
 body.view-item #productGallery{ flex:1 1 300px; max-width:380px; float:none !important; width:auto !important; margin:0 !important; }
 body.view-item #productDetails{ flex:2 1 320px; min-width:280px; float:none !important; width:auto !important; margin:0 !important; padding:0 !important; }
-/* the template crops photos to a square with inline sizes; show them whole and stacked instead */
+/* photos: Squarespace's own gallery -- one big photo, with its thumbnail strip switching between them */
 body.view-item #productGallery .intrinsic, body.view-item #productGallery .intrinsic .wrapper{ position:static !important; height:auto !important; padding-bottom:0 !important; width:100% !important; }
-body.view-item #productSlideshow{ position:static !important; height:auto !important; width:100% !important; }
-body.view-item #productSlideshow .slide{ position:relative !important; height:auto !important; width:100% !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important; margin:0 0 10px !important; overflow:visible !important; }
-body.view-item #productSlideshow .slide img{ position:static !important; left:0 !important; top:0 !important; width:100% !important; height:auto !important; max-width:100% !important; display:block; border:4px ridge #c0c0c0 !important; box-sizing:border-box; }
+body.view-item #productSlideshow{ position:relative !important; width:100% !important; height:auto !important; aspect-ratio:750 / 725; overflow:hidden !important; background:#000; border:4px ridge #c0c0c0; box-sizing:border-box; }
+body.view-item #productSlideshow .slide{ position:absolute !important; top:0; left:0; width:100% !important; height:100% !important; margin:0 !important; display:none !important; }
+body.view-item #productSlideshow .slide.sqs-active-slide{ display:block !important; opacity:1 !important; visibility:visible !important; pointer-events:auto !important; }
+body.view-item #productSlideshow .slide img{ position:static !important; left:0 !important; top:0 !important; width:100% !important; height:100% !important; max-width:none !important; object-fit:contain !important; object-position:center; border:0 !important; display:block; }
+body.view-item #productThumbnails{ display:flex !important; flex-wrap:wrap; gap:6px; margin:8px 0 0 !important; padding:0 !important; width:auto !important; height:auto !important; }
+body.view-item #productThumbnails .slide{ position:relative !important; float:none !important; flex:0 0 auto; width:52px !important; height:52px !important; margin:0 !important; border:2px outset #c0c0c0; box-sizing:border-box; cursor:pointer; background:#000; opacity:.75; }
+body.view-item #productThumbnails .slide.sqs-active-slide{ border-color:#FFEE00; opacity:1; }
+body.view-item #productThumbnails .slide img{ position:static !important; width:100% !important; height:100% !important; object-fit:cover; display:block; }
 /* (the template shows one title above the photo on phones and one beside it on desktop; both are styled below) */
 
 /* title: bold italic with the purple shadow, like the redesign's post headlines */
@@ -207,20 +212,6 @@ body.view-item .product-sharing{ display:none !important; }
 /* hide the centered catalog-number line ("BAND 'Title' 12"LP (ZBR150)") that starts many descriptions */
 body.view-item .product-excerpt > p:first-child[style*="text-align:center"],
 body.view-item .product-excerpt > p:first-child[style*="text-align: center"]{ display:none !important; }
-
-/* photo carousel (turned on by product-page.js; without the script the photos just stack) */
-body.view-item #productGallery.zs-carousel{ position:relative; }
-body.view-item #productGallery.zs-carousel .intrinsic, body.view-item #productGallery.zs-carousel .intrinsic .wrapper{ position:static !important; height:auto !important; padding-bottom:0 !important; }
-body.view-item #productGallery.zs-carousel #productSlideshow{ position:relative !important; width:100% !important; height:auto !important; aspect-ratio:750 / 725; overflow:hidden !important; background:#000; border:4px ridge #c0c0c0; box-sizing:border-box; }
-body.view-item #productGallery.zs-carousel #productSlideshow .slide{ position:absolute !important; top:0; left:0; width:100% !important; height:100% !important; margin:0 !important; display:none !important; }
-body.view-item #productGallery.zs-carousel #productSlideshow .slide.zs-cur{ display:block !important; }
-body.view-item #productGallery.zs-carousel #productSlideshow .slide img{ position:static !important; width:100% !important; height:100% !important; max-width:none !important; object-fit:contain !important; object-position:center; border:0 !important; }
-.zs-car-prev, .zs-car-next{ position:absolute; top:50%; transform:translateY(-50%); z-index:1000; /* the template gives its slides z-index ~889 */ width:30px; height:30px; padding:0; background:rgba(0,0,0,.6); border:2px outset #c0c0c0; border-radius:0; color:#fff; font-size:12px; line-height:1; cursor:pointer; }
-.zs-car-prev:active, .zs-car-next:active{ border-style:inset; }
-.zs-car-prev{ left:6px; } .zs-car-next{ right:6px; }
-.zs-car-dots{ display:flex; justify-content:center; gap:6px; margin-top:8px; }
-.zs-car-dot{ display:inline-block; width:10px; height:10px; border-radius:50%; background:#c0c0c0; border:1px solid #000; cursor:pointer; }
-.zs-car-dot[aria-current="true"]{ background:#FFEE00; }
 
 @media (max-width:700px){
   body.view-item #productWrapper{ padding:12px; margin:12px 8px; }
