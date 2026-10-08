@@ -82,13 +82,12 @@ article.hentry img{ border:4px ridge #c0c0c0; max-width:100%; }
 }
 .sqs-add-to-cart-button:hover{ background:linear-gradient(180deg,#fff,#c9c9c9) !important; }
 
-/* ---- Footer ---- */
-#footerWrapper, #footer{
-  background:#000 !important; text-align:center;
-  border-top:4px double #C0DEFF;
-  font:11px "Courier New", monospace; color:#c0c0c0 !important;
-}
-#footer a{ color:#C0DFFE; } #footer a:hover{ color:#FFEE00; background:none; }
+/* ---- Footer (text + link line like the redesign) ---- */
+#footerWrapper{ background:#000 !important; border-top:4px double #C0DEFF; }
+#footer{ background:#000 !important; text-align:center; padding:14px 10px !important; font:11px "Fixedsys Excelsior","Courier New",monospace; color:#c0c0c0 !important; }
+#footer p, #footer .sqs-html-content p{ font:11px/1.6 "Fixedsys Excelsior","Courier New",monospace !important; color:#c0c0c0 !important; text-align:center !important; margin:0 0 6px !important; }
+#footer a, #footer a:visited{ color:#C0DFFE !important; text-decoration:none; } #footer a:hover{ color:#FFEE00 !important; background:none; }
+#footer #sqs-social{ display:none !important; }
 
 /* ---- Fixes found while testing ---- */
 /* Template's full-bleed "promoted" gallery spills outside the frame */
