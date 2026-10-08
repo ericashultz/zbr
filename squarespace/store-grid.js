@@ -209,7 +209,7 @@
       }
     } catch (e) { /* no storage: fetch fresh */ }
 
-    var done = 0, failed = 0;
+    var done = 0, failed = 0, failures = [];
     var msg = root.querySelector('.zs-msg');
     return Promise.all(SITE_COLLECTIONS.map(function (col) {
       return fetch('/' + col.slug + '?format=json', { credentials: 'same-origin' })
@@ -217,7 +217,7 @@
         .then(function (data) {
           return (data.items || []).filter(function (i) { return i.fullUrl; }).map(function (i) { return slimItem(i, col); });
         })
-        .catch(function () { failed++; return []; }) // a missing page just leaves its products out
+        .catch(function (e) { failed++; failures.push('/' + col.slug + ' (' + (e && e.message || 'error') + ')'); return []; }) // a missing page just leaves its products out
         .then(function (list) {
           done++;
           if (msg) msg.innerHTML = 'Loading the store&hellip; ' + done + ' of ' + SITE_COLLECTIONS.length;
@@ -225,7 +225,7 @@
         });
     })).then(function (lists) {
       var items = [].concat.apply([], lists);
-      if (!items.length) throw new Error('empty');
+      if (!items.length) { var err = new Error('empty'); err.detail = failures.slice(0, 4).join(', '); throw err; }
       if (!failed) {
         try { localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), items: items })); } catch (e) { /* ignore */ }
       }
@@ -253,12 +253,13 @@
       : fetch(CATALOG_URL).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
     loading
       .then(function (catalog) { build(root, catalog.items || []); })
-      .catch(function () {
+      .catch(function (err) {
         root.innerHTML = '<p class="zs-msg">The store grid couldn\'t load right now. You can still browse: ' +
           '<a href="/zegema-beach-releases">Zegema Beach Releases</a> &middot; ' +
           '<a href="/tomb-tree-tapes">Tomb Tree</a> &middot; ' +
           '<a href="/softseed">Softseed Music</a> &middot; ' +
-          '<a href="/specials">New Items / Specials</a></p>';
+          '<a href="/specials">New Items / Specials</a></p>' +
+          (SITE_MODE ? '<p class="zs-msg" style="font-size:11px;opacity:.7">Details: ' + esc((err && err.detail) || (err && err.message) || 'unknown') + ' &mdash; page ' + esc(location.pathname) + '</p>' : '');
       });
   }
 
