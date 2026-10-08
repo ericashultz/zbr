@@ -88,16 +88,63 @@
     setTimeout(sync, 300);
   })();
 
-  // News list: tidy titles, short previews with Read More, and the two-column layout with the sidebar boxes
+  // News list: split each news post into cards, tidy titles, short previews with Read More, and the two-column layout
   if (document.body.classList.contains('view-list') && document.body.classList.contains('collection-type-blog')) {
+    var isRule = function (el) { return el.classList.contains('sqs-block-horizontalrule'); };
+    var textOf = function (blocks) {
+      return blocks.filter(function (b) { return b.classList.contains('sqs-block-html'); })
+        .map(function (b) { return b.textContent; }).join(' ').replace(/\s+/g, ' ').trim();
+    };
+    var SIDE = /^\s*(johnny[’']?s\s+reco-?mmendations|reviews?|features?|last\s+(?:fucking\s+)?copy)\s*[:\-–—]\s*/i;
+    var sideWidgets = [];
+
+    // A post written as several sections separated by horizontal rules becomes one card per section.
+    // Sections starting "Johnny's Reco-mmendations:", "Reviews:", "Features:" or "Last Copy:" go to the sidebar.
+    [].slice.call(document.querySelectorAll('article.hentry')).forEach(function (art) {
+      var col = art.querySelector('.post > .body.entry-content .sqs-layout .sqs-col-12');
+      if (!col) return;
+      var blocks = [].slice.call(col.children).filter(function (el) { return el.classList.contains('sqs-block'); });
+      if (!blocks.some(isRule)) return;
+      var groups = [[]];
+      blocks.forEach(function (b) { if (isRule(b)) groups.push([]); else groups[groups.length - 1].push(b); });
+      groups = groups.filter(function (g) { return g.length; });
+      var prev = art;
+      groups.forEach(function (g, k) {
+        if (k === 0) { return; }
+        var txt = textOf(g);
+        var m = txt.match(SIDE);
+        if (m) { sideWidgets.push({ label: m[1], blocks: g }); return; }
+        var label = /music video/i.test(txt) ? 'Music Video' : 'Releases';
+        var title = '';
+        var first = g[0].querySelector('h1, h2, h3, h4');
+        if (g[0].classList.contains('sqs-block-html') && first && first === g[0].querySelector('.sqs-html-content').firstElementChild) {
+          title = first.textContent.trim();
+          first.parentNode.removeChild(first);
+        }
+        var card = document.createElement('article');
+        card.className = 'hentry zbr-section';
+        card.innerHTML = '<div class="content-wrapper"><div class="post"><header><div class="article-meta-top"><span class="zbr-pill"></span></div>' +
+          (title ? '<h1 class="entry-title"><a></a></h1>' : '') +
+          '</header><div class="body entry-content"><div class="sqs-layout sqs-grid-12 columns-12"><div class="row sqs-row"><div class="col sqs-col-12 span-12"></div></div></div></div></div></div>';
+        card.querySelector('.zbr-pill').textContent = label;
+        if (title) card.querySelector('.entry-title a').textContent = title;
+        var dest = card.querySelector('.sqs-col-12');
+        g.forEach(function (b) { dest.appendChild(b); });
+        prev.parentNode.insertBefore(card, prev.nextSibling);
+        prev = card;
+      });
+      // leave only the first section in the original post
+      blocks.forEach(function (b) { if (isRule(b) && b.parentNode) b.parentNode.removeChild(b); });
+      groups.forEach(function (g, k) { if (k > 0) g.forEach(function (b) { if (b.parentNode === col) { b.style.display = 'none'; } }); });
+    });
+
     [].forEach.call(document.querySelectorAll('article.hentry h1.entry-title a, article.hentry h2.entry-title a'), function (a) {
       a.textContent = a.textContent.replace(/^\s*\d{4}\s*-\s*\d{1,2}\s*-\s*\d{1,2}\s*\/{2,3}\s*/, '');
     });
     [].forEach.call(document.querySelectorAll('article.hentry'), function (art) {
       var body = art.querySelector('.post > .body.entry-content');
       if (!body) return;
-      var long = body.textContent.replace(/\s+/g, ' ').length > 220 || body.querySelector('iframe, .sqs-block-image, .sqs-block-video, .sqs-block-embed, .sqs-block-horizontalrule');
-      if (!long) return;
+      if (textOf([].slice.call(body.querySelectorAll('.sqs-block-html'))).length <= 330) return;
       art.classList.add('zbr-clamped');
       var more = document.createElement('a');
       more.className = 'zbr-readmore';
@@ -111,19 +158,59 @@
       body.parentNode.insertBefore(more, body.nextSibling);
     });
 
+    // sidebar widgets taken from the post (compact Bandcamp players)
+    var makeWidget = function (w) {
+      var kind = /johnny/i.test(w.label) ? 'johnny' : /review/i.test(w.label) ? 'reviews' : /feature/i.test(w.label) ? 'features' : 'lastcopy';
+      var title = { johnny: 'Johnny’s Reco-mmendations', reviews: 'Reviews', features: 'Features', lastcopy: '🚨 Last Copy' }[kind];
+      var box = document.createElement('div');
+      box.className = 'zbr-widget zbr-w-' + kind;
+      box.innerHTML = '<h3></h3>';
+      box.querySelector('h3').textContent = title;
+      var firstText = true;
+      w.blocks.forEach(function (b) {
+        if (b.classList.contains('sqs-block-html')) {
+          var src = b.querySelector('.sqs-html-content');
+          if (!src) return;
+          var c = src.cloneNode(true);
+          if (firstText) {
+            var p0 = c.querySelector('p, h1, h2, h3, h4');
+            if (p0) p0.innerHTML = p0.innerHTML.replace(/^\s*(?:<[^>]+>\s*)*(johnny[’']?s\s+reco-?mmendations|reviews?|features?|last\s+(?:fucking\s+)?copy)\s*[:\-–—]\s*/i, '');
+            firstText = false;
+          }
+          [].forEach.call(c.querySelectorAll('p'), function (p) { if (p.textContent.trim() || p.querySelector('img, iframe')) box.appendChild(p); });
+        } else {
+          var fr = b.querySelector('iframe');
+          var raw = fr ? decodeURIComponent(fr.src || '') : '';
+          var mm = raw.match(/EmbeddedPlayer\/(album|track)=(\d+)/);
+          if (mm) {
+            var pl = document.createElement('div');
+            pl.className = 'zbr-bcplayer';
+            pl.innerHTML = '<iframe src="https://bandcamp.com/EmbeddedPlayer/' + mm[1] + '=' + mm[2] + '/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="Bandcamp player"></iframe>';
+            box.appendChild(pl);
+          }
+        }
+      });
+      return box;
+    };
+
     var page = document.getElementById('page');
+    var showWidgetsAsCards = function () {
+      sideWidgets.forEach(function (w) {
+        w.blocks.forEach(function (b) { b.style.display = ''; });
+      });
+    };
     if (page) {
       fetch('/news-sidebar', { credentials: 'same-origin' })
         .then(function (r) { return r.ok ? r.text() : ''; })
         .then(function (html) {
-          if (!html) return;
+          if (!html) { showWidgetsAsCards(); return; }
           var doc = new DOMParser().parseFromString(html, 'text/html');
           var blk = null;
           [].some.call(doc.querySelectorAll('.sqs-block-code .sqs-block-content, .sqs-block-html .sqs-block-content'), function (b) {
             if (b.querySelector('.zbr-widget')) { blk = b; return true; }
             return false;
           });
-          if (!blk || document.getElementById('zbr-news-layout')) return;
+          if (!blk || document.getElementById('zbr-news-layout')) { showWidgetsAsCards(); return; }
           var layout = document.createElement('div');
           layout.id = 'zbr-news-layout';
           var main = document.createElement('div');
@@ -132,6 +219,11 @@
           var side = document.createElement('aside');
           side.id = 'zbr-sidebar';
           side.innerHTML = blk.innerHTML;
+          var anchor = side.querySelector('.zbr-w-quick');
+          sideWidgets.forEach(function (w) {
+            var box = makeWidget(w);
+            if (anchor && anchor.parentNode) { anchor.parentNode.insertBefore(box, anchor.nextSibling); anchor = box; } else side.appendChild(box);
+          });
           layout.appendChild(main);
           layout.appendChild(side);
           page.appendChild(layout);
@@ -157,7 +249,9 @@
             page.insertBefore(mq, layout);
           }
         })
-        .catch(function () {});
+        .catch(function () { showWidgetsAsCards(); });
+    } else {
+      showWidgetsAsCards();
     }
   }
 })();

@@ -449,3 +449,9 @@ article.hentry .sqs-gallery-thumbnails img.sqs-active-slide{ border-color:#FFEE0
 p.site-tagline{ margin:16px 0 24px !important; }
 /* phones and tablets: the smaller headline leaves less built-in room, so add a little under the tagline */
 @media (max-width:980px){ p.site-tagline{ margin-bottom:32px !important; } }
+
+/* ---- News: cards made from the sections of a post (tag label, like the redesign's "Releases" / "Music Video" tags) ---- */
+.zbr-pill{ display:inline-block; background:#1D64A7; border:2px outset #1D64A7; color:#fff; font:bold 13px "Fixedsys Excelsior","Courier New",monospace; padding:2px 8px; }
+article.hentry.zbr-section .post > header{ margin:0 !important; }
+article.hentry.zbr-section .sqs-block{ margin-bottom:12px; }
+article.hentry.zbr-section .sqs-block-embed, article.hentry.zbr-section .sqs-block-video{ width:100% !important; max-width:100% !important; }
