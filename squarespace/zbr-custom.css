@@ -340,3 +340,7 @@ body.view-item .product-excerpt > p:first-child[style*="text-align: center"]{ di
 .zbr-cart-count[hidden]{ display:none; }
 /* Squarespace's own floating cart pill (top right); the View Cart button with its count replaces it */
 .sqs-pill-shopping-cart, .absolute-cart-box{ display:none !important; }
+/* cart: trim the template's oversized wrappers inside the small buttons; show the padlock on Checkout */
+#sqs-cart-container .cart-row-remove > span, #sqs-cart-container .cart-row-qty-dec > span, #sqs-cart-container .cart-row-qty-inc > span{ display:flex !important; align-items:center; justify-content:center; width:auto !important; height:auto !important; min-width:0 !important; margin:0 !important; padding:0 !important; }
+#sqs-cart-container .cart-row-qty-dec, #sqs-cart-container .cart-row-qty-inc{ display:flex !important; align-items:center; justify-content:center; }
+#sqs-cart-container .cart-checkout a::before{ opacity:1 !important; position:static !important; flex:0 0 14px; }
