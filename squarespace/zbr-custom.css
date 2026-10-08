@@ -526,6 +526,6 @@ article.hentry .sqs-block-button + .zbr-bcplayer, article.hentry p:has(> a.zbr-c
 .sqs-layout:has(.sqs-block-form) .sqs-block-html p:last-of-type{ margin-bottom:0 !important; }
 
 /* news cards: the space above a CTA link equals the space below it (18px) */
-article.hentry .sqs-block-html:has(+ .sqs-block-button){ padding-bottom:0 !important; margin-bottom:0 !important; }
-article.hentry .sqs-block-html:has(+ .sqs-block-button) p.zbr-last{ margin-bottom:0 !important; }
-article.hentry .sqs-block-html + .sqs-block-button{ margin-top:18px !important; }
+article.hentry .zbr-before-cta{ padding-bottom:0 !important; margin-bottom:0 !important; }
+article.hentry .zbr-before-cta .sqs-html-content > p.zbr-last, article.hentry .zbr-before-cta .sqs-html-content > *:last-child{ margin-bottom:0 !important; }
+article.hentry .sqs-block-button.zbr-cta-gap{ margin-top:18px !important; }

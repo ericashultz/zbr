@@ -23,6 +23,18 @@
     if (last && last.tagName === 'P') last.classList.add('zbr-last');
   });
 
+  // CTA button blocks: skip empty blocks above them, then mark the block before and the CTA itself for even spacing
+  [].forEach.call(document.querySelectorAll('article.hentry .sqs-block-button'), function (btn) {
+    var prev = btn.previousElementSibling;
+    while (prev && (prev.classList.contains('sqs-block-spacer') ||
+      (prev.classList.contains('sqs-block-html') && !prev.textContent.replace(/\u00a0/g, '').trim() && !prev.querySelector('img, iframe')))) {
+      prev.classList.add('zbr-empty');
+      prev = prev.previousElementSibling;
+    }
+    if (prev) prev.classList.add('zbr-before-cta');
+    btn.classList.add('zbr-cta-gap');
+  });
+
   // Product page: "Back to Store" link returns to the store at the same filters, page and scroll position
   var back = document.querySelector('#productNav a');
   if (back) {
