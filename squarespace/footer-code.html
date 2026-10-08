@@ -236,6 +236,9 @@
           layout.appendChild(main);
           layout.appendChild(side);
           page.appendChild(layout);
+          // wide screens: centre Newer / Older under the whole page, not just the posts column
+          var pager = main.querySelector('nav.pagination');
+          if (pager && !window.matchMedia('(max-width:900px)').matches) page.appendChild(pager);
 
           // Phones and tablets: Quick Links becomes a collapsed bar under the main menu
           var quick = side.querySelector('.zbr-w-quick .zbr-quicklinks');
