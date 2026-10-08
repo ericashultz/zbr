@@ -137,3 +137,69 @@ nav.main-nav ul li{ float:none !important; margin:0 !important; padding:0 !impor
     -webkit-appearance:none; appearance:none;
   }
 }
+
+/* ---- v4: product pages (PDP) styled like the redesign ---- */
+@font-face{ font-family:"Fixedsys Excelsior"; src:url("https://zbr-rho.vercel.app/assets/fonts/FixedsysExcelsior.woff2") format("woff2"), url("https://zbr-rho.vercel.app/assets/fonts/FixedsysExcelsior.woff") format("woff"); font-weight:normal; font-style:normal; font-display:swap; }
+@font-face{ font-family:"Fixedsys Excelsior"; src:url("https://zbr-rho.vercel.app/assets/fonts/FixedsysExcelsior.woff2") format("woff2"), url("https://zbr-rho.vercel.app/assets/fonts/FixedsysExcelsior.woff") format("woff"); font-weight:bold; font-style:normal; font-display:swap; }
+
+body.view-item #productWrapper{ background:#000 !important; border:3px ridge #C0DEFF; padding:20px; margin:16px 14px; box-sizing:border-box; max-width:none; }
+
+/* back link: yellow Fixedsys link like the redesign's "Back to Store" */
+body.view-item #productNav{ margin:0 0 14px !important; padding:0 !important; }
+body.view-item #productNav a, body.view-item #productNav a:visited{ font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline; text-transform:none !important; letter-spacing:0 !important; background:none !important; }
+body.view-item #productNav a:hover{ color:#19A800 !important; }
+
+/* two columns: photo left, details right */
+body.view-item #productSummary{ display:flex !important; flex-wrap:wrap; gap:24px; align-items:flex-start; width:auto !important; padding:0 !important; }
+body.view-item #productSummary::before, body.view-item #productSummary::after{ display:none !important; }
+body.view-item #productGallery{ flex:1 1 300px; max-width:380px; float:none !important; width:auto !important; margin:0 !important; }
+body.view-item #productDetails{ flex:2 1 320px; min-width:280px; float:none !important; width:auto !important; margin:0 !important; padding:0 !important; }
+body.view-item #productGallery img{ max-width:100% !important; border:4px ridge #c0c0c0 !important; box-sizing:border-box; }
+/* the template shows one title above the photo on phones and one beside it on desktop */
+body.view-item h1.product-title.mobile{ display:none !important; }
+
+/* title: bold italic with the purple shadow, like the redesign's post headlines */
+body.view-item h1.product-title{
+  font:bold italic 26px/1.2 "Arial Narrow", Arial, sans-serif !important;
+  color:#fff !important; text-shadow:1px 1px 0 #660066; text-transform:none !important; letter-spacing:0 !important;
+  margin:4px 0 8px !important; text-align:left !important;
+}
+body.view-item .product-price{ font:bold 18px "Fixedsys Excelsior","Courier New",monospace !important; color:#C0DFFE !important; margin:6px 0 12px !important; }
+body.view-item .product-excerpt, body.view-item .product-excerpt p{ color:#fff !important; font:15px/1.5 Arial, sans-serif !important; }
+body.view-item .product-excerpt a{ font-family:"Fixedsys Excelsior","Courier New",monospace; font-weight:bold; color:#FFEE00; text-decoration:underline; }
+body.view-item .product-excerpt a:hover{ color:#19A800; background:none; }
+
+/* options, quantity */
+body.view-item .variant-option-title, body.view-item .quantity-label{ font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; color:#fff !important; text-transform:none !important; letter-spacing:0 !important; margin:12px 0 4px; }
+body.view-item .variant-select-wrapper select{
+  height:34px; max-width:100%; padding:0 22px 0 6px; font:bold 13px "Fixedsys Excelsior","Courier New",monospace;
+  border:2px inset #c0c0c0; border-radius:0; background:#fff; color:#000;
+  -webkit-appearance:none; appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpolygon points='0,0 10,0 5,6' fill='%23000'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 6px center; background-size:10px 6px;
+}
+body.view-item .variant-select-wrapper::after{ display:none !important; }
+body.view-item .product-quantity-input input{ width:44px; height:34px; padding:0 4px; text-align:center; font:bold 13px "Fixedsys Excelsior","Courier New",monospace; border:2px inset #c0c0c0; border-radius:0; background:#fff; color:#000; }
+/* radio-style options (some products) as small beveled buttons */
+body.view-item .variant-radiobtn-wrapper label{ display:inline-block; margin:0 6px 6px 0; padding:4px 10px; font:bold 12px "Fixedsys Excelsior","Courier New",monospace !important; color:#000332 !important; background:linear-gradient(180deg,#fff,#d4d4d4) !important; border:2px outset #fff !important; border-radius:0 !important; text-transform:none !important; letter-spacing:0 !important; cursor:pointer; }
+body.view-item .variant-radiobtn:checked + label{ border-style:inset !important; background:linear-gradient(180deg,#d4d4d4,#fff) !important; }
+body.view-item .variant-radiobtn.variant-unavailable + label{ opacity:.5; text-decoration:line-through; }
+
+/* add to cart: the redesign's beveled button */
+body.view-item .sqs-add-to-cart-button-wrapper{ margin-top:14px; }
+body.view-item .sqs-add-to-cart-button{
+  display:inline-block !important; width:auto !important; min-width:0 !important; height:34px !important; line-height:30px !important; padding:0 16px !important; margin:0 !important;
+  background:linear-gradient(180deg,#ffffff,#d4d4d4) !important; border:2px outset #fff !important; border-radius:0 !important;
+  color:#000332 !important; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; text-transform:uppercase; letter-spacing:0 !important; cursor:pointer; box-shadow:none !important;
+}
+body.view-item .sqs-add-to-cart-button .sqs-add-to-cart-button-inner{ line-height:30px !important; padding:0 !important; color:inherit !important; font:inherit !important; }
+body.view-item .sqs-add-to-cart-button:hover{ background:#1D64A7 !important; border-color:#2F7CC8 !important; color:#fff !important; }
+body.view-item .sqs-add-to-cart-button:active{ border-style:inset !important; }
+body.view-item .sqs-add-to-cart-button.sold-out, body.view-item .sqs-add-to-cart-button.sold-out:hover{ background:#cc0000 !important; border-color:#cc0000 !important; color:#fff !important; cursor:default; }
+body.view-item .product-sharing{ display:none !important; }
+
+@media (max-width:700px){
+  body.view-item #productWrapper{ padding:12px; margin:12px 8px; }
+  body.view-item #productGallery{ max-width:none; flex-basis:100%; }
+  body.view-item h1.product-title{ font-size:24px !important; }
+}
