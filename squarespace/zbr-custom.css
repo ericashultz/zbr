@@ -473,3 +473,15 @@ article.hentry .zbr-bcplayer{ margin:8px 0 14px; }
 #zbr-news-layout ~ nav.page.pagination ul{ justify-content:center; }
 /* image frames count inside the image's width, so photos never poke past the card */
 article.hentry img{ box-sizing:border-box !important; max-width:100% !important; }
+
+/* ---- News page: "Shop Now" and other call-to-action links look like the redesign's yellow pixel-font links ---- */
+article.hentry .sqs-block-button-container, #zbr-sidebar .sqs-block-button-container{ text-align:left !important; margin:0 0 16px !important; }
+article.hentry a.sqs-block-button-element, article.hentry a.sqs-block-button-element--small, article.hentry a.sqs-block-button-element--medium, article.hentry a.sqs-block-button-element--large, a.zbr-cta, a.zbr-cta:visited{
+  display:inline-block !important; width:auto !important; height:auto !important; min-height:0 !important;
+  background:none !important; border:0 !important; box-shadow:none !important; border-radius:0 !important;
+  padding:0 !important; margin:0 !important;
+  font:bold 16px/1.25 "Fixedsys Excelsior","Courier New",monospace !important; letter-spacing:0 !important; text-transform:none !important;
+  color:#FFEE00 !important; text-decoration:underline !important; text-align:left !important;
+}
+article.hentry a.sqs-block-button-element:hover, a.zbr-cta:hover{ color:#19A800 !important; background:none !important; }
+#zbr-sidebar a.zbr-cta{ display:block !important; margin:0 0 16px !important; font-size:15px !important; }

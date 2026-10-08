@@ -104,6 +104,12 @@
       return blocks.filter(function (b) { return b.classList.contains('sqs-block-html'); })
         .map(function (b) { return b.textContent; }).join(' ').replace(/\s+/g, ' ').trim();
     };
+    // "Shop Now", "Read The Review" and similar call-to-action links get the redesign's yellow pixel-font link style
+    var tagCtas = function (root) {
+      [].forEach.call((root || document).querySelectorAll('article.hentry a, #zbr-sidebar a'), function (a) {
+        if (/^\s*(shop now|buy now|pre-?order( now)?|read the review|listen now|listen here)\s*$/i.test(a.textContent)) a.classList.add('zbr-cta');
+      });
+    };
     var SIDE = /^\s*(johnny[’']?s\s+reco-?mmendations|reviews?|features?|last\s+(?:fucking\s+)?copy)\s*[:\-–—]\s*/i;
     var sideWidgets = [];
 
@@ -154,6 +160,7 @@
       if (pl && blk && blk.style.display !== 'none') blk.parentNode.replaceChild(pl, blk);
     });
 
+    tagCtas();
     [].forEach.call(document.querySelectorAll('article.hentry h1.entry-title a, article.hentry h2.entry-title a'), function (a) {
       a.textContent = a.textContent.replace(/^\s*\d{4}\s*-\s*\d{1,2}\s*-\s*\d{1,2}\s*\/{2,3}\s*/, '');
     });
@@ -236,6 +243,7 @@
           layout.appendChild(main);
           layout.appendChild(side);
           page.appendChild(layout);
+          tagCtas(side);
           // wide screens: centre Newer / Older under the whole page, not just the posts column
           var pager = main.querySelector('nav.pagination');
           if (pager && !window.matchMedia('(max-width:900px)').matches) page.appendChild(pager);
