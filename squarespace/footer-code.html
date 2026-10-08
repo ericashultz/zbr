@@ -91,6 +91,15 @@
   // News list: split each news post into cards, tidy titles, short previews with Read More, and the two-column layout
   if (document.body.classList.contains('view-list') && document.body.classList.contains('collection-type-blog')) {
     var isRule = function (el) { return el.classList.contains('sqs-block-horizontalrule'); };
+    // Bandcamp embeds (tall "large" players) become the slim player used everywhere else on the site
+    var bcFrom = function (fr) {
+      var mm = decodeURIComponent((fr && fr.src) || '').match(/EmbeddedPlayer\/(?:v=\d+\/)?(album|track)=(\d+)/);
+      if (!mm) return null;
+      var pl = document.createElement('div');
+      pl.className = 'zbr-bcplayer';
+      pl.innerHTML = '<iframe src="https://bandcamp.com/EmbeddedPlayer/' + mm[1] + '=' + mm[2] + '/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="Bandcamp player"></iframe>';
+      return pl;
+    };
     var textOf = function (blocks) {
       return blocks.filter(function (b) { return b.classList.contains('sqs-block-html'); })
         .map(function (b) { return b.textContent; }).join(' ').replace(/\s+/g, ' ').trim();
@@ -138,6 +147,13 @@
       groups.forEach(function (g, k) { if (k > 0) g.forEach(function (b) { if (b.parentNode === col) { b.style.display = 'none'; } }); });
     });
 
+    // in the cards, swap Bandcamp embeds for the slim player (sidebar-bound sections are handled separately)
+    [].forEach.call(document.querySelectorAll('article.hentry .sqs-block-embed iframe'), function (fr) {
+      var pl = bcFrom(fr);
+      var blk = fr.closest('.sqs-block');
+      if (pl && blk && blk.style.display !== 'none') blk.parentNode.replaceChild(pl, blk);
+    });
+
     [].forEach.call(document.querySelectorAll('article.hentry h1.entry-title a, article.hentry h2.entry-title a'), function (a) {
       a.textContent = a.textContent.replace(/^\s*\d{4}\s*-\s*\d{1,2}\s*-\s*\d{1,2}\s*\/{2,3}\s*/, '');
     });
@@ -179,15 +195,8 @@
           }
           [].forEach.call(c.querySelectorAll('p'), function (p) { if (p.textContent.trim() || p.querySelector('img, iframe')) box.appendChild(p); });
         } else {
-          var fr = b.querySelector('iframe');
-          var raw = fr ? decodeURIComponent(fr.src || '') : '';
-          var mm = raw.match(/EmbeddedPlayer\/(album|track)=(\d+)/);
-          if (mm) {
-            var pl = document.createElement('div');
-            pl.className = 'zbr-bcplayer';
-            pl.innerHTML = '<iframe src="https://bandcamp.com/EmbeddedPlayer/' + mm[1] + '=' + mm[2] + '/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="Bandcamp player"></iframe>';
-            box.appendChild(pl);
-          }
+          var pl = bcFrom(b.querySelector('iframe'));
+          if (pl) box.appendChild(pl);
         }
       });
       return box;
