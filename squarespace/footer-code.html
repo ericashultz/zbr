@@ -20,6 +20,7 @@
       last.classList.add('zbr-empty');
       last = last.previousElementSibling;
     }
+    if (last && last.tagName === 'P') last.classList.add('zbr-last');
   });
 
   // Product page: "Back to Store" link returns to the store at the same filters, page and scroll position
