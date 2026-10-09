@@ -58,6 +58,9 @@
   else window.addEventListener('load', function () { evenCtaSpacing(); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(evenCtaSpacing, 300); });
 
+  // Guestbook page (a single blog post at /guestbook/...): switch on its special styling
+  if (/^\/guestbook(\/|$)/.test(location.pathname)) document.body.classList.add('zbr-guestbook');
+
   // Product page: "Back to Store" link returns to the store at the same filters, page and scroll position
   var back = document.querySelector('#productNav a');
   if (back) {
