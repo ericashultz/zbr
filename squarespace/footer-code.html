@@ -275,6 +275,7 @@
     [].forEach.call(document.querySelectorAll('article.hentry'), function (art) {
       var body = art.querySelector('.post > .body.entry-content');
       if (!body) return;
+      if (art.querySelector('.article-meta-top .date a')) return;   // "News -- date" posts (the first post of each page) always show in full
       if (art.querySelector('.special-content, .sqs-block-image, .sqs-block-button, .sqs-block-gallery, a.zbr-cta')) return;
       var texts = [].slice.call(body.querySelectorAll('.sqs-block-html'));
       if (!texts.length) return;
