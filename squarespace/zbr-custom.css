@@ -597,5 +597,14 @@ article.hentry .body .sqs-block-gallery .sqs-gallery .slide img{ position:static
 /* other players (SoundCloud, YouTube) inside sidebar boxes */
 .zbr-widget .zbr-embed{ margin:0 0 8px; border:2px inset #c0c0c0; line-height:0; background:#000; }
 .zbr-widget .zbr-embed iframe{ display:block; width:100%; border:0; }
-.zbr-widget .zbr-sc iframe{ height:166px; }
+.zbr-widget .zbr-sc{ background:#f2f2f2; padding:11px 8px; }
+.zbr-widget .zbr-sc iframe{ height:20px; }
 .zbr-widget .zbr-yt iframe{ height:auto; aspect-ratio:16 / 9; }
+
+/* sidebar boxes: one even gap (14px) between the text, each call-to-action link and the player */
+.zbr-widget{ display:flex !important; flex-direction:column; gap:14px; }
+.zbr-widget > *{ margin:0 !important; }
+.zbr-widget > h3{ margin:-10px -10px 0 !important; }
+.zbr-widget p, .zbr-widget p:has(> a.zbr-wlink), .zbr-widget p:has(> a.zbr-cta){ margin:0 !important; }
+.zbr-widget a.zbr-cta, .zbr-widget a.zbr-wlink{ margin:0 !important; }
+.zbr-widget .zbr-bcplayer, .zbr-widget .zbr-embed{ margin:0 !important; }
