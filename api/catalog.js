@@ -11,12 +11,12 @@ const COLLECTIONS = [
   { slug: 'softseed', label: 'Softseed Music' },
   { slug: 'specials', special: 'new' },
   { slug: 'steals', special: 'steals' },
-  { slug: '12inches', fmt: ['v12'] },
-  { slug: '12distro2', fmt: ['v12'] },
-  { slug: 'distro-7inch', fmt: ['v7'] },
-  { slug: 'oddvinyl', fmt: ['vo'] },
-  { slug: 'cassettes', fmt: ['tape'] },
-  { slug: 'cds', fmt: ['cd'] },
+  { slug: '12inches', fmt: ['v12'], distro: true },
+  { slug: '12distro2', fmt: ['v12'], distro: true },
+  { slug: 'distro-7inch', fmt: ['v7'], distro: true },
+  { slug: 'oddvinyl', fmt: ['vo'], distro: true },
+  { slug: 'cassettes', fmt: ['tape'], distro: true },
+  { slug: 'cds', fmt: ['cd'], distro: true },
   { slug: 'shirts', fmt: ['shirt'] },
   { slug: 'posters1', fmt: ['poster'] },
   { slug: 'posters2', fmt: ['poster'] },
@@ -99,6 +99,7 @@ function slim(item, col) {
   if (fmts.size) out.f = Array.from(fmts);
   if (col.label) out.l = col.label;
   if (col.special) out.sp = col.special;
+  if (col.distro) out.d = 1;
   return out;
 }
 

@@ -44,7 +44,7 @@
     { id: 'button', label: 'Buttons' },
     { id: 'sticker', label: 'Stickers' }
   ];
-  var LABELS = ['Zegema Beach Releases', 'Tomb Tree', 'Softseed Music'];
+  var LABELS = ['Zegema Beach Releases', 'Tomb Tree', 'Softseed Music', 'All Distro'];
 
   // The Fixedsys Excelsior font is declared once, page-wide, in the site's Custom CSS (zbr-custom.css).
   var CSS = '' +
@@ -131,12 +131,12 @@
     { slug: 'softseed', label: 'Softseed Music' },
     { slug: 'specials', special: 'new' },
     { slug: 'steals', special: 'steals' },
-    { slug: '12inches', fmt: ['v12'] },
-    { slug: '12distro2', fmt: ['v12'] },
-    { slug: 'distro-7inch', fmt: ['v7'] },
-    { slug: 'oddvinyl', fmt: ['vo'] },
-    { slug: 'cassettes', fmt: ['tape'] },
-    { slug: 'cds', fmt: ['cd'] },
+    { slug: '12inches', fmt: ['v12'], distro: true },
+    { slug: '12distro2', fmt: ['v12'], distro: true },
+    { slug: 'distro-7inch', fmt: ['v7'], distro: true },
+    { slug: 'oddvinyl', fmt: ['vo'], distro: true },
+    { slug: 'cassettes', fmt: ['tape'], distro: true },
+    { slug: 'cds', fmt: ['cd'], distro: true },
     { slug: 'shirts', fmt: ['shirt'] },
     { slug: 'posters1', fmt: ['poster'] },
     { slug: 'posters2', fmt: ['poster'] },
@@ -154,7 +154,7 @@
     'button': ['button'], 'pin': ['button'],
     'sticker': ['sticker'], 'patch/sticker': ['sticker'], 'patch': ['sticker']
   };
-  var CACHE_KEY = 'zbr-store-catalog-v1';
+  var CACHE_KEY = 'zbr-store-catalog-v2';
   var CACHE_MS = 60 * 60 * 1000;
 
   function decodeEntities(str) {
@@ -200,6 +200,7 @@
     if (Object.keys(fmts).length) out.f = Object.keys(fmts);
     if (col.label) out.l = col.label;
     if (col.special) out.sp = col.special;
+    if (col.distro) out.d = 1;
     return out;
   }
   function loadFromSite(root) {
@@ -329,7 +330,10 @@
       if (st.cat === 'vinyl') { if (!VINYL.some(function (c) { return hasFmt(p, c); })) return false; }
       else if (st.cat && !hasFmt(p, st.cat)) return false;
       if (st.size && !hasFmt(p, st.size)) return false;
-      if (st.label && p.l !== st.label) return false;
+      if (st.label) {
+        if (st.label === 'All Distro') { if (!p.d) return false; }   // everything from the store pages with "distro" in their name
+        else if (p.l !== st.label) return false;
+      }
       if (st.special && p.sp !== st.special) return false;
       if (q && ((p.b || '') + ' ' + p.n).toLowerCase().indexOf(q) === -1) return false;
       return true;
