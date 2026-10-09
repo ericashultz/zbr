@@ -72,10 +72,10 @@
   var label = document.querySelector('nav.main-nav select option.mobile-select-label');
   if (label) label.parentNode.removeChild(label);
 
-  // Product page: Bandcamp links in the description become players at the bottom
-  var ex = document.querySelector('.product-excerpt');
-  var details = document.getElementById('productDetails');
-  if (ex && details) {
+  // Product page and product blocks inside posts: Bandcamp links in the description become players at the bottom
+  [].forEach.call(document.querySelectorAll('.product-excerpt'), function (ex) {
+    var details = ex.closest('#productDetails, .productDetails');
+    if (!details) return;
     [].slice.call(ex.querySelectorAll('a[href*="bandcamp.com/album/"], a[href*="bandcamp.com/track/"]')).forEach(function (a) {
       var url = a.href.split('?')[0].split('#')[0];
       var box = document.createElement('div');
@@ -91,7 +91,7 @@
       if (p && rest.length <= 20) { p.parentNode.removeChild(p); } else { a.parentNode.removeChild(a); }
       details.appendChild(box);
     });
-  }
+  });
 
   // "View Cart" button: item count badge
   var cartLink = document.querySelector('nav.main-nav ul li a[href$="/cart"]');
