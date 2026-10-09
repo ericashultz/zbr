@@ -649,3 +649,26 @@ body.zbr-guestbook .squarespace-comments .comment .comment-header .author, body.
 body.zbr-guestbook .squarespace-comments .comment .comment-header .controls{ top:0 !important; }
 body.zbr-guestbook .squarespace-comments .comment .comment-body{ padding-left:0 !important; }
 body.zbr-guestbook .squarespace-comments .comment .comment-body, body.zbr-guestbook .squarespace-comments .comment .comment-body *{ font:14px/1.5 Arial,sans-serif !important; color:#fff !important; }
+
+
+/* mailing list pop-up (opened from the News sidebar) + the embedded /mailing-list page it shows */
+html.zbr-ml-lock{ overflow:hidden; }
+#zbr-ml-modal{ display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,10,.75); align-items:center; justify-content:center; padding:16px; box-sizing:border-box; }
+#zbr-ml-modal.zbr-ml-open{ display:flex; }
+#zbr-ml-modal .zbr-ml-box{ width:100%; max-width:420px; background:#000; border:3px groove #C0DEFF; box-shadow:0 0 0 2px #1D64A7; }
+#zbr-ml-modal .zbr-ml-bar{ display:flex; align-items:center; justify-content:space-between; padding:5px 8px; background:#C0DEFF; color:#000; font:13px/13px "Fixedsys Excelsior","Courier New",monospace; }
+#zbr-ml-modal .zbr-ml-x{ width:22px; height:20px; padding:0; cursor:pointer; background:linear-gradient(180deg,#fff,#d4d4d4); border:2px outset #fff; color:#000332; font:bold 12px "Fixedsys Excelsior","Courier New",monospace; line-height:1; }
+#zbr-ml-modal .zbr-ml-x:hover{ background:#1D64A7; color:#fff; }
+#zbr-ml-modal .zbr-ml-frame{ display:block; width:100%; height:300px; border:0; background:#000; }
+
+html body.zbr-embed #headerWrapper, html body.zbr-embed #footerWrapper, html body.zbr-embed .absolute-cart-box, html body.zbr-embed article.hentry .article-meta-top, html body.zbr-embed article.hentry h1.entry-title, html body.zbr-embed article.hentry footer.article-meta, html body.zbr-embed nav.pagination{ display:none !important; }
+html body.zbr-embed, html body.zbr-embed #site{ background:#000 !important; }
+html body.zbr-embed #canvas, html body.zbr-embed #pageWrapper, html body.zbr-embed #page{ width:auto !important; max-width:none !important; margin:0 !important; padding:0 !important; border:0 !important; box-shadow:none !important; background:#000 !important; }
+html body.zbr-embed article.hentry{ margin:0 !important; padding:16px !important; border:0 !important; background:#000 !important; box-shadow:none !important; }
+html body.zbr-embed article.hentry::before{ display:none !important; }
+html body.zbr-embed .sqs-block-newsletter, html body.zbr-embed .sqs-block-newsletter *{ color:#d9d9d9; }
+html body.zbr-embed .newsletter-form-header-title, html body.zbr-embed .newsletter-form-header-description, html body.zbr-embed .newsletter-form-footnote{ font:14px/1.5 Arial,sans-serif !important; color:#d9d9d9 !important; text-align:left !important; }
+html body.zbr-embed .newsletter-form-header-title{ font:bold 16px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; }
+html body.zbr-embed .newsletter-form-field-element{ background:#fff !important; color:#000 !important; border:2px inset #999 !important; border-radius:0 !important; font:14px Arial,sans-serif !important; padding:6px !important; box-shadow:none !important; }
+html body.zbr-embed .newsletter-form-button{ background:linear-gradient(180deg,#fff,#d4d4d4) !important; color:#000332 !important; border:2px outset #fff !important; border-radius:0 !important; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; text-transform:uppercase; cursor:pointer; }
+html body.zbr-embed .newsletter-form-button:hover{ background:#1D64A7 !important; color:#fff !important; }
