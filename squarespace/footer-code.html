@@ -61,6 +61,28 @@
   // Guestbook page (a single blog post at /guestbook/...): switch on its special styling
   if (/^\/guestbook(\/|$)/.test(location.pathname)) document.body.classList.add('zbr-guestbook');
 
+  // Mailing list pop-up: "Join The Mailing List" opens a modal that shows the Newsletter block from the hidden /mailing-list page
+  if (window.self !== window.top && /^\/mailing-list(\/|$)/.test(location.pathname)) document.body.classList.add('zbr-embed');
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a.zbr-ml-btn');
+    if (!a) return;
+    e.preventDefault();
+    var m = document.getElementById('zbr-ml-modal');
+    if (!m) {
+      m = document.createElement('div');
+      m.id = 'zbr-ml-modal';
+      m.innerHTML = '<div class="zbr-ml-box" role="dialog" aria-modal="true" aria-label="Join The Mailing List"><div class="zbr-ml-bar"><span>Join The Mailing List</span><button type="button" class="zbr-ml-x" aria-label="Close">X</button></div><iframe class="zbr-ml-frame" title="Join The Mailing List"></iframe></div>';
+      document.body.appendChild(m);
+      var close = function () { m.classList.remove('zbr-ml-open'); document.documentElement.classList.remove('zbr-ml-lock'); };
+      m.addEventListener('click', function (ev) { if (ev.target === m || ev.target.classList.contains('zbr-ml-x')) close(); });
+      document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape') close(); });
+    }
+    var f = m.querySelector('iframe');
+    if (!f.getAttribute('src')) f.setAttribute('src', '/mailing-list');
+    m.classList.add('zbr-ml-open');
+    document.documentElement.classList.add('zbr-ml-lock');
+  });
+
   // Product page: "Back to Store" link returns to the store at the same filters, page and scroll position
   var back = document.querySelector('#productNav a');
   if (back) {
