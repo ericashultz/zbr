@@ -176,7 +176,19 @@
         var txt = textOf(g);
         var m = txt.match(SIDE);
         if (m) { sideWidgets.push({ label: m[1], blocks: g }); return; }
+        // the tag: a label typed in square brackets at the start of the section, e.g. [Releases], otherwise a guess from the text
         var label = /music video/i.test(txt) ? 'Music Video' : 'Releases';
+        var tagged = txt.match(/^\s*\[([^\]]{1,30})\]\s*/);
+        if (tagged) {
+          label = tagged[1].trim();
+          var firstHtml = g.filter(function (b) { return b.classList.contains('sqs-block-html'); })[0];
+          var p0 = firstHtml && firstHtml.querySelector('.sqs-html-content p, .sqs-html-content h1, .sqs-html-content h2, .sqs-html-content h3, .sqs-html-content h4');
+          if (p0) {
+            p0.innerHTML = p0.innerHTML.replace(/^\s*(?:<[^>]+>\s*)*\[[^\]]{1,30}\]\s*(?:<br\s*\/?>)?\s*/i, '');
+            if (!p0.textContent.replace(/\u00a0/g, '').trim() && !p0.querySelector('img, iframe')) p0.parentNode.removeChild(p0);
+          }
+          txt = textOf(g);
+        }
         var title = '';
         var first = g[0].querySelector('h1, h2, h3, h4');
         if (g[0].classList.contains('sqs-block-html') && first && first === g[0].querySelector('.sqs-html-content').firstElementChild) {
