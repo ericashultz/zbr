@@ -639,3 +639,13 @@ body.zbr-guestbook .squarespace-comments .comment .avatar, body.zbr-guestbook .s
 body.zbr-guestbook .squarespace-comments .comment .author, body.zbr-guestbook .squarespace-comments .comment .author *{ font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:none !important; }
 body.zbr-guestbook .squarespace-comments .comment .timesince, body.zbr-guestbook .squarespace-comments .comment .timesince *{ font:11px "Fixedsys Excelsior","Courier New",monospace !important; color:#d9d9d9 !important; }
 body.zbr-guestbook .squarespace-comments .comment p, body.zbr-guestbook .squarespace-comments .comment .body, body.zbr-guestbook .squarespace-comments .comment .comment-text{ font:14px/1.5 Arial,sans-serif !important; color:#fff !important; }
+
+/* guestbook entries, now matched to Squarespace's real comment markup (.comment-header / .comment-body) */
+body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment{ border-top:3px groove #C0DEFF !important; border-width:3px !important; border-style:groove !important; border-color:#C0DEFF !important; margin-bottom:0 !important; opacity:1 !important; }
+body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment.unmoderated, body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment.pending{ opacity:1 !important; }
+body.zbr-guestbook .squarespace-comments .comment .comment-header{ padding:0 0 6px !important; min-height:0 !important; overflow:visible !important; }
+body.zbr-guestbook .squarespace-comments .comment .comment-header *:not(.controls):not(.controls *){ font:11px "Fixedsys Excelsior","Courier New",monospace !important; color:#d9d9d9 !important; text-transform:none !important; letter-spacing:0 !important; }
+body.zbr-guestbook .squarespace-comments .comment .comment-header .author, body.zbr-guestbook .squarespace-comments .comment .comment-header .author *{ font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; }
+body.zbr-guestbook .squarespace-comments .comment .comment-header .controls{ top:0 !important; }
+body.zbr-guestbook .squarespace-comments .comment .comment-body{ padding-left:0 !important; }
+body.zbr-guestbook .squarespace-comments .comment .comment-body, body.zbr-guestbook .squarespace-comments .comment .comment-body *{ font:14px/1.5 Arial,sans-serif !important; color:#fff !important; }
