@@ -549,3 +549,29 @@ a.zbr-pg:hover{ background:linear-gradient(180deg,#ffffff,#c9c9c9); color:#000 !
 
 /* header tagline: equal side padding so it sits dead centre (it was 14px on the right only) */
 p.site-tagline{ padding-left:14px !important; padding-right:14px !important; }
+
+/* ---- Product blocks inside posts: same look as the product pages ---- */
+.sqs-block-product .product-block-content{ text-align:left; }
+.sqs-block-product .image-container img{ border:4px ridge #c0c0c0 !important; box-sizing:border-box !important; max-width:100% !important; }
+.sqs-block-product a.product-title, .sqs-block-product a.product-title:visited{ display:block; font:bold italic 24px/1.2 "Arial Narrow",Arial,sans-serif !important; color:#fff !important; text-shadow:1px 1px 0 #660066; text-transform:none !important; letter-spacing:0 !important; text-decoration:none !important; margin:12px 0 4px !important; text-align:left !important; }
+.sqs-block-product a.product-title:hover{ color:#FFEE00 !important; background:none; }
+.sqs-block-product .product-price{ font:bold 18px/1.3 "Fixedsys Excelsior","Courier New",monospace !important; color:#C0DFFE !important; margin:6px 0 12px !important; text-align:left !important; }
+.sqs-block-product .product-excerpt, .sqs-block-product .product-excerpt p, .sqs-block-product .product-excerpt span, .sqs-block-product .product-excerpt strong, .sqs-block-product .product-excerpt em{ font-family:Arial,sans-serif !important; font-size:15px; line-height:1.5; color:#fff !important; text-align:left !important; }
+.sqs-block-product .product-excerpt a{ font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline !important; }
+.sqs-block-product .product-excerpt > p:first-child[style*="text-align:center"], .sqs-block-product .product-excerpt > p:first-child[style*="text-align: center"]{ display:none !important; }
+.sqs-block-product .product-variants{ margin:12px 0 0 !important; }
+.sqs-block-product .product-variants label{ display:block; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; color:#fff !important; text-transform:none !important; letter-spacing:0 !important; margin:0 0 4px !important; }
+.sqs-block-product .product-variants .variant-dropdown{ position:relative; display:inline-block; max-width:100%; }
+.sqs-block-product .product-variants select{ height:34px; width:170px; max-width:100%; padding:0 22px 0 6px !important; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; border:2px inset #c0c0c0 !important; border-radius:0 !important; background-color:#fff !important; color:#000 !important; -webkit-appearance:none; appearance:none; box-shadow:none !important; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpolygon points='0,0 10,0 5,6' fill='%23000'/%3E%3C/svg%3E") !important; background-repeat:no-repeat !important; background-position:right 6px center !important; background-size:10px 6px !important; }
+.sqs-block-product .variant-select-icon, .sqs-block-product .form-input-effects{ display:none !important; }
+.sqs-block-product .product-purchase-controls-wrapper{ display:flex !important; align-items:flex-end; flex-wrap:wrap; gap:12px; margin:12px 0 0 !important; }
+.sqs-block-product .product-quantity-input-wrapper, .sqs-block-product .product-quantity-input-wrapper .form-item, .sqs-block-product .effects-positioning-wrapper{ margin:0 !important; padding:0 !important; width:auto !important; }
+.sqs-block-product .product-quantity-input{ display:block !important; border:0 !important; background:none !important; width:auto !important; }
+.sqs-block-product .product-quantity-input .decrease-button, .sqs-block-product .product-quantity-input .increase-button{ display:none !important; }
+.sqs-block-product .product-quantity-input input{ box-sizing:border-box; width:44px !important; height:34px !important; padding:0 4px !important; text-align:center; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; border:2px inset #c0c0c0 !important; border-radius:0 !important; background:#fff !important; color:#000 !important; box-shadow:none !important; }
+.sqs-block-product .sqs-add-to-cart-button-wrapper{ margin:0 !important; width:auto !important; }
+.sqs-block-product .sqs-add-to-cart-button{ display:inline-flex !important; align-items:center; justify-content:center; box-sizing:border-box !important; width:auto !important; min-width:0 !important; height:34px !important; padding:0 16px !important; margin:0 !important; background:linear-gradient(180deg,#ffffff,#d4d4d4) !important; border:2px outset #fff !important; border-radius:0 !important; color:#000332 !important; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; text-transform:uppercase !important; letter-spacing:0 !important; cursor:pointer; box-shadow:none !important; }
+.sqs-block-product .sqs-add-to-cart-button span, .sqs-block-product .sqs-add-to-cart-button .sqs-add-to-cart-button-inner{ font:inherit !important; color:inherit !important; text-transform:inherit !important; line-height:1 !important; }
+.sqs-block-product .sqs-add-to-cart-button:hover{ background:#1D64A7 !important; border-color:#2F7CC8 !important; color:#fff !important; }
+.sqs-block-product .sqs-add-to-cart-button:active{ border-style:inset !important; }
+.sqs-block-product .zbr-bcplayer{ margin:18px 0 0; }
