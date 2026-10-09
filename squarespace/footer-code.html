@@ -201,15 +201,14 @@
     });
 
     // in the cards, swap Bandcamp embeds for the slim player; a card that starts with a player keeps the full-size
-    // (album art) player. On phones every player stays slim, as in the redesign.
-    var wide = !window.matchMedia('(max-width:700px)').matches;
+    // (album art) player, on phones too.
     [].forEach.call(document.querySelectorAll('article.hentry .sqs-block-embed iframe'), function (fr) {
       var blk = fr.closest('.sqs-block');
       var card = fr.closest('article.hentry');
       if (!blk || blk.style.display === 'none') return;
       var first = card && [].slice.call(card.querySelectorAll('.post > .body .sqs-block')).filter(function (b) { return b.style.display !== 'none' && !b.classList.contains('zbr-empty'); })[0];
       if (!/EmbeddedPlayer/.test(decodeURIComponent(fr.src || ''))) return;     // YouTube etc. stay as they are
-      if (wide && blk === first) { blk.classList.add('zbr-bc-big'); return; }
+      if (blk === first) { blk.classList.add('zbr-bc-big'); return; }
       var pl = bcFrom(fr, false);
       if (pl) blk.parentNode.replaceChild(pl, blk);
     });
