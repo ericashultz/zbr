@@ -543,3 +543,6 @@ a.zbr-pg:hover{ background:linear-gradient(180deg,#ffffff,#c9c9c9); color:#000 !
 .zbr-pg[aria-current="true"]{ border-style:inset; background:linear-gradient(180deg,#a0a0a0,#e8e8e8); }
 .zbr-pg-off{ opacity:.5; }
 @media (max-width:700px){ .zbr-pg{ width:32px; margin:0 2px; } }
+
+/* header tagline: equal side padding so it sits dead centre (it was 14px on the right only) */
+p.site-tagline{ padding-left:14px !important; padding-right:14px !important; }
