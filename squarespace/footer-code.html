@@ -216,7 +216,7 @@
     var sizeBigPlayers = function () {
       [].forEach.call(document.querySelectorAll('.zbr-bc-big iframe'), function (f) {
         var w = Math.round(f.getBoundingClientRect().width);
-        if (w > 0 && f._zw !== w) { f._zw = w; f.style.setProperty('height', (w + 135) + 'px', 'important'); }
+        if (w > 0 && f._zw !== w) { f._zw = w; f.style.setProperty('height', (w + 120) + 'px', 'important'); }
       });
     };
     sizeBigPlayers();
