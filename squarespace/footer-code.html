@@ -72,6 +72,16 @@
   var label = document.querySelector('nav.main-nav select option.mobile-select-label');
   if (label) label.parentNode.removeChild(label);
 
+  // Product page and product blocks: hide the catalog-number line that starts many descriptions
+  // (e.g. NHOMME ‘…’ tape (ZBR314)): a short first paragraph that ends with a code in brackets, or is centred
+  [].forEach.call(document.querySelectorAll('.product-excerpt'), function (ex) {
+    var p = ex.querySelector('p');
+    if (!p || p !== ex.firstElementChild) return;
+    var t = p.textContent.replace(/\s+/g, ' ').trim();
+    var centred = /text-align:\s*center/i.test(p.getAttribute('style') || '');
+    if ((centred || /\([A-Z]{1,4}\d+(?:-\d+)?\)$/.test(t)) && t.length < 160) p.classList.add('zbr-catline');
+  });
+
   // Product page and product blocks inside posts: Bandcamp links in the description become players at the bottom
   [].forEach.call(document.querySelectorAll('.product-excerpt'), function (ex) {
     var details = ex.closest('#productDetails, .productDetails');
