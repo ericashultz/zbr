@@ -606,3 +606,13 @@ article.hentry .body .sqs-block-gallery .sqs-gallery .slide img{ position:static
 .zbr-widget p, .zbr-widget p:has(> a.zbr-wlink), .zbr-widget p:has(> a.zbr-cta){ margin:0 !important; }
 .zbr-widget a.zbr-cta, .zbr-widget a.zbr-wlink{ margin:0 !important; }
 .zbr-widget .zbr-bcplayer, .zbr-widget .zbr-embed{ margin:0 !important; }
+
+/* guestbook box: the redesign's blinking yellow/orange frame */
+@keyframes zbrGbBorder{ 0%, 49%{ border-color:#FFEE00; } 50%, 100%{ border-color:#FF9100; } }
+@keyframes zbrGbBg{ 0%, 49%{ background-color:#FFEE00; } 50%, 100%{ background-color:#FF9100; } }
+.zbr-w-guestbook{ animation:zbrGbBorder 1s step-start infinite; }
+.zbr-w-guestbook h3{ animation:zbrGbBg 1s step-start infinite; color:#000 !important; }
+@media (prefers-reduced-motion: reduce){ .zbr-w-guestbook{ animation:none; border-color:#FFEE00; } .zbr-w-guestbook h3{ animation:none; background-color:#FFEE00; } }
+.zbr-gb-buttons{ display:flex; gap:6px; flex-wrap:wrap; }
+a.zbr-gb-btn, a.zbr-gb-btn:visited{ flex:1; text-align:center; box-sizing:border-box; background:linear-gradient(180deg,#ffffff,#d4d4d4) !important; border:2px outset #fff; color:#000332 !important; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; padding:6px 4px; text-decoration:none !important; }
+a.zbr-gb-btn:hover{ background:#1D64A7 !important; border-color:#1E61A8; color:#fff !important; }
