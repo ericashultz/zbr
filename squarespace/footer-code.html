@@ -215,13 +215,17 @@
     // the full-size player is as tall as it is wide, plus room for the title and controls
     var sizeBigPlayers = function () {
       [].forEach.call(document.querySelectorAll('.zbr-bc-big iframe'), function (f) {
-        var w = f.getBoundingClientRect().width;
-        if (w > 0) f.style.setProperty('height', Math.round(w + 135) + 'px', 'important');
+        var w = Math.round(f.getBoundingClientRect().width);
+        if (w > 0 && f._zw !== w) { f._zw = w; f.style.setProperty('height', (w + 135) + 'px', 'important'); }
       });
     };
     sizeBigPlayers();
     window.addEventListener('load', sizeBigPlayers);
     window.addEventListener('resize', sizeBigPlayers);
+    if (window.ResizeObserver) {   // the two-column layout narrows the posts after the page loads
+      var ro = new ResizeObserver(sizeBigPlayers);
+      [].forEach.call(document.querySelectorAll('.zbr-bc-big'), function (b) { ro.observe(b); });
+    }
 
     tagCtas();
     [].forEach.call(document.querySelectorAll('article.hentry h1.entry-title a, article.hentry h2.entry-title a'), function (a) {
