@@ -584,3 +584,5 @@ html body article.hentry .sqs-block-product.product-block .product-purchase-cont
 html body article.hentry .sqs-block-product.product-block .product-purchase-controls-wrapper .product-quantity-input input{ width:44px !important; min-width:44px !important; height:34px !important; flex:0 0 44px; }
 html body article.hentry .sqs-block-product.product-block .product-purchase-controls-wrapper .sqs-add-to-cart-button-wrapper{ flex:0 0 auto !important; width:auto !important; margin:0 !important; }
 html body article.hentry .sqs-block-product.product-block .product-purchase-controls-wrapper .sqs-add-to-cart-button{ height:34px !important; min-height:0 !important; padding:0 16px !important; width:auto !important; }
+html body article.hentry .sqs-block-product.product-block .product-variants .variant-dropdown{ display:inline-block !important; width:auto !important; max-width:100% !important; }
+html body article.hentry .sqs-block-product.product-block .product-variants select{ width:170px !important; max-width:100% !important; height:34px !important; }
