@@ -200,16 +200,29 @@
       groups.forEach(function (g, k) { if (k > 0) g.forEach(function (b) { if (b.parentNode === col) { b.style.display = 'none'; } }); });
     });
 
-    // in the cards, swap Bandcamp embeds for the slim player; a card that starts with a player gets the full-size one
-    // (on phones every player stays slim, as in the redesign)
+    // in the cards, swap Bandcamp embeds for the slim player; a card that starts with a player keeps the full-size
+    // (album art) player. On phones every player stays slim, as in the redesign.
     var wide = !window.matchMedia('(max-width:700px)').matches;
     [].forEach.call(document.querySelectorAll('article.hentry .sqs-block-embed iframe'), function (fr) {
       var blk = fr.closest('.sqs-block');
       var card = fr.closest('article.hentry');
+      if (!blk || blk.style.display === 'none') return;
       var first = card && [].slice.call(card.querySelectorAll('.post > .body .sqs-block')).filter(function (b) { return b.style.display !== 'none' && !b.classList.contains('zbr-empty'); })[0];
-      var pl = bcFrom(fr, wide && blk === first);
-      if (pl && blk && blk.style.display !== 'none') blk.parentNode.replaceChild(pl, blk);
+      if (!/EmbeddedPlayer/.test(decodeURIComponent(fr.src || ''))) return;     // YouTube etc. stay as they are
+      if (wide && blk === first) { blk.classList.add('zbr-bc-big'); return; }
+      var pl = bcFrom(fr, false);
+      if (pl) blk.parentNode.replaceChild(pl, blk);
     });
+    // the full-size player is as tall as it is wide, plus room for the title and controls
+    var sizeBigPlayers = function () {
+      [].forEach.call(document.querySelectorAll('.zbr-bc-big iframe'), function (f) {
+        var w = f.getBoundingClientRect().width;
+        if (w > 0) f.style.setProperty('height', Math.round(w + 135) + 'px', 'important');
+      });
+    };
+    sizeBigPlayers();
+    window.addEventListener('load', sizeBigPlayers);
+    window.addEventListener('resize', sizeBigPlayers);
 
     tagCtas();
     [].forEach.call(document.querySelectorAll('article.hentry h1.entry-title a, article.hentry h2.entry-title a'), function (a) {
