@@ -222,6 +222,22 @@
       groups.forEach(function (g, k) { if (k > 0) g.forEach(function (b) { if (b.parentNode === col) { b.style.display = 'none'; } }); });
     });
 
+    // A label typed in square brackets at the very start of a post's first text, e.g. [Premiers], replaces its "News -- date" tag
+    [].forEach.call(document.querySelectorAll('article.hentry:not(.zbr-section)'), function (art) {
+      var box = art.querySelector('.post > .body .sqs-block-html .sqs-html-content');
+      var p0 = box && box.querySelector('p, h1, h2, h3, h4');
+      var m = p0 && p0.textContent.match(/^\s*\[([^\]]{1,30})\]\s*/);
+      var meta = art.querySelector('.article-meta-top');
+      if (!m || !meta) return;
+      p0.innerHTML = p0.innerHTML.replace(/^\s*(?:<[^>]+>\s*)*\[[^\]]{1,30}\]\s*(?:<br\s*\/?>)?\s*/i, '');
+      if (!p0.textContent.replace(/ /g, '').trim() && !p0.querySelector('img, iframe')) p0.parentNode.removeChild(p0);
+      var pill = document.createElement('span');
+      pill.className = 'zbr-pill';
+      pill.textContent = m[1].trim();
+      meta.innerHTML = '';
+      meta.appendChild(pill);
+    });
+
     // in the cards, swap Bandcamp embeds for the slim player; a card that starts with a player keeps the full-size
     // (album art) player, on phones too.
     [].forEach.call(document.querySelectorAll('article.hentry .sqs-block-embed iframe'), function (fr) {
