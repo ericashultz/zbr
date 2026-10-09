@@ -577,9 +577,10 @@ p.site-tagline{ padding-left:14px !important; padding-right:14px !important; }
 .sqs-block-product .zbr-bcplayer{ margin:18px 0 0; }
 
 .zbr-catline{ display:none !important; }
-/* stronger selectors: the template styles its quantity box and cart button with long selectors */
-.sqs-block-product .product-purchase-controls-wrapper .product-quantity-input-wrapper{ flex:0 0 auto !important; width:auto !important; min-width:0 !important; }
-.sqs-block-product .product-purchase-controls-wrapper .sqs-add-to-cart-button-wrapper{ flex:0 0 auto !important; width:auto !important; }
-.sqs-block-product .product-purchase-controls-wrapper .product-quantity-input{ padding:0 !important; margin:0 !important; width:auto !important; }
-.sqs-block-product .product-purchase-controls-wrapper .product-quantity-input input{ width:44px !important; height:34px !important; flex:0 0 44px; }
-.sqs-block-product .product-purchase-controls-wrapper .sqs-add-to-cart-button{ height:34px !important; padding:0 16px !important; width:auto !important; }
+/* stronger selectors: the template styles the quantity box and cart button with long, specific selectors */
+html body article.hentry .sqs-block-product.product-block .product-purchase-controls-wrapper{ display:flex !important; justify-content:flex-start !important; align-items:flex-end !important; flex-wrap:wrap; gap:12px; }
+html body article.hentry .sqs-block-product.product-block .product-purchase-controls-wrapper .product-quantity-input-wrapper{ flex:0 0 auto !important; width:auto !important; min-width:0 !important; max-width:none !important; margin:0 !important; padding:0 !important; }
+html body article.hentry .sqs-block-product.product-block .product-purchase-controls-wrapper .product-quantity-input{ padding:0 !important; margin:0 !important; width:auto !important; max-width:none !important; background:none !important; border:0 !important; }
+html body article.hentry .sqs-block-product.product-block .product-purchase-controls-wrapper .product-quantity-input input{ width:44px !important; min-width:44px !important; height:34px !important; flex:0 0 44px; }
+html body article.hentry .sqs-block-product.product-block .product-purchase-controls-wrapper .sqs-add-to-cart-button-wrapper{ flex:0 0 auto !important; width:auto !important; margin:0 !important; }
+html body article.hentry .sqs-block-product.product-block .product-purchase-controls-wrapper .sqs-add-to-cart-button{ height:34px !important; min-height:0 !important; padding:0 16px !important; width:auto !important; }
