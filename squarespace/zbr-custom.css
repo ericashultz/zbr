@@ -529,3 +529,6 @@ article.hentry .sqs-block-button + .zbr-bcplayer, article.hentry p:has(> a.zbr-c
 article.hentry .zbr-before-cta{ padding-bottom:0 !important; margin-bottom:0 !important; }
 article.hentry .zbr-before-cta .sqs-html-content > p.zbr-last, article.hentry .zbr-before-cta .sqs-html-content > *:last-child{ margin-bottom:0 !important; }
 article.hentry .sqs-block-button.zbr-cta-gap{ margin-top:14px; }
+
+/* a card that starts with a Bandcamp player gets the full-size player, like the redesign's */
+article.hentry .zbr-bcplayer.zbr-bc-large iframe{ height:120px; }

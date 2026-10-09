@@ -137,17 +137,15 @@
   if (document.body.classList.contains('view-list') && document.body.classList.contains('collection-type-blog')) {
     var isRule = function (el) { return el.classList.contains('sqs-block-horizontalrule'); };
     // Bandcamp embeds (tall "large" players) become the slim player used everywhere else on the site
-    var bcFrom = function (fr) {
+    var bcFrom = function (fr, big) {
       var mm = decodeURIComponent((fr && fr.src) || '').match(/EmbeddedPlayer\/(?:v=\d+\/)?(album|track)=(\d+)/);
       if (!mm) return null;
       var pl = document.createElement('div');
-      pl.className = 'zbr-bcplayer';
-      pl.innerHTML = '<iframe src="https://bandcamp.com/EmbeddedPlayer/' + mm[1] + '=' + mm[2] + '/size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/" seamless title="Bandcamp player"></iframe>';
+      pl.className = 'zbr-bcplayer' + (big ? ' zbr-bc-large' : '');
+      var opts = big ? 'size=large/bgcol=000000/linkcol=c0deff/tracklist=false/artwork=small/transparent=true/'
+                     : 'size=small/bgcol=000000/linkcol=c0deff/tracklist=false/transparent=true/';
+      pl.innerHTML = '<iframe src="https://bandcamp.com/EmbeddedPlayer/' + mm[1] + '=' + mm[2] + '/' + opts + '" seamless title="Bandcamp player"></iframe>';
       return pl;
-    };
-    var textOf = function (blocks) {
-      return blocks.filter(function (b) { return b.classList.contains('sqs-block-html'); })
-        .map(function (b) { return b.textContent; }).join(' ').replace(/\s+/g, ' ').trim();
     };
     // "Shop Now", "Read The Review" and similar call-to-action links get the redesign's yellow pixel-font link style
     var tagCtas = function (root) {
@@ -198,10 +196,14 @@
       groups.forEach(function (g, k) { if (k > 0) g.forEach(function (b) { if (b.parentNode === col) { b.style.display = 'none'; } }); });
     });
 
-    // in the cards, swap Bandcamp embeds for the slim player (sidebar-bound sections are handled separately)
+    // in the cards, swap Bandcamp embeds for the slim player; a card that starts with a player gets the full-size one
+    // (on phones every player stays slim, as in the redesign)
+    var wide = !window.matchMedia('(max-width:700px)').matches;
     [].forEach.call(document.querySelectorAll('article.hentry .sqs-block-embed iframe'), function (fr) {
-      var pl = bcFrom(fr);
       var blk = fr.closest('.sqs-block');
+      var card = fr.closest('article.hentry');
+      var first = card && [].slice.call(card.querySelectorAll('.post > .body .sqs-block')).filter(function (b) { return b.style.display !== 'none' && !b.classList.contains('zbr-empty'); })[0];
+      var pl = bcFrom(fr, wide && blk === first);
       if (pl && blk && blk.style.display !== 'none') blk.parentNode.replaceChild(pl, blk);
     });
 
