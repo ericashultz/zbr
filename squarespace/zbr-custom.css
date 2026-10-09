@@ -530,8 +530,11 @@ article.hentry .zbr-before-cta{ padding-bottom:0 !important; margin-bottom:0 !im
 article.hentry .zbr-before-cta .sqs-html-content > p.zbr-last, article.hentry .zbr-before-cta .sqs-html-content > *:last-child{ margin-bottom:0 !important; }
 article.hentry .sqs-block-button.zbr-cta-gap{ margin-top:14px; }
 
-/* a card that starts with a Bandcamp player gets the full-size player, like the redesign's */
-article.hentry .zbr-bcplayer.zbr-bc-large iframe{ height:120px; }
+/* a card that starts with a Bandcamp player keeps the full-size player (album art, title, controls) */
+article.hentry .zbr-bc-big{ margin:0 0 14px !important; }
+article.hentry .zbr-bc-big .sqs-embed-container, article.hentry .zbr-bc-big .intrinsic, article.hentry .zbr-bc-big .embed-block-wrapper{ position:static !important; height:auto !important; padding-bottom:0 !important; width:100% !important; max-width:100% !important; }
+article.hentry .zbr-bc-big iframe{ position:static !important; display:block; width:100% !important; max-width:100% !important; border:0; }
+
 
 /* ---- News list: numbered page buttons like the redesign ("1 2 3 4 ..." five squares) ---- */
 nav.page.pagination.zbr-hidden{ display:none !important; }
