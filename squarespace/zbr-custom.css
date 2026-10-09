@@ -532,3 +532,14 @@ article.hentry .sqs-block-button.zbr-cta-gap{ margin-top:14px; }
 
 /* a card that starts with a Bandcamp player gets the full-size player, like the redesign's */
 article.hentry .zbr-bcplayer.zbr-bc-large iframe{ height:120px; }
+
+/* ---- News list: numbered page buttons like the redesign ("1 2 3 4 ..." five squares) ---- */
+nav.page.pagination.zbr-hidden{ display:none !important; }
+.zbr-pagenav{ text-align:center; margin:16px 0; }
+#zbr-news-layout ~ nav.zbr-pagenav{ width:100%; }
+.zbr-pagenav-label{ display:block; margin-bottom:10px; font:12px "Fixedsys Excelsior","Courier New",monospace; color:#d9d9d9; }
+.zbr-pg{ display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; width:34px; height:30px; margin:0 3px; padding:0; background:linear-gradient(180deg,#e8e8e8,#a0a0a0); border:2px outset #fff; color:#000066 !important; font:bold 13px Tahoma,"MS Sans Serif",sans-serif; text-decoration:none !important; vertical-align:middle; }
+a.zbr-pg:hover{ background:linear-gradient(180deg,#ffffff,#c9c9c9); color:#000 !important; }
+.zbr-pg[aria-current="true"]{ border-style:inset; background:linear-gradient(180deg,#a0a0a0,#e8e8e8); }
+.zbr-pg-off{ opacity:.5; }
+@media (max-width:700px){ .zbr-pg{ width:32px; margin:0 2px; } }
