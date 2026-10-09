@@ -325,7 +325,12 @@
           var html = '';
           var firstDate = document.querySelector('article.hentry time.published');
           if (firstDate) html += '<span class="zbr-pagenav-label">News from ' + firstDate.textContent.trim() + '</span>';
-          html += '<div class="zbr-pagenav-buttons">';
+          function arrow(sym, N, label) {
+            var h = N ? href(N) : null;
+            return h ? '<a class="zbr-pg" href="' + h + '" title="' + label + '" aria-label="' + label + '">' + sym + '</a>'
+                     : '<span class="zbr-pg zbr-pg-off" aria-hidden="true">' + sym + '</span>';
+          }
+          html += '<div class="zbr-pagenav-buttons">' + arrow('&lsaquo;', current > 1 ? current - 1 : 0, 'Newer page');
           function dots(N, label) {
             var h = href(N);
             return h ? '<a class="zbr-pg" href="' + h + '" title="' + label + '" aria-label="' + label + '">&hellip;</a>' : '';
@@ -336,7 +341,7 @@
             else { var h = href(N); html += h ? '<a class="zbr-pg" href="' + h + '">' + N + '</a>' : '<span class="zbr-pg zbr-pg-off">' + N + '</span>'; }
           }
           if (start + 3 < pages) html += dots(start + 4, 'More pages');
-          html += '</div>';
+          html += arrow('&rsaquo;', current < pages ? current + 1 : 0, 'Older page') + '</div>';
           var nav = document.createElement('nav');
           nav.className = 'zbr-pagenav';
           nav.setAttribute('aria-label', 'News pages');
