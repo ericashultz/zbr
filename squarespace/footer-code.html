@@ -358,8 +358,24 @@
             box.appendChild(cp);
           }
         } else {
-          var pl = bcFrom(b.querySelector('iframe'));
-          if (pl) box.appendChild(pl);
+          var efr = b.querySelector('iframe');
+          var raw = decodeURIComponent((efr && efr.src) || '');
+          var pl = bcFrom(efr);
+          var ex = null;
+          if (pl) { box.appendChild(pl); }
+          else if (/soundcloud\.com\/player/.test(raw)) {       // SoundCloud: the compact classic player
+            var scUrl = (raw.match(/[?&]url=([^&]+)/) || [])[1];
+            if (scUrl) {
+              ex = document.createElement('div');
+              ex.className = 'zbr-embed zbr-sc';
+              ex.innerHTML = '<iframe src="https://w.soundcloud.com/player/?url=' + encodeURIComponent(scUrl) + '&color=%23ff5500&visual=false&hide_related=true&show_comments=false&show_teaser=false" title="SoundCloud player"></iframe>';
+            }
+          } else if (/youtube\.com\/embed/.test(raw)) {          // YouTube: a 16:9 video
+            ex = document.createElement('div');
+            ex.className = 'zbr-embed zbr-yt';
+            ex.innerHTML = '<iframe src="' + efr.src + '" title="Video" allowfullscreen></iframe>';
+          }
+          if (ex) box.appendChild(ex);
         }
       });
       return box;
