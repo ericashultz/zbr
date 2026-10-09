@@ -488,7 +488,7 @@ article.hentry a.sqs-block-button-element, article.hentry a.sqs-block-button-ele
   color:#FFEE00 !important; text-decoration:underline !important; text-align:left !important;
 }
 article.hentry a.sqs-block-button-element:hover, a.zbr-cta:hover{ color:#19A800 !important; background:none !important; }
-#zbr-sidebar a.zbr-cta{ display:block !important; margin:0 0 16px !important; font-size:15px !important; }
+#zbr-sidebar a.zbr-cta{ display:block !important; margin:0 !important; font-size:15px !important; }
 
 /* CTA button blocks: no extra padding around the link, just a small gap between them */
 article.hentry .sqs-block-button, #zbr-sidebar .sqs-block-button{ padding-top:0 !important; padding-bottom:0 !important; margin-top:0 !important; margin-bottom:8px !important; min-height:0 !important; }
