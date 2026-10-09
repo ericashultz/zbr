@@ -170,6 +170,14 @@
     };
     var SIDE = /^\s*(johnny[’']?s\s+reco-?mmendations|reviews?|features?|last\s+(?:fucking\s+)?copy)\s*[:\-–—]\s*/i;
     var sideWidgets = [];
+    var SIDE_NAME = /^(johnny[\u2019']?s\s+reco-?mmendations|reviews?|features?|last\s+(?:fucking\s+)?copy)$/i;
+    var dropMarker = function (blocks) {   // remove a leading [Label] from the first text block
+      var fh = blocks.filter(function (b) { return b.classList.contains('sqs-block-html'); })[0];
+      var p0 = fh && fh.querySelector('.sqs-html-content p, .sqs-html-content h1, .sqs-html-content h2, .sqs-html-content h3, .sqs-html-content h4');
+      if (!p0) return;
+      p0.innerHTML = p0.innerHTML.replace(/^\s*(?:<[^>]+>\s*)*\[[^\]]{1,30}\]\s*(?:<br\s*\/?>)?\s*/i, '');
+      if (!p0.textContent.replace(/\u00a0/g, '').trim() && !p0.querySelector('img, iframe')) p0.parentNode.removeChild(p0);
+    };
 
     // A post written as several sections separated by horizontal rules becomes one card per section.
     // Sections starting "Johnny's Reco-mmendations:", "Reviews:", "Features:" or "Last Copy:" go to the sidebar.
@@ -187,6 +195,8 @@
         var txt = textOf(g);
         var m = txt.match(SIDE);
         if (m) { sideWidgets.push({ label: m[1], blocks: g }); return; }
+        var bracket = txt.match(/^\s*\[([^\]]{1,30})\]/);
+        if (bracket && SIDE_NAME.test(bracket[1].trim())) { dropMarker(g); sideWidgets.push({ label: bracket[1].trim(), blocks: g }); return; }
         // the tag: a label typed in square brackets at the start of the section, e.g. [Releases], otherwise a guess from the text
         var label = /music video/i.test(txt) ? 'Music Video' : 'Releases';
         var tagged = txt.match(/^\s*\[([^\]]{1,30})\]\s*/);
@@ -230,6 +240,13 @@
       var m = p0 && p0.textContent.match(/^\s*\[([^\]]{1,30})\]\s*/);
       var meta = art.querySelector('.article-meta-top');
       if (!m || !meta) return;
+      if (SIDE_NAME.test(m[1].trim())) {   // [Last Copy], [Reviews], [Features], [Johnny's Reco-mmendations] on a whole post: it moves to the sidebar
+        var bl = [].slice.call(art.querySelectorAll('.post > .body .sqs-block'));
+        dropMarker(bl);
+        art.style.display = 'none';
+        sideWidgets.push({ label: m[1].trim(), blocks: bl, art: art });
+        return;
+      }
       p0.innerHTML = p0.innerHTML.replace(/^\s*(?:<[^>]+>\s*)*\[[^\]]{1,30}\]\s*(?:<br\s*\/?>)?\s*/i, '');
       if (!p0.textContent.replace(/ /g, '').trim() && !p0.querySelector('img, iframe')) p0.parentNode.removeChild(p0);
       var pill = document.createElement('span');
@@ -328,6 +345,18 @@
             firstText = false;
           }
           [].forEach.call(c.querySelectorAll('p'), function (p) { if (p.textContent.trim() || p.querySelector('img, iframe')) box.appendChild(p); });
+        } else if (b.classList.contains('sqs-block-button')) {
+          var ba = b.querySelector('a');
+          if (ba) {
+            var cp = document.createElement('p');
+            var ca = document.createElement('a');
+            ca.href = ba.getAttribute('href') || '#';
+            ca.textContent = ba.textContent.trim();
+            ca.className = 'zbr-cta';
+            if (ba.target) { ca.target = ba.target; ca.rel = 'noopener'; }
+            cp.appendChild(ca);
+            box.appendChild(cp);
+          }
         } else {
           var pl = bcFrom(b.querySelector('iframe'));
           if (pl) box.appendChild(pl);
@@ -414,6 +443,7 @@
     var showWidgetsAsCards = function () {
       sideWidgets.forEach(function (w) {
         w.blocks.forEach(function (b) { b.style.display = ''; });
+        if (w.art) w.art.style.display = '';
       });
     };
     if (page) {
