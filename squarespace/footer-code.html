@@ -147,6 +147,10 @@
       pl.innerHTML = '<iframe src="https://bandcamp.com/EmbeddedPlayer/' + mm[1] + '=' + mm[2] + '/' + opts + '" seamless title="Bandcamp player"></iframe>';
       return pl;
     };
+    var textOf = function (blocks) {
+      return blocks.filter(function (b) { return b.classList.contains('sqs-block-html'); })
+        .map(function (b) { return b.textContent; }).join(' ').replace(/\s+/g, ' ').trim();
+    };
     // "Shop Now", "Read The Review" and similar call-to-action links get the redesign's yellow pixel-font link style
     var tagCtas = function (root) {
       [].forEach.call((root || document).querySelectorAll('article.hentry a, #zbr-sidebar a'), function (a) {
