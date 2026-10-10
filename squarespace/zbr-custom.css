@@ -802,3 +802,17 @@ html body article.hentry .article-meta-top .zbr-pill, html body .zbr-pill{
   font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; line-height:normal !important;
   color:#fff !important; letter-spacing:0 !important; text-transform:none !important; text-decoration:none !important;
 }
+
+/* linked words inside post copy: orange, like the guestbook box's frame */
+article.hentry .sqs-html-content a:not(.zbr-cta):not(.zbr-readmore):not([class*="sqs-block-button"]),
+.zbr-widget p a:not(.zbr-cta):not(.zbr-wlink):not(.zbr-gb-btn){ color:#FF9100 !important; }
+article.hentry .sqs-html-content a:not(.zbr-cta):not(.zbr-readmore):not([class*="sqs-block-button"]):hover,
+.zbr-widget p a:not(.zbr-cta):not(.zbr-wlink):not(.zbr-gb-btn):hover{ color:#FFEE00 !important; background:none; }
+
+/* two or more call-to-action links in a row share one line */
+article.hentry .zbr-cta-row{ display:flex; flex-wrap:wrap; align-items:flex-start; column-gap:18px; }
+article.hentry .zbr-cta-row > .sqs-block-button{ flex:0 0 auto; width:auto; }
+article.hentry .zbr-cta-row.zbr-cta-gap{ margin-top:14px; }
+article.hentry .zbr-cta-row + .zbr-bcplayer{ margin-top:18px !important; }
+article.hentry .sqs-html-content p:has(> a.zbr-cta):has(+ p > a.zbr-cta),
+article.hentry .sqs-html-content p:has(> a.zbr-cta) + p:has(> a.zbr-cta){ display:inline-block; margin-right:18px; }

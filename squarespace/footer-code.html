@@ -50,8 +50,9 @@
       });
       if (!bottom) bottom = prev.getBoundingClientRect().bottom;
       var gap = link.getBoundingClientRect().top - bottom;
-      var cur = parseFloat(getComputedStyle(btn).marginTop) || 0;
-      btn.style.setProperty('margin-top', Math.max(-160, cur + (14 - gap)) + 'px', 'important'); // can be negative when the space above comes from the block before it
+      var target = btn.parentNode && btn.parentNode.classList.contains('zbr-cta-row') ? btn.parentNode : btn;
+      var cur = parseFloat(getComputedStyle(target).marginTop) || 0;
+      target.style.setProperty('margin-top', Math.max(-160, cur + (14 - gap)) + 'px', 'important'); // can be negative when the space above comes from the block before it
     });
   };
   if (document.readyState === 'complete') evenCtaSpacing();
@@ -371,6 +372,28 @@
     });
 
     tagCtas();
+    // two or more call-to-action buttons in a row sit on one line ("Shop Canada Store   Shop USA Store")
+    var ctaNeutral = function (b) {
+      return b.classList.contains('sqs-block-spacer') || b.classList.contains('zbr-empty') ||
+        (b.classList.contains('sqs-block-html') && !b.textContent.replace(/\u00a0/g, '').trim() && !b.querySelector('img, iframe'));
+    };
+    [].forEach.call(document.querySelectorAll('article.hentry .sqs-block-button'), function (btn) {
+      if (!btn.parentNode || btn.parentNode.classList.contains('zbr-cta-row')) return;
+      var run = [btn], pending = [], between = [], n = btn.nextElementSibling;
+      while (n) {
+        if (n.classList.contains('sqs-block-button')) { run.push(n); between = between.concat(pending); pending = []; }
+        else if (ctaNeutral(n)) pending.push(n);
+        else break;
+        n = n.nextElementSibling;
+      }
+      if (run.length < 2) return;
+      var row = document.createElement('div');
+      row.className = 'zbr-cta-row';
+      btn.parentNode.insertBefore(row, btn);
+      if (btn.classList.contains('zbr-cta-gap')) row.classList.add('zbr-cta-gap');
+      run.forEach(function (b) { b.classList.remove('zbr-cta-gap'); row.appendChild(b); });
+      between.forEach(function (b) { b.classList.add('zbr-empty'); });
+    });
     [].forEach.call(document.querySelectorAll('article.hentry h1.entry-title a, article.hentry h2.entry-title a'), function (a) {
       var t = a.textContent.replace(/^\s*\d{4}\s*-\s*\d{1,2}\s*-\s*\d{1,2}\s*\/{2,3}\s*/, '');
       // headlines are plain text, not links: swap the link for its words
