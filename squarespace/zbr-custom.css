@@ -745,10 +745,15 @@ html body #page article.hentry .special-content + .post .body.entry-content .sqs
 
 /* desktop: more room under the tag pill (phones already get ~20px from the block padding) */
 @media (min-width:901px){
-  html body article.hentry .article-meta-top{ margin-bottom:20px !important; }
+  html body article.hentry .article-meta-top:has(.zbr-pill){ margin-bottom:20px !important; }
 }
 
 /* phones & tablets: post widgets (Last Copy, Reviews, Features, Johnny's) sit in the main column above the page numbers */
 #zbr-news-main > .zbr-widget{ margin:0 0 18px !important; }
 #zbr-news-main .zbr-widget [class*="sqs-block-button-container"]{ text-align:left !important; margin:0 !important; padding:0 !important; min-height:0 !important; line-height:1.25 !important; }
 #zbr-news-main .zbr-widget a.zbr-cta{ display:block !important; margin:0 !important; font-size:15px !important; }
+
+/* news posts: a media block (video, image, gallery, player) followed by body copy leaves a 16px gap, not ~40px */
+html body #page article.hentry :is(.sqs-block-website,.sqs-block-embed,.sqs-block-image,.sqs-block-video,.sqs-block-gallery,.sqs-block-code,.sqs-block-product):has(+ .sqs-block-html){ padding-bottom:0 !important; margin-bottom:0 !important; }
+html body #page article.hentry :is(.sqs-block-website,.sqs-block-embed,.sqs-block-image,.sqs-block-video,.sqs-block-gallery,.sqs-block-code,.sqs-block-product) + .sqs-block-html{ padding-top:16px !important; }
+html body #page article.hentry .special-content .sqs-block{ padding-bottom:0 !important; margin-bottom:0 !important; }
