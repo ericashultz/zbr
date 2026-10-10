@@ -723,3 +723,7 @@ body.zbr-guestbook p.zbr-gb-back a:hover{ color:#19A800 !important; }
 @media (max-width:900px){
   #zbr-sidebar .zbr-widget.zbr-w-quick, .zbr-widget.zbr-w-quick{ display:none !important; }
 }
+
+/* second collapsed Quick Links bar, first thing in the sidebar (= right under the page numbers on phones) */
+.zbr-mobile-quick.zbr-mq-bottom{ margin:0 0 4px !important; }
+@media (min-width:901px){ .zbr-mobile-quick.zbr-mq-bottom{ display:none !important; } }
