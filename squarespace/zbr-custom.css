@@ -728,14 +728,7 @@ body.zbr-guestbook p.zbr-gb-back a:hover{ color:#19A800 !important; }
 .zbr-mobile-quick.zbr-mq-bottom{ margin:0 0 14px !important; }
 @media (min-width:901px){ .zbr-mobile-quick.zbr-mq-bottom{ display:none !important; } }
 
-/* product blocks in news posts, phones & tablets: qty box and Add to Cart on one row, pushed to the right (the template stacks them) */
+/* product blocks in news posts, phones & tablets: qty box and Add to Cart on one row, left aligned like desktop (the template stacks them and pushes them right) */
 @media (max-width:900px){
-  html body article.hentry .sqs-block-product.product-block .product-purchase-controls-wrapper{ flex-direction:row !important; flex-wrap:nowrap !important; justify-content:flex-end !important; align-items:flex-end !important; gap:12px; }
-}
-
-/* product blocks in news posts, phones & tablets: the Variant label + dropdown are right aligned too, so the whole purchase group sits on the right */
-@media (max-width:900px){
-  html body article.hentry .sqs-block-product.product-block .product-variants{ text-align:right !important; }
-  html body article.hentry .sqs-block-product.product-block .product-variants label{ text-align:right !important; }
-  html body article.hentry .sqs-block-product.product-block .product-variants .variant-dropdown{ margin-left:auto !important; }
+  html body article.hentry .sqs-block-product.product-block .product-purchase-controls-wrapper{ flex-direction:row !important; flex-wrap:nowrap !important; justify-content:flex-start !important; align-items:flex-end !important; gap:12px; }
 }
