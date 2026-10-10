@@ -702,3 +702,9 @@ html body.zbr-embed .sqs-block-newsletter button, html body.zbr-embed .sqs-block
 html body.zbr-embed #site{ min-height:100vh !important; display:flex !important; flex-direction:column !important; justify-content:center !important; box-sizing:border-box !important; }
 html body.zbr-embed #canvas{ flex:0 0 auto !important; width:100% !important; box-sizing:border-box !important; }
 html body.zbr-embed article.hentry{ padding:22px 22px !important; box-sizing:border-box !important; margin:0 auto !important; }
+
+/* mailing list pop-up, round 5: after signing up, replace the form with our own thank-you message */
+html body.zbr-embed.zbr-ml-done .sqs-block-newsletter, html body.zbr-embed.zbr-ml-done .sqs-layout{ display:none !important; }
+html body.zbr-embed .zbr-ml-thanks{ text-align:center; padding:10px 0; }
+html body.zbr-embed .zbr-ml-thanks h3{ margin:0 0 12px !important; padding:0 !important; font:bold 18px/1.3 "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-transform:none !important; letter-spacing:0 !important; }
+html body.zbr-embed .zbr-ml-thanks p{ margin:0 !important; padding:0 !important; font:14px/1.5 Arial,sans-serif !important; color:#fff !important; }
