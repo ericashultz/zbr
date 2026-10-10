@@ -737,3 +737,8 @@ body.zbr-guestbook p.zbr-gb-back a:hover{ color:#19A800 !important; }
 article.hentry .sqs-block-gallery:has(.sqs-gallery-thumbnails){ padding-bottom:0 !important; margin-bottom:0 !important; }
 article.hentry .sqs-block-gallery:has(.sqs-gallery-thumbnails) + .sqs-block-html{ padding-top:16px !important; }
 article.hentry .sqs-gallery-thumbnails{ padding-bottom:0 !important; margin-bottom:0 !important; }
+
+/* promoted-gallery posts (carousel sits above the post body in .special-content): same tight gap under the thumbnails */
+html body #page article.hentry .special-content{ margin-bottom:0 !important; }
+html body #page article.hentry .special-content .sqs-block.sqs-block-gallery{ padding-bottom:0 !important; margin-bottom:0 !important; }
+html body #page article.hentry .special-content + .post .body.entry-content .sqs-block:first-child{ padding-top:16px !important; margin-top:0 !important; }
