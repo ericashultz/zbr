@@ -192,7 +192,7 @@
   function loadFromSite(root) {
     try {
       var cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-      if (cached && cached.items && cached.items.length && Date.now() - cached.t < CACHE_MS) {
+      if (cached && cached.items && cached.items.length && Date.now() - cached.t < CACHE_MS && !/[?&]refresh=/.test(location.search)) {
         return Promise.resolve({ items: cached.items });
       }
     } catch (e) { /* no storage: fetch fresh */ }
@@ -368,7 +368,7 @@
       poster: 'poster', posters: 'poster', button: 'button', buttons: 'button', sticker: 'sticker', stickers: 'sticker' };
     var SIZE_ALIAS = { v12: 'v12', '12': 'v12', '12inch': 'v12', '12inches': 'v12', v7: 'v7', '7': 'v7', '7inch': 'v7', '7inches': 'v7', vo: 'vo', other: 'vo' };
     var SPECIAL_ALIAS = { 'new': 'new', newitems: 'new', steals: 'steals', steal: 'steals' };
-    var URL_KEYS = ['cat', 'size', 'band', 'label', 'special', 'q', 'page'];
+    var URL_KEYS = ['cat', 'size', 'band', 'label', 'special', 'q', 'page', 'refresh']; // ?refresh=1 skips the 1-hour product cache once
     function slug(x) { return String(x || '').toLowerCase().replace(/[^a-z0-9]/g, ''); }
 
     function readUrlState() {
