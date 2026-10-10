@@ -570,14 +570,33 @@
           side.id = 'zbr-sidebar';
           side.innerHTML = blk.innerHTML;
           var anchor = side.querySelector('.zbr-w-quick');
+          var postBoxes = [];
           sideWidgets.forEach(function (w) {
             var box = makeWidget(w);
+            postBoxes.push(box);
             if (anchor && anchor.parentNode) { anchor.parentNode.insertBefore(box, anchor.nextSibling); anchor = box; } else side.appendChild(box);
           });
           layout.appendChild(main);
           layout.appendChild(side);
           page.appendChild(layout);
           tagCtas(side);
+          // phones and tablets: Last Copy / Reviews / Features / Johnny's go above the page numbers, right under the last post
+          // (only Quick Links, Guestbook and Mailing List stay below them); wide screens keep them in the sidebar
+          var phoneMQ = window.matchMedia('(max-width:900px)');
+          var placeBoxes = function () {
+            if (phoneMQ.matches) {
+              var before = main.querySelector('nav.pagination');
+              var host = before ? before.parentNode : main;
+              postBoxes.forEach(function (b) { host.insertBefore(b, before); });
+            } else {
+              var q = side.querySelector('.zbr-w-quick');
+              var ref = q ? q.nextSibling : null;
+              postBoxes.forEach(function (b) { side.insertBefore(b, ref); });
+            }
+          };
+          placeBoxes();
+          if (phoneMQ.addEventListener) phoneMQ.addEventListener('change', placeBoxes);
+          else if (phoneMQ.addListener) phoneMQ.addListener(placeBoxes);
           // wide screens: centre Newer / Older under the whole page, not just the posts column
           var pager = main.querySelector('nav.pagination');
           var numbers = main.querySelector('.zbr-pagenav');

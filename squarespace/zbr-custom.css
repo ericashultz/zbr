@@ -747,3 +747,8 @@ html body #page article.hentry .special-content + .post .body.entry-content .sqs
 @media (min-width:901px){
   html body article.hentry .article-meta-top{ margin-bottom:20px !important; }
 }
+
+/* phones & tablets: post widgets (Last Copy, Reviews, Features, Johnny's) sit in the main column above the page numbers */
+#zbr-news-main > .zbr-widget{ margin:0 0 18px !important; }
+#zbr-news-main .zbr-widget [class*="sqs-block-button-container"]{ text-align:left !important; margin:0 !important; padding:0 !important; min-height:0 !important; line-height:1.25 !important; }
+#zbr-news-main .zbr-widget a.zbr-cta{ display:block !important; margin:0 !important; font-size:15px !important; }
