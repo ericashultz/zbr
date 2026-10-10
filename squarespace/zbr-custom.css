@@ -718,3 +718,8 @@ body.zbr-guestbook p.zbr-gb-back{ max-width:640px; margin:22px auto 0 !important
 body.zbr-guestbook p.zbr-gb-back + article.hentry{ margin-top:10px !important; }
 body.zbr-guestbook p.zbr-gb-back a, body.zbr-guestbook p.zbr-gb-back a:visited{ font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline; text-transform:none !important; letter-spacing:0 !important; background:none !important; }
 body.zbr-guestbook p.zbr-gb-back a:hover{ color:#19A800 !important; }
+
+/* phones & tablets: keep the sidebar Quick Links hidden (the collapsed purple bar replaces it); the later .zbr-widget{display:flex} rule had brought it back */
+@media (max-width:900px){
+  #zbr-sidebar .zbr-widget.zbr-w-quick, .zbr-widget.zbr-w-quick{ display:none !important; }
+}
