@@ -778,3 +778,13 @@ body.view-item #productDetails > h1.product-title{ margin-bottom:15px !important
 body.view-item #productDetails .product-excerpt p{ margin:0 0 15px !important; }
 body.view-item #productDetails .product-excerpt > p:last-child{ margin-bottom:0 !important; }
 body.view-item #productDetails > .product-price{ margin-top:15px !important; }
+
+/* product page: price, option menu, quantity and Add to Cart share one row, like the redesign (wraps on narrow screens) */
+body.view-item #productDetails > .product-price,
+body.view-item #productDetails > .product-variants,
+body.view-item #productDetails > .product-quantity-input,
+body.view-item #productDetails > .sqs-add-to-cart-button-wrapper{ flex:0 0 auto !important; margin:15px 0 0 !important; align-self:center; }
+body.view-item #productDetails > .product-variants .variant-option{ margin:0 !important; }
+body.view-item #productDetails > .product-variants .variant-option-title{ display:none !important; }
+body.view-item #productDetails > .product-quantity-input{ display:flex !important; align-items:center; }
+body.view-item #productDetails > .product-quantity-input .quantity-label{ display:none !important; }
