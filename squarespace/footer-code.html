@@ -143,7 +143,7 @@
       if (saved && saved.u) href = saved.u;
       if (!href) {
         [].forEach.call(document.querySelectorAll('nav.main-nav ul li a'), function (l) {
-          if (!href && /^news$/i.test(l.textContent.trim())) href = l.getAttribute('href');
+          if (!href && /^(zbr\s+)?news$/i.test(l.textContent.trim())) href = l.getAttribute('href');   // "News" or "ZBR NEWS"
         });
       }
       var wrap = document.createElement('p');
@@ -204,7 +204,18 @@
   // Product page: "Back to Store" link returns to the store at the same filters, page and scroll position
   var back = document.querySelector('#productNav a');
   if (back) {
-    back.href = '/';
+    // the store page is wherever the grid last ran; otherwise the "Canada/Intl" menu item (the home page can be the news)
+    var storePath = '';
+    try {
+      var savedStore = JSON.parse(sessionStorage.getItem('zbr-store-state') || 'null');
+      if (savedStore && savedStore.path && Date.now() - savedStore.t < 60 * 60 * 1000) storePath = savedStore.path;
+    } catch (e) {}
+    if (!storePath) {
+      [].forEach.call(document.querySelectorAll('nav.main-nav ul li a'), function (l) {
+        if (!storePath && /canada/i.test(l.textContent) && /store/i.test(l.textContent) && l.getAttribute('href') && l.getAttribute('href') !== '#') storePath = l.getAttribute('href');
+      });
+    }
+    back.href = storePath || '/';
     back.innerHTML = '&laquo; Back to Store';
     back.addEventListener('click', function () {
       try { sessionStorage.setItem('zbr-store-restore', '1'); } catch (e) {}
