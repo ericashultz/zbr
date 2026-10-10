@@ -727,3 +727,8 @@ body.zbr-guestbook p.zbr-gb-back a:hover{ color:#19A800 !important; }
 /* second collapsed Quick Links bar, first thing in the sidebar (= right under the page numbers on phones) */
 .zbr-mobile-quick.zbr-mq-bottom{ margin:0 0 14px !important; }
 @media (min-width:901px){ .zbr-mobile-quick.zbr-mq-bottom{ display:none !important; } }
+
+/* product blocks in news posts, phones & tablets: qty box and Add to Cart on one row, pushed to the right (the template stacks them) */
+@media (max-width:900px){
+  html body article.hentry .sqs-block-product.product-block .product-purchase-controls-wrapper{ flex-direction:row !important; flex-wrap:nowrap !important; justify-content:flex-end !important; align-items:flex-end !important; gap:12px; }
+}
