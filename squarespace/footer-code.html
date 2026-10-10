@@ -39,7 +39,11 @@
       var link = btn.querySelector('a');
       var card = btn.closest('article.hentry');
       if (!link || !card) return;
-      if (btn.parentNode && btn.parentNode.classList.contains('zbr-cta-row')) btn.style.removeProperty('margin-top');
+      if (btn.parentNode && btn.parentNode.classList.contains('zbr-cta-row')) {
+        btn.style.removeProperty('margin-top');
+        var rowEl = btn.parentNode;
+        if (rowEl.firstElementChild === btn) { ['margin-top', 'margin-bottom', 'position', 'top'].forEach(function (pr) { rowEl.style.removeProperty(pr); }); }   // measure from a clean state each time
+      }
       var blocks = [].slice.call(card.querySelectorAll('.sqs-block, .zbr-bcplayer'));
       var i = blocks.indexOf(btn), prev = null, k;
       for (k = i - 1; k >= 0; k--) { if (blocks[k].getBoundingClientRect().height > 0) { prev = blocks[k]; break; } }
@@ -51,9 +55,23 @@
       });
       if (!bottom) bottom = prev.getBoundingClientRect().bottom;
       var gap = link.getBoundingClientRect().top - bottom;
-      var target = btn.parentNode && btn.parentNode.classList.contains('zbr-cta-row') ? btn.parentNode : btn;
+      var inRow = btn.parentNode && btn.parentNode.classList.contains('zbr-cta-row');
+      var target = inRow ? btn.parentNode : btn;
       var cur = parseFloat(getComputedStyle(target).marginTop) || 0;
-      target.style.setProperty('margin-top', Math.max(-160, cur + (14 - gap)) + 'px', 'important'); // can be negative when the space above comes from the block before it
+      var want = Math.max(-160, cur + (14 - gap));   // can be negative when the space above comes from the block before it
+      if (inRow) {
+        // a row (flex container) keeps a margin of 0 or more; a negative nudge is done by shifting it up instead
+        target.style.setProperty('margin-top', Math.max(0, want) + 'px', 'important');
+        if (want < 0) {
+          target.style.setProperty('position', 'relative');
+          target.style.setProperty('top', want + 'px');
+          target.style.setProperty('margin-bottom', want + 'px', 'important');   // pull what follows up by the same amount
+        } else {
+          target.style.removeProperty('position'); target.style.removeProperty('top'); target.style.removeProperty('margin-bottom');
+        }
+      } else {
+        target.style.setProperty('margin-top', want + 'px', 'important');
+      }
     });
   };
   // buttons that share a line start at exactly the same height, whatever spacing the template put on them
