@@ -39,6 +39,7 @@
       var link = btn.querySelector('a');
       var card = btn.closest('article.hentry');
       if (!link || !card) return;
+      if (btn.parentNode && btn.parentNode.classList.contains('zbr-cta-row')) btn.style.removeProperty('margin-top');
       var blocks = [].slice.call(card.querySelectorAll('.sqs-block, .zbr-bcplayer'));
       var i = blocks.indexOf(btn), prev = null, k;
       for (k = i - 1; k >= 0; k--) { if (blocks[k].getBoundingClientRect().height > 0) { prev = blocks[k]; break; } }
@@ -390,7 +391,7 @@
           row.className = 'zbr-cta-row';
           first.parentNode.insertBefore(row, first);
           if (first.classList.contains('zbr-cta-gap')) row.classList.add('zbr-cta-gap');
-          run.forEach(function (b) { b.classList.remove('zbr-cta-gap'); row.appendChild(b); });
+          run.forEach(function (b) { b.classList.remove('zbr-cta-gap'); b.style.removeProperty('margin-top'); row.appendChild(b); });
           between.forEach(function (b) { b.classList.add('zbr-empty'); });
         }
         run = []; pending = []; between = [];
