@@ -372,7 +372,9 @@
 
     tagCtas();
     [].forEach.call(document.querySelectorAll('article.hentry h1.entry-title a, article.hentry h2.entry-title a'), function (a) {
-      a.textContent = a.textContent.replace(/^\s*\d{4}\s*-\s*\d{1,2}\s*-\s*\d{1,2}\s*\/{2,3}\s*/, '');
+      var t = a.textContent.replace(/^\s*\d{4}\s*-\s*\d{1,2}\s*-\s*\d{1,2}\s*\/{2,3}\s*/, '');
+      // headlines are plain text, not links: swap the link for its words
+      a.parentNode.replaceChild(document.createTextNode(t), a);
     });
     // "Read More" follows the redesign's rules: only text-only cards (no photo, slideshow or call-to-action link)
     // with more than 500 characters are shortened. The first 500 characters show, then "Read More" opens the rest.
