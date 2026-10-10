@@ -377,22 +377,35 @@
       return b.classList.contains('sqs-block-spacer') || b.classList.contains('zbr-empty') ||
         (b.classList.contains('sqs-block-html') && !b.textContent.replace(/\u00a0/g, '').trim() && !b.querySelector('img, iframe'));
     };
-    [].forEach.call(document.querySelectorAll('article.hentry .sqs-block-button'), function (btn) {
-      if (!btn.parentNode || btn.parentNode.classList.contains('zbr-cta-row')) return;
-      var run = [btn], pending = [], between = [], n = btn.nextElementSibling;
-      while (n) {
-        if (n.classList.contains('sqs-block-button')) { run.push(n); between = between.concat(pending); pending = []; }
-        else if (ctaNeutral(n)) pending.push(n);
-        else break;
-        n = n.nextElementSibling;
-      }
-      if (run.length < 2) return;
-      var row = document.createElement('div');
-      row.className = 'zbr-cta-row';
-      btn.parentNode.insertBefore(row, btn);
-      if (btn.classList.contains('zbr-cta-gap')) row.classList.add('zbr-cta-gap');
-      run.forEach(function (b) { b.classList.remove('zbr-cta-gap'); row.appendChild(b); });
-      between.forEach(function (b) { b.classList.add('zbr-empty'); });
+    // (found in reading order, so buttons that live in separate rows or columns of the post still group up)
+    [].forEach.call(document.querySelectorAll('article.hentry'), function (art) {
+      var blocks = [].slice.call(art.querySelectorAll('.sqs-block, .zbr-bcplayer')).filter(function (b) {
+        return !(b.parentNode && b.parentNode.closest && b.parentNode.closest('.sqs-block'));
+      });
+      var run = [], pending = [], between = [];
+      var flush = function () {
+        if (run.length >= 2) {
+          var first = run[0];
+          var row = document.createElement('div');
+          row.className = 'zbr-cta-row';
+          first.parentNode.insertBefore(row, first);
+          if (first.classList.contains('zbr-cta-gap')) row.classList.add('zbr-cta-gap');
+          run.forEach(function (b) { b.classList.remove('zbr-cta-gap'); row.appendChild(b); });
+          between.forEach(function (b) { b.classList.add('zbr-empty'); });
+        }
+        run = []; pending = []; between = [];
+      };
+      blocks.forEach(function (b) {
+        if (b.style.display === 'none') return;
+        if (b.classList.contains('sqs-block-button')) {
+          if (run.length) between = between.concat(pending);
+          pending = [];
+          run.push(b);
+        } else if (ctaNeutral(b)) {
+          if (run.length) pending.push(b);
+        } else flush();
+      });
+      flush();
     });
     [].forEach.call(document.querySelectorAll('article.hentry h1.entry-title a, article.hentry h2.entry-title a'), function (a) {
       var t = a.textContent.replace(/^\s*\d{4}\s*-\s*\d{1,2}\s*-\s*\d{1,2}\s*\/{2,3}\s*/, '');
