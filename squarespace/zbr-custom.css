@@ -732,3 +732,8 @@ body.zbr-guestbook p.zbr-gb-back a:hover{ color:#19A800 !important; }
 @media (max-width:900px){
   html body article.hentry .sqs-block-product.product-block .product-purchase-controls-wrapper{ flex-direction:row !important; flex-wrap:nowrap !important; justify-content:flex-start !important; align-items:flex-end !important; gap:12px; }
 }
+
+/* news posts: tighter gap between a photo carousel's thumbnails and the body copy under it (was ~45px) */
+article.hentry .sqs-block-gallery:has(.sqs-gallery-thumbnails){ padding-bottom:0 !important; margin-bottom:0 !important; }
+article.hentry .sqs-block-gallery:has(.sqs-gallery-thumbnails) + .sqs-block-html{ padding-top:16px !important; }
+article.hentry .sqs-gallery-thumbnails{ padding-bottom:0 !important; margin-bottom:0 !important; }
