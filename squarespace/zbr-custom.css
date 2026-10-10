@@ -772,3 +772,9 @@ body.view-item #productDetails .quantity-label{ margin-top:7px !important; }
 
 /* sidebar boxes that end with a CTA link: more room between the link and the frame */
 .zbr-widget:has(> p:last-child > a.zbr-cta){ padding-bottom:18px !important; }
+
+/* product page: vertical rhythm matches the redesign -- 15px between title, paragraphs and the price (was 8 / 28 / 40) */
+body.view-item #productDetails > h1.product-title{ margin-bottom:15px !important; }
+body.view-item #productDetails .product-excerpt p{ margin:0 0 15px !important; }
+body.view-item #productDetails .product-excerpt > p:last-child{ margin-bottom:0 !important; }
+body.view-item #productDetails > .product-price{ margin-top:15px !important; }
