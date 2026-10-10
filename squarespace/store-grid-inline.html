@@ -361,6 +361,47 @@
         '<div class="zs-pagenav-buttons">' + btns + '</div>';
     }
 
+    // Shareable addresses: the filters live in the page address, so a button can link straight to one, e.g.
+    //   /?cat=sticker   /?size=v12   /?band=Casca   /?label=Tomb+Tree   /?special=new   /?q=split   /?page=2
+    var CAT_ALIAS = { vinyl: 'vinyl', records: 'vinyl', record: 'vinyl', lp: 'vinyl', cd: 'cd', cds: 'cd',
+      tape: 'tape', tapes: 'tape', cassette: 'tape', cassettes: 'tape', shirt: 'shirt', shirts: 'shirt', tee: 'shirt', tees: 'shirt',
+      poster: 'poster', posters: 'poster', button: 'button', buttons: 'button', sticker: 'sticker', stickers: 'sticker' };
+    var SIZE_ALIAS = { v12: 'v12', '12': 'v12', '12inch': 'v12', '12inches': 'v12', v7: 'v7', '7': 'v7', '7inch': 'v7', '7inches': 'v7', vo: 'vo', other: 'vo' };
+    var SPECIAL_ALIAS = { 'new': 'new', newitems: 'new', steals: 'steals', steal: 'steals' };
+    var URL_KEYS = ['cat', 'size', 'band', 'label', 'special', 'q', 'page'];
+    function slug(x) { return String(x || '').toLowerCase().replace(/[^a-z0-9]/g, ''); }
+
+    function readUrlState() {
+      var sp;
+      try { sp = new URLSearchParams(location.search); } catch (err) { return null; }
+      if (!URL_KEYS.some(function (k) { return sp.has(k); })) return null;
+      var out = { band: '', cat: '', size: '', label: '', special: '', query: String(sp.get('q') || ''), page: Math.max(1, parseInt(sp.get('page'), 10) || 1) };
+      var size = SIZE_ALIAS[slug(sp.get('size'))];
+      var cat = CAT_ALIAS[slug(sp.get('cat'))];
+      var band = slug(sp.get('band')), label = slug(sp.get('label')), special = SPECIAL_ALIAS[slug(sp.get('special'))];
+      if (size) { out.cat = 'vinyl'; out.size = size; }
+      else if (cat) out.cat = cat;
+      else if (band) { bands.some(function (b) { if (slug(b) === band) { out.band = b; return true; } return false; }); }
+      else if (label) { LABELS.some(function (l) { if (slug(l) === label) { out.label = l; return true; } return false; }); }
+      else if (special) out.special = special;
+      return out;
+    }
+
+    function writeUrl() {
+      try {
+        var sp = new URLSearchParams(location.search);
+        URL_KEYS.forEach(function (k) { sp.delete(k); });
+        if (st.size) sp.set('size', st.size); else if (st.cat) sp.set('cat', st.cat);
+        if (st.band) sp.set('band', st.band);
+        if (st.label) sp.set('label', st.label);
+        if (st.special) sp.set('special', st.special);
+        if (st.query.trim()) sp.set('q', st.query.trim());
+        if (st.page > 1) sp.set('page', String(st.page));
+        var qs = sp.toString();
+        history.replaceState(history.state, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+      } catch (err) { /* address bar left as it is */ }
+    }
+
     function render() {
       var q = norm(st.query);
       var filtered = items.filter(function (p) { return matches(p, q); });
@@ -397,6 +438,7 @@
         var active = list.querySelector('[aria-current="true"]:not([data-zs-viewall])');
         all.setAttribute('aria-current', active ? 'false' : 'true');
       });
+      writeUrl();
     }
 
     function setFilter(next) {
@@ -483,6 +525,12 @@
       setTimeout(function () { window.scrollTo(0, y); }, 0);
       setTimeout(function () { window.scrollTo(0, y); }, 400); // again once fonts and images settle
     } else {
+      var fromUrl = readUrlState();
+      if (fromUrl) {
+        ['band', 'cat', 'size', 'label', 'special', 'query'].forEach(function (k) { st[k] = fromUrl[k] || ''; });
+        st.page = fromUrl.page;
+        search.value = st.query;
+      }
       render();
     }
   }
