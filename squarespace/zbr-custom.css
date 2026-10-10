@@ -732,3 +732,10 @@ body.zbr-guestbook p.zbr-gb-back a:hover{ color:#19A800 !important; }
 @media (max-width:900px){
   html body article.hentry .sqs-block-product.product-block .product-purchase-controls-wrapper{ flex-direction:row !important; flex-wrap:nowrap !important; justify-content:flex-end !important; align-items:flex-end !important; gap:12px; }
 }
+
+/* product blocks in news posts, phones & tablets: the Variant label + dropdown are right aligned too, so the whole purchase group sits on the right */
+@media (max-width:900px){
+  html body article.hentry .sqs-block-product.product-block .product-variants{ text-align:right !important; }
+  html body article.hentry .sqs-block-product.product-block .product-variants label{ text-align:right !important; }
+  html body article.hentry .sqs-block-product.product-block .product-variants .variant-dropdown{ margin-left:auto !important; }
+}
