@@ -760,3 +760,6 @@ html body #page article.hentry .special-content .sqs-block{ padding-bottom:0 !im
 
 /* Guestbook and Mailing List sidebar boxes: body copy centered */
 .zbr-widget.zbr-w-guestbook p, .zbr-widget.zbr-w-mailing p{ text-align:center !important; }
+
+/* product blocks in news posts: qty/button to player gap = variant selector to qty/button gap (12px) */
+html body article.hentry .sqs-block-product .zbr-bcplayer{ margin-top:12px !important; }
