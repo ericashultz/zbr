@@ -376,6 +376,10 @@
       // headlines are plain text, not links: swap the link for its words
       a.parentNode.replaceChild(document.createTextNode(t), a);
     });
+    // the blue "News -- date" pill is a label, not a link: drop its address (the element stays, so the styling and checks above still work)
+    [].forEach.call(document.querySelectorAll('article.hentry .article-meta-top .date a'), function (a) {
+      a.removeAttribute('href');
+    });
     // "Read More" follows the redesign's rules: only text-only cards (no photo, slideshow or call-to-action link)
     // with more than 500 characters are shortened. The first 500 characters show, then "Read More" opens the rest.
     [].forEach.call(document.querySelectorAll('article.hentry'), function (art) {
