@@ -765,4 +765,4 @@ html body #page article.hentry .special-content .sqs-block{ padding-bottom:0 !im
 html body article.hentry .sqs-block-product .zbr-bcplayer{ margin-top:12px !important; }
 
 /* product page: variant selector -> "Quantity:" gap matches the qty/button -> player gap (24px) */
-body.view-item #productDetails .quantity-label{ margin-top:8px !important; }
+body.view-item #productDetails .quantity-label{ margin-top:7px !important; }
