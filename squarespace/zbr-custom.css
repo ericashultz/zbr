@@ -791,3 +791,8 @@ body.view-item #productDetails > .product-quantity-input .quantity-label{ displa
 
 /* news headlines are plain text: no pointer, no click even before the footer script swaps the link out */
 article.hentry .entry-title a{ pointer-events:none !important; cursor:default !important; text-decoration:none !important; }
+
+/* news: no purple shadow on headlines; the date pill is not clickable */
+body.collection-type-blog article.hentry h1.entry-title, body.collection-type-blog article.hentry h2.entry-title,
+body.collection-type-blog article.hentry .entry-title a{ text-shadow:none !important; }
+article.hentry .article-meta-top .date a{ pointer-events:none !important; cursor:default !important; }
