@@ -519,7 +519,7 @@
       if (!tile) return;
       try {
         sessionStorage.setItem(STATE_KEY, JSON.stringify({
-          t: Date.now(), y: window.pageYOffset,
+          t: Date.now(), y: window.pageYOffset, path: location.pathname,
           band: st.band, cat: st.cat, size: st.size, label: st.label, special: st.special, query: st.query, page: st.page
         }));
       } catch (err) { /* no storage: back link just lands on the first page */ }
