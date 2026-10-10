@@ -769,3 +769,6 @@ body.view-item #productDetails .quantity-label{ margin-top:7px !important; }
 
 /* sidebar boxes: two call-to-action links in a row sit closer together (14px gap -> ~6px) */
 .zbr-widget p:has(> a.zbr-cta) + p:has(> a.zbr-cta){ margin-top:-8px !important; }
+
+/* sidebar boxes that end with a CTA link: more room between the link and the frame */
+.zbr-widget:has(> p:last-child > a.zbr-cta){ padding-bottom:18px !important; }
