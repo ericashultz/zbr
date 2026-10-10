@@ -76,7 +76,7 @@
           box.className = 'zbr-ml-thanks';
           box.innerHTML = '<h3>Thank you for signing up!</h3><p>You are on the list. Watch your inbox for news and releases.</p>';
           document.body.classList.add('zbr-ml-done');
-          (document.querySelector('article.hentry') || document.body).appendChild(box);
+          document.body.appendChild(box);
           return;
         }
       }

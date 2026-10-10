@@ -708,3 +708,7 @@ html body.zbr-embed.zbr-ml-done .sqs-block-newsletter, html body.zbr-embed.zbr-m
 html body.zbr-embed .zbr-ml-thanks{ text-align:center; padding:10px 0; }
 html body.zbr-embed .zbr-ml-thanks h3{ margin:0 0 12px !important; padding:0 !important; font:bold 18px/1.3 "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-transform:none !important; letter-spacing:0 !important; }
 html body.zbr-embed .zbr-ml-thanks p{ margin:0 !important; padding:0 !important; font:14px/1.5 Arial,sans-serif !important; color:#fff !important; }
+
+/* mailing list pop-up, round 6: the thank-you fills the whole frame itself, whatever else the page is doing */
+html:has(> body.zbr-ml-done), html body.zbr-embed.zbr-ml-done{ overflow:hidden !important; }
+html body.zbr-embed .zbr-ml-thanks{ position:fixed !important; inset:0 !important; z-index:2147483000 !important; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; box-sizing:border-box !important; padding:24px 28px 70px !important; background:#000 !important; text-align:center !important; }
