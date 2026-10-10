@@ -819,3 +819,9 @@ article.hentry .sqs-html-content p:has(> a.zbr-cta) + p:has(> a.zbr-cta){ displa
 
 /* CTA rows inside the post body: stronger than the template's full-width block rules */
 html body article.hentry .zbr-cta-row > .sqs-block.sqs-block-button{ width:max-content !important; max-width:max-content !important; min-width:0 !important; flex:0 0 auto !important; }
+
+/* CTA rows: every button starts at the same line (no stray margins or padding on the items) */
+html body article.hentry .zbr-cta-row{ align-items:flex-start !important; }
+html body article.hentry .zbr-cta-row > .sqs-block.sqs-block-button{ align-self:flex-start !important; margin-top:0 !important; padding-top:0 !important; margin-bottom:8px !important; }
+html body article.hentry .zbr-cta-row .sqs-block-content, html body article.hentry .zbr-cta-row [class*="sqs-block-button-container"]{ margin:0 !important; padding:0 !important; min-height:0 !important; }
+html body article.hentry .zbr-cta-row a{ margin:0 !important; }
