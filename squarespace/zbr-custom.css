@@ -796,3 +796,9 @@ article.hentry .entry-title a{ pointer-events:none !important; cursor:default !i
 body.collection-type-blog article.hentry h1.entry-title, body.collection-type-blog article.hentry h2.entry-title,
 body.collection-type-blog article.hentry .entry-title a{ text-shadow:none !important; }
 article.hentry .article-meta-top .date a{ pointer-events:none !important; cursor:default !important; }
+
+/* label pills (Releases, Premieres, Music Video...) use the same pixel font as the "News -- date" pill */
+html body article.hentry .article-meta-top .zbr-pill, html body .zbr-pill{
+  font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; line-height:normal !important;
+  color:#fff !important; letter-spacing:0 !important; text-transform:none !important; text-decoration:none !important;
+}
