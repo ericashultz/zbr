@@ -816,3 +816,6 @@ article.hentry .zbr-cta-row.zbr-cta-gap{ margin-top:14px; }
 article.hentry .zbr-cta-row + .zbr-bcplayer{ margin-top:18px !important; }
 article.hentry .sqs-html-content p:has(> a.zbr-cta):has(+ p > a.zbr-cta),
 article.hentry .sqs-html-content p:has(> a.zbr-cta) + p:has(> a.zbr-cta){ display:inline-block; margin-right:18px; }
+
+/* CTA rows inside the post body: stronger than the template's full-width block rules */
+html body article.hentry .zbr-cta-row > .sqs-block.sqs-block-button{ width:max-content !important; max-width:max-content !important; min-width:0 !important; flex:0 0 auto !important; }
