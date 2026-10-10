@@ -766,3 +766,6 @@ html body article.hentry .sqs-block-product .zbr-bcplayer{ margin-top:12px !impo
 
 /* product page: variant selector -> "Quantity:" gap matches the qty/button -> player gap (24px) */
 body.view-item #productDetails .quantity-label{ margin-top:7px !important; }
+
+/* sidebar boxes: two call-to-action links in a row sit closer together (14px gap -> ~6px) */
+.zbr-widget p:has(> a.zbr-cta) + p:has(> a.zbr-cta){ margin-top:-8px !important; }
