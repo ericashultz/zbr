@@ -742,3 +742,8 @@ article.hentry .sqs-gallery-thumbnails{ padding-bottom:0 !important; margin-bott
 html body #page article.hentry .special-content{ margin-bottom:0 !important; }
 html body #page article.hentry .special-content .sqs-block.sqs-block-gallery{ padding-bottom:0 !important; margin-bottom:0 !important; }
 html body #page article.hentry .special-content + .post .body.entry-content .sqs-block:first-child{ padding-top:16px !important; margin-top:0 !important; }
+
+/* desktop: more room under the tag pill (phones already get ~20px from the block padding) */
+@media (min-width:901px){
+  html body article.hentry .article-meta-top{ margin-bottom:20px !important; }
+}
