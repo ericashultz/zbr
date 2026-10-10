@@ -712,3 +712,8 @@ html body.zbr-embed .zbr-ml-thanks p{ margin:0 !important; padding:0 !important;
 /* mailing list pop-up, round 6: the thank-you fills the whole frame itself, whatever else the page is doing */
 html:has(> body.zbr-ml-done), html body.zbr-embed.zbr-ml-done{ overflow:hidden !important; }
 html body.zbr-embed .zbr-ml-thanks{ position:fixed !important; inset:0 !important; z-index:2147483000 !important; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; box-sizing:border-box !important; padding:24px 28px 70px !important; background:#000 !important; text-align:center !important; }
+
+/* guestbook: "Back to News" link at the top, same look as the product page back link */
+body.zbr-guestbook article.hentry p.zbr-gb-back{ margin:0 0 16px !important; padding:0 !important; text-align:left !important; }
+body.zbr-guestbook article.hentry p.zbr-gb-back a, body.zbr-guestbook article.hentry p.zbr-gb-back a:visited{ font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline; text-transform:none !important; letter-spacing:0 !important; background:none !important; }
+body.zbr-guestbook article.hentry p.zbr-gb-back a:hover{ color:#19A800 !important; }

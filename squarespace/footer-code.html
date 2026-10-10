@@ -61,6 +61,63 @@
   // Guestbook page (a single blog post at /guestbook/...): switch on its special styling
   if (/^\/guestbook(\/|$)/.test(location.pathname)) document.body.classList.add('zbr-guestbook');
 
+  // News pages remember where the visitor was (page and scroll position), so the Guestbook can link back to it
+  (function () {
+    var cl = document.body.classList, here = location.pathname + location.search;
+    if (cl.contains('view-list') && cl.contains('collection-type-blog') && !/^\/(guestbook|news-sidebar|mailing-list)(\/|$)/.test(location.pathname)) {
+      var allowSave = true, timer;
+      var save = function () {
+        if (!allowSave) return;
+        try { sessionStorage.setItem('zbr-news-pos', JSON.stringify({ u: here, y: Math.round(window.pageYOffset) })); } catch (e) {}
+      };
+      var pos = null;
+      try {
+        if (sessionStorage.getItem('zbr-news-restore')) {
+          sessionStorage.removeItem('zbr-news-restore');
+          pos = JSON.parse(sessionStorage.getItem('zbr-news-pos') || 'null');
+        }
+      } catch (e) {}
+      if (pos && pos.u === here && pos.y > 0) {
+        // the page is still being built (cards, sidebar, pager), so keep nudging to the saved spot until it holds
+        allowSave = false;
+        var tries = 0, stop = function () { allowSave = true; };
+        ['wheel', 'touchstart', 'keydown'].forEach(function (ev) { window.addEventListener(ev, stop, { once: true, passive: true }); });
+        var nudge = function () {
+          if (allowSave) return;
+          window.scrollTo(0, pos.y);
+          if (++tries < 15) setTimeout(nudge, 200); else allowSave = true;
+        };
+        nudge();
+      }
+      window.addEventListener('scroll', function () { clearTimeout(timer); timer = setTimeout(save, 150); }, { passive: true });
+      window.addEventListener('pagehide', save);
+      save();
+    }
+    // Guestbook: "Back to News" at the top returns to the saved news page and scroll position
+    if (/^\/guestbook(\/|$)/.test(location.pathname)) {
+      var art = document.querySelector('article.hentry');
+      if (!art) return;
+      var href = '', saved = null;
+      try { saved = JSON.parse(sessionStorage.getItem('zbr-news-pos') || 'null'); } catch (e) {}
+      if (saved && saved.u) href = saved.u;
+      if (!href) {
+        [].forEach.call(document.querySelectorAll('nav.main-nav ul li a'), function (l) {
+          if (!href && /^news$/i.test(l.textContent.trim())) href = l.getAttribute('href');
+        });
+      }
+      var wrap = document.createElement('p');
+      wrap.className = 'zbr-gb-back';
+      var link = document.createElement('a');
+      link.href = href || '/';
+      link.innerHTML = '&laquo; Back to News';
+      link.addEventListener('click', function () {
+        try { sessionStorage.setItem('zbr-news-restore', '1'); } catch (e) {}
+      });
+      wrap.appendChild(link);
+      art.insertBefore(wrap, art.firstChild);
+    }
+  })();
+
   // Mailing list pop-up: "Join The Mailing List" opens a modal that shows the Newsletter block from the hidden /mailing-list page
   if (window.self !== window.top && /^\/mailing-list(\/|$)/.test(location.pathname)) {
     document.body.classList.add('zbr-embed');
