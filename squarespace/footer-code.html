@@ -114,7 +114,7 @@
         try { sessionStorage.setItem('zbr-news-restore', '1'); } catch (e) {}
       });
       wrap.appendChild(link);
-      art.insertBefore(wrap, art.firstChild);
+      art.parentNode.insertBefore(wrap, art);
     }
   })();
 
