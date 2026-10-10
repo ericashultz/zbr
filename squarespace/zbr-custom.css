@@ -697,3 +697,8 @@ html body.zbr-embed .sqs-block-newsletter h1, html body.zbr-embed .sqs-block-new
 html body.zbr-embed .sqs-block-newsletter p, html body.zbr-embed .newsletter-form-header-description, html body.zbr-embed .newsletter-form-header-description *{ margin:0 0 8px !important; }
 html body.zbr-embed .newsletter-form-footnote, html body.zbr-embed .newsletter-form-footnote *{ margin-top:10px !important; }
 html body.zbr-embed .sqs-block-newsletter button, html body.zbr-embed .sqs-block-newsletter input[type=submit], html body.zbr-embed .newsletter-form-button{ max-width:150px !important; width:150px !important; }
+
+/* mailing list pop-up, round 4: center the content block inside the frame (vertically it was stuck to the top) */
+html body.zbr-embed #site{ min-height:100vh !important; display:flex !important; flex-direction:column !important; justify-content:center !important; box-sizing:border-box !important; }
+html body.zbr-embed #canvas{ flex:0 0 auto !important; width:100% !important; box-sizing:border-box !important; }
+html body.zbr-embed article.hentry{ padding:22px 22px !important; box-sizing:border-box !important; margin:0 auto !important; }
