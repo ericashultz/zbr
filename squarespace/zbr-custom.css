@@ -788,3 +788,6 @@ body.view-item #productDetails > .product-variants .variant-option{ margin:0 !im
 body.view-item #productDetails > .product-variants .variant-option-title{ display:none !important; }
 body.view-item #productDetails > .product-quantity-input{ display:flex !important; align-items:center; }
 body.view-item #productDetails > .product-quantity-input .quantity-label{ display:none !important; }
+
+/* news headlines are plain text: no pointer, no click even before the footer script swaps the link out */
+article.hentry .entry-title a{ pointer-events:none !important; cursor:default !important; text-decoration:none !important; }
