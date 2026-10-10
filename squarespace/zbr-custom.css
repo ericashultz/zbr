@@ -757,3 +757,6 @@ html body #page article.hentry .special-content + .post .body.entry-content .sqs
 html body #page article.hentry :is(.sqs-block-website,.sqs-block-embed,.sqs-block-image,.sqs-block-video,.sqs-block-gallery,.sqs-block-code,.sqs-block-product):has(+ .sqs-block-html){ padding-bottom:0 !important; margin-bottom:0 !important; }
 html body #page article.hentry :is(.sqs-block-website,.sqs-block-embed,.sqs-block-image,.sqs-block-video,.sqs-block-gallery,.sqs-block-code,.sqs-block-product) + .sqs-block-html{ padding-top:16px !important; }
 html body #page article.hentry .special-content .sqs-block{ padding-bottom:0 !important; margin-bottom:0 !important; }
+
+/* Guestbook and Mailing List sidebar boxes: body copy centered */
+.zbr-widget.zbr-w-guestbook p, .zbr-widget.zbr-w-mailing p{ text-align:center !important; }
