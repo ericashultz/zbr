@@ -56,9 +56,30 @@
       target.style.setProperty('margin-top', Math.max(-160, cur + (14 - gap)) + 'px', 'important'); // can be negative when the space above comes from the block before it
     });
   };
-  if (document.readyState === 'complete') evenCtaSpacing();
-  else window.addEventListener('load', function () { evenCtaSpacing(); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(evenCtaSpacing, 300); });
+  // buttons that share a line start at exactly the same height, whatever spacing the template put on them
+  var alignCtaRows = function () {
+    [].forEach.call(document.querySelectorAll('.zbr-cta-row'), function (row) {
+      var items = [].slice.call(row.children);
+      items.forEach(function (it) { it.style.removeProperty('margin-top'); });
+      var tops = items.map(function (it) { var a = it.querySelector('a'); return a ? a.getBoundingClientRect().top : null; });
+      var known = tops.filter(function (t) { return t !== null; });
+      if (known.length < 2) return;
+      var lineTop = Math.min.apply(null, known);
+      var sameLine = known.filter(function (t) { return t - lineTop < 30; });   // a wrapped button (next line) is left alone
+      var target = Math.max.apply(null, sameLine);
+      items.forEach(function (it, i) {
+        if (tops[i] === null || tops[i] - lineTop >= 30) return;
+        var d = target - tops[i];
+        if (d > 0.5) it.style.setProperty('margin-top', d + 'px', 'important');
+      });
+    });
+  };
+  var evenAll = function () { evenCtaSpacing(); alignCtaRows(); };
+  var alignTimer;
+  window.addEventListener('resize', function () { clearTimeout(alignTimer); alignTimer = setTimeout(alignCtaRows, 150); });
+  if (document.readyState === 'complete') evenAll();
+  else window.addEventListener('load', function () { evenAll(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(evenAll, 300); });
 
   // Guestbook page (a single blog post at /guestbook/...): switch on its special styling
   if (/^\/guestbook(\/|$)/.test(location.pathname)) document.body.classList.add('zbr-guestbook');
