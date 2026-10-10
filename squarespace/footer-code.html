@@ -583,17 +583,21 @@
           // phones and tablets: Last Copy / Reviews / Features / Johnny's go above the page numbers, right under the last post
           // (only Quick Links, Guestbook and Mailing List stay below them); wide screens keep them in the sidebar
           var placeBoxes = function () {
-            if (window.matchMedia('(max-width:900px)').matches) {
-              var before = main.querySelector('nav.pagination');
-              var host = before ? before.parentNode : main;
-              postBoxes.forEach(function (b) { host.insertBefore(b, before); });
-            } else {
-              var q = side.querySelector('.zbr-w-quick');
-              var ref = q ? q.nextSibling : null;
-              postBoxes.forEach(function (b) { side.insertBefore(b, ref); });
-            }
+            try {
+              if (window.matchMedia('(max-width:900px)').matches) {
+                var before = main.querySelector('nav.pagination');
+                var host = before ? before.parentNode : main;
+                postBoxes.forEach(function (b) { host.insertBefore(b, before); });
+              } else {
+                var q = side.querySelector('.zbr-w-quick');
+                var host2 = q && q.parentNode ? q.parentNode : side;
+                var ref = q ? q.nextSibling : null;
+                while (ref && postBoxes.indexOf(ref) > -1) ref = ref.nextSibling;
+                postBoxes.forEach(function (b) { host2.insertBefore(b, ref); });
+              }
+            } catch (e) {}
           };
-          placeBoxes();
+          if (window.matchMedia('(max-width:900px)').matches) placeBoxes();
           var placeTimer;
           window.addEventListener('resize', function () { clearTimeout(placeTimer); placeTimer = setTimeout(placeBoxes, 150); });
           // wide screens: centre Newer / Older under the whole page, not just the posts column
@@ -626,7 +630,7 @@
             side.insertBefore(makeBar('zbr-mq-bottom'), side.firstChild);
           }
         })
-        .catch(function () { showWidgetsAsCards(); });
+        .catch(function () { if (!document.getElementById('zbr-news-layout')) showWidgetsAsCards(); });
     } else {
       showWidgetsAsCards();
     }
