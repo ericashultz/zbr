@@ -803,11 +803,11 @@ html body article.hentry .article-meta-top .zbr-pill, html body .zbr-pill{
   color:#fff !important; letter-spacing:0 !important; text-transform:none !important; text-decoration:none !important;
 }
 
-/* linked words inside post copy: orange, like the guestbook box's frame */
+/* linked words inside post copy: the same yellow as the CTA links, green on hover */
 article.hentry .sqs-html-content a:not(.zbr-cta):not(.zbr-readmore):not([class*="sqs-block-button"]),
-.zbr-widget p a:not(.zbr-cta):not(.zbr-wlink):not(.zbr-gb-btn){ color:#FF9100 !important; }
+.zbr-widget p a:not(.zbr-cta):not(.zbr-wlink):not(.zbr-gb-btn){ color:#FFEE00 !important; }
 article.hentry .sqs-html-content a:not(.zbr-cta):not(.zbr-readmore):not([class*="sqs-block-button"]):hover,
-.zbr-widget p a:not(.zbr-cta):not(.zbr-wlink):not(.zbr-gb-btn):hover{ color:#FFEE00 !important; background:none; }
+.zbr-widget p a:not(.zbr-cta):not(.zbr-wlink):not(.zbr-gb-btn):hover{ color:#19A800 !important; background:none !important; }
 
 /* two or more call-to-action links in a row share one line */
 article.hentry .zbr-cta-row{ display:flex; flex-wrap:wrap; align-items:flex-start; column-gap:18px; }
