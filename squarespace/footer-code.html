@@ -62,7 +62,27 @@
   if (/^\/guestbook(\/|$)/.test(location.pathname)) document.body.classList.add('zbr-guestbook');
 
   // Mailing list pop-up: "Join The Mailing List" opens a modal that shows the Newsletter block from the hidden /mailing-list page
-  if (window.self !== window.top && /^\/mailing-list(\/|$)/.test(location.pathname)) document.body.classList.add('zbr-embed');
+  if (window.self !== window.top && /^\/mailing-list(\/|$)/.test(location.pathname)) {
+    document.body.classList.add('zbr-embed');
+    // once Squarespace shows its own confirmation, swap the whole form for our message
+    var thanked = false;
+    var watchThanks = function () {
+      if (thanked) return;
+      var els = document.querySelectorAll('.form-submission-text, .form-submission-html');
+      for (var i = 0; i < els.length; i++) {
+        if (els[i].offsetParent !== null && els[i].textContent.replace(/\s+/g, '') !== '') {
+          thanked = true;
+          var box = document.createElement('div');
+          box.className = 'zbr-ml-thanks';
+          box.innerHTML = '<h3>Thank you for signing up!</h3><p>You are on the list. Watch your inbox for news and releases.</p>';
+          document.body.classList.add('zbr-ml-done');
+          (document.querySelector('article.hentry') || document.body).appendChild(box);
+          return;
+        }
+      }
+    };
+    new MutationObserver(watchThanks).observe(document.body, { subtree: true, childList: true, attributes: true, characterData: true });
+  }
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a.zbr-ml-btn');
     if (!a) return;
