@@ -1104,3 +1104,9 @@ html body .search-result{ position:relative !important; }
 html body .search-result .sqs-search-container-item, html body .search-result .sqs-content, html body .search-result .sqs-main-content, html body .search-result .sqs-title{ position:static !important; }
 html body .search-result .zbr-sr-page{ position:absolute !important; top:13px; right:12px; line-height:18px !important; margin:0 !important; font:11px "Fixedsys Excelsior","Courier New",monospace !important; color:#d9d9d9 !important; white-space:nowrap; }
 html body .search-result:has(.zbr-sr-page) .sqs-title{ padding-right:76px !important; }
+
+/* no focus rings anywhere (the dotted box around a clicked link or button, and the blue ring on form fields) */
+html body *:focus, html body *:focus-visible, html body a:focus, html body button:focus, html body input:focus, html body select:focus, html body textarea:focus,
+html body [tabindex]:focus, html body [role="link"]:focus, html body [role="button"]:focus{ outline:0 none !important; outline-offset:0 !important; }
+html body button::-moz-focus-inner, html body input::-moz-focus-inner, html body a::-moz-focus-inner{ border:0 !important; }
+html body *{ -webkit-tap-highlight-color:transparent; }
