@@ -1098,3 +1098,10 @@ html body .search-result *{ float:none !important; max-width:none !important; ma
 html body .search-result .sqs-search-container-item::before, html body .search-result .sqs-search-container-item::after,
 html body .search-result .sqs-search-container-item > .sqs-content::before, html body .search-result .sqs-search-container-item > .sqs-content::after{ content:none !important; display:none !important; }
 html body .search-result .sqs-content, html body .search-result .sqs-content > span{ width:auto !important; }
+
+/* search results on templates that wrap the title and text in .sqs-main-content (it came out about 76% of the frame wide) */
+html body .search-result .sqs-main-content{ width:100% !important; max-width:none !important; min-width:0 !important; float:none !important; margin:0 !important; padding:0 !important; box-sizing:border-box !important; text-align:left !important; }
+html body .search-result .sqs-search-container-item > .sqs-main-content{ display:grid !important; grid-template-columns:minmax(0,1fr) auto; column-gap:0; align-items:baseline; }
+html body .search-result .sqs-search-container-item > .sqs-main-content > .sqs-content{ grid-column:1 / -1; }
+html body .search-result .sqs-search-container-item > .sqs-main-content > .sqs-title{ grid-column:1; grid-row:1; }
+html body .search-result .sqs-main-content > .zbr-sr-page{ grid-column:2; grid-row:1; }
