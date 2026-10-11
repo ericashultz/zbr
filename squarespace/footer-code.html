@@ -302,6 +302,8 @@
       }
     };
     document.addEventListener('click', function (e) {
+      if (e.__zbrGb) return;   // handled once per click, even if this script were on the page twice
+      e.__zbrGb = true;
       var t = e.target.closest ? e.target.closest('.zbr-replies-toggle a') : null;
       if (t) {
         e.preventDefault();
@@ -317,7 +319,7 @@
         while (n && !(n.classList.contains('comment') && n.getAttribute('data-depth') === '0')) n = n.previousElementSibling;
         if (n) { window.__zbrExpanded = window.__zbrExpanded || {}; window.__zbrExpanded[n.getAttribute('data-commentid')] = true; }
       }
-    });
+    }, true);   // capture phase: the comments widget cannot swallow the click first
     var gbTimer;
     var gbSchedule = function () { clearTimeout(gbTimer); gbTimer = setTimeout(tidyGuestbook, 120); };
     new MutationObserver(gbSchedule).observe(document.body, { childList: true, subtree: true, characterData: true });
