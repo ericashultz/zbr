@@ -1053,15 +1053,21 @@ body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .li
   body.view-item #productDetails > .product-variants{ flex:0 0 100% !important; align-self:flex-start !important; }
 }
 
-/* products inside posts: the SOLD OUT tag sits 10px under the picture's frame (it was touching it) */
-html body article.hentry .sqs-block-product .sqs-product-mark-wrapper{ display:block !important; padding-top:10px !important; }
+/* products inside posts: the SOLD OUT tag has the same room above (picture frame) and below (headline) as the headline has above the price */
+html body article.hentry .sqs-block-product .sqs-product-mark-wrapper{ display:block !important; padding-top:18px !important; }
+html body article.hentry .sqs-block-product .product-mark{ margin-bottom:0 !important; }
+html body article.hentry .sqs-block-product .image-container:has(.product-mark){ margin-bottom:0 !important; }
 
-/* Bandcamp player frame hugs the player (the small player is 700px wide at most) */
-.zbr-bcplayer{ max-width:704px; }
+/* Bandcamp player frame hugs the player (the small player is 700px wide at most; 704 = 700 + the 2px frame on each side) */
+.zbr-bcplayer{ max-width:704px; box-sizing:border-box; }
 
 /* a sold out product's Add to Cart is switched off (the footer script marks it) */
 .zbr-disabled, .zbr-disabled *{ pointer-events:none !important; }
 .zbr-disabled{ opacity:.45 !important; cursor:not-allowed !important; filter:grayscale(1); }
+.sqs-block-product .product-variants select:disabled, #productDetails .product-variants select:disabled{ opacity:.45; cursor:not-allowed; }
 
 /* the comment box under a post is only for the Guestbook */
 body:not(.zbr-guestbook) section.comments-wrapper, body:not(.zbr-guestbook) #comments, body:not(.zbr-guestbook) .squarespace-comments{ display:none !important; }
+
+/* posts: no Newer / Older links under them */
+body.collection-type-blog nav.item.pagination{ display:none !important; }
