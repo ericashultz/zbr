@@ -27,7 +27,7 @@ To copy a file to the clipboard: `pbcopy < /Users/eshultz/zbr/squarespace/<file>
 The CSS currently loads the pixel font from `zbr-rho.vercel.app`. To make the live site fully independent of Vercel:
 
 - [ ] Design > Custom CSS > **Manage Custom Files** > upload `assets/fonts/FixedsysExcelsior.woff2` and `assets/fonts/FixedsysExcelsior.woff`.
-- [ ] In `zbr-custom.css`, lines 141 and 142 are two `@font-face` rules. Replace each `https://zbr-rho.vercel.app/assets/fonts/FixedsysExcelsior.woff2` with `/s/FixedsysExcelsior.woff2` and each `.woff` with `/s/FixedsysExcelsior.woff` (use whatever your uploaded address is if it differs). Do the same on the duplicate; it is already done there if you replaced it earlier.
+- [ ] In `zbr-custom.css` (then re-run `python3 build-css.py`), the two `@font-face` rules near the top Replace each `https://zbr-rho.vercel.app/assets/fonts/FixedsysExcelsior.woff2` with `/s/FixedsysExcelsior.woff2` and each `.woff` with `/s/FixedsysExcelsior.woff` (use whatever your uploaded address is if it differs). Do the same on the duplicate; it is already done there if you replaced it earlier.
 
 ## 2. Create the pages (all **Not Linked** until step 5)
 
@@ -83,7 +83,7 @@ On the live site, set the main menu to the same order as the duplicate:
 
 ## 6. Go live: paste the Custom CSS
 
-- [ ] `pbcopy < /Users/eshultz/zbr/squarespace/zbr-custom.css` then paste into Pages > Custom Code (replace everything). Save.
+- [ ] `pbcopy < /Users/eshultz/zbr/squarespace/zbr-custom.min.css` then paste into Pages > Custom Code (replace everything). Save. (Use the `.min.css` file: the Custom CSS box drops whatever goes past its size limit, and the readable `zbr-custom.css` is now too long. Run `python3 build-css.py` after editing `zbr-custom.css`.)
 - [ ] Hard refresh the live site (Cmd+Shift+R) and open it on your phone too.
 
 ## 7. Test (desktop and phone)
@@ -114,7 +114,7 @@ On the live site, set the main menu to the same order as the duplicate:
 
 | File | Where it goes |
 |---|---|
-| `zbr-custom.css` | Pages > Custom Code (whole file) |
+| `zbr-custom.min.css` | Pages > Custom Code (whole file). Built from `zbr-custom.css` (the readable source) by `build-css.py` |
 | `footer-code.html` | Settings > Advanced > Code Injection > Footer |
 | `store-grid-inline.html` | Code Block on the Canada/Intl Store page |
 | `news-sidebar.html` | Code Block on the News Sidebar page |
