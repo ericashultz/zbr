@@ -95,6 +95,17 @@
     '#zbr-store .zs-pagenav .zs-gap{display:inline-block;width:20px;text-align:center;color:#d9d9d9;font:bold 13px "Fixedsys Excelsior","Courier New",monospace}' +
     // Squarespace caps normal pages at 710px; let the store page use the full frame like the redesign (4 columns)
     'body.zbr-store-page #page{max-width:none!important;margin-left:0!important;margin-right:0!important;padding-bottom:24px!important}' +
+    // phones & tablets: the search bar stands on its own above a collapsed "Filters" bar; the rest of the filters open inside it
+    '#zbr-store .zs-filters-toggle{display:none}' +
+    '@media (max-width:' + MOBILE_MAX + 'px){' +
+      '#zbr-store .zs-sidebar{border:0;background:none;padding:0}' +
+      '#zbr-store .zs-search{margin:0 0 12px}' +
+      '#zbr-store .zs-filters-toggle{display:block;width:100%;text-align:left;background:#C0DEFF;color:#000;border:2px outset #fff;font:bold 14px "Fixedsys Excelsior","Courier New",monospace;margin:0;padding:8px 10px}' +
+      '#zbr-store .zs-filters-toggle .zs-arrow{display:inline;float:right;transition:transform .15s ease}' +
+      '#zbr-store .zs-filters-toggle[aria-expanded="true"] .zs-arrow{transform:rotate(180deg)}' +
+      '#zbr-store .zs-filters{display:none;background:#000;border:3px groove #C0DEFF;padding:10px;margin-top:8px}' +
+      '#zbr-store .zs-sidebar.zs-fopen .zs-filters{display:block}' +
+    '}' +
     '@media (max-width:' + MOBILE_MAX + 'px){#zbr-store{padding:4px 12px 12px}#zbr-store .zs-sidebar{flex:1 1 100%;width:100%}#zbr-store .zs-pagenav button{width:32px;margin:0 2px}#zbr-store .zs-pagenav .zs-gap{width:16px}}';
 
   function esc(s) {
@@ -308,13 +319,16 @@
       '<div class="zs-layout">' +
         '<aside class="zs-sidebar">' +
           '<label class="zs-search">Search<input type="text" placeholder="Band or release..." autocomplete="off"></label>' +
-          '<div class="zs-quick">' +
-            '<button type="button" data-zs-special="new">New Items</button>' +
-            '<button type="button" data-zs-special="steals">Steals</button>' +
+          '<button type="button" class="zs-filters-toggle" data-zs-fmenu aria-expanded="false">Filters<span class="zs-fcount"></span> <span class="zs-arrow">&#9660;</span></button>' +
+          '<div class="zs-filters">' +
+            '<div class="zs-quick">' +
+              '<button type="button" data-zs-special="new">New Items</button>' +
+              '<button type="button" data-zs-special="steals">Steals</button>' +
+            '</div>' +
+            section('Bands A-Z', bandsHtml) +
+            section('Merch', merchHtml) +
+            section('Labels', labelsHtml) +
           '</div>' +
-          section('Bands A-Z', bandsHtml) +
-          section('Merch', merchHtml) +
-          section('Labels', labelsHtml) +
         '</aside>' +
         '<div class="zs-main"><div class="zs-grid"></div><nav class="zs-pagenav" aria-label="Store pages"></nav></div>' +
       '</div>';
@@ -452,7 +466,18 @@
         var active = list.querySelector('[aria-current="true"]:not([data-zs-viewall])');
         all.setAttribute('aria-current', active ? 'false' : 'true');
       });
+      var fcount = root.querySelector('.zs-fcount');
+      if (fcount) {
+        var active = (st.band ? 1 : 0) + (st.label ? 1 : 0) + (st.special ? 1 : 0) + (st.cat || st.size ? 1 : 0);
+        fcount.textContent = active ? ' (' + active + ')' : '';
+      }
       writeUrl();
+    }
+
+    function closeFilters() {
+      var sb = root.querySelector('.zs-sidebar'), tg = root.querySelector('[data-zs-fmenu]');
+      if (sb) sb.classList.remove('zs-fopen');
+      if (tg) tg.setAttribute('aria-expanded', 'false');
     }
 
     function setFilter(next) {
@@ -461,6 +486,11 @@
       st.label = next.label || ''; st.special = next.special || '';
       st.page = 1;
       render();
+      if (mq.matches) {   // phones: the Filters menu closes and the results are right there
+        closeFilters();
+        var gtop = root.querySelector('.zs-main').getBoundingClientRect().top + window.pageYOffset - 12;
+        window.scrollTo(0, Math.max(0, gtop));
+      }
     }
 
     search.addEventListener('input', function () { st.query = search.value; st.page = 1; render(); });
@@ -469,7 +499,10 @@
       var t = e.target.closest('button');
       if (!t || !root.contains(t)) return;
 
-      if (t.hasAttribute('data-zs-toggle')) {
+      if (t.hasAttribute('data-zs-fmenu')) {
+        var open = t.closest('.zs-sidebar').classList.toggle('zs-fopen');
+        t.setAttribute('aria-expanded', open ? 'true' : 'false');
+      } else if (t.hasAttribute('data-zs-toggle')) {
         var list = t.nextElementSibling;
         var collapsed = list.classList.toggle('zs-collapsed');
         t.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
