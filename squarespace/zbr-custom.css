@@ -849,3 +849,6 @@ a.zbr-gb-btn, a.zbr-gb-btn:visited{ flex:0 0 auto !important; padding:6px 22px !
 /* Guestbook and Mailing List boxes: the room under the button equals the room above the copy and between copy and button
    (14px box gaps look like ~17px next to the copy's own line spacing, so the bottom gets 18px) */
 .zbr-widget.zbr-w-guestbook, .zbr-widget.zbr-w-mailing{ padding-bottom:18px !important; }
+
+/* sidebar box copy is white, same as the post body copy (it was a light grey, #d9d9d9) */
+.zbr-widget p, .zbr-widget p span, .zbr-widget p strong, .zbr-widget p em{ color:#fff !important; }
