@@ -829,3 +829,6 @@ html body article.hentry .zbr-cta-row a{ margin:0 !important; }
 /* news cards: a photo or carousel straight under the headline sits 12px below it (the block's own top padding is removed) */
 html body #page article.hentry .special-content .sqs-block:first-child,
 html body #page article.hentry .post .body .sqs-row:first-child .sqs-block:first-child:is(.sqs-block-gallery,.sqs-block-image,.sqs-block-video,.sqs-block-embed,.sqs-block-website){ padding-top:0 !important; }
+
+/* page-number arrows: drawn large enough that the arrow looks as tall as the digits next to it */
+.zbr-pg.zbr-pg-arrow{ font-size:19px; line-height:1; padding-bottom:3px; }
