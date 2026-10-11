@@ -251,6 +251,11 @@
       var count = root.querySelector('h3.comment-count');
       var list = root.querySelector('.comment-list');
       if (count && list && count.nextElementSibling !== list && list.parentNode) list.parentNode.insertBefore(count, list);
+      // an entry with no likes shows no "0 likes"
+      [].forEach.call(root.querySelectorAll('.likes'), function (el) {
+        var t = el.textContent.trim();
+        el.classList.toggle('zbr-no-likes', t === '' || /^0(\D|$)/.test(t));
+      });
       // gap between the intro text and the form: 24px
       var form = root.querySelector('textarea, .comment-input, .new-comment-area');
       var intro = [].slice.call(document.querySelectorAll('article.hentry .sqs-html-content p')).filter(function (p) {
@@ -265,7 +270,7 @@
     };
     var gbTimer;
     var gbSchedule = function () { clearTimeout(gbTimer); gbTimer = setTimeout(tidyGuestbook, 120); };
-    new MutationObserver(gbSchedule).observe(document.body, { childList: true, subtree: true });
+    new MutationObserver(gbSchedule).observe(document.body, { childList: true, subtree: true, characterData: true });
     window.addEventListener('load', gbSchedule);
     gbSchedule();
   }
