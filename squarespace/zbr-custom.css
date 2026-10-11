@@ -1000,4 +1000,4 @@ body.zbr-guestbook .squarespace-comments .comment-list .comment[data-depth="4"] 
 body.zbr-guestbook .squarespace-comments .comment-list .comment[data-depth="5"] .comment-header .user-info,
 body.zbr-guestbook .squarespace-comments .comment-list .comment[data-depth="6"] .comment-header .user-info{ min-width:min(215px,64%); }
 body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like,
-body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like-confirm{ transform:translateY(-3px); }
+body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like-confirm{ transform:translateY(-4px); }
