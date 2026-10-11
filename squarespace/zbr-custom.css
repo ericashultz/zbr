@@ -1046,3 +1046,9 @@ body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .li
 .search-result > .sqs-search-container-item > .sqs-content > .sqs-content{ grid-column:1 / -1; }
 .search-result .zbr-sr-page{ grid-column:2; grid-row:1; font:11px "Fixedsys Excelsior","Courier New",monospace; color:#d9d9d9; white-space:nowrap; }
 .search-result .sqs-title{ grid-column:1; grid-row:1; }
+
+/* product page on phones: the price gets its own line, the option menu the next, and quantity + Add to Cart share the one after */
+@media (max-width:700px){
+  body.view-item #productDetails > .product-price,
+  body.view-item #productDetails > .product-variants{ flex:0 0 100% !important; align-self:flex-start !important; }
+}
