@@ -794,7 +794,10 @@
   })();
 
   // News list: split each news post into cards, tidy titles, short previews with Read More, and the two-column layout
-  if (document.body.classList.contains('view-list') && document.body.classList.contains('collection-type-blog')) {
+  // (the news list, and a single news post opened on its own -- e.g. from the search results -- which is the same post with the same
+  // sections, so it gets the same cards and the same sidebar)
+  if ((document.body.classList.contains('view-list') || document.body.classList.contains('view-item')) && document.body.classList.contains('collection-type-blog') &&
+      window.self === window.top && !document.body.classList.contains('zbr-embed') && !/^\/(guestbook|news-sidebar|mailing-list)(\/|$)/.test(location.pathname)) {
     var isRule = function (el) { return el.classList.contains('sqs-block-horizontalrule'); };
     var fixLabel = function (t) { t = t.trim(); return /^premiers$/i.test(t) ? 'Premieres' : t; };   // corrects the common spelling slip
     // Bandcamp embeds (tall "large" players) become the slim player used everywhere else on the site
@@ -975,6 +978,7 @@
     [].forEach.call(document.querySelectorAll('article.hentry'), function (art) {
       var body = art.querySelector('.post > .body.entry-content');
       if (!body) return;
+      if (document.body.classList.contains('view-item')) return;   // a post opened on its own shows in full
       if (art.querySelector('.article-meta-top .date a')) return;   // "News -- date" posts (the first post of each page) always show in full
       if (art.querySelector('.special-content, .sqs-block-image, .sqs-block-button, .sqs-block-gallery, a.zbr-cta')) return;
       var texts = [].slice.call(body.querySelectorAll('.sqs-block-html'));
@@ -1237,63 +1241,5 @@
       showWidgetsAsCards();
     }
   }
-
-  // A single news post (for instance one opened from the search results): the same sidebar as the news list -- Quick Links, Guestbook
-  // and Mailing List -- beside the post on wide screens, below it on phones and tablets.
-  (function () {
-    var cl = document.body.classList;
-    if (!(cl.contains('view-item') && cl.contains('collection-type-blog'))) return;
-    if (cl.contains('zbr-embed') || window.self !== window.top) return;
-    if (/^\/(guestbook|news-sidebar|mailing-list)(\/|$)/.test(location.pathname)) return;
-    var page = document.getElementById('page');
-    if (!page || document.getElementById('zbr-news-layout') || !page.querySelector('article.hentry')) return;
-    fetch('/news-sidebar', { credentials: 'same-origin' })
-      .then(function (r) { return r.ok ? r.text() : ''; })
-      .then(function (html) {
-        if (!html || document.getElementById('zbr-news-layout')) return;
-        var doc = new DOMParser().parseFromString(html, 'text/html'), blk = null;
-        [].some.call(doc.querySelectorAll('.sqs-block-code .sqs-block-content, .sqs-block-html .sqs-block-content'), function (b) {
-          if (b.querySelector('.zbr-widget')) { blk = b; return true; }
-          return false;
-        });
-        if (!blk) return;
-        var layout = document.createElement('div');
-        layout.id = 'zbr-news-layout';
-        var main = document.createElement('div');
-        main.id = 'zbr-news-main';
-        while (page.firstChild) main.appendChild(page.firstChild);
-        var side = document.createElement('aside');
-        side.id = 'zbr-sidebar';
-        side.innerHTML = blk.innerHTML;
-        layout.appendChild(main);
-        layout.appendChild(side);
-        page.appendChild(layout);
-        // phones and tablets: Quick Links becomes a collapsed bar under the main menu and again under the post
-        var quick = side.querySelector('.zbr-w-quick .zbr-quicklinks');
-        if (quick) {
-          var makeBar = function (extra) {
-            var mq = document.createElement('div');
-            mq.className = 'zbr-mobile-quick' + (extra ? ' ' + extra : '');
-            var btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'zbr-mq-toggle';
-            btn.setAttribute('aria-expanded', 'false');
-            btn.innerHTML = 'Quick Links <span class="zbr-mq-arrow">&#9660;</span>';
-            var grid = quick.cloneNode(true);
-            grid.className = 'zbr-quicklinks zbr-mq-grid zbr-collapsed';
-            btn.addEventListener('click', function () {
-              var collapsed = grid.classList.toggle('zbr-collapsed');
-              btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
-            });
-            mq.appendChild(btn);
-            mq.appendChild(grid);
-            return mq;
-          };
-          page.insertBefore(makeBar(''), layout);
-          side.insertBefore(makeBar('zbr-mq-bottom'), side.firstChild);
-        }
-      })
-      .catch(function () {});
-  })();
 })();
 </script>
