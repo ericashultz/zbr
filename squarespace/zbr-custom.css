@@ -1007,13 +1007,18 @@ body.zbr-guestbook .squarespace-comments .comments-content .comment-list .commen
 body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment .comment-header .controls .squarespace-comment-buttons .comment-control.reply,
 body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment.liked .comment-header .controls .squarespace-comment-buttons .comment-control.reply{ top:auto !important; bottom:9px !important; left:12px !important; }
 
-/* guestbook: name / time stamp / like count / heart stay on one line; a long user name is cut off with "..." (room is kept for the heart, and for the admin's check / X) */
-body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info{ display:flex !important; align-items:baseline !important; flex:0 1 auto !important; min-width:0 !important; max-width:calc(100% - 40px) !important; white-space:nowrap !important; }
-body.zbr-guestbook .squarespace-comments .comment .comment-header:has(.comment-control.delete) .user-info,
-body.zbr-guestbook .squarespace-comments .comment .comment-header:has(.comment-control.approve) .user-info{ max-width:calc(100% - 90px) !important; }
-body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .author{ display:block !important; flex:0 1 auto !important; min-width:0 !important; overflow:hidden !important; text-overflow:ellipsis !important; }
+/* guestbook: name / time stamp / like count / heart stay on one line; a long user name is cut off with "..." (the block never shrinks, so nothing can overlap the heart; the admin's check / X get a little more room) */
+body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info{ display:flex !important; align-items:baseline !important; flex:none !important; min-width:0 !important; max-width:none !important; white-space:nowrap !important; }
+body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .author{ display:block !important; flex:0 1 auto !important; min-width:0 !important; max-width:300px !important; overflow:hidden !important; text-overflow:ellipsis !important; }
+body.zbr-guestbook .squarespace-comments .comment .comment-header:has(.comment-control.delete) .user-info .author,
+body.zbr-guestbook .squarespace-comments .comment .comment-header:has(.comment-control.approve) .user-info .author{ max-width:250px !important; }
 body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .date,
 body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .likes{ flex:none !important; }
+@media (max-width:767px){
+  body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .author{ max-width:max(48px, calc(100vw - 300px)) !important; }
+  body.zbr-guestbook .squarespace-comments .comment .comment-header:has(.comment-control.delete) .user-info .author,
+  body.zbr-guestbook .squarespace-comments .comment .comment-header:has(.comment-control.approve) .user-info .author{ max-width:max(48px, calc(100vw - 340px)) !important; }
+}
 
 /* guestbook on phones: the "« Back" link lines up with the comment form (same inset as the frame -> form) */
 @media (max-width:767px){
