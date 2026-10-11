@@ -175,7 +175,31 @@
       }
     });
   };
-  var evenAll = function () { evenCtaSpacing(); alignCtaRows(); evenCtaBelow(); evenCardGaps(); };
+  // the Bandcamp player is the last thing in many cards: the space under it should always be the same, whatever block wraps it
+  var evenCardEnd = function () {
+    [].forEach.call(document.querySelectorAll('article.hentry'), function (art) {
+      if (art.classList.contains('zbr-collapsed') || art.getBoundingClientRect().height === 0) return;
+      var players = [].slice.call(art.querySelectorAll('.zbr-bcplayer')).filter(function (e) { return e.getBoundingClientRect().height > 0; });
+      if (!players.length) return;
+      var pl = players[players.length - 1];
+      pl.style.removeProperty('margin-bottom');   // measure from the stylesheet value each time
+      var pr = pl.getBoundingClientRect();
+      var later = false;
+      [].forEach.call(art.querySelectorAll('p, img, iframe, a, .zbr-bcplayer'), function (e) {
+        if (e === pl || pl.contains(e)) return;
+        var r = e.getBoundingClientRect();
+        if (r.height > 0 && r.top >= pr.bottom - 1 && e.textContent.trim() + (e.tagName === 'IMG' || e.tagName === 'IFRAME' ? 'x' : '') !== '') later = true;
+      });
+      if (later) return;   // something real comes after the player
+      var cs = getComputedStyle(art);
+      var own = parseFloat(getComputedStyle(pl).marginBottom) || 0;
+      var want = (parseFloat(cs.paddingBottom) || 0) + (parseFloat(cs.borderBottomWidth) || 0) + own;
+      var gap = art.getBoundingClientRect().bottom - pr.bottom;
+      var excess = gap - want;
+      if (excess > 1) pl.style.setProperty('margin-bottom', (own - excess) + 'px', 'important');
+    });
+  };
+  var evenAll = function () { evenCtaSpacing(); alignCtaRows(); evenCtaBelow(); evenCardGaps(); evenCardEnd(); };
   var alignTimer;
   var lastCtaW = window.innerWidth;
   // phones fire "resize" whenever the address bar slides away while scrolling; only a real width change needs the spacing redone
