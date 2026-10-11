@@ -217,62 +217,11 @@
       }
     });
   };
-  // ?zbrdebug=1 on any news address shows a small report of the spacing (for tracking down odd gaps)
-  var ZBR_FOOTER_VERSION = 'footer 2026-10-11 card-end-3';
-  var zbrDebug = function () {
-    if (!/[?&]zbrdebug\b/.test(location.search)) return;
-    var lines = [ZBR_FOOTER_VERSION + ' | width ' + window.innerWidth + ' | errors: ' + ((window.__zbrErrors || []).join(' / ') || 'none')];
-    [].forEach.call(document.querySelectorAll('article.hentry'), function (art, n) {
-      var pls = [].slice.call(art.querySelectorAll('.zbr-bcplayer')).filter(function (e) { return e.getBoundingClientRect().height > 0; });
-      if (!pls.length) return;
-      var pl = pls[pls.length - 1], pr = pl.getBoundingClientRect(), ar = art.getBoundingClientRect();
-      var pill = art.querySelector('.article-meta-top .zbr-pill, .article-meta-top .date a');
-      lines.push('card ' + n + ' [' + (pill ? pill.textContent.trim() : '-') + '] player->frame ' + Math.round(ar.bottom - pr.bottom) + 'px, player margin-bottom ' + (pl.style.marginBottom || getComputedStyle(pl).marginBottom));
-      var chain = [], el = pl.parentElement;
-      while (el && el !== art) {
-        var cs = getComputedStyle(el);
-        chain.push((el.tagName.toLowerCase() + '.' + String(el.className).split(' ').slice(0, 2).join('.')) + ' pb' + cs.paddingBottom + ' mb' + cs.marginBottom + ' h' + Math.round(el.getBoundingClientRect().height));
-        el = el.parentElement;
-      }
-      lines.push('   inside: ' + chain.join(' < '));
-      var after = [];
-      [].forEach.call(art.querySelectorAll('*'), function (e) {
-        var r = e.getBoundingClientRect();
-        if (r.height > 0 && r.top >= pr.bottom - 1 && !e.querySelector('*') && after.length < 6) after.push(e.tagName.toLowerCase() + '.' + String(e.className).split(' ')[0] + ' ' + Math.round(r.top - pr.bottom) + 'px below, h' + Math.round(r.height));
-      });
-      lines.push('   after player: ' + (after.join(' ; ') || 'nothing'));
-      // everything that follows the player (and each wrapper around it), hidden or not
-      var sib = [], node = pl;
-      while (node && node !== art) {
-        var nx = node.nextElementSibling;
-        while (nx && sib.length < 10) {
-          var ncs = getComputedStyle(nx);
-          sib.push(nx.tagName.toLowerCase() + '.' + String(nx.className).split(' ').slice(0, 3).join('.') + ' disp:' + ncs.display + ' h' + Math.round(nx.getBoundingClientRect().height) + ' mt' + ncs.marginTop + ' mb' + ncs.marginBottom + ' pt' + ncs.paddingTop + ' pb' + ncs.paddingBottom);
-          nx = nx.nextElementSibling;
-        }
-        node = node.parentElement;
-      }
-      lines.push('   siblings after: ' + (sib.join(' ; ') || 'none'));
-      var plr = pl.getBoundingClientRect(), colEl = pl.parentElement, last = colEl && colEl.lastElementChild;
-      lines.push('   parent bottom - player bottom: ' + (colEl ? Math.round(colEl.getBoundingClientRect().bottom - plr.bottom) : '?') + 'px; last child of parent: ' + (last ? last.tagName.toLowerCase() + '.' + String(last.className).split(' ')[0] : 'none') + (last === pl ? ' (the player itself)' : ''));
-      lines.push('   card classes: ' + String(art.className) + ' | collapsed:' + art.classList.contains('zbr-collapsed'));
-      var acs = getComputedStyle(art), wrapEl = art.querySelector(':scope > .content-wrapper');
-      lines.push('   card box: h' + Math.round(ar.height) + ' padB' + acs.paddingBottom + ' borderB' + acs.borderBottomWidth + ' minH' + acs.minHeight + ' inline[' + art.style.cssText.slice(0, 60) + '] ; wrapper bottom -> frame bottom ' + (wrapEl ? Math.round(ar.bottom - wrapEl.getBoundingClientRect().bottom) : '?') + 'px ; wrapper inline[' + (wrapEl ? wrapEl.style.cssText.slice(0, 60) : '') + ']');
-      var kidsOf = [].slice.call(art.children).map(function (k) { return k.tagName.toLowerCase() + '.' + String(k.className).split(' ')[0] + ' h' + Math.round(k.getBoundingClientRect().height); });
-      lines.push('   card children: ' + kidsOf.join(' ; '));
-    });
-    var box = document.createElement('pre');
-    box.style.cssText = 'position:fixed;z-index:2147483647;top:8px;right:8px;max-width:92vw;max-height:80vh;overflow:auto;margin:0;padding:8px;background:#fff;color:#000;font:11px/1.3 monospace;white-space:pre-wrap;border:2px solid #f00;';
-    box.textContent = lines.join('\n');
-    document.body.appendChild(box);
-  };
   var evenAll = function () {
-    window.__zbrErrors = [];
     [['evenCtaSpacing', evenCtaSpacing], ['alignCtaRows', alignCtaRows], ['evenCtaBelow', evenCtaBelow], ['evenCardGaps', evenCardGaps], ['evenCardFrame', evenCardFrame], ['evenCardEnd', evenCardEnd]].forEach(function (st) {
-      try { st[1](); } catch (err) { window.__zbrErrors.push(st[0] + ': ' + (err && err.message)); }
+      try { st[1](); } catch (err) { /* one spacing step failing must not stop the others */ }
     });
   };
-  window.addEventListener('load', function () { setTimeout(zbrDebug, 1500); });
   var alignTimer;
   var lastCtaW = window.innerWidth;
   // phones fire "resize" whenever the address bar slides away while scrolling; only a real width change needs the spacing redone
