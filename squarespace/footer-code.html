@@ -320,6 +320,29 @@
         if (n) { window.__zbrExpanded = window.__zbrExpanded || {}; window.__zbrExpanded[n.getAttribute('data-commentid')] = true; }
       }
     }, true);   // capture phase: the comments widget cannot swallow the click first
+    // Touch screens: a drag that is scrolling the entry list carries on into the page once the list hits its top / bottom
+    // (the browser would otherwise stop dead at the edge until the finger is lifted and put down again)
+    var gbTouch = null;
+    document.addEventListener('touchstart', function (e) {
+      var l = e.target && e.target.closest ? e.target.closest('.squarespace-comments .comment-list') : null;
+      gbTouch = (l && e.touches.length === 1 && l.scrollHeight > l.clientHeight + 1) ? { l: l, y: e.touches[0].clientY, inner: null } : null;
+    }, { passive: true });
+    document.addEventListener('touchmove', function (e) {
+      var g = gbTouch;
+      if (!g || e.touches.length !== 1) return;
+      var y = e.touches[0].clientY, dy = g.y - y;   // dy > 0: finger moving up, reading further down
+      g.y = y;
+      if (!dy) return;
+      var l = g.l, atTop = l.scrollTop <= 0, atBottom = l.scrollTop + l.clientHeight >= l.scrollHeight - 1;
+      var blocked = dy < 0 ? atTop : atBottom;
+      if (g.inner === null) g.inner = !blocked;   // a drag that begins at an edge is already handed to the page by the browser
+      if (g.inner && blocked) {
+        window.scrollBy(0, dy);
+        if (e.cancelable) e.preventDefault();
+      }
+    }, { passive: false });
+    document.addEventListener('touchend', function () { gbTouch = null; }, { passive: true });
+    document.addEventListener('touchcancel', function () { gbTouch = null; }, { passive: true });
     var gbTimer;
     var gbSchedule = function () { clearTimeout(gbTimer); gbTimer = setTimeout(tidyGuestbook, 120); };
     new MutationObserver(gbSchedule).observe(document.body, { childList: true, subtree: true, characterData: true });
