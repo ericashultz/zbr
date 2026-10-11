@@ -1013,7 +1013,7 @@ body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .au
 body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .date,
 body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .likes{ flex:none !important; }
 @media (max-width:767px){
-  body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .author{ max-width:max(48px, calc(100vw - 280px)) !important; }
+  body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .author{ max-width:max(48px, calc(100vw - 290px)) !important; }
 }
 
 /* guestbook on phones: the "« Back" link lines up with the comment form (same inset as the frame -> form) */
