@@ -122,7 +122,60 @@
       unit.style.setProperty('margin-bottom', (cur + (18 - gap)) + 'px', 'important');
     });
   };
-  var evenAll = function () { evenCtaSpacing(); alignCtaRows(); evenCtaBelow(); };
+  // label cards (Music Video, Releases...): the pill, the video/photo, the copy and the Bandcamp player are evenly spaced.
+  // Gaps are measured from the pixels of each piece; next to copy they are 4px smaller so the text's own line spacing makes them look the same.
+  var evenCardGaps = function () {
+    var kind = function (b) {
+      if (b.classList.contains('zbr-bcplayer')) return 'player';
+      if (b.classList.contains('sqs-block-button')) return 'cta';
+      if (b.classList.contains('sqs-block-html')) return 'text';
+      return 'media';
+    };
+    var inner = function (b) {
+      var els = b.classList.contains('zbr-bcplayer') ? [b] : [].slice.call(b.querySelectorAll('p, li, h2, h3, h4, iframe, img, video, .zbr-bcplayer'));
+      return els.filter(function (e) { return e.getBoundingClientRect().height > 0; });
+    };
+    var topOf = function (b) {
+      var els = inner(b), t = Infinity;
+      els.forEach(function (e) { t = Math.min(t, e.getBoundingClientRect().top); });
+      return t === Infinity ? b.getBoundingClientRect().top : t;
+    };
+    var bottomOf = function (b) {
+      var els = inner(b), t = -Infinity;
+      els.forEach(function (e) { t = Math.max(t, e.getBoundingClientRect().bottom); });
+      return t === -Infinity ? b.getBoundingClientRect().bottom : t;
+    };
+    [].forEach.call(document.querySelectorAll('article.hentry'), function (art) {
+      var title = art.querySelector('h1.entry-title');
+      if (title && title.getBoundingClientRect().height > 0) return;   // cards with a headline follow the headline spacing
+      var pill = art.querySelector('.article-meta-top .zbr-pill');
+      if (!pill) return;
+      var blocks = [].slice.call(art.querySelectorAll('.sqs-block, .zbr-bcplayer')).filter(function (b) {
+        return !(b.parentNode && b.parentNode.closest && b.parentNode.closest('.sqs-block')) &&
+          b.getBoundingClientRect().height > 0 && !b.classList.contains('zbr-empty') && !b.closest('.zbr-preview');
+      });
+      if (!blocks.length) return;
+      var setGap = function (prevBottom, B, target) {
+        B.style.setProperty('margin-top', '0px', 'important');
+        var g0 = topOf(B) - prevBottom();
+        B.style.setProperty('margin-top', (target - g0) + 'px', 'important');
+      };
+      // pill -> first photo/video/player
+      if (kind(blocks[0]) !== 'text' && kind(blocks[0]) !== 'cta') {
+        setGap(function () { return pill.getBoundingClientRect().bottom; }, blocks[0], 18);
+      }
+      for (var i = 1; i < blocks.length; i++) {
+        (function (A, B) {
+          var ka = kind(A), kb = kind(B);
+          if (ka === 'cta' || kb === 'cta' || (ka === 'text' && kb === 'text') || (ka === 'player' && kb === 'player')) return;
+          var target = (ka === 'text' || kb === 'text') ? 14 : 18;
+          A.style.setProperty('margin-bottom', '0px', 'important');
+          setGap(function () { return bottomOf(A); }, B, target);
+        })(blocks[i - 1], blocks[i]);
+      }
+    });
+  };
+  var evenAll = function () { evenCtaSpacing(); alignCtaRows(); evenCtaBelow(); evenCardGaps(); };
   var alignTimer;
   var lastCtaW = window.innerWidth;
   // phones fire "resize" whenever the address bar slides away while scrolling; only a real width change needs the spacing redone
