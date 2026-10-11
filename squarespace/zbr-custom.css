@@ -1092,3 +1092,9 @@ html body .search-result .sqs-search-container-item > .sqs-content > .sqs-conten
 .zbr-top:active{ border-style:inset; }
 .zbr-top[hidden]{ display:none !important; }
 @media (max-width:700px){ .zbr-top{ display:none !important; } }
+
+/* search results: nothing inside a result may float, indent from the right, or be narrower than the frame */
+html body .search-result *{ float:none !important; max-width:none !important; margin-right:0 !important; padding-right:0 !important; }
+html body .search-result .sqs-search-container-item::before, html body .search-result .sqs-search-container-item::after,
+html body .search-result .sqs-search-container-item > .sqs-content::before, html body .search-result .sqs-search-container-item > .sqs-content::after{ content:none !important; display:none !important; }
+html body .search-result .sqs-content, html body .search-result .sqs-content > span{ width:auto !important; }
