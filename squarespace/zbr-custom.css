@@ -84,8 +84,8 @@ article.hentry img{ border:4px ridge #c0c0c0; max-width:100%; }
 
 /* ---- Footer (text + link line like the redesign) ---- */
 #footerWrapper{ background:#000 !important; border-top:4px double #C0DEFF; }
-#footer{ background:#000 !important; text-align:center; padding:14px 10px !important; font:12pt "Fixedsys Excelsior","Courier New",monospace; color:#c0c0c0 !important; }
-#footer p, #footer .sqs-html-content p{ font:12pt/1.6 "Fixedsys Excelsior","Courier New",monospace !important; color:#c0c0c0 !important; text-align:center !important; margin:0 0 6px !important; }
+#footer{ background:#000 !important; text-align:center; padding:14px 10px !important; font:12px "Fixedsys Excelsior","Courier New",monospace; color:#c0c0c0 !important; }
+#footer p, #footer .sqs-html-content p{ font:12px/1.6 "Fixedsys Excelsior","Courier New",monospace !important; color:#c0c0c0 !important; text-align:center !important; margin:0 0 6px !important; }
 #footer a, #footer a:visited{ color:#C0DFFE !important; text-decoration:none; } #footer a:hover{ color:#FFEE00 !important; background:none; }
 #footer #sqs-social{ display:none !important; }
 
