@@ -1100,5 +1100,7 @@ html body .search-result .sqs-main-content{ width:100% !important; max-width:non
 
 /* the news page ("Page 3") sits at the top right of each result; the title leaves room for it */
 html body .search-result{ position:relative !important; }
-html body .search-result .zbr-sr-page{ position:absolute !important; top:14px; right:12px; margin:0 !important; font:11px "Fixedsys Excelsior","Courier New",monospace !important; color:#d9d9d9 !important; white-space:nowrap; }
+/* (the wrappers inside must not be positioned themselves, or the label would be placed from them instead of from the frame) */
+html body .search-result .sqs-search-container-item, html body .search-result .sqs-content, html body .search-result .sqs-main-content, html body .search-result .sqs-title{ position:static !important; }
+html body .search-result .zbr-sr-page{ position:absolute !important; top:13px; right:12px; line-height:18px !important; margin:0 !important; font:11px "Fixedsys Excelsior","Courier New",monospace !important; color:#d9d9d9 !important; white-space:nowrap; }
 html body .search-result:has(.zbr-sr-page) .sqs-title{ padding-right:76px !important; }
