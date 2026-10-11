@@ -670,6 +670,30 @@
     })();
   }
 
+  // "TOP" button, like the redesign: fixed in the right-hand margin once the page is scrolled down. It is shown only while the margin
+  // beside the frame is wide enough for it, so it never covers the page.
+  if (window.self === window.top && !document.body.classList.contains('zbr-embed')) {
+    var topBtn = document.createElement('button');
+    topBtn.type = 'button';
+    topBtn.className = 'zbr-top';
+    topBtn.setAttribute('aria-label', 'Back to top');
+    topBtn.hidden = true;
+    topBtn.innerHTML = '&#8593; TOP';
+    document.body.appendChild(topBtn);
+    var topCheck = function () {
+      var frame = document.getElementById('canvas');
+      var margin = frame ? window.innerWidth - frame.getBoundingClientRect().right : 0;
+      topBtn.hidden = !(window.pageYOffset >= 400 && window.innerWidth > 700 && margin >= 100);
+    };
+    window.addEventListener('scroll', topCheck, { passive: true });
+    window.addEventListener('resize', topCheck);
+    topBtn.addEventListener('click', function () {
+      var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: calm ? 'auto' : 'smooth' });
+    });
+    topCheck();
+  }
+
   // A sold out product (the red SOLD OUT tag) cannot be added to the cart: its Add to Cart button and version menu are switched off
   [].forEach.call(document.querySelectorAll('.sqs-block-product, #productDetails'), function (b) {
     if (!b.querySelector('.product-mark.sold-out')) return;
