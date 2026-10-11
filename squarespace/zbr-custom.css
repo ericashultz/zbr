@@ -1006,3 +1006,10 @@ body.zbr-guestbook .squarespace-comments .comments-content .comment-list .commen
 /* the Reply link goes back to the bottom left of the box (the "top:0" reset above was meant for the heart and the admin controls only) */
 body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment .comment-header .controls .squarespace-comment-buttons .comment-control.reply,
 body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment.liked .comment-header .controls .squarespace-comment-buttons .comment-control.reply{ top:auto !important; bottom:9px !important; left:12px !important; }
+
+/* guestbook on phones: the "« Back" link lines up with the comment form (same inset as the frame -> form), and name / time stamp / like count / heart stay on one line */
+@media (max-width:767px){
+  body.zbr-guestbook p.zbr-gb-back{ padding-left:25px !important; }
+  body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info{ white-space:nowrap !important; }
+  body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .author{ display:inline !important; }
+}
