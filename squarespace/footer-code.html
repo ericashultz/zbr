@@ -92,9 +92,39 @@
       });
     });
   };
-  var evenAll = function () { evenCtaSpacing(); alignCtaRows(); };
+  // gap from the CTA(s) down to the Bandcamp player: 18px, whatever rows/blocks the post is built from
+  var evenCtaBelow = function () {
+    var units = [];
+    [].forEach.call(document.querySelectorAll('article.hentry .sqs-block-button'), function (btn) {
+      var unit = btn.parentNode && btn.parentNode.classList.contains('zbr-cta-row') ? btn.parentNode : btn;
+      if (units.indexOf(unit) === -1) units.push(unit);
+    });
+    units.forEach(function (unit) {
+      var card = unit.closest('article.hentry');
+      if (!card) return;
+      var all = [].slice.call(card.querySelectorAll('.sqs-block, .zbr-bcplayer'));
+      var lastIdx = -1;
+      all.forEach(function (el, n) { if (unit.contains(el)) lastIdx = n; });
+      if (lastIdx < 0) return;
+      var next = null, k;
+      for (k = lastIdx + 1; k < all.length; k++) {
+        if (all[k].getBoundingClientRect().height > 0 && !unit.contains(all[k])) { next = all[k]; break; }
+      }
+      if (!next || !next.classList.contains('zbr-bcplayer')) return;
+      var bottom = 0;
+      [].forEach.call(unit.querySelectorAll('a'), function (a) {
+        var r = a.getBoundingClientRect();
+        if (r.height > 0) bottom = Math.max(bottom, r.bottom);
+      });
+      if (!bottom) return;
+      var gap = next.getBoundingClientRect().top - bottom;
+      var cur = parseFloat(getComputedStyle(unit).marginBottom) || 0;
+      unit.style.setProperty('margin-bottom', (cur + (18 - gap)) + 'px', 'important');
+    });
+  };
+  var evenAll = function () { evenCtaSpacing(); alignCtaRows(); evenCtaBelow(); };
   var alignTimer;
-  window.addEventListener('resize', function () { clearTimeout(alignTimer); alignTimer = setTimeout(alignCtaRows, 150); });
+  window.addEventListener('resize', function () { clearTimeout(alignTimer); alignTimer = setTimeout(function () { alignCtaRows(); evenCtaSpacing(); evenCtaBelow(); }, 150); });
   if (document.readyState === 'complete') evenAll();
   else window.addEventListener('load', function () { evenAll(); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(evenAll, 300); });
