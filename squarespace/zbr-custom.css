@@ -1032,3 +1032,10 @@ body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .li
   html body #page .sqs-block-form .sqs-form-block-submission-html{ margin-top:0 !important; }   /* an empty message box was pushing the form down 16px */
   html body #page:has(.sqs-block-form){ padding-bottom:0 !important; }
 }
+
+/* empty cart on phones & tablets: the icon sits the same distance under the menu bar as the contact and search page icons
+   (the cart wrapper's own 27px top margin and a 10px offset are removed; the 27px added under the button goes too, so the room above the icon and below the button stay equal) */
+@media (max-width:900px){
+  html body #page #sqs-cart-container div:has(> .empty-message){ margin-top:0 !important; }
+  html body #page #sqs-cart-container:has(.empty-message){ margin-top:-10px !important; padding-bottom:0 !important; }
+}
