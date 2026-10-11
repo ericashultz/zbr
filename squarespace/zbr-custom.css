@@ -885,3 +885,10 @@ body.zbr-archive-detail .sqs-html-content p, body.zbr-archive-detail .sqs-html-c
 body.zbr-archive-detail .sqs-html-content a, body.zbr-archive-detail .sqs-html-content a *{ color:#FFEE00 !important; text-decoration:underline !important; }
 body.zbr-archive-detail .sqs-html-content a:hover, body.zbr-archive-detail .sqs-html-content a:hover *{ color:#19A800 !important; background:none !important; }
 body.zbr-archive-detail .sqs-block-horizontalrule hr, body.zbr-archive-detail hr{ border:0 !important; border-top:2px solid #C0DEFF !important; background:none !important; }
+
+/* guestbook with many entries: the list is a scrolling box (about four entries tall) instead of a very long page */
+body.zbr-guestbook .squarespace-comments .comment-list{ max-height:480px; overflow-y:auto; overflow-x:hidden; padding:0 8px 0 0; scrollbar-width:auto; scrollbar-color:#c0c0c0 #000033; }
+body.zbr-guestbook .squarespace-comments .comment-list::-webkit-scrollbar{ width:16px; }
+body.zbr-guestbook .squarespace-comments .comment-list::-webkit-scrollbar-track{ background:#000033; border-left:2px solid #C0DEFF; background-image:repeating-conic-gradient(#1D2A5A 0 25%, #000033 0 50%); background-size:4px 4px; }
+body.zbr-guestbook .squarespace-comments .comment-list::-webkit-scrollbar-thumb{ background:linear-gradient(180deg,#e8e8e8,#a0a0a0); border:2px outset #fff; min-height:40px; }
+body.zbr-guestbook .squarespace-comments .comment-list::-webkit-scrollbar-thumb:hover{ background:linear-gradient(180deg,#ffffff,#c9c9c9); }
