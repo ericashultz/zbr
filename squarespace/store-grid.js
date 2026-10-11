@@ -97,9 +97,12 @@
     'body.zbr-store-page #page{max-width:none!important;margin-left:0!important;margin-right:0!important;padding-bottom:24px!important}' +
     // phones & tablets: the search bar stands on its own above a collapsed "Filters" bar; the rest of the filters open inside it
     '#zbr-store .zs-filters-toggle{display:none}' +
+    '#zbr-store .zs-clear{display:none;background:none;border:0;color:#FFEE00;font:12px "Fixedsys Excelsior","Courier New",monospace;text-decoration:underline;text-align:left;padding:0;margin:0 0 14px}' +
+    '#zbr-store .zs-clear.zs-on{display:block}' +
     '@media (max-width:' + MOBILE_MAX + 'px){' +
       '#zbr-store .zs-sidebar{border:0;background:none;padding:0}' +
       '#zbr-store .zs-search{margin:0 0 12px}' +
+      '#zbr-store .zs-clear{margin:10px 0 0}' +
       '#zbr-store .zs-filters-toggle{display:block;width:100%;text-align:left;background:#C0DEFF;color:#000;border:2px outset #fff;font:bold 14px "Fixedsys Excelsior","Courier New",monospace;margin:0;padding:8px 10px}' +
       '#zbr-store .zs-filters-toggle .zs-arrow{display:inline;float:right;transition:transform .15s ease}' +
       '#zbr-store .zs-filters-toggle[aria-expanded="true"] .zs-arrow{transform:rotate(180deg)}' +
@@ -300,18 +303,18 @@
         '<ul class="zs-list' + (collapsedByDefault ? ' zs-collapsed' : '') + '">' + listHtml + '</ul></div>';
     }
 
-    var bandsHtml = '<li><button type="button" data-zs-viewall>View All</button></li>' + bands.map(function (b) {
+    var bandsHtml = '<li><button type="button" data-zs-viewall="band">View All</button></li>' + bands.map(function (b) {
       return '<li><button type="button" data-zs-band="' + esc(b) + '">' + esc(b) + '</button></li>';
     }).join('');
 
-    var merchHtml = '<li><button type="button" data-zs-viewall>View All</button></li>' + MERCH.map(function (m) {
+    var merchHtml = '<li><button type="button" data-zs-viewall="merch">View All</button></li>' + MERCH.map(function (m) {
       var sub = m.sub ? '<ul class="zs-sublist">' + m.sub.map(function (s) {
         return '<li><button type="button" data-zs-cat="vinyl" data-zs-size="' + s.id + '">' + esc(s.label) + '</button></li>';
       }).join('') + '</ul>' : '';
       return '<li><button type="button" data-zs-cat="' + m.id + '">' + esc(m.label) + '</button>' + sub + '</li>';
     }).join('');
 
-    var labelsHtml = '<li><button type="button" data-zs-viewall>View All</button></li>' + LABELS.map(function (l) {
+    var labelsHtml = '<li><button type="button" data-zs-viewall="label">View All</button></li>' + LABELS.map(function (l) {
       return '<li><button type="button" data-zs-label="' + esc(l) + '">' + esc(l) + '</button></li>';
     }).join('');
 
@@ -320,6 +323,7 @@
         '<aside class="zs-sidebar">' +
           '<label class="zs-search">Search<input type="text" placeholder="Band or release..." autocomplete="off"></label>' +
           '<button type="button" class="zs-filters-toggle" data-zs-fmenu aria-expanded="false">Filters<span class="zs-fcount"></span> <span class="zs-arrow">&#9660;</span></button>' +
+          '<button type="button" class="zs-clear" data-zs-clear>Clear all filters</button>' +
           '<div class="zs-filters">' +
             '<div class="zs-quick">' +
               '<button type="button" data-zs-special="new">New Items</button>' +
@@ -407,11 +411,12 @@
       var size = SIZE_ALIAS[slug(sp.get('size'))];
       var cat = CAT_ALIAS[slug(sp.get('cat'))];
       var band = slug(sp.get('band')), label = slug(sp.get('label')), special = SPECIAL_ALIAS[slug(sp.get('special'))];
+      // the groups combine, e.g. ?label=Tomb+Tree&cat=shirt shows the label's shirts
       if (size) { out.cat = 'vinyl'; out.size = size; }
       else if (cat) out.cat = cat;
-      else if (band) { bands.some(function (b) { if (slug(b) === band) { out.band = b; return true; } return false; }); }
-      else if (label) { LABELS.some(function (l) { if (slug(l) === label) { out.label = l; return true; } return false; }); }
-      else if (special) out.special = special;
+      if (band) { bands.some(function (b) { if (slug(b) === band) { out.band = b; return true; } return false; }); }
+      if (label) { LABELS.some(function (l) { if (slug(l) === label) { out.label = l; return true; } return false; }); }
+      if (special) out.special = special;
       return out;
     }
 
@@ -470,27 +475,18 @@
       if (fcount) {
         var active = (st.band ? 1 : 0) + (st.label ? 1 : 0) + (st.special ? 1 : 0) + (st.cat || st.size ? 1 : 0);
         fcount.textContent = active ? ' (' + active + ')' : '';
+        var clr = root.querySelector('.zs-clear');
+        if (clr) clr.classList.toggle('zs-on', active > 0);
       }
       writeUrl();
     }
 
-    function closeFilters() {
-      var sb = root.querySelector('.zs-sidebar'), tg = root.querySelector('[data-zs-fmenu]');
-      if (sb) sb.classList.remove('zs-fopen');
-      if (tg) tg.setAttribute('aria-expanded', 'false');
-    }
-
-    function setFilter(next) {
-      // One filter group at a time, like the redesign; search stays on top of it.
-      st.band = next.band || ''; st.cat = next.cat || ''; st.size = next.size || '';
-      st.label = next.label || ''; st.special = next.special || '';
+    // Filters combine across the groups (a label, a kind of merch, a band, New Items / Steals): the results must match all of them.
+    // Inside a group one choice at a time; choosing it again, or its "View All", turns that group off.
+    function setFilter(patch) {
+      Object.keys(patch).forEach(function (k) { st[k] = patch[k]; });
       st.page = 1;
       render();
-      if (mq.matches) {   // phones: the Filters menu closes and the results are right there
-        closeFilters();
-        var gtop = root.querySelector('.zs-layout').getBoundingClientRect().top + window.pageYOffset - 12;   // search + Filters bar stay in view above the results
-        window.scrollTo(0, Math.max(0, gtop));
-      }
     }
 
     search.addEventListener('input', function () { st.query = search.value; st.page = 1; render(); });
@@ -506,18 +502,21 @@
         var list = t.nextElementSibling;
         var collapsed = list.classList.toggle('zs-collapsed');
         t.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+      } else if (t.hasAttribute('data-zs-clear')) {
+        setFilter({ band: '', cat: '', size: '', label: '', special: '' });
       } else if (t.hasAttribute('data-zs-viewall')) {
-        setFilter({});
+        var grp = t.getAttribute('data-zs-viewall');
+        setFilter(grp === 'band' ? { band: '' } : grp === 'label' ? { label: '' } : { cat: '', size: '' });
       } else if (t.hasAttribute('data-zs-band')) {
         var b = t.getAttribute('data-zs-band');
         setFilter({ band: st.band === b ? '' : b });
       } else if (t.hasAttribute('data-zs-cat')) {
         if (t.hasAttribute('data-zs-size')) {
           var sz = t.getAttribute('data-zs-size');
-          setFilter(st.size === sz ? {} : { cat: 'vinyl', size: sz });
+          setFilter(st.size === sz ? { cat: '', size: '' } : { cat: 'vinyl', size: sz });
         } else {
           var c = t.getAttribute('data-zs-cat');
-          setFilter(st.cat === c && !st.size ? {} : { cat: c });
+          setFilter(st.cat === c && !st.size ? { cat: '', size: '' } : { cat: c, size: '' });
         }
       } else if (t.hasAttribute('data-zs-label')) {
         var l = t.getAttribute('data-zs-label');
