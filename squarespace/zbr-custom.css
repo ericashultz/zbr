@@ -965,3 +965,16 @@ body.zbr-guestbook .squarespace-comments .comment[data-depth]:not([data-depth="0
 body.zbr-guestbook .squarespace-comments .comment-list .zbr-replies-toggle{ margin:-4px 0 12px 12px; text-align:left; }
 body.zbr-guestbook .squarespace-comments .comment-list .zbr-replies-toggle a{ font:11px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline !important; cursor:pointer; }
 body.zbr-guestbook .squarespace-comments .comment-list .zbr-replies-toggle a:hover{ color:#19A800 !important; }
+
+/* guestbook: Like (heart) and Reply sit on the header line, left-aligned right after the time stamp / like count */
+body.zbr-guestbook .squarespace-comments .comment .comment-header{ display:flex !important; flex-wrap:wrap; align-items:center; }
+body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info{ flex:0 0 auto; margin:0 !important; padding:0 !important; }   /* Squarespace reserves ~123px on its right for the controls */
+body.zbr-guestbook .squarespace-comments .comment .comment-header .controls{ position:static !important; top:auto !important; right:auto !important; margin:0 0 0 12px !important; padding:0 !important; height:auto !important; }
+body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.reply,
+body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like,
+body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like-confirm{ padding:0 12px 0 0 !important; }
+/* no focus ring after clicking links and buttons in the guestbook */
+body.zbr-guestbook .squarespace-comments a:focus, body.zbr-guestbook .squarespace-comments a:focus-visible,
+body.zbr-guestbook .squarespace-comments .zbr-replies-toggle a:focus, body.zbr-guestbook .squarespace-comments .zbr-replies-toggle a:focus-visible,
+body.zbr-guestbook .squarespace-comments .comment-control:focus, body.zbr-guestbook .squarespace-comments .comment-control:focus-visible,
+body.zbr-guestbook .squarespace-comments .view-more-btn:focus, body.zbr-guestbook .squarespace-comments .full-view-btn:focus{ outline:none !important; box-shadow:none; }
