@@ -488,7 +488,7 @@
       render();
       if (mq.matches) {   // phones: the Filters menu closes and the results are right there
         closeFilters();
-        var gtop = root.querySelector('.zs-main').getBoundingClientRect().top + window.pageYOffset - 12;
+        var gtop = root.querySelector('.zs-layout').getBoundingClientRect().top + window.pageYOffset - 12;   // search + Filters bar stay in view above the results
         window.scrollTo(0, Math.max(0, gtop));
       }
     }
