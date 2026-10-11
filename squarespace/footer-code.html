@@ -242,6 +242,34 @@
   // Guestbook page (a single blog post at /guestbook/...): switch on its special styling
   if (/^\/guestbook(\/|$)/.test(location.pathname)) document.body.classList.add('zbr-guestbook');
 
+  // Guestbook layout: "Comments (n)" sits right-aligned just above the list of entries (not above the form),
+  // and the form sits close under the intro line. The comments widget draws itself after load, so watch for it.
+  if (document.body.classList.contains('zbr-guestbook')) {
+    var tidyGuestbook = function () {
+      var root = document.querySelector('.squarespace-comments');
+      if (!root) return;
+      var count = root.querySelector('h3.comment-count');
+      var list = root.querySelector('.comment-list');
+      if (count && list && count.nextElementSibling !== list && list.parentNode) list.parentNode.insertBefore(count, list);
+      // gap between the intro text and the form: 24px
+      var form = root.querySelector('textarea, .comment-input, .new-comment-area');
+      var intro = [].slice.call(document.querySelectorAll('article.hentry .sqs-html-content p')).filter(function (p) {
+        return p.getBoundingClientRect().height > 0 && p.textContent.trim();
+      }).pop();
+      if (form && intro) {
+        root.style.removeProperty('margin-top');
+        var gap = form.getBoundingClientRect().top - intro.getBoundingClientRect().bottom;
+        var cur = parseFloat(getComputedStyle(root).marginTop) || 0;
+        root.style.setProperty('margin-top', (cur + 24 - gap) + 'px', 'important');
+      }
+    };
+    var gbTimer;
+    var gbSchedule = function () { clearTimeout(gbTimer); gbTimer = setTimeout(tidyGuestbook, 120); };
+    new MutationObserver(gbSchedule).observe(document.body, { childList: true, subtree: true });
+    window.addEventListener('load', gbSchedule);
+    gbSchedule();
+  }
+
   // "« Back" links: go back to whatever page the visitor came from (same site), restoring its filters / page / scroll position.
   // The address set on the link is only the fallback for visitors who arrived straight on this page.
   var goBack = function (e) {
