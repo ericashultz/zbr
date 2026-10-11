@@ -1083,3 +1083,12 @@ html body .search-result .sqs-search-container-item > .sqs-content > .sqs-conten
 }
 html body .search-result .sqs-search-container-item > .sqs-content{ width:auto !important; }
 html body .search-result .sqs-search-container-item > .sqs-content > .sqs-content span{ max-width:none !important; }
+
+/* "back to top" button like the redesign: fixed in the right-hand margin once the page is scrolled (the footer script shows it, and only
+   when the margin beside the frame is wide enough that the button never covers the page); not on phones */
+.zbr-top{ position:fixed; bottom:20px; right:20px; z-index:500; background:linear-gradient(180deg,#e8e8e8,#a0a0a0); border:2px outset #fff; border-radius:0; color:#000066;
+  font:bold 12px "MS Sans Serif",Tahoma,sans-serif; text-align:center; text-transform:none; letter-spacing:0; line-height:1.2; padding:10px 14px; margin:0; cursor:pointer; box-shadow:2px 2px 6px rgba(0,0,0,.5); -webkit-appearance:none; appearance:none; }
+.zbr-top:hover{ background:linear-gradient(180deg,#ffffff,#c9c9c9); }
+.zbr-top:active{ border-style:inset; }
+.zbr-top[hidden]{ display:none !important; }
+@media (max-width:700px){ .zbr-top{ display:none !important; } }
