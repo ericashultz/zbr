@@ -848,10 +848,10 @@
         var txt = textOf(g);
         var m = txt.match(SIDE);
         if (m) { sideWidgets.push({ label: m[1], blocks: g }); return; }
-        // any section that says "last fucking copy" anywhere is a Last Copy box
-        if (/last\s+fucking\s+copy/i.test(txt)) { dropMarker(g); sideWidgets.push({ label: 'Last Copy', blocks: g }); return; }
         var bracket = txt.match(/^\s*\[([^\]]{1,30})\]/);
         if (bracket && SIDE_NAME.test(bracket[1].trim())) { dropMarker(g); sideWidgets.push({ label: bracket[1].trim(), blocks: g }); return; }
+        // any section that says "last fucking copy" anywhere is a Last Copy box
+        if (/last\s+fucking\s+copy/i.test(txt)) { dropMarker(g); sideWidgets.push({ label: 'Last Copy', blocks: g }); return; }
         // the tag: a label typed in square brackets at the start of the section, e.g. [Releases], otherwise a guess from the text
         var label = /music video/i.test(txt) ? 'Music Video' : 'Releases';
         var tagged = txt.match(/^\s*\[([^\]]{1,30})\]\s*/);
