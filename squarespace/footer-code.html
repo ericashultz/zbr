@@ -670,6 +670,23 @@
     })();
   }
 
+  // A sold out product (the red SOLD OUT tag) cannot be added to the cart: its Add to Cart button is switched off
+  [].forEach.call(document.querySelectorAll('.sqs-block-product, #productDetails'), function (b) {
+    if (!b.querySelector('.product-mark.sold-out')) return;
+    [].forEach.call(b.querySelectorAll('.sqs-add-to-cart-button'), function (btn) {
+      btn.classList.add('zbr-disabled');
+      btn.setAttribute('aria-disabled', 'true');
+      btn.setAttribute('tabindex', '-1');
+    });
+  });
+  ['click', 'keydown', 'touchend'].forEach(function (ev) {
+    document.addEventListener(ev, function (e) {
+      if (ev === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
+      var t = e.target && e.target.closest ? e.target.closest('.zbr-disabled') : null;
+      if (t) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
+  });
+
   // Contact page: the intro text ends with an empty paragraph (&nbsp;), which leaves a blank line above the form
   if (document.querySelector('.sqs-block-form')) {
     [].forEach.call(document.querySelectorAll('.sqs-layout .sqs-block-html p'), function (p) {
