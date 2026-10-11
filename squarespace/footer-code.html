@@ -199,8 +199,25 @@
       if (excess > 1) pl.style.setProperty('margin-bottom', (own - excess) + 'px', 'important');
     });
   };
+  // whatever the cause, the frame closes right under the card's content (frame padding + border and nothing more)
+  var evenCardFrame = function () {
+    [].forEach.call(document.querySelectorAll('#zbr-news-main article.hentry'), function (art) {
+      if (art.classList.contains('zbr-collapsed') || art.getBoundingClientRect().height === 0) return;
+      var wrap = art.querySelector(':scope > .content-wrapper');
+      if (!wrap) return;
+      art.style.removeProperty('min-height');
+      wrap.style.removeProperty('margin-bottom');
+      var cs = getComputedStyle(art);
+      var inner = (parseFloat(cs.paddingBottom) || 0) + (parseFloat(cs.borderBottomWidth) || 0);
+      var slack = function () { return art.getBoundingClientRect().bottom - wrap.getBoundingClientRect().bottom - inner; };
+      if (slack() > 1) {
+        art.style.setProperty('min-height', '0', 'important');
+        if (slack() > 1) wrap.style.setProperty('margin-bottom', (-slack()) + 'px', 'important');
+      }
+    });
+  };
   // ?zbrdebug=1 on any news address shows a small report of the spacing (for tracking down odd gaps)
-  var ZBR_FOOTER_VERSION = 'footer 2026-10-11 card-end-2';
+  var ZBR_FOOTER_VERSION = 'footer 2026-10-11 card-end-3';
   var zbrDebug = function () {
     if (!/[?&]zbrdebug\b/.test(location.search)) return;
     var lines = [ZBR_FOOTER_VERSION + ' | width ' + window.innerWidth + ' | errors: ' + ((window.__zbrErrors || []).join(' / ') || 'none')];
@@ -238,6 +255,10 @@
       var plr = pl.getBoundingClientRect(), colEl = pl.parentElement, last = colEl && colEl.lastElementChild;
       lines.push('   parent bottom - player bottom: ' + (colEl ? Math.round(colEl.getBoundingClientRect().bottom - plr.bottom) : '?') + 'px; last child of parent: ' + (last ? last.tagName.toLowerCase() + '.' + String(last.className).split(' ')[0] : 'none') + (last === pl ? ' (the player itself)' : ''));
       lines.push('   card classes: ' + String(art.className) + ' | collapsed:' + art.classList.contains('zbr-collapsed'));
+      var acs = getComputedStyle(art), wrapEl = art.querySelector(':scope > .content-wrapper');
+      lines.push('   card box: h' + Math.round(ar.height) + ' padB' + acs.paddingBottom + ' borderB' + acs.borderBottomWidth + ' minH' + acs.minHeight + ' inline[' + art.style.cssText.slice(0, 60) + '] ; wrapper bottom -> frame bottom ' + (wrapEl ? Math.round(ar.bottom - wrapEl.getBoundingClientRect().bottom) : '?') + 'px ; wrapper inline[' + (wrapEl ? wrapEl.style.cssText.slice(0, 60) : '') + ']');
+      var kidsOf = [].slice.call(art.children).map(function (k) { return k.tagName.toLowerCase() + '.' + String(k.className).split(' ')[0] + ' h' + Math.round(k.getBoundingClientRect().height); });
+      lines.push('   card children: ' + kidsOf.join(' ; '));
     });
     var box = document.createElement('pre');
     box.style.cssText = 'position:fixed;z-index:2147483647;top:8px;right:8px;max-width:92vw;max-height:80vh;overflow:auto;margin:0;padding:8px;background:#fff;color:#000;font:11px/1.3 monospace;white-space:pre-wrap;border:2px solid #f00;';
@@ -246,7 +267,7 @@
   };
   var evenAll = function () {
     window.__zbrErrors = [];
-    [['evenCtaSpacing', evenCtaSpacing], ['alignCtaRows', alignCtaRows], ['evenCtaBelow', evenCtaBelow], ['evenCardGaps', evenCardGaps], ['evenCardEnd', evenCardEnd]].forEach(function (st) {
+    [['evenCtaSpacing', evenCtaSpacing], ['alignCtaRows', alignCtaRows], ['evenCtaBelow', evenCtaBelow], ['evenCardGaps', evenCardGaps], ['evenCardEnd', evenCardEnd], ['evenCardFrame', evenCardFrame]].forEach(function (st) {
       try { st[1](); } catch (err) { window.__zbrErrors.push(st[0] + ': ' + (err && err.message)); }
     });
   };
