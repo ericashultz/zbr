@@ -855,3 +855,10 @@ a.zbr-gb-btn, a.zbr-gb-btn:visited{ flex:0 0 auto !important; padding:10px 22px 
 
 /* posts whose photos/carousel sit above the body copy (promoted gallery): the copy keeps its 16px under the thumbnails */
 html body #page article.hentry:has(.special-content) .post .body .sqs-row:first-child .sqs-block:first-child{ padding-top:16px !important; }
+
+/* empty cart: the same room above and below the message -- icon, copy and button are 20px apart
+   (the hidden original text left a 22px empty line between the icon and the copy; the button sat 22px under it) */
+#sqs-cart-container .empty-message{ line-height:0 !important; }
+#sqs-cart-container .empty-message::before{ margin-bottom:20px !important; }
+#sqs-cart-container .empty-message::after{ line-height:17px !important; }
+#sqs-cart-container .cart-continue-button{ margin-top:14px !important; }
