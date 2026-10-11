@@ -574,6 +574,18 @@
   // Phone menu: remove the "Navigation" label entry
   var label = document.querySelector('nav.main-nav select option.mobile-select-label');
   if (label) label.parentNode.removeChild(label);
+  // A page that is not in the menu (the Guestbook, for one) has no active entry, and the phone would show the first item
+  // ("Canada/Intl Store") as if it were chosen, so choosing it did nothing. Show a "Menu" placeholder there instead.
+  var mobSel = document.querySelector('nav.main-nav select');
+  if (mobSel && !mobSel.querySelector('option[selected]')) {
+    var ph = document.createElement('option');
+    ph.value = '';
+    ph.textContent = 'Menu';
+    ph.disabled = true;
+    ph.selected = true;
+    mobSel.insertBefore(ph, mobSel.firstChild);
+    mobSel.selectedIndex = 0;
+  }
 
   // Product page and product blocks: hide the catalog-number line that starts many descriptions
   // (e.g. NHOMME ‘…’ tape (ZBR314)): a short first paragraph that ends with a code in brackets, or is centred
