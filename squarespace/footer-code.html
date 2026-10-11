@@ -446,15 +446,18 @@
         }
         run = []; pending = []; between = [];
       };
+      var afterCta = false;   // blank blocks right after a CTA would only add stray space before the player
       blocks.forEach(function (b) {
         if (b.style.display === 'none') return;
         if (b.classList.contains('sqs-block-button')) {
           if (run.length) between = between.concat(pending);
           pending = [];
           run.push(b);
+          afterCta = true;
         } else if (ctaNeutral(b)) {
           if (run.length) pending.push(b);
-        } else flush();
+          if (afterCta) b.classList.add('zbr-empty');
+        } else { flush(); afterCta = false; }
       });
       flush();
     });
