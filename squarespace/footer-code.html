@@ -848,6 +848,8 @@
         var txt = textOf(g);
         var m = txt.match(SIDE);
         if (m) { sideWidgets.push({ label: m[1], blocks: g }); return; }
+        // any section that says "last fucking copy" anywhere is a Last Copy box
+        if (/last\s+fucking\s+copy/i.test(txt)) { sideWidgets.push({ label: 'Last Copy', blocks: g }); return; }
         var bracket = txt.match(/^\s*\[([^\]]{1,30})\]/);
         if (bracket && SIDE_NAME.test(bracket[1].trim())) { dropMarker(g); sideWidgets.push({ label: bracket[1].trim(), blocks: g }); return; }
         // the tag: a label typed in square brackets at the start of the section, e.g. [Releases], otherwise a guess from the text
@@ -888,6 +890,15 @@
 
     // A label typed in square brackets at the very start of a post's first text, e.g. [Premiers], replaces its "News -- date" tag
     [].forEach.call(document.querySelectorAll('article.hentry:not(.zbr-section)'), function (art) {
+      // a whole post that says "last fucking copy" anywhere in its text is a Last Copy box (on the news list; a post opened on its own stays)
+      if (!document.body.classList.contains('view-item')) {
+        var shown = [].slice.call(art.querySelectorAll('.post > .body .sqs-block')).filter(function (b) { return b.style.display !== 'none'; });
+        if (/last\s+fucking\s+copy/i.test(textOf(shown))) {
+          art.style.display = 'none';
+          sideWidgets.push({ label: 'Last Copy', blocks: shown, art: art });
+          return;
+        }
+      }
       var box = art.querySelector('.post > .body .sqs-block-html .sqs-html-content');
       var p0 = box && box.querySelector('p, h1, h2, h3, h4');
       var m = p0 && p0.textContent.match(/^\s*\[([^\]]{1,30})\]\s*/);
