@@ -1002,3 +1002,7 @@ body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment
 body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment .comment-header .controls .squarespace-comment-buttons .comment-control.delete,
 body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment .comment-header .controls .squarespace-comment-buttons .comment-control.approve{ margin-left:auto !important; }
 body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment .comment-header .controls .squarespace-comment-buttons .comment-control.approve + .comment-control.delete{ margin-left:6px !important; }
+
+/* the Reply link goes back to the bottom left of the box (the "top:0" reset above was meant for the heart and the admin controls only) */
+body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment .comment-header .controls .squarespace-comment-buttons .comment-control.reply,
+body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment.liked .comment-header .controls .squarespace-comment-buttons .comment-control.reply{ top:auto !important; bottom:9px !important; left:12px !important; }
