@@ -841,3 +841,7 @@ html body #page article.hentry:has(h1.entry-title) .post .body .sqs-row:first-ch
 @media (max-width:700px){
   #zbr-news-main article.hentry, #zbr-news-main article.hentry:last-child, #zbr-news-main article.hentry:last-of-type{ padding-bottom:14px !important; }
 }
+
+/* Guestbook and Mailing List buttons: sized to their label and centered, not stretched across the box */
+.zbr-gb-buttons{ justify-content:center; }
+a.zbr-gb-btn, a.zbr-gb-btn:visited{ flex:0 0 auto !important; padding:6px 22px !important; }
