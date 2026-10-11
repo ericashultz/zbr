@@ -995,3 +995,10 @@ body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment
 body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment .comment-header .controls .squarespace-comment-buttons .comment-control{ top:0 !important; transform:none !important; }
 body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment .comment-header .controls .squarespace-comment-buttons .comment-control.delete,
 body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment .comment-header .controls .squarespace-comment-buttons .comment-control.approve{ opacity:1 !important; background-color:transparent !important; margin-left:6px !important; }
+
+/* guestbook: only the admin's check / X controls sit at the right end of the header line; the heart stays by the time stamp */
+body.zbr-guestbook .squarespace-comments .comment .comment-header .controls{ flex:1 1 0 !important; min-width:0 !important; }
+body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons{ display:flex !important; width:100% !important; }
+body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment .comment-header .controls .squarespace-comment-buttons .comment-control.delete,
+body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment .comment-header .controls .squarespace-comment-buttons .comment-control.approve{ margin-left:auto !important; }
+body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment .comment-header .controls .squarespace-comment-buttons .comment-control.approve + .comment-control.delete{ margin-left:6px !important; }
