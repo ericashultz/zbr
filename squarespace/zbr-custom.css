@@ -990,6 +990,8 @@ body.zbr-guestbook .squarespace-comments .comment.liked .controls .squarespace-c
 body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like,
 body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like-confirm{ padding:0 !important; }
 
-/* guestbook: the heart stays right after the time stamp / like count; it is only nudged up so it sits level with that text */
-body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like::after,
-body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like-confirm::after{ position:relative; top:-4px; }
+/* guestbook: Squarespace pushes every control (heart, and the admin's check / X) 4px down with "top:4px" and a transform;
+   resetting that puts them level with the time stamp / like count text */
+body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment .comment-header .controls .squarespace-comment-buttons .comment-control{ top:0 !important; transform:none !important; }
+body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment .comment-header .controls .squarespace-comment-buttons .comment-control.delete,
+body.zbr-guestbook .squarespace-comments .comments-content .comment-list .comment .comment-header .controls .squarespace-comment-buttons .comment-control.approve{ opacity:1 !important; background-color:transparent !important; margin-left:6px !important; }
