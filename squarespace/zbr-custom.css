@@ -717,7 +717,7 @@ html body.zbr-embed .zbr-ml-thanks{ position:fixed !important; inset:0 !importan
 body.zbr-guestbook p.zbr-gb-back{ max-width:640px; margin:22px auto 0 !important; padding:0 !important; text-align:left !important; }
 body.zbr-guestbook p.zbr-gb-back + article.hentry{ margin-top:10px !important; }
 body.zbr-guestbook p.zbr-gb-back a, body.zbr-guestbook p.zbr-gb-back a:visited{ font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline; text-transform:none !important; letter-spacing:0 !important; background:none !important; }
-body.zbr-guestbook p.zbr-gb-back a:hover{ color:#19A800 !important; }
+@media (hover:hover){ body.zbr-guestbook p.zbr-gb-back a:hover{ color:#19A800 !important; } }
 
 /* phones & tablets: keep the sidebar Quick Links hidden (the collapsed purple bar replaces it); the later .zbr-widget{display:flex} rule had brought it back */
 @media (max-width:900px){
@@ -909,8 +909,8 @@ body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment
 body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.reply::after{ content:"Reply"; font:11px "Fixedsys Excelsior","Courier New",monospace; color:#FFEE00; text-decoration:underline; }
 body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like::after{ content:"Like"; font:11px "Fixedsys Excelsior","Courier New",monospace; color:#FFEE00; text-decoration:underline; }
 body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like-confirm::after{ content:"Liked!"; font:11px "Fixedsys Excelsior","Courier New",monospace; color:#19A800; }
-body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.reply:hover::after,
-body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like:hover::after{ color:#19A800; }
+@media (hover:hover){ body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.reply:hover::after,
+body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like:hover::after{ color:#19A800; } }
 body.zbr-guestbook .squarespace-comments .comment.liked .controls .squarespace-comment-buttons .comment-control.like::after{ content:"Liked"; color:#19A800; text-decoration:none; }
 body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .likes, body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .likes *{ display:inline !important; font:11px "Fixedsys Excelsior","Courier New",monospace !important; color:#d9d9d9 !important; margin-left:8px; }
 /* replies sit slightly indented under the comment they answer */
@@ -929,7 +929,7 @@ body.zbr-guestbook .squarespace-comments .load-more .view-more-btn, body.zbr-gue
 body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like::after, body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like-confirm::after, body.zbr-guestbook .squarespace-comments .comment.liked .controls .squarespace-comment-buttons .comment-control.like::after{
   content:"" !important; display:inline-block; width:15px; height:14px; vertical-align:middle; text-decoration:none !important;
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'%3E%3Cpath d='M12 20.5C5 15 1.5 11.6 1.5 7.4 1.5 4.3 3.8 2 6.8 2c2 0 3.8 1 5.2 3 1.4-2 3.2-3 5.2-3 3 0 5.3 2.3 5.3 5.4 0 4.2-3.5 7.6-10.5 13.1z' fill='none' stroke='%23FFEE00' stroke-width='2.2' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat !important; }
-body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like:hover::after{ background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'%3E%3Cpath d='M12 20.5C5 15 1.5 11.6 1.5 7.4 1.5 4.3 3.8 2 6.8 2c2 0 3.8 1 5.2 3 1.4-2 3.2-3 5.2-3 3 0 5.3 2.3 5.3 5.4 0 4.2-3.5 7.6-10.5 13.1z' fill='none' stroke='%2319A800' stroke-width='2.2' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat !important; }
+@media (hover:hover){ body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like:hover::after{ background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'%3E%3Cpath d='M12 20.5C5 15 1.5 11.6 1.5 7.4 1.5 4.3 3.8 2 6.8 2c2 0 3.8 1 5.2 3 1.4-2 3.2-3 5.2-3 3 0 5.3 2.3 5.3 5.4 0 4.2-3.5 7.6-10.5 13.1z' fill='none' stroke='%2319A800' stroke-width='2.2' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat !important; } }
 body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like-confirm::after, body.zbr-guestbook .squarespace-comments .comment.liked .controls .squarespace-comment-buttons .comment-control.like::after, body.zbr-guestbook .squarespace-comments .comment.liked .controls .squarespace-comment-buttons .comment-control.like:hover::after{
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'%3E%3Cpath d='M12 20.5C5 15 1.5 11.6 1.5 7.4 1.5 4.3 3.8 2 6.8 2c2 0 3.8 1 5.2 3 1.4-2 3.2-3 5.2-3 3 0 5.3 2.3 5.3 5.4 0 4.2-3.5 7.6-10.5 13.1z' fill='%23FF3B6B' stroke='%23FF3B6B' stroke-width='2.2' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat !important; }
 /* Squarespace hides Reply after a like; keep it */
@@ -964,7 +964,7 @@ body.zbr-guestbook .squarespace-comments .comment[data-depth]:not([data-depth="0
 body.zbr-guestbook .squarespace-comments .comment[data-depth]:not([data-depth="0"]) .comment-header{ padding-bottom:2px !important; }
 body.zbr-guestbook .squarespace-comments .comment-list .zbr-replies-toggle{ margin:-4px 0 12px 12px; text-align:left; }
 body.zbr-guestbook .squarespace-comments .comment-list .zbr-replies-toggle a{ font:11px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline !important; cursor:pointer; }
-body.zbr-guestbook .squarespace-comments .comment-list .zbr-replies-toggle a:hover{ color:#19A800 !important; }
+@media (hover:hover){ body.zbr-guestbook .squarespace-comments .comment-list .zbr-replies-toggle a:hover{ color:#19A800 !important; } }
 
 /* guestbook: Like (heart) and Reply sit on the header line, left-aligned right after the time stamp / like count */
 body.zbr-guestbook .squarespace-comments .comment .comment-header{ display:flex !important; flex-wrap:wrap; align-items:center; }
@@ -1118,3 +1118,5 @@ html.zbr-kbd body *:focus, html.zbr-kbd body *:focus-visible{ outline:2px dotted
 html body #footerWrapper a, html body #footerWrapper a:visited, html body #footer a, html body #footer a:visited{ text-decoration:underline !important; }
 html body #footerWrapper :has(> a), html body #footer :has(> a){ white-space:nowrap !important; font-size:min(12px, 2.9vw) !important; }
 html body #footerWrapper :has(> a) > a, html body #footer :has(> a) > a{ font-size:inherit !important; }
+
+/* (hover colours on the guestbook only apply where a mouse can really hover: on a phone the tapped link used to stay green) */
