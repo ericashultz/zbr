@@ -253,7 +253,7 @@
       if (count && list && count.nextElementSibling !== list && list.parentNode) list.parentNode.insertBefore(count, list);
       // an entry with no likes shows no "0 likes"
       [].forEach.call(root.querySelectorAll('.likes'), function (el) {
-        var t = el.textContent.trim();
+        var t = el.textContent.replace(/^[^0-9]+/, '').trim();   // the widget writes "· 3": drop the dot, keep the number
         el.classList.toggle('zbr-no-likes', t === '' || /^0(\D|$)/.test(t));
       });
       // gap between the intro text and the form: 24px
