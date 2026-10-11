@@ -1110,3 +1110,6 @@ html body *:focus, html body *:focus-visible, html body a:focus, html body butto
 html body [tabindex]:focus, html body [role="link"]:focus, html body [role="button"]:focus{ outline:0 none !important; outline-offset:0 !important; }
 html body button::-moz-focus-inner, html body input::-moz-focus-inner, html body a::-moz-focus-inner{ border:0 !important; }
 html body *{ -webkit-tap-highlight-color:transparent; }
+
+/* ...but keyboard users (the footer script sets html.zbr-kbd after a Tab key press, and clears it on a mouse click or touch) get a subtle dotted marker */
+html.zbr-kbd body *:focus, html.zbr-kbd body *:focus-visible{ outline:2px dotted #FFEE00 !important; outline-offset:2px !important; }
