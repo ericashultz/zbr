@@ -670,8 +670,8 @@
     })();
   }
 
-  // "TOP" button, like the redesign: fixed in the right-hand margin once the page is scrolled down. It is shown only while the margin
-  // beside the frame is wide enough for it, so it never covers the page.
+  // "TOP" button, like the redesign: fixed just outside the frame's right edge once the page is scrolled down. It is shown only while
+  // the margin beside the frame is wide enough for it, so it never covers the page.
   if (window.self === window.top && !document.body.classList.contains('zbr-embed')) {
     var topBtn = document.createElement('button');
     topBtn.type = 'button';
@@ -682,7 +682,10 @@
     document.body.appendChild(topBtn);
     var topCheck = function () {
       var frame = document.getElementById('canvas');
-      var margin = frame ? window.innerWidth - frame.getBoundingClientRect().right : 0;
+      var right = frame ? frame.getBoundingClientRect().right : window.innerWidth;
+      var margin = window.innerWidth - right;
+      topBtn.style.right = 'auto';
+      topBtn.style.left = Math.round(right + 20) + 'px';   // 20px outside the frame's right edge, not at the window's edge
       topBtn.hidden = !(window.pageYOffset >= 400 && window.innerWidth > 700 && margin >= 100);
     };
     window.addEventListener('scroll', topCheck, { passive: true });
