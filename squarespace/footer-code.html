@@ -251,6 +251,39 @@
       var count = root.querySelector('h3.comment-count');
       var list = root.querySelector('.comment-list');
       if (count && list && count.nextElementSibling !== list && list.parentNode) list.parentNode.insertBefore(count, list);
+      // replies: collapsed under their entry behind a "view replies (n)" link; the link opens / closes them
+      var thread = root.querySelector('.comment-list');
+      if (thread) {
+        var expanded = window.__zbrExpanded = window.__zbrExpanded || {};
+        var groups = [], curGroup = null;
+        [].slice.call(thread.children).forEach(function (el) {
+          if (el.classList.contains('zbr-replies-toggle')) return;
+          var depth = parseInt(el.getAttribute('data-depth') || '0', 10);
+          var isComment = el.classList.contains('comment');
+          var isWrap = el.classList.contains('reply-area-wrapper');
+          if (isComment && depth === 0) { curGroup = { id: el.getAttribute('data-commentid'), replies: [], first: null }; groups.push(curGroup); }
+          else if (curGroup && ((isComment && depth > 0) || (isWrap && depth > 0))) { curGroup.replies.push(el); }
+        });
+        groups.forEach(function (g) {
+          var comments = g.replies.filter(function (e) { return e.classList.contains('comment'); });
+          var open = !!expanded[g.id];
+          g.replies.forEach(function (e) { e.classList.toggle('zbr-reply-hidden', !open); });
+          var tog = thread.querySelector('.zbr-replies-toggle[data-for="' + g.id + '"]');
+          if (!comments.length) { if (tog && tog.parentNode) tog.parentNode.removeChild(tog); return; }
+          if (!tog) {
+            tog = document.createElement('div');
+            tog.className = 'zbr-replies-toggle';
+            tog.setAttribute('data-for', g.id);
+            tog.innerHTML = '<a href="#"></a>';
+          }
+          tog.firstChild.textContent = open ? 'hide replies' : 'view replies (' + comments.length + ')';
+          if (tog.nextElementSibling !== g.replies[0]) g.replies[0].parentNode.insertBefore(tog, g.replies[0]);
+        });
+        // toggles of entries that no longer exist
+        [].forEach.call(thread.querySelectorAll('.zbr-replies-toggle'), function (t) {
+          if (!groups.some(function (g) { return g.id === t.getAttribute('data-for'); }) && t.parentNode) t.parentNode.removeChild(t);
+        });
+      }
       // an entry with no likes shows no "0 likes"
       [].forEach.call(root.querySelectorAll('.likes'), function (el) {
         var t = el.textContent.replace(/^[^0-9]+/, '').trim();   // the widget writes "· 3": drop the dot, keep the number
@@ -268,6 +301,23 @@
         root.style.setProperty('margin-top', (cur + 24 - gap) + 'px', 'important');
       }
     };
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest ? e.target.closest('.zbr-replies-toggle a') : null;
+      if (t) {
+        e.preventDefault();
+        var id = t.parentNode.getAttribute('data-for');
+        window.__zbrExpanded = window.__zbrExpanded || {};
+        window.__zbrExpanded[id] = !window.__zbrExpanded[id];
+        tidyGuestbook();
+        return;
+      }
+      var post = e.target.closest ? e.target.closest('.reply-area .comment-btn') : null;
+      if (post) {   // someone is posting a reply: keep that thread open so it shows up
+        var w = post.closest('.reply-area-wrapper'), n = w;
+        while (n && !(n.classList.contains('comment') && n.getAttribute('data-depth') === '0')) n = n.previousElementSibling;
+        if (n) { window.__zbrExpanded = window.__zbrExpanded || {}; window.__zbrExpanded[n.getAttribute('data-commentid')] = true; }
+      }
+    });
     var gbTimer;
     var gbSchedule = function () { clearTimeout(gbTimer); gbTimer = setTimeout(tidyGuestbook, 120); };
     new MutationObserver(gbSchedule).observe(document.body, { childList: true, subtree: true, characterData: true });
