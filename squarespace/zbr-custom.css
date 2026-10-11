@@ -866,3 +866,22 @@ html body #page article.hentry:has(.special-content) .post .body .sqs-row:first-
 
 /* empty cart: the room under the button matches the room above the icon (27px more, so both are 63px from the frame lines) */
 #sqs-cart-container:has(.empty-message){ padding-bottom:27px !important; }
+
+/* ---- Archive detail pages (interviews, shows...): the old dark headings and text become readable on the black page ---- */
+body.zbr-archive-detail .sqs-html-content h1, body.zbr-archive-detail .sqs-html-content h2, body.zbr-archive-detail .sqs-html-content h3,
+body.zbr-archive-detail .sqs-html-content h4, body.zbr-archive-detail .sqs-html-content h5, body.zbr-archive-detail .sqs-html-content h6{
+  font:bold italic 22px/1.25 "Arial Narrow",Arial,sans-serif !important; color:#fff !important; text-transform:none !important;
+  letter-spacing:0 !important; text-align:left !important; margin:24px 0 10px !important; }
+body.zbr-archive-detail .sqs-html-content h2{ font-size:20px !important; }
+body.zbr-archive-detail .sqs-html-content h3{ font-size:18px !important; }
+body.zbr-archive-detail .sqs-html-content h4, body.zbr-archive-detail .sqs-html-content h5, body.zbr-archive-detail .sqs-html-content h6{ font-size:16px !important; }
+body.zbr-archive-detail .sqs-html-content h1 *, body.zbr-archive-detail .sqs-html-content h2 *, body.zbr-archive-detail .sqs-html-content h3 *,
+body.zbr-archive-detail .sqs-html-content h4 *, body.zbr-archive-detail .sqs-html-content h5 *, body.zbr-archive-detail .sqs-html-content h6 *{
+  font:inherit !important; color:inherit !important; text-transform:inherit !important; letter-spacing:inherit !important; }
+body.zbr-archive-detail .sqs-html-content p, body.zbr-archive-detail .sqs-html-content li, body.zbr-archive-detail .sqs-html-content blockquote,
+body.zbr-archive-detail .sqs-html-content p *:not(a), body.zbr-archive-detail .sqs-html-content li *:not(a){
+  font-family:Arial,sans-serif !important; color:#fff !important; letter-spacing:0 !important; text-transform:none !important; }
+body.zbr-archive-detail .sqs-html-content p, body.zbr-archive-detail .sqs-html-content li{ font-size:15px !important; line-height:1.6 !important; }
+body.zbr-archive-detail .sqs-html-content a, body.zbr-archive-detail .sqs-html-content a *{ color:#FFEE00 !important; text-decoration:underline !important; }
+body.zbr-archive-detail .sqs-html-content a:hover, body.zbr-archive-detail .sqs-html-content a:hover *{ color:#19A800 !important; background:none !important; }
+body.zbr-archive-detail .sqs-block-horizontalrule hr, body.zbr-archive-detail hr{ border:0 !important; border-top:2px solid #C0DEFF !important; background:none !important; }
