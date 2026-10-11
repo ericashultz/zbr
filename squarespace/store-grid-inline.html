@@ -83,16 +83,19 @@
     'body.zbr-store-page #page{max-width:none!important;margin-left:0!important;margin-right:0!important;padding-bottom:24px!important}' +
     // phones & tablets: the search bar stands on its own above a collapsed "Filters" bar; the rest of the filters open inside it
     '#zbr-store .zs-filters-toggle{display:none}' +
-    '#zbr-store .zs-clear{display:none;background:none;border:0;color:#FFEE00;font:12px "Fixedsys Excelsior","Courier New",monospace;text-decoration:underline;text-align:left;padding:0;margin:0 0 14px}' +
+    '#zbr-store .zs-sidebar{display:flex;flex-direction:column}' +
+    '#zbr-store .zs-search{order:-2}' +
+    '#zbr-store .zs-clear{order:-1;display:none;background:none;border:0;color:#FFEE00;font:12px "Fixedsys Excelsior","Courier New",monospace;text-decoration:underline;text-align:left;padding:0;margin:0 0 14px}' +
     '#zbr-store .zs-clear.zs-on{display:block}' +
     '@media (max-width:' + MOBILE_MAX + 'px){' +
       '#zbr-store .zs-sidebar{border:0;background:none;padding:0}' +
       '#zbr-store .zs-search{margin:0 0 12px}' +
-      '#zbr-store .zs-clear{margin:10px 0 0}' +
+      '#zbr-store .zs-clear{order:0;margin:10px 0 0}' +
       '#zbr-store .zs-filters-toggle{display:block;width:100%;text-align:left;background:#C0DEFF;color:#000;border:2px outset #fff;font:bold 14px "Fixedsys Excelsior","Courier New",monospace;margin:0;padding:8px 10px}' +
       '#zbr-store .zs-filters-toggle .zs-arrow{display:inline;float:right;transition:transform .15s ease}' +
       '#zbr-store .zs-filters-toggle[aria-expanded="true"] .zs-arrow{transform:rotate(180deg)}' +
-      '#zbr-store .zs-filters{display:none;background:#000;border:3px groove #C0DEFF;padding:10px;margin-top:8px}' +
+      // the menu hangs straight off the Filters bar like a drop-down: same width, no gap, no border between them
+      '#zbr-store .zs-filters{display:none;background:#000;border:3px groove #C0DEFF;border-top:0;padding:12px 10px 10px;margin:0}' +
       '#zbr-store .zs-sidebar.zs-fopen .zs-filters{display:block}' +
     '}' +
     '@media (max-width:' + MOBILE_MAX + 'px){#zbr-store{padding:4px 12px 12px}#zbr-store .zs-sidebar{flex:1 1 100%;width:100%}#zbr-store .zs-pagenav button{width:32px;margin:0 2px}#zbr-store .zs-pagenav .zs-gap{width:16px}}';
@@ -309,7 +312,6 @@
         '<aside class="zs-sidebar">' +
           '<label class="zs-search">Search<input type="text" placeholder="Band or release..." autocomplete="off"></label>' +
           '<button type="button" class="zs-filters-toggle" data-zs-fmenu aria-expanded="false">Filters<span class="zs-fcount"></span> <span class="zs-arrow">&#9660;</span></button>' +
-          '<button type="button" class="zs-clear" data-zs-clear>Clear all filters</button>' +
           '<div class="zs-filters">' +
             '<div class="zs-quick">' +
               '<button type="button" data-zs-special="new">New Items</button>' +
@@ -319,6 +321,7 @@
             section('Merch', merchHtml) +
             section('Labels', labelsHtml) +
           '</div>' +
+          '<button type="button" class="zs-clear" data-zs-clear>Clear all filters</button>' +
         '</aside>' +
         '<div class="zs-main"><div class="zs-grid"></div><nav class="zs-pagenav" aria-label="Store pages"></nav></div>' +
       '</div>';
