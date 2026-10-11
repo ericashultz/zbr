@@ -863,3 +863,6 @@ html body #page article.hentry:has(.special-content) .post .body .sqs-row:first-
 #sqs-cart-container .empty-message::after{ line-height:17px !important; }
 #sqs-cart-container div:has(> .empty-message){ margin-bottom:20px !important; }
 #sqs-cart-container .cart-continue-button{ margin-top:20px !important; }
+
+/* empty cart: the room under the button matches the room above the icon (27px more, so both are 63px from the frame lines) */
+#sqs-cart-container:has(.empty-message){ padding-bottom:27px !important; }
