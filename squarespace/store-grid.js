@@ -282,7 +282,7 @@
   function build(root, items) {
     var mq = window.matchMedia('(max-width:' + MOBILE_MAX + 'px)');
     var collapsedByDefault = mq.matches;
-    var st = { band: '', cat: '', size: '', label: '', special: '', query: '', page: 1 };
+    var st = { bands: [], cat: '', size: '', label: '', special: '', query: '', page: 1 };   // bands: any number of them (a release matches if it is by one of them)
 
     items.forEach(function (p) { p.b = prettyBand(p.b); });
 
@@ -344,7 +344,7 @@
     function hasFmt(p, code) { return !!p.f && p.f.indexOf(code) !== -1; }
 
     function matches(p, q) {
-      if (st.band && norm(p.b) !== norm(st.band)) return false;
+      if (st.bands.length && !st.bands.some(function (b) { return norm(p.b) === norm(b); })) return false;
       if (st.cat === 'vinyl') { if (!VINYL.some(function (c) { return hasFmt(p, c); })) return false; }
       else if (st.cat && !hasFmt(p, st.cat)) return false;
       if (st.size && !hasFmt(p, st.size)) return false;
@@ -407,14 +407,16 @@
       var sp;
       try { sp = new URLSearchParams(location.search); } catch (err) { return null; }
       if (!URL_KEYS.some(function (k) { return sp.has(k); })) return null;
-      var out = { band: '', cat: '', size: '', label: '', special: '', query: String(sp.get('q') || ''), page: Math.max(1, parseInt(sp.get('page'), 10) || 1) };
+      var out = { bands: [], cat: '', size: '', label: '', special: '', query: String(sp.get('q') || ''), page: Math.max(1, parseInt(sp.get('page'), 10) || 1) };
       var size = SIZE_ALIAS[slug(sp.get('size'))];
       var cat = CAT_ALIAS[slug(sp.get('cat'))];
-      var band = slug(sp.get('band')), label = slug(sp.get('label')), special = SPECIAL_ALIAS[slug(sp.get('special'))];
+      var bandReq = sp.getAll('band').map(slug).filter(Boolean), label = slug(sp.get('label')), special = SPECIAL_ALIAS[slug(sp.get('special'))];
       // the groups combine, e.g. ?label=Tomb+Tree&cat=shirt shows the label's shirts
       if (size) { out.cat = 'vinyl'; out.size = size; }
       else if (cat) out.cat = cat;
-      if (band) { bands.some(function (b) { if (slug(b) === band) { out.band = b; return true; } return false; }); }
+      bandReq.forEach(function (r) {   // ?band=Casca&band=Foxmoulder: several bands
+        bands.some(function (b) { if (slug(b) === r) { if (out.bands.indexOf(b) === -1) out.bands.push(b); return true; } return false; });
+      });
       if (label) { LABELS.some(function (l) { if (slug(l) === label) { out.label = l; return true; } return false; }); }
       if (special) out.special = special;
       return out;
@@ -425,7 +427,7 @@
         var sp = new URLSearchParams(location.search);
         URL_KEYS.forEach(function (k) { sp.delete(k); });
         if (st.size) sp.set('size', st.size); else if (st.cat) sp.set('cat', st.cat);
-        if (st.band) sp.set('band', st.band);
+        st.bands.forEach(function (b) { sp.append('band', b); });
         if (st.label) sp.set('label', st.label);
         if (st.special) sp.set('special', st.special);
         if (st.query.trim()) sp.set('q', st.query.trim());
@@ -457,7 +459,7 @@
       }
 
       // aria-current state, same rules as the redesign
-      root.querySelectorAll('[data-zs-band]').forEach(function (b) { b.setAttribute('aria-current', st.band && b.getAttribute('data-zs-band') === st.band ? 'true' : 'false'); });
+      root.querySelectorAll('[data-zs-band]').forEach(function (b) { b.setAttribute('aria-current', st.bands.indexOf(b.getAttribute('data-zs-band')) !== -1 ? 'true' : 'false'); });
       root.querySelectorAll('[data-zs-cat]').forEach(function (b) {
         var size = b.getAttribute('data-zs-size');
         var on = size ? size === st.size : (b.getAttribute('data-zs-cat') === st.cat && !st.size);
@@ -473,7 +475,7 @@
       });
       var fcount = root.querySelector('.zs-fcount');
       if (fcount) {
-        var active = (st.band ? 1 : 0) + (st.label ? 1 : 0) + (st.special ? 1 : 0) + (st.cat || st.size ? 1 : 0);
+        var active = st.bands.length + (st.label ? 1 : 0) + (st.special ? 1 : 0) + (st.cat || st.size ? 1 : 0);
         fcount.textContent = active ? ' (' + active + ')' : '';
         var clr = root.querySelector('.zs-clear');
         if (clr) clr.classList.toggle('zs-on', active > 0);
@@ -481,8 +483,9 @@
       writeUrl();
     }
 
-    // Filters combine across the groups (a label, a kind of merch, a band, New Items / Steals): the results must match all of them.
-    // Inside a group one choice at a time; choosing it again, or its "View All", turns that group off.
+    // Filters combine across the groups (a label, a kind of merch, bands, New Items / Steals): the results must match all of them.
+    // Bands can be several at once (either one); the other groups take one choice at a time. Choosing a choice again,
+    // or its "View All", turns it off.
     function setFilter(patch) {
       Object.keys(patch).forEach(function (k) { st[k] = patch[k]; });
       st.page = 1;
@@ -503,13 +506,13 @@
         var collapsed = list.classList.toggle('zs-collapsed');
         t.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
       } else if (t.hasAttribute('data-zs-clear')) {
-        setFilter({ band: '', cat: '', size: '', label: '', special: '' });
+        setFilter({ bands: [], cat: '', size: '', label: '', special: '' });
       } else if (t.hasAttribute('data-zs-viewall')) {
         var grp = t.getAttribute('data-zs-viewall');
-        setFilter(grp === 'band' ? { band: '' } : grp === 'label' ? { label: '' } : { cat: '', size: '' });
+        setFilter(grp === 'band' ? { bands: [] } : grp === 'label' ? { label: '' } : { cat: '', size: '' });
       } else if (t.hasAttribute('data-zs-band')) {
         var b = t.getAttribute('data-zs-band');
-        setFilter({ band: st.band === b ? '' : b });
+        setFilter({ bands: st.bands.indexOf(b) === -1 ? st.bands.concat([b]) : st.bands.filter(function (x) { return x !== b; }) });
       } else if (t.hasAttribute('data-zs-cat')) {
         if (t.hasAttribute('data-zs-size')) {
           var sz = t.getAttribute('data-zs-size');
@@ -552,7 +555,7 @@
       try {
         sessionStorage.setItem(STATE_KEY, JSON.stringify({
           t: Date.now(), y: window.pageYOffset, path: location.pathname,
-          band: st.band, cat: st.cat, size: st.size, label: st.label, special: st.special, query: st.query, page: st.page
+          bands: st.bands, cat: st.cat, size: st.size, label: st.label, special: st.special, query: st.query, page: st.page
         }));
       } catch (err) { /* no storage: back link just lands on the first page */ }
     });
@@ -563,7 +566,8 @@
     try { navType = performance.getEntriesByType('navigation')[0].type; } catch (err) { /* ignore */ }
 
     if (saved && saved.t && Date.now() - saved.t < 60 * 60 * 1000 && (flag === '1' || navType === 'back_forward')) {
-      ['band', 'cat', 'size', 'label', 'special', 'query'].forEach(function (k) { st[k] = saved[k] || ''; });
+      ['cat', 'size', 'label', 'special', 'query'].forEach(function (k) { st[k] = saved[k] || ''; });
+      st.bands = Array.isArray(saved.bands) ? saved.bands.slice() : (saved.band ? [saved.band] : []);
       st.page = saved.page || 1;
       search.value = st.query;
       render();
@@ -573,7 +577,8 @@
     } else {
       var fromUrl = readUrlState();
       if (fromUrl) {
-        ['band', 'cat', 'size', 'label', 'special', 'query'].forEach(function (k) { st[k] = fromUrl[k] || ''; });
+        ['cat', 'size', 'label', 'special', 'query'].forEach(function (k) { st[k] = fromUrl[k] || ''; });
+        st.bands = fromUrl.bands || [];
         st.page = fromUrl.page;
         search.value = st.query;
       }
