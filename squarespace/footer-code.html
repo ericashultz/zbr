@@ -574,17 +574,34 @@
   // Phone menu: remove the "Navigation" label entry
   var label = document.querySelector('nav.main-nav select option.mobile-select-label');
   if (label) label.parentNode.removeChild(label);
-  // A page that is not in the menu (the Guestbook, for one) has no active entry, and the phone would show the first item
-  // ("Canada/Intl Store") as if it were chosen, so choosing it did nothing. Show a "Menu" placeholder there instead.
+  // The phone menu is a drop-down. Squarespace marks the current page's entry, but not for every page (Search, for one):
+  // pick the entry whose address is this page. A page that is not in the menu at all (the Guestbook) has no active entry,
+  // and the phone would show the first item ("Canada/Intl Store") as if it were chosen, so choosing it did nothing;
+  // show a "Menu" placeholder there instead.
   var mobSel = document.querySelector('nav.main-nav select');
   if (mobSel && !mobSel.querySelector('option[selected]')) {
-    var ph = document.createElement('option');
-    ph.value = '';
-    ph.textContent = 'Menu';
-    ph.disabled = true;
-    ph.selected = true;
-    mobSel.insertBefore(ph, mobSel.firstChild);
-    mobSel.selectedIndex = 0;
+    var here = location.pathname.replace(/\/+$/, '') || '/', mine = null;
+    [].forEach.call(mobSel.options, function (o) {
+      if (mine || !o.value) return;
+      try {
+        var op = new URL(o.value, location.origin).pathname.replace(/\/+$/, '') || '/';
+        if (op === here) mine = o;
+      } catch (err) { /* not an address */ }
+    });
+    if (!mine && /^\/search(\/|$)/i.test(location.pathname)) {
+      [].forEach.call(mobSel.options, function (o) { if (!mine && /^search$/i.test(o.textContent.trim())) mine = o; });
+    }
+    if (mine) {
+      mine.selected = true;
+    } else {
+      var ph = document.createElement('option');
+      ph.value = '';
+      ph.textContent = 'Menu';
+      ph.disabled = true;
+      ph.selected = true;
+      mobSel.insertBefore(ph, mobSel.firstChild);
+      mobSel.selectedIndex = 0;
+    }
   }
 
   // Product page and product blocks: hide the catalog-number line that starts many descriptions
