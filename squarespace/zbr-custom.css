@@ -894,3 +894,6 @@ body.zbr-guestbook .squarespace-comments .comment-list::-webkit-scrollbar{ width
 body.zbr-guestbook .squarespace-comments .comment-list::-webkit-scrollbar-track{ background:#000033; border-left:2px solid #C0DEFF; background-image:repeating-conic-gradient(#1D2A5A 0 25%, #000033 0 50%); background-size:4px 4px; }
 body.zbr-guestbook .squarespace-comments .comment-list::-webkit-scrollbar-thumb{ background:linear-gradient(180deg,#e8e8e8,#a0a0a0); border:2px outset #fff; min-height:40px; }
 body.zbr-guestbook .squarespace-comments .comment-list::-webkit-scrollbar-thumb:hover{ background:linear-gradient(180deg,#ffffff,#c9c9c9); }
+
+/* guestbook: "Comments (n)" is right-aligned, just above the entries */
+body.zbr-guestbook .squarespace-comments h3.comment-count{ text-align:right !important; margin:18px 0 8px !important; }
