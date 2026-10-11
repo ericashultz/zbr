@@ -670,6 +670,12 @@
     })();
   }
 
+  // Keyboard users only get a focus marker: the class is set after a Tab key press and cleared by a mouse click or a touch
+  document.addEventListener('keydown', function (e) { if (e.key === 'Tab') document.documentElement.classList.add('zbr-kbd'); }, true);
+  ['mousedown', 'pointerdown', 'touchstart'].forEach(function (ev) {
+    document.addEventListener(ev, function () { document.documentElement.classList.remove('zbr-kbd'); }, true);
+  });
+
   // "TOP" button, like the redesign: fixed just outside the frame's right edge once the page is scrolled down. It is shown only while
   // the margin beside the frame is wide enough for it, so it never covers the page.
   if (window.self === window.top && !document.body.classList.contains('zbr-embed')) {
