@@ -537,6 +537,10 @@
         run = []; pending = []; between = [];
       };
       var afterCta = false;   // blank blocks right after a CTA would only add stray space before the player
+      // blank blocks / spacers after the last real content of the card only add empty room above the frame
+      var lastReal = -1;
+      blocks.forEach(function (b, ix) { if (b.style.display !== 'none' && !ctaNeutral(b)) lastReal = ix; });
+      blocks.forEach(function (b, ix) { if (ix > lastReal && b.style.display !== 'none') b.classList.add('zbr-empty'); });
       blocks.forEach(function (b) {
         if (b.style.display === 'none') return;
         if (b.classList.contains('sqs-block-button')) {
