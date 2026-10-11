@@ -1120,3 +1120,8 @@ html body #footerWrapper :has(> a), html body #footer :has(> a){ white-space:now
 html body #footerWrapper :has(> a) > a, html body #footer :has(> a) > a{ font-size:inherit !important; }
 
 /* (hover colours on the guestbook only apply where a mouse can really hover: on a phone the tapped link used to stay green) */
+
+/* pressed state (works with a finger as well as a mouse): green while the link is held down, back to yellow on release */
+body.zbr-guestbook .squarespace-comments .comment-list .zbr-replies-toggle a:active{ color:#19A800 !important; }
+body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.reply:active::after{ color:#19A800; }
+body.zbr-guestbook p.zbr-gb-back a:active{ color:#19A800 !important; }
