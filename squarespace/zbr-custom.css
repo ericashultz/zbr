@@ -937,3 +937,17 @@ body.zbr-guestbook .squarespace-comments .comment.liked .controls .squarespace-c
 
 /* an entry with no likes shows no "0 likes" (the footer script marks those) */
 body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .likes.zbr-no-likes, body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .likes.zbr-no-likes *{ display:none !important; }
+
+/* guestbook: replies must be able to open (list items may not shrink inside the scrolling box), entries are 12px apart,
+   and the heart and "Reply" sit on one centered line */
+body.zbr-guestbook .squarespace-comments .comment-list > *{ flex-shrink:0 !important; }
+body.zbr-guestbook .squarespace-comments .comment-list{ gap:0 !important; }
+body.zbr-guestbook .squarespace-comments .comment-list .comment{ margin-bottom:12px !important; }
+body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons{ display:inline-flex !important; align-items:center !important; gap:2px; height:18px; }
+body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.reply,
+body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like,
+body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like-confirm{ display:inline-flex !important; align-items:center !important; height:18px !important; }
+body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.reply::after{ line-height:1; }
+/* the reply box, once open, is part of the entry above it */
+body.zbr-guestbook .squarespace-comments .comment-list .reply-area-wrapper{ margin-bottom:12px !important; }
+body.zbr-guestbook .squarespace-comments .reply-area .comment-input{ min-height:80px; }
