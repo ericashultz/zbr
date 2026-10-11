@@ -1010,6 +1010,9 @@ body.zbr-guestbook .squarespace-comments .comments-content .comment-list .commen
 /* guestbook on phones: the "« Back" link lines up with the comment form (same inset as the frame -> form), and name / time stamp / like count / heart stay on one line */
 @media (max-width:767px){
   body.zbr-guestbook p.zbr-gb-back{ padding-left:25px !important; }
-  body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info{ white-space:nowrap !important; }
-  body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .author{ display:inline !important; }
+  body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info{ display:flex !important; align-items:baseline !important; flex:0 1 auto !important; min-width:0 !important; max-width:calc(100% - 40px) !important; white-space:nowrap !important; }
+  /* a long user name is cut off with "..." so the time stamp, likes and heart stay on the line */
+  body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .author{ display:block !important; flex:0 1 auto !important; min-width:0 !important; overflow:hidden !important; text-overflow:ellipsis !important; }
+  body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .date,
+  body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .likes{ flex:none !important; }
 }
