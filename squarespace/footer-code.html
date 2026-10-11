@@ -646,24 +646,33 @@
           var html = '';
           var firstDate = document.querySelector('article.hentry time.published');
           if (firstDate) html += '<span class="zbr-pagenav-label">News from ' + firstDate.textContent.trim() + '</span>';
-          function arrow(sym, N, label) {
-            var h = N ? href(N) : null;
-            return h ? '<a class="zbr-pg zbr-pg-arrow" href="' + h + '" title="' + label + '" aria-label="' + label + '">' + sym + '</a>'
-                     : '<span class="zbr-pg zbr-pg-arrow zbr-pg-off" aria-hidden="true">' + sym + '</span>';
-          }
-          // the arrows slide the set of four numbers: 1-4 -> 5-8 -> 9-12 ... and back (landing on the first page of that set)
-          var prevSet = start > 1 ? start - 4 : 0;
-          var nextSet = start + 4 <= pages ? start + 4 : 0;
-          html += '<div class="zbr-pagenav-buttons">' + arrow('&lsaquo;', prevSet, 'Previous pages');
-          for (var N = start; N < start + 4 && N <= pages; N++) {
-            if (N === current) html += '<span class="zbr-pg" aria-current="true">' + N + '</span>';
-            else { var h = href(N); html += h ? '<a class="zbr-pg" href="' + h + '">' + N + '</a>' : '<span class="zbr-pg zbr-pg-off">' + N + '</span>'; }
-          }
-          html += arrow('&rsaquo;', nextSet, 'Next pages') + '</div>';
+          // the arrows only slide the set of four numbers (1-4 -> 5-8 -> 9-12 ... and back); they do not leave the page you are on
+          var winStart = start;
           var nav = document.createElement('nav');
           nav.className = 'zbr-pagenav';
           nav.setAttribute('aria-label', 'News pages');
-          nav.innerHTML = html;
+          nav.innerHTML = html + '<div class="zbr-pagenav-buttons"></div>';
+          var box = nav.querySelector('.zbr-pagenav-buttons');
+          function arrowHtml(sym, dir, label, on) {
+            return on ? '<button type="button" class="zbr-pg zbr-pg-arrow" data-zbr-set="' + dir + '" title="' + label + '" aria-label="' + label + '">' + sym + '</button>'
+                      : '<span class="zbr-pg zbr-pg-arrow zbr-pg-off" aria-hidden="true">' + sym + '</span>';
+          }
+          function drawSet() {
+            var out = arrowHtml('&lsaquo;', -1, 'Previous pages', winStart > 1);
+            for (var N = winStart; N < winStart + 4 && N <= pages; N++) {
+              if (N === current) out += '<span class="zbr-pg" aria-current="true">' + N + '</span>';
+              else { var h = href(N); out += h ? '<a class="zbr-pg" href="' + h + '">' + N + '</a>' : '<span class="zbr-pg zbr-pg-off">' + N + '</span>'; }
+            }
+            out += arrowHtml('&rsaquo;', 1, 'Next pages', winStart + 4 <= pages);
+            box.innerHTML = out;
+          }
+          drawSet();
+          nav.addEventListener('click', function (e) {
+            var t = e.target.closest ? e.target.closest('[data-zbr-set]') : null;
+            if (!t) return;
+            winStart = Math.max(1, Math.min(winStart + 4 * parseInt(t.getAttribute('data-zbr-set'), 10), pages));
+            drawSet();
+          });
           pager.classList.add('zbr-hidden');
           pager.parentNode.insertBefore(nav, pager.nextSibling);
           // wide screens: if the two-column layout already moved Newer/Older under the whole page, put the numbers there too
