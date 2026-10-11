@@ -989,3 +989,15 @@ body.zbr-guestbook .squarespace-comments .comment.liked .controls .squarespace-c
 /* the heart keeps its own spacing now that Reply has left the row */
 body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like,
 body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like-confirm{ padding:0 !important; }
+
+/* guestbook: the hearts line up in one column (the name / time / likes text gets a fixed minimum width; replies are
+   indented, so theirs is shortened by the same amount) and sit level with the text */
+body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info{ min-width:min(260px,72%); }
+body.zbr-guestbook .squarespace-comments .comment-list .comment[data-depth="1"] .comment-header .user-info{ min-width:min(251px,70%); }
+body.zbr-guestbook .squarespace-comments .comment-list .comment[data-depth="2"] .comment-header .user-info{ min-width:min(239px,68%); }
+body.zbr-guestbook .squarespace-comments .comment-list .comment[data-depth="3"] .comment-header .user-info{ min-width:min(227px,66%); }
+body.zbr-guestbook .squarespace-comments .comment-list .comment[data-depth="4"] .comment-header .user-info,
+body.zbr-guestbook .squarespace-comments .comment-list .comment[data-depth="5"] .comment-header .user-info,
+body.zbr-guestbook .squarespace-comments .comment-list .comment[data-depth="6"] .comment-header .user-info{ min-width:min(215px,64%); }
+body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like,
+body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like-confirm{ transform:translateY(-3px); }
