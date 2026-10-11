@@ -207,6 +207,7 @@
       if (!wrap) return;
       art.style.removeProperty('min-height');
       wrap.style.removeProperty('margin-bottom');
+      [].forEach.call(art.querySelectorAll('.zbr-bcplayer'), function (p) { p.style.removeProperty('margin-bottom'); });   // the player step below redoes its own
       var cs = getComputedStyle(art);
       var inner = (parseFloat(cs.paddingBottom) || 0) + (parseFloat(cs.borderBottomWidth) || 0);
       var slack = function () { return art.getBoundingClientRect().bottom - wrap.getBoundingClientRect().bottom - inner; };
@@ -267,7 +268,7 @@
   };
   var evenAll = function () {
     window.__zbrErrors = [];
-    [['evenCtaSpacing', evenCtaSpacing], ['alignCtaRows', alignCtaRows], ['evenCtaBelow', evenCtaBelow], ['evenCardGaps', evenCardGaps], ['evenCardEnd', evenCardEnd], ['evenCardFrame', evenCardFrame]].forEach(function (st) {
+    [['evenCtaSpacing', evenCtaSpacing], ['alignCtaRows', alignCtaRows], ['evenCtaBelow', evenCtaBelow], ['evenCardGaps', evenCardGaps], ['evenCardFrame', evenCardFrame], ['evenCardEnd', evenCardEnd]].forEach(function (st) {
       try { st[1](); } catch (err) { window.__zbrErrors.push(st[0] + ': ' + (err && err.message)); }
     });
   };
