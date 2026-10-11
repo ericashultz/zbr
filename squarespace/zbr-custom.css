@@ -884,7 +884,7 @@ body.zbr-archive-detail .sqs-html-content p *:not(a), body.zbr-archive-detail .s
 body.zbr-archive-detail .sqs-html-content p, body.zbr-archive-detail .sqs-html-content li{ font-size:15px !important; line-height:1.6 !important; text-align:left !important; }
 body.zbr-archive-detail .sqs-html-content a, body.zbr-archive-detail .sqs-html-content a *{ color:#FFEE00 !important; text-decoration:underline !important; }
 body.zbr-archive-detail .sqs-html-content a:hover, body.zbr-archive-detail .sqs-html-content a:hover *{ color:#19A800 !important; background:none !important; }
-body.zbr-archive-detail .sqs-block-horizontalrule hr, body.zbr-archive-detail hr{ border:0 !important; border-top:2px solid #C0DEFF !important; background:none !important; }
+body.zbr-archive-detail .sqs-block-horizontalrule hr, body.zbr-archive-detail hr{ border:0 !important; border-top:4px double #C0DEFF !important; height:0 !important; background:none !important; }
 
 /* guestbook with many entries: the list is a scrolling box (about six entries tall: ~112px entries + 12px gaps; fits on one screen) instead of a very long page */
 body.zbr-guestbook .squarespace-comments .comment-list{ max-height:700px; overflow-y:auto; overflow-x:hidden; padding:0 8px 0 0; }
@@ -1071,3 +1071,6 @@ body:not(.zbr-guestbook) section.comments-wrapper, body:not(.zbr-guestbook) #com
 
 /* posts: no Newer / Older links under them */
 body.collection-type-blog nav.item.pagination{ display:none !important; }
+
+/* divider lines inside posts and pages: the same light-blue double line as the footer and menu bar (they were thin grey lines) */
+html body .sqs-block-horizontalrule hr, html body article.hentry hr{ border:0 !important; border-top:4px double #C0DEFF !important; height:0 !important; background:none !important; box-shadow:none !important; }
