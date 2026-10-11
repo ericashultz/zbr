@@ -886,8 +886,8 @@ body.zbr-archive-detail .sqs-html-content a, body.zbr-archive-detail .sqs-html-c
 body.zbr-archive-detail .sqs-html-content a:hover, body.zbr-archive-detail .sqs-html-content a:hover *{ color:#19A800 !important; background:none !important; }
 body.zbr-archive-detail .sqs-block-horizontalrule hr, body.zbr-archive-detail hr{ border:0 !important; border-top:2px solid #C0DEFF !important; background:none !important; }
 
-/* guestbook with many entries: the list is a scrolling box (about ten entries tall: 10 x ~112px entries + 12px gaps) instead of a very long page */
-body.zbr-guestbook .squarespace-comments .comment-list{ max-height:1220px; overflow-y:auto; overflow-x:hidden; padding:0 8px 0 0; }
+/* guestbook with many entries: the list is a scrolling box (about six entries tall: ~112px entries + 12px gaps; fits on one screen) instead of a very long page */
+body.zbr-guestbook .squarespace-comments .comment-list{ max-height:700px; overflow-y:auto; overflow-x:hidden; padding:0 8px 0 0; }
 /* Firefox only: Chrome and Safari would ignore the retro ::-webkit-scrollbar styling below if these standard properties were set */
 @supports not selector(::-webkit-scrollbar){ body.zbr-guestbook .squarespace-comments .comment-list{ scrollbar-width:auto; scrollbar-color:#c0c0c0 #000033; } }
 body.zbr-guestbook .squarespace-comments .comment-list::-webkit-scrollbar{ width:16px; }
