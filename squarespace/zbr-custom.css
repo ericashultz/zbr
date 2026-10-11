@@ -881,7 +881,7 @@ body.zbr-archive-detail .sqs-html-content h4 *, body.zbr-archive-detail .sqs-htm
 body.zbr-archive-detail .sqs-html-content p, body.zbr-archive-detail .sqs-html-content li, body.zbr-archive-detail .sqs-html-content blockquote,
 body.zbr-archive-detail .sqs-html-content p *:not(a), body.zbr-archive-detail .sqs-html-content li *:not(a){
   font-family:Arial,sans-serif !important; color:#fff !important; letter-spacing:0 !important; text-transform:none !important; }
-body.zbr-archive-detail .sqs-html-content p, body.zbr-archive-detail .sqs-html-content li{ font-size:15px !important; line-height:1.6 !important; }
+body.zbr-archive-detail .sqs-html-content p, body.zbr-archive-detail .sqs-html-content li{ font-size:15px !important; line-height:1.6 !important; text-align:left !important; }
 body.zbr-archive-detail .sqs-html-content a, body.zbr-archive-detail .sqs-html-content a *{ color:#FFEE00 !important; text-decoration:underline !important; }
 body.zbr-archive-detail .sqs-html-content a:hover, body.zbr-archive-detail .sqs-html-content a:hover *{ color:#19A800 !important; background:none !important; }
 body.zbr-archive-detail .sqs-block-horizontalrule hr, body.zbr-archive-detail hr{ border:0 !important; border-top:2px solid #C0DEFF !important; background:none !important; }
