@@ -670,7 +670,7 @@
     })();
   }
 
-  // A sold out product (the red SOLD OUT tag) cannot be added to the cart: its Add to Cart button is switched off
+  // A sold out product (the red SOLD OUT tag) cannot be added to the cart: its Add to Cart button and version menu are switched off
   [].forEach.call(document.querySelectorAll('.sqs-block-product, #productDetails'), function (b) {
     if (!b.querySelector('.product-mark.sold-out')) return;
     [].forEach.call(b.querySelectorAll('.sqs-add-to-cart-button'), function (btn) {
@@ -678,6 +678,7 @@
       btn.setAttribute('aria-disabled', 'true');
       btn.setAttribute('tabindex', '-1');
     });
+    [].forEach.call(b.querySelectorAll('.product-variants select, .product-variants input'), function (f) { f.disabled = true; });   // no version picking either
   });
   ['click', 'keydown', 'touchend'].forEach(function (ev) {
     document.addEventListener(ev, function (e) {
