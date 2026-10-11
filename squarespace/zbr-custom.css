@@ -955,7 +955,7 @@ body.zbr-guestbook .squarespace-comments .reply-area .comment-input{ min-height:
 /* guestbook replies: no frame -- a thin line on the left, small text, tucked under their entry; hidden until "view replies" is clicked */
 body.zbr-guestbook .squarespace-comments .comment-list .zbr-reply-hidden{ display:none !important; }
 body.zbr-guestbook .squarespace-comments .comment-list .comment[data-depth]:not([data-depth="0"]){
-  background:none !important; border:0 !important; border-left:2px solid #C0DEFF !important; padding:2px 0 2px 12px !important; margin-bottom:8px !important; }
+  background:none !important; border:0 !important; border-left:2px solid #C0DEFF !important; padding:2px 15px 2px 12px !important; margin-bottom:8px !important; }
 body.zbr-guestbook .squarespace-comments .comment-list .comment[data-depth="1"]{ margin-left:10px !important; }
 body.zbr-guestbook .squarespace-comments .comment-list .comment[data-depth="2"]{ margin-left:22px !important; }
 body.zbr-guestbook .squarespace-comments .comment-list .comment[data-depth="3"]{ margin-left:34px !important; }
