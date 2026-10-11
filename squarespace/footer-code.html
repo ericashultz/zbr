@@ -242,6 +242,28 @@
   // Guestbook page (a single blog post at /guestbook/...): switch on its special styling
   if (/^\/guestbook(\/|$)/.test(location.pathname)) document.body.classList.add('zbr-guestbook');
 
+  // "« Back" links: go back to whatever page the visitor came from (same site), restoring its filters / page / scroll position.
+  // The address set on the link is only the fallback for visitors who arrived straight on this page.
+  var goBack = function (e) {
+    var from = '';
+    try {
+      if (document.referrer) {
+        var u = new URL(document.referrer);
+        if (u.origin === location.origin && u.pathname !== location.pathname) from = u.pathname.replace(/\/+$/, '') || '/';
+      }
+    } catch (err) {}
+    if (!from || window.history.length < 2) return false;   // no previous page on this site: follow the link's own address
+    try {
+      var st = JSON.parse(sessionStorage.getItem('zbr-store-state') || 'null');
+      if (st && st.path && st.path.replace(/\/+$/, '') === from) sessionStorage.setItem('zbr-store-restore', '1');
+      var np = JSON.parse(sessionStorage.getItem('zbr-news-pos') || 'null');
+      if (np && np.u && np.u.split('?')[0].replace(/\/+$/, '') === from) sessionStorage.setItem('zbr-news-restore', '1');
+    } catch (err) {}
+    e.preventDefault();
+    window.history.back();
+    return true;
+  };
+
   // News pages remember where the visitor was (page and scroll position), so the Guestbook can link back to it
   (function () {
     var cl = document.body.classList, here = location.pathname + location.search;
@@ -290,9 +312,10 @@
       wrap.className = 'zbr-gb-back';
       var link = document.createElement('a');
       link.href = href || '/';
-      link.innerHTML = '&laquo; Back to News';
-      link.addEventListener('click', function () {
-        try { sessionStorage.setItem('zbr-news-restore', '1'); } catch (e) {}
+      link.innerHTML = '&laquo; Back';
+      link.addEventListener('click', function (e) {
+        if (goBack(e)) return;
+        try { sessionStorage.setItem('zbr-news-restore', '1'); } catch (err) {}   // no previous page: land on the saved news page
       });
       wrap.appendChild(link);
       art.parentNode.insertBefore(wrap, art);
@@ -356,9 +379,10 @@
       });
     }
     back.href = storePath || '/';
-    back.innerHTML = '&laquo; Back to Store';
-    back.addEventListener('click', function () {
-      try { sessionStorage.setItem('zbr-store-restore', '1'); } catch (e) {}
+    back.innerHTML = '&laquo; Back';
+    back.addEventListener('click', function (e) {
+      if (goBack(e)) return;
+      try { sessionStorage.setItem('zbr-store-restore', '1'); } catch (err) {}   // no previous page: land on the store at the saved filters
     });
   }
 
