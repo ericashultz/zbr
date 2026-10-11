@@ -835,3 +835,9 @@ html body #page article.hentry .post .body .sqs-row:first-child .sqs-block:first
 
 /* news cards with a headline: headline -> first paragraph is 12px on phones too (the block's own 14px top padding is removed; desktop already had none) */
 html body #page article.hentry:has(h1.entry-title) .post .body .sqs-row:first-child .sqs-block:first-child{ padding-top:0 !important; }
+
+/* the template gives the last post of a list 50px of extra bottom padding; every news card closes at the same distance under its content */
+#zbr-news-main article.hentry, #zbr-news-main article.hentry:last-child, #zbr-news-main article.hentry:last-of-type{ padding-bottom:20px !important; }
+@media (max-width:700px){
+  #zbr-news-main article.hentry, #zbr-news-main article.hentry:last-child, #zbr-news-main article.hentry:last-of-type{ padding-bottom:14px !important; }
+}
