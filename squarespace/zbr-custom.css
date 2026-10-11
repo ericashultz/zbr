@@ -1020,3 +1020,15 @@ body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .li
 @media (max-width:767px){
   body.zbr-guestbook p.zbr-gb-back{ padding-left:25px !important; }
 }
+
+/* contact page on phones & tablets: spacing like the redesign (the form 20px under the intro text, the button 36px above the footer line).
+   The template's own #page rules (14px block padding, 100px under the page) are matched with an id so these win. */
+@media (max-width:900px){
+  html body #page .sqs-layout:has(.sqs-block-form){ margin-bottom:20px !important; }
+  html body #page .sqs-layout:has(.sqs-block-form) .sqs-block{ padding-top:0 !important; padding-bottom:0 !important; }
+  html body #page .sqs-layout:has(.sqs-block-form) .sqs-block-html .sqs-html-content{ margin-bottom:0 !important; }
+  html body #page .sqs-layout:has(.sqs-block-form) .sqs-block-html p:has(+ .zbr-empty){ margin-bottom:0 !important; }   /* the empty line the footer script hides */
+  html body #page .sqs-block-form .field-list{ margin-top:21px !important; }
+  html body #page .sqs-block-form .sqs-form-block-submission-html{ margin-top:0 !important; }   /* an empty message box was pushing the form down 16px */
+  html body #page:has(.sqs-block-form){ padding-bottom:0 !important; }
+}
