@@ -978,3 +978,14 @@ body.zbr-guestbook .squarespace-comments a:focus, body.zbr-guestbook .squarespac
 body.zbr-guestbook .squarespace-comments .zbr-replies-toggle a:focus, body.zbr-guestbook .squarespace-comments .zbr-replies-toggle a:focus-visible,
 body.zbr-guestbook .squarespace-comments .comment-control:focus, body.zbr-guestbook .squarespace-comments .comment-control:focus-visible,
 body.zbr-guestbook .squarespace-comments .view-more-btn:focus, body.zbr-guestbook .squarespace-comments .full-view-btn:focus{ outline:none !important; box-shadow:none; }
+
+/* guestbook: the Reply link sits at the bottom left of each comment box (the heart stays by the time stamp) */
+body.zbr-guestbook .squarespace-comments .comment-list .comment{ position:relative !important; padding-bottom:36px !important; }
+body.zbr-guestbook .squarespace-comments .comment .comment-body p:last-child, body.zbr-guestbook .squarespace-comments .comment .comment-body > *:last-child{ margin-bottom:0 !important; }
+body.zbr-guestbook .squarespace-comments .comment-list .comment[data-depth]:not([data-depth="0"]){ padding-bottom:34px !important; }
+body.zbr-guestbook .squarespace-comments .comment .comment-header, body.zbr-guestbook .squarespace-comments .comment .comment-header .controls, body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons{ position:static !important; }
+body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.reply,
+body.zbr-guestbook .squarespace-comments .comment.liked .controls .squarespace-comment-buttons .comment-control.reply{ position:absolute !important; left:12px; top:auto !important; bottom:9px; padding:0 !important; }
+/* the heart keeps its own spacing now that Reply has left the row */
+body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like,
+body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment-buttons .comment-control.like-confirm{ padding:0 !important; }
