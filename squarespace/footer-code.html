@@ -604,6 +604,13 @@
     }
   }
 
+  // Contact page: the intro text ends with an empty paragraph (&nbsp;), which leaves a blank line above the form
+  if (document.querySelector('.sqs-block-form')) {
+    [].forEach.call(document.querySelectorAll('.sqs-layout .sqs-block-html p'), function (p) {
+      if (!p.textContent.replace(/[\s\u00a0]+/g, '') && !p.querySelector('img, iframe, a')) p.classList.add('zbr-empty');
+    });
+  }
+
   // Product page and product blocks: hide the catalog-number line that starts many descriptions
   // (e.g. NHOMME ‘…’ tape (ZBR314)): a short first paragraph that ends with a code in brackets, or is centred
   [].forEach.call(document.querySelectorAll('.product-excerpt'), function (ex) {
