@@ -1042,9 +1042,9 @@ body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .li
 
 /* search results like the redesign: titles and snippets left-aligned, the news page ("Page 3") at the right end of the title line */
 .search-result, .search-result .sqs-content, .search-result .sqs-title{ text-align:left !important; }
-.search-result > .sqs-search-container-item > .sqs-content{ display:grid !important; grid-template-columns:minmax(0,1fr) auto; column-gap:10px; align-items:baseline; }
+.search-result > .sqs-search-container-item > .sqs-content{ display:grid !important; grid-template-columns:minmax(0,1fr) auto; column-gap:0; align-items:baseline; }
 .search-result > .sqs-search-container-item > .sqs-content > .sqs-content{ grid-column:1 / -1; }
-.search-result .zbr-sr-page{ grid-column:2; grid-row:1; font:11px "Fixedsys Excelsior","Courier New",monospace; color:#d9d9d9; white-space:nowrap; }
+.search-result .zbr-sr-page{ grid-column:2; grid-row:1; margin-left:10px; font:11px "Fixedsys Excelsior","Courier New",monospace; color:#d9d9d9; white-space:nowrap; }
 .search-result .sqs-title{ grid-column:1; grid-row:1; }
 
 /* product page on phones: the price gets its own line, the option menu the next, and quantity + Add to Cart share the one after */
