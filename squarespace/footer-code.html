@@ -301,6 +301,7 @@
         root.style.setProperty('margin-top', (cur + 24 - gap) + 'px', 'important');
       }
       if (window.__zbrGbBar) window.__zbrGbBar();
+      if (window.__zbrGbFit) window.__zbrGbFit();
     };
     document.addEventListener('click', function (e) {
       if (e.__zbrGb) return;   // handled once per click, even if this script were on the page twice
@@ -342,6 +343,26 @@
       var rest = dy - (to - from);
       if (rest) window.scrollBy({ top: rest, left: 0, behavior: 'instant' });
     };
+    // Long user names: each name gets exactly the room left on its line after the time stamp, likes and heart (measured, not guessed),
+    // and is cut off with "..." beyond that
+    var gbFitNames = function () {
+      [].forEach.call(document.querySelectorAll('.squarespace-comments .comment-header'), function (hd) {
+        var ui = hd.querySelector('.user-info'), au = ui && ui.querySelector('.author'), ct = hd.querySelector('.controls');
+        if (!au || !ct || !hd.offsetWidth) return;
+        au.style.setProperty('max-width', 'none', 'important');
+        var hs = getComputedStyle(hd), room = hd.clientWidth - (parseFloat(hs.paddingLeft) || 0) - (parseFloat(hs.paddingRight) || 0);
+        var rest = ui.offsetWidth - au.offsetWidth;   // time stamp, likes and the gaps around the name
+        var ctl = parseFloat(getComputedStyle(ct).marginLeft) || 0;
+        [].forEach.call(ct.querySelectorAll('.comment-control'), function (b) {
+          if (b.offsetWidth && getComputedStyle(b).position !== 'absolute') ctl += b.offsetWidth + 6;
+        });
+        au.style.setProperty('max-width', Math.max(40, Math.floor(room - rest - ctl - 4)) + 'px', 'important');
+      });
+    };
+    window.__zbrGbFit = gbFitNames;
+    window.addEventListener('resize', gbFitNames);
+    window.addEventListener('load', gbFitNames);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(gbFitNames);
     var gbBarUpdate = function () {
       var l = document.querySelector('.squarespace-comments .comment-list');
       if (!l || !l.parentNode || !window.matchMedia('(pointer:coarse)').matches) return;
