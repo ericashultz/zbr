@@ -247,6 +247,14 @@
   // Guestbook layout: "Comments (n)" sits right-aligned just above the list of entries (not above the form),
   // and the form sits close under the intro line. The comments widget draws itself after load, so watch for it.
   if (document.body.classList.contains('zbr-guestbook')) {
+    // hearts the visitor has pressed stay filled (remembered in this browser): the comments widget does not always keep the "liked" state
+    var likedMap = {};
+    try { likedMap = JSON.parse(localStorage.getItem('zbr-gb-liked') || '{}') || {}; } catch (e) { likedMap = {}; }
+    var saveLiked = function () { try { localStorage.setItem('zbr-gb-liked', JSON.stringify(likedMap)); } catch (e) {} };
+    var likeCount = function (cm) {
+      var l = cm && cm.querySelector('.likes'), n = l ? parseInt(l.textContent.replace(/[^0-9]/g, ''), 10) : 0;
+      return isNaN(n) ? 0 : n;
+    };
     var tidyGuestbook = function () {
       var root = document.querySelector('.squarespace-comments');
       if (!root) return;
@@ -286,6 +294,9 @@
           if (!groups.some(function (g) { return g.id === t.getAttribute('data-for'); }) && t.parentNode) t.parentNode.removeChild(t);
         });
       }
+      [].forEach.call(root.querySelectorAll('.comment[data-commentid]'), function (cm) {
+        cm.classList.toggle('zbr-liked', !!likedMap[cm.getAttribute('data-commentid')]);
+      });
       // an entry with no likes shows no "0 likes"
       [].forEach.call(root.querySelectorAll('.likes'), function (el) {
         var t = el.textContent.replace(/^[^0-9]+/, '').trim();   // the widget writes "· 3": drop the dot, keep the number
@@ -308,6 +319,18 @@
     document.addEventListener('click', function (e) {
       if (e.__zbrGb) return;   // handled once per click, even if this script were on the page twice
       e.__zbrGb = true;
+      var lk = e.target.closest ? e.target.closest('.squarespace-comments .comment-control.like, .squarespace-comments .comment-control.like-confirm') : null;
+      if (lk) {   // a heart was pressed: if the entry's like count went up it is "liked" here, if it went down it is not
+        var lcm = lk.closest('.comment'), lid = lcm && lcm.getAttribute('data-commentid'), lbefore = likeCount(lcm);
+        if (lid) {
+          setTimeout(function () {
+            var c2 = document.querySelector('.squarespace-comments .comment[data-commentid="' + lid + '"]'), lafter = likeCount(c2);
+            if (lafter > lbefore) likedMap[lid] = 1; else if (lafter < lbefore) delete likedMap[lid];
+            saveLiked();
+            tidyGuestbook();
+          }, 1200);
+        }
+      }
       var t = e.target.closest ? e.target.closest('.zbr-replies-toggle a') : null;
       if (t) {
         e.preventDefault();
