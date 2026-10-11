@@ -124,7 +124,14 @@
   };
   var evenAll = function () { evenCtaSpacing(); alignCtaRows(); evenCtaBelow(); };
   var alignTimer;
-  window.addEventListener('resize', function () { clearTimeout(alignTimer); alignTimer = setTimeout(function () { alignCtaRows(); evenCtaSpacing(); evenCtaBelow(); }, 150); });
+  var lastCtaW = window.innerWidth;
+  // phones fire "resize" whenever the address bar slides away while scrolling; only a real width change needs the spacing redone
+  window.addEventListener('resize', function () {
+    if (window.innerWidth === lastCtaW) return;
+    lastCtaW = window.innerWidth;
+    clearTimeout(alignTimer);
+    alignTimer = setTimeout(evenAll, 150);
+  });
   if (document.readyState === 'complete') evenAll();
   else window.addEventListener('load', function () { evenAll(); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(evenAll, 300); });
