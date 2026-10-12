@@ -532,6 +532,36 @@
     }
   })();
 
+  // "« Back" on the Archives landing page and on the archive detail pages: returns to the page the visitor came from
+  (function () {
+    var host = document.getElementById('zbr-archives'), toArchives = false;
+    if (!host && document.body.classList.contains('zbr-archive-detail')) { host = document.getElementById('page'); toArchives = true; }
+    if (!host || document.querySelector('p.zbr-gb-back')) return;
+    var href = '';
+    if (toArchives) {   // arrived straight on the page: the Archives landing page
+      [].forEach.call(document.querySelectorAll('#footer a, nav.main-nav ul li a'), function (l) {
+        if (!href && /^archives$/i.test(l.textContent.trim()) && l.getAttribute('href') && l.getAttribute('href') !== '#') href = l.getAttribute('href');
+      });
+    } else {
+      var saved = null;
+      try { saved = JSON.parse(sessionStorage.getItem('zbr-news-pos') || 'null'); } catch (e) {}
+      if (saved && saved.u) href = saved.u;
+      if (!href) {
+        [].forEach.call(document.querySelectorAll('nav.main-nav ul li a'), function (l) {
+          if (!href && /^(zbr\s+)?news$/i.test(l.textContent.trim())) href = l.getAttribute('href');
+        });
+      }
+    }
+    var wrap = document.createElement('p');
+    wrap.className = 'zbr-gb-back';
+    var link = document.createElement('a');
+    link.href = href || '/';
+    link.innerHTML = '&laquo; Back';
+    link.addEventListener('click', function (e) { goBack(e); });
+    wrap.appendChild(link);
+    host.insertBefore(wrap, host.firstChild);
+  })();
+
   // Mailing list pop-up: "Join The Mailing List" opens a modal that shows the Newsletter block from the hidden /mailing-list page
   if (window.self !== window.top && /^\/mailing-list(\/|$)/.test(location.pathname)) {
     document.body.classList.add('zbr-embed');
