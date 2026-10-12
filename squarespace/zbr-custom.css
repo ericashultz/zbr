@@ -1114,8 +1114,8 @@ html body *{ -webkit-tap-highlight-color:transparent; }
 /* ...but keyboard users (the footer script sets html.zbr-kbd after a Tab key press, and clears it on a mouse click or touch) get a subtle dotted marker */
 html.zbr-kbd body *:focus, html.zbr-kbd body *:focus-visible{ outline:2px dotted #FFEE00 !important; outline-offset:2px !important; }
 
-/* footer links: underlined like the redesign, and the whole row on one line (it shrinks a little on narrow phones instead of wrapping) */
-html body #footerWrapper a, html body #footerWrapper a:visited, html body #footer a, html body #footer a:visited{ text-decoration:underline !important; }
+/* footer links: no underline, and the whole row on one line (it shrinks a little on narrow phones instead of wrapping) */
+html body #footerWrapper a, html body #footerWrapper a:visited, html body #footer a, html body #footer a:visited{ text-decoration:none !important; }
 html body #footerWrapper :has(> a), html body #footer :has(> a){ white-space:nowrap !important; font-size:min(12px, 2.9vw) !important; }
 html body #footerWrapper :has(> a) > a, html body #footer :has(> a) > a{ font-size:inherit !important; }
 
