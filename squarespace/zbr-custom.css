@@ -1133,3 +1133,15 @@ body.zbr-archive-detail p.zbr-gb-back a, body.zbr-archive-detail p.zbr-gb-back a
   font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline !important; text-transform:none !important; letter-spacing:0 !important; background:none !important; }
 @media (hover:hover){ body.zbr-archive-detail p.zbr-gb-back a:hover, body:has(#zbr-archives) p.zbr-gb-back a:hover{ color:#19A800 !important; } }
 body.zbr-archive-detail p.zbr-gb-back a:active, body:has(#zbr-archives) p.zbr-gb-back a:active{ color:#19A800 !important; }
+
+/* product titles never run out of their frame (one very long word breaks where it must) */
+.product-title, h1.product-title, .sqs-block-product .product-title{ overflow-wrap:anywhere !important; word-break:break-word !important; max-width:100% !important; }
+
+/* product page on phones: the SOLD OUT tag has the same room above (picture) and below (text): 16px each */
+@media (max-width:700px){
+  body.view-item #productSummary{ row-gap:0 !important; }
+  body.view-item #productGallery{ margin-top:24px !important; }   /* (the 24px the row gap used to give) */
+  body.view-item #productDetails{ margin-top:0 !important; }
+  body.view-item #productDetails > .product-mark.sold-out{ margin:16px 0 16px !important; }
+  body.view-item #productDetails:not(:has(> .product-mark.sold-out)){ margin-top:24px !important; }
+}
