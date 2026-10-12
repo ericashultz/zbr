@@ -223,7 +223,7 @@ body.view-item .sqs-add-to-cart-button .sqs-add-to-cart-button-inner{ line-heigh
 body.view-item .sqs-add-to-cart-button:hover{ background:#1D64A7 !important; border-color:#2F7CC8 !important; color:#fff !important; }
 body.view-item .sqs-add-to-cart-button:active{ border-style:inset !important; }
 /* sold out: red tag in the redesign's style, and no cart button */
-body.view-item .product-mark.sold-out{ position:static !important; float:none !important; display:inline-block !important; margin:0 0 8px !important; padding:2px 8px !important; background:#cc0000 !important; border:2px outset #cc0000 !important; border-radius:0 !important; color:#fff !important; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; text-transform:uppercase; letter-spacing:0 !important; }
+body.view-item .product-mark.sold-out, body.view-item .product-mark.sale{ position:static !important; float:none !important; display:inline-block !important; margin:0 0 8px !important; padding:2px 8px !important; background:#cc0000 !important; border:2px outset #cc0000 !important; border-radius:0 !important; color:#fff !important; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; text-transform:uppercase; letter-spacing:0 !important; }
 body.view-item .product-mark.sold-out ~ .sqs-add-to-cart-button-wrapper{ display:none !important; }
 body.view-item .product-sharing{ display:none !important; }
 
@@ -1142,6 +1142,9 @@ body.zbr-archive-detail p.zbr-gb-back a:active, body:has(#zbr-archives) p.zbr-gb
   body.view-item #productSummary{ row-gap:0 !important; }
   body.view-item #productGallery{ margin-top:24px !important; }   /* (the 24px the row gap used to give) */
   body.view-item #productDetails{ margin-top:0 !important; }
-  body.view-item #productDetails > .product-mark.sold-out{ margin:16px 0 16px !important; }
-  body.view-item #productDetails:not(:has(> .product-mark.sold-out)){ margin-top:24px !important; }
+  body.view-item #productDetails > .product-mark.sold-out, body.view-item #productDetails > .product-mark.sale{ margin:16px 0 16px !important; }
+  body.view-item #productDetails:not(:has(> .product-mark)){ margin-top:24px !important; }
 }
+
+/* SALE and SOLD OUT tags look the same wherever they appear (news list, store blocks, product pages) */
+.product-mark.sale, .product-mark.sold-out{ padding:2px 8px !important; background:#cc0000 !important; border:2px outset #cc0000 !important; border-radius:0 !important; color:#fff !important; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; text-transform:uppercase; letter-spacing:0 !important; }
