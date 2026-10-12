@@ -300,6 +300,12 @@
       var m = MULTI_BANDS[norm(p.b)];
       if (m) { p.bs = m.slice(); p.b = m.join(' / '); }
     });
+    // "A / B", "A + B" and "A x B" are splits: the release is listed under each band on it (the tile keeps the title as written)
+    items.forEach(function (p) {
+      if (p.bs) return;
+      var parts = String(p.b || '').split(/\s+\/\s+|\s+\+\s+|\s+x\s+/).map(function (t) { return t.replace(/\s+etc\.?$/i, '').trim(); }).filter(Boolean);
+      if (parts.length > 1) p.bs = parts;
+    });
     var namesOf = function (p) { return p.bs || [p.b]; };
 
     // Bands A-Z: unique (case-insensitive), skipping the label's own name
