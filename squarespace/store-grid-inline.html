@@ -276,7 +276,12 @@
     var collapsedByDefault = mq.matches;
     var st = { bands: [], cat: '', size: '', label: '', special: '', query: '', page: 1 };   // bands: any number of them (a release matches if it is by one of them)
 
-    items.forEach(function (p) { p.b = prettyBand(p.b); });
+    // spelling slips in band names on the store pages, corrected here (add more as [pattern, correct name])
+    var BAND_FIXES = [[/\bduct hears\b/i, 'Duct Hearts']];
+    items.forEach(function (p) {
+      p.b = prettyBand(p.b);
+      BAND_FIXES.forEach(function (f) { p.b = p.b.replace(f[0], f[1]); });
+    });
     // a split listed under a title like "4-WAY" belongs to each band on it (it is not a band called "4-way")
     var MULTI_BANDS = {
       '4-way': ['Moss Rose', 'Duct Hearts', 'Child Meadow', 'Caton & Ophelie'],
