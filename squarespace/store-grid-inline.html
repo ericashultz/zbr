@@ -277,14 +277,26 @@
     var st = { bands: [], cat: '', size: '', label: '', special: '', query: '', page: 1 };   // bands: any number of them (a release matches if it is by one of them)
 
     items.forEach(function (p) { p.b = prettyBand(p.b); });
+    // a split listed under a title like "4-WAY" belongs to each band on it (it is not a band called "4-way")
+    var MULTI_BANDS = {
+      '4-way': ['Moss Rose', 'Duct Hearts', 'Child Meadow', 'Caton & Ophelie'],
+      '6-way split': ['Duck Little Brother Duck!', 'American Thunder Band', 'Canyons', 'Anodes', 'Sohns']
+    };
+    items.forEach(function (p) {
+      var m = MULTI_BANDS[norm(p.b)];
+      if (m) { p.bs = m.slice(); p.b = m.join(' / '); }
+    });
+    var namesOf = function (p) { return p.bs || [p.b]; };
 
     // Bands A-Z: unique (case-insensitive), skipping the label's own name
     var seen = {}, bands = [];
     items.forEach(function (p) {
-      var k = norm(p.b);
-      if (!k || k === 'zegema beach records' || seen[k]) return;
-      seen[k] = 1;
-      bands.push(p.b);
+      namesOf(p).forEach(function (name) {
+        var k = norm(name);
+        if (!k || k === 'zegema beach records' || seen[k]) return;
+        seen[k] = 1;
+        bands.push(name);
+      });
     });
     function sortKey(b) { return b.replace(/^[^A-Za-z0-9\u00C0-\uFFFF]+/, '') || b; } // ignore leading punctuation like "..." or "["
     bands.sort(function (a, b) { return sortKey(a).localeCompare(sortKey(b), undefined, { sensitivity: 'base', numeric: true }); });
@@ -344,7 +356,7 @@
     function hasFmt(p, code) { return !!p.f && p.f.indexOf(code) !== -1; }
 
     function matches(p, q) {
-      if (st.bands.length && !st.bands.some(function (b) { return norm(p.b) === norm(b); })) return false;
+      if (st.bands.length && !st.bands.some(function (b) { return namesOf(p).some(function (n) { return norm(n) === norm(b); }); })) return false;
       if (st.cat === 'vinyl') { if (!VINYL.some(function (c) { return hasFmt(p, c); })) return false; }
       else if (st.cat && !hasFmt(p, st.cat)) return false;
       if (st.size && !hasFmt(p, st.size)) return false;
