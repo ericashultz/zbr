@@ -1148,3 +1148,6 @@ body.zbr-archive-detail p.zbr-gb-back a:active, body:has(#zbr-archives) p.zbr-gb
 
 /* SALE and SOLD OUT tags look the same wherever they appear (news list, store blocks, product pages) */
 .product-mark.sale, .product-mark.sold-out{ padding:2px 8px !important; background:#cc0000 !important; border:2px outset #cc0000 !important; border-radius:0 !important; color:#fff !important; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; text-transform:uppercase; letter-spacing:0 !important; }
+
+/* SOLD OUT tags are dark grey (SALE stays red) */
+html body.view-item .product-mark.sold-out, html body .product-mark.sold-out{ background:#555555 !important; border-color:#6e6e6e !important; }

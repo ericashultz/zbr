@@ -82,7 +82,7 @@
     '#zbr-store .zs-band.zs-tight{font-size:10px}' +
     '#zbr-store .zs-name{display:block;font:11px Arial,sans-serif;color:#fff;margin:2px 0;text-transform:none;letter-spacing:0;overflow-wrap:anywhere;word-break:break-word}' +
     '#zbr-store .zs-price{display:block;font:bold 12px "Fixedsys Excelsior","Courier New",monospace;color:#C0DFFE;text-transform:none;letter-spacing:0}' +
-    '#zbr-store .zs-price.zs-soldout{color:#ff6b6b}' +
+    '#zbr-store .zs-price.zs-soldout{color:#8a8a8a}' +
     '#zbr-store .zs-msg{color:#d9d9d9;font-size:14px;padding:10px 2px}' +
     '#zbr-store .zs-msg a{color:#C0DEFF}' +
     '#zbr-store .zs-pagenav{text-align:center;margin:18px 0 4px;padding-top:6px}' +
@@ -171,7 +171,7 @@
     'button': ['button'], 'pin': ['button'],
     'sticker': ['sticker'], 'patch/sticker': ['sticker'], 'patch': ['sticker']
   };
-  var CACHE_KEY = 'zbr-store-catalog-v2';
+  var CACHE_KEY = 'zbr-store-catalog-v3';
   var CACHE_MS = 60 * 60 * 1000;
 
   function decodeEntities(str) {
@@ -205,6 +205,8 @@
     var title = decodeEntities(String(item.title || '')).trim();
     var dash = title.indexOf(' - ');
     var img = siteImage(item);
+    var alt = '';   // a second picture to try when the main one has gone missing on the server
+    (item.items || []).some(function (k) { if (k && k.assetUrl && k.assetUrl !== img) { alt = k.assetUrl; return true; } return false; });
     var out = {
       b: dash > 0 ? title.slice(0, dash).trim() : '',
       n: dash > 0 ? title.slice(dash + 3).trim() : title,
@@ -212,6 +214,7 @@
       i: img ? img + '?format=500w' : '',
       p: min / 100
     };
+    if (alt) out.i2 = alt + '?format=500w';
     if (max !== min) out.r = 1;
     if (soldOut) out.s = 1;
     if (Object.keys(fmts).length) out.f = Object.keys(fmts);
@@ -340,6 +343,14 @@
         '<div class="zs-main"><div class="zs-grid"></div><nav class="zs-pagenav" aria-label="Store pages"></nav></div>' +
       '</div>';
 
+    // a picture that fails to load is swapped for the product's next picture, or hidden (no broken-image icon)
+    root.addEventListener('error', function (e) {
+      var im = e.target;
+      if (!im || im.tagName !== 'IMG') return;
+      var alt = im.getAttribute('data-alt');
+      if (alt && im.getAttribute('src') !== alt) { im.setAttribute('src', alt); im.removeAttribute('data-alt'); }
+      else im.style.visibility = 'hidden';
+    }, true);
     var grid = root.querySelector('.zs-grid');
     var pager = root.querySelector('.zs-pagenav');
     var search = root.querySelector('.zs-search input');
@@ -452,7 +463,7 @@
       } else {
         grid.innerHTML = filtered.slice((st.page - 1) * PAGE_SIZE, st.page * PAGE_SIZE).map(function (p) {
           return '<a class="zs-tile" href="' + esc(p.u) + '">' +
-            '<span class="zs-imgbox">' + (p.i ? '<img src="' + esc(p.i) + '" alt="' + esc((p.b ? p.b + ' - ' : '') + p.n) + '" loading="lazy">' : '') + '</span>' +
+            '<span class="zs-imgbox">' + (p.i ? '<img src="' + esc(p.i) + '"' + (p.i2 ? ' data-alt="' + esc(p.i2) + '"' : '') + ' alt="' + esc((p.b ? p.b + ' - ' : '') + p.n) + '" loading="lazy">' : '') + '</span>' +
             (p.b ? '<span class="zs-band' + (longestWord(p.b) >= 15 ? ' zs-tight' : '') + '">' + esc(p.b) + '</span>' : '') +
             '<span class="zs-name">' + esc(p.n) + '</span>' +
             '<span class="zs-price' + (p.s ? ' zs-soldout' : '') + '">' + esc(priceLabel(p)) + '</span>' +
