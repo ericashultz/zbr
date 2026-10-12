@@ -723,6 +723,17 @@
     })();
   }
 
+  // Product page: a picture that has not appeared after a few seconds (slow connection, lazy loader) is asked for again
+  if (document.body.classList.contains('view-item')) {
+    setTimeout(function () {
+      [].forEach.call(document.querySelectorAll('#productGallery img[data-src], #productDetails img[data-src], .product-block img[data-src]'), function (im) {
+        if (im.complete && im.naturalWidth > 0) return;
+        var s = im.getAttribute('data-src');
+        if (s) im.src = s + (s.indexOf('?') > -1 ? '' : '?format=1000w');
+      });
+    }, 3500);
+  }
+
   // Keyboard users only get a focus marker: the class is set after a Tab key press and cleared by a mouse click or a touch
   document.addEventListener('keydown', function (e) { if (e.key === 'Tab') document.documentElement.classList.add('zbr-kbd'); }, true);
   ['mousedown', 'pointerdown', 'touchstart'].forEach(function (ev) {
