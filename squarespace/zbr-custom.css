@@ -1151,3 +1151,18 @@ body.zbr-archive-detail p.zbr-gb-back a:active, body:has(#zbr-archives) p.zbr-gb
 
 /* SOLD OUT tags are dark grey (SALE stays red) */
 html body.view-item .product-mark.sold-out, html body .product-mark.sold-out{ background:#555555 !important; border-color:#6e6e6e !important; }
+
+/* the guest "Post a Comment" window (Name / Email / Website), dressed by the footer script: black window, blue title bar, X to close */
+.zbr-gl{ position:fixed !important; inset:0 !important; z-index:2147483000 !important; display:flex !important; align-items:center; justify-content:center; padding:16px; box-sizing:border-box; background:none !important; }
+.zbr-gl > div:first-child{ position:absolute !important; inset:0 !important; background:rgba(0,0,10,.78) !important; opacity:1 !important; }
+.zbr-gl > div:nth-child(2), .zbr-gl > i, .zbr-gl > header{ display:none !important; }
+.zbr-gl > div:last-child{ position:relative !important; width:100% !important; max-width:420px !important; height:auto !important; min-height:0 !important; margin:0 !important; padding:0 0 18px !important; box-sizing:border-box; background:#000 !important; border:3px groove #C0DEFF !important; box-shadow:0 0 0 2px #1D64A7; border-radius:0 !important; text-align:left; }
+.zbr-gl > div:last-child > header{ display:none !important; }
+.zbr-gl > div:last-child > *:not(.zbr-gl-bar){ margin-left:16px !important; margin-right:16px !important; width:auto !important; max-width:none !important; }
+.zbr-gl .zbr-gl-bar{ display:flex; align-items:center; justify-content:space-between; margin:0 0 16px !important; padding:5px 8px; background:#C0DEFF; color:#000; font:13px/13px "Fixedsys Excelsior","Courier New",monospace; }
+.zbr-gl .zbr-gl-x{ width:22px; height:20px; padding:0; cursor:pointer; background:linear-gradient(180deg,#fff,#d4d4d4); border:2px outset #fff; border-radius:0; color:#000332; font:bold 12px "Fixedsys Excelsior","Courier New",monospace; line-height:1; }
+.zbr-gl .zbr-gl-x:hover{ background:#1D64A7; color:#fff; }
+.zbr-gl input{ display:block; box-sizing:border-box; width:100% !important; padding:8px !important; margin:0 0 12px !important; background:#fff !important; color:#000 !important; border:2px inset #c0c0c0 !important; border-radius:0 !important; font:14px "Fixedsys Excelsior","Courier New",monospace !important; }
+.zbr-gl input::placeholder{ color:#757575; opacity:1; }
+.zbr-gl > div:last-child > button:not(.zbr-gl-x){ display:block; margin-top:6px !important; height:34px; padding:0 16px !important; cursor:pointer; background:linear-gradient(180deg,#ffffff,#d4d4d4) !important; border:2px outset #fff !important; border-radius:0 !important; color:#000332 !important; font:bold 12px "Fixedsys Excelsior","Courier New",monospace !important; text-transform:uppercase; letter-spacing:0 !important; opacity:1 !important; }
+.zbr-gl > div:last-child > button:not(.zbr-gl-x):disabled{ opacity:.5 !important; cursor:default; }

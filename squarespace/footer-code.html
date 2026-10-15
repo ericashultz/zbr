@@ -734,6 +734,39 @@
     }, 3500);
   }
 
+  // The "Post a Comment" box that opens when a guest presses Post Comment (Name / Email / Website) is drawn by Squarespace straight onto
+  // the page. Give it a title bar and an X like the site's other pop-up windows (the original close button is invisible).
+  (function () {
+    var dress = function (root) {
+      if (root.classList.contains('zbr-gl')) return;
+      var kids = [].slice.call(root.children);
+      var closeEl = kids[1];
+      var box = kids[kids.length - 1];
+      if (kids.length < 3 || !box || !box.querySelector('input')) return;
+      root.classList.add('zbr-gl');
+      var close = function () { if (closeEl) closeEl.click(); };
+      var bar = document.createElement('div');
+      bar.className = 'zbr-gl-bar';
+      bar.innerHTML = '<span>Post a Comment</span><button type="button" class="zbr-gl-x" aria-label="Close window">X</button>';
+      bar.querySelector('button').addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); close(); });
+      box.insertBefore(bar, box.firstChild);
+      if (kids[0]) kids[0].addEventListener('click', close);
+      document.addEventListener('keydown', function onKey(e) {
+        if (!document.body.contains(root)) { document.removeEventListener('keydown', onKey); return; }
+        if (e.key === 'Escape') close();
+      });
+    };
+    new MutationObserver(function (muts) {
+      muts.forEach(function (m) {
+        [].forEach.call(m.addedNodes, function (n) {
+          if (n.nodeType !== 1 || n.parentNode !== document.body) return;
+          var h = n.querySelector && n.querySelector('h1');
+          if (h && /post a comment/i.test(h.textContent) && n.querySelector('input')) dress(n);
+        });
+      });
+    }).observe(document.body, { childList: true });
+  })();
+
   // Keyboard users only get a focus marker: the class is set after a Tab key press and cleared by a mouse click or a touch
   document.addEventListener('keydown', function (e) { if (e.key === 'Tab') document.documentElement.classList.add('zbr-kbd'); }, true);
   ['mousedown', 'pointerdown', 'touchstart'].forEach(function (ev) {
