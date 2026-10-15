@@ -750,10 +750,10 @@
       bar.innerHTML = '<span>Post a Comment</span><button type="button" class="zbr-gl-x" aria-label="Close window">X</button>';
       bar.querySelector('button').addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); close(); });
       box.insertBefore(bar, box.firstChild);
-      // a label over each field says whether it is required (only the name is: the button stays off until one is typed)
+      // a label over each field; the name is marked (required) in yellow (the button stays off until one is typed), the others carry no note
       [].forEach.call(box.querySelectorAll('input'), function (inp) {
         var ph = (inp.getAttribute('placeholder') || '').toLowerCase();
-        var text = /name/.test(ph) ? 'Name (required)' : /e-?mail/.test(ph) ? 'Email Address (optional)' : /website|url/.test(ph) ? 'Website URL (optional)' : '';
+        var text = /name/.test(ph) ? 'Name' : /e-?mail/.test(ph) ? 'Email Address' : /website|url/.test(ph) ? 'Website URL' : '';
         if (!text) return;
         var holder = inp;
         while (holder.parentNode && holder.parentNode !== box) holder = holder.parentNode;
@@ -761,6 +761,12 @@
         var lab = document.createElement('div');
         lab.className = 'zbr-gl-label';
         lab.textContent = text;
+        if (text === 'Name') {   // only the name is required: marked in yellow, the others carry no note
+          var req = document.createElement('span');
+          req.className = 'zbr-gl-req';
+          req.textContent = ' (required)';
+          lab.appendChild(req);
+        }
         box.insertBefore(lab, holder);
       });
       if (kids[0]) kids[0].addEventListener('click', close);
