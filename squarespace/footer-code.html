@@ -599,7 +599,12 @@
       document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape') close(); });
     }
     var f = m.querySelector('iframe');
-    if (!f.getAttribute('src')) f.setAttribute('src', '/mailing-list');
+    if (!f.getAttribute('src')) {
+      // stay black until the form page has loaded and put its own black styling on (it used to flash the page's green-dot background first)
+      f.style.visibility = 'hidden';
+      f.addEventListener('load', function () { setTimeout(function () { f.style.visibility = 'visible'; }, 60); });
+      f.setAttribute('src', '/mailing-list');
+    }
     m.classList.add('zbr-ml-open');
     document.documentElement.classList.add('zbr-ml-lock');
   });
