@@ -756,15 +756,24 @@
         if (e.key === 'Escape') close();
       });
     };
+    // (Squarespace appends an empty <div> to the page and fills it a moment later, so the whole page is watched and the
+    // top-level <div> that changed is the one checked)
+    var check = function (n) {
+      if (!n || n.nodeType !== 1 || n.parentNode !== document.body || n.classList.contains('zbr-gl')) return;
+      var h = n.querySelector && n.querySelector('h1');
+      if (h && /post a comment/i.test(h.textContent) && n.querySelector('input')) {
+        // the page gets a bare <div>, and the window itself is that div's only child
+        dress(n.children.length === 1 && n.firstElementChild.tagName === 'DIV' ? n.firstElementChild : n);
+      }
+    };
     new MutationObserver(function (muts) {
       muts.forEach(function (m) {
-        [].forEach.call(m.addedNodes, function (n) {
-          if (n.nodeType !== 1 || n.parentNode !== document.body) return;
-          var h = n.querySelector && n.querySelector('h1');
-          if (h && /post a comment/i.test(h.textContent) && n.querySelector('input')) dress(n);
-        });
+        var t = m.target;
+        while (t && t.parentNode && t.parentNode !== document.body) t = t.parentNode;
+        if (t && t.parentNode === document.body) check(t);
+        [].forEach.call(m.addedNodes, function (n) { check(n); });
       });
-    }).observe(document.body, { childList: true });
+    }).observe(document.body, { childList: true, subtree: true });
   })();
 
   // Keyboard users only get a focus marker: the class is set after a Tab key press and cleared by a mouse click or a touch
