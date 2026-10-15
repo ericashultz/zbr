@@ -761,7 +761,10 @@
     var check = function (n) {
       if (!n || n.nodeType !== 1 || n.parentNode !== document.body || n.classList.contains('zbr-gl')) return;
       var h = n.querySelector && n.querySelector('h1');
-      if (h && /post a comment/i.test(h.textContent) && n.querySelector('input')) dress(n);
+      if (h && /post a comment/i.test(h.textContent) && n.querySelector('input')) {
+        // the page gets a bare <div>, and the window itself is that div's only child
+        dress(n.children.length === 1 && n.firstElementChild.tagName === 'DIV' ? n.firstElementChild : n);
+      }
     };
     new MutationObserver(function (muts) {
       muts.forEach(function (m) {
