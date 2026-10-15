@@ -1167,3 +1167,4 @@ html body.view-item .product-mark.sold-out, html body .product-mark.sold-out{ ba
 .zbr-gl > div:last-child > button:not(.zbr-gl-x){ display:block; margin-top:6px !important; height:34px; padding:0 16px !important; cursor:pointer; background:linear-gradient(180deg,#ffffff,#d4d4d4) !important; border:2px outset #fff !important; border-radius:0 !important; color:#000332 !important; font:bold 12px "Fixedsys Excelsior","Courier New",monospace !important; text-transform:uppercase; letter-spacing:0 !important; opacity:1 !important; }
 .zbr-gl > div:last-child > button:not(.zbr-gl-x):disabled{ opacity:.5 !important; cursor:default; }
 .zbr-gl .zbr-gl-label{ margin-bottom:4px !important; font:bold 13px "Fixedsys Excelsior","Courier New",monospace; color:#fff; text-transform:none; letter-spacing:0; }
+.zbr-gl .zbr-gl-req{ color:#FFEE00; }
