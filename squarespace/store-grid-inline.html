@@ -493,6 +493,21 @@
       } catch (err) { /* address bar left as it is */ }
     }
 
+    // a band name with a very long word keeps the normal size unless that word really does not fit on its tile
+    function fitBands() {
+      [].forEach.call(grid.querySelectorAll('.zs-band[data-long]'), function (b) {
+        b.classList.remove('zs-tight');
+        b.style.overflowWrap = 'normal';
+        b.style.wordBreak = 'normal';
+        var over = b.scrollWidth > b.clientWidth + 1;
+        b.style.overflowWrap = '';
+        b.style.wordBreak = '';
+        if (over) b.classList.add('zs-tight');
+      });
+    }
+    var fitTimer;
+    window.addEventListener('resize', function () { clearTimeout(fitTimer); fitTimer = setTimeout(fitBands, 150); });
+
     function render() {
       var q = norm(st.query);
       var filtered = items.filter(function (p) { return matches(p, q); });
@@ -506,12 +521,13 @@
         grid.innerHTML = filtered.slice((st.page - 1) * PAGE_SIZE, st.page * PAGE_SIZE).map(function (p) {
           return '<a class="zs-tile" href="' + esc(p.u) + '">' +
             '<span class="zs-imgbox">' + (p.i ? '<img src="' + esc(p.i) + '"' + (p.i2 ? ' data-alt="' + esc(p.i2) + '"' : '') + ' alt="' + esc((p.b ? p.b + ' - ' : '') + p.n) + '" loading="lazy">' : '') + '</span>' +
-            (p.b || p.hl ? '<span class="zs-band' + (longestWord(p.b || p.hl) >= 15 ? ' zs-tight' : '') + '">' + esc(p.b || p.hl) + '</span>' : '') +
+            (p.b || p.hl ? '<span class="zs-band"' + (longestWord(p.b || p.hl) >= 15 ? ' data-long="1"' : '') + '>' + esc(p.b || p.hl) + '</span>' : '') +
             (p.n ? '<span class="zs-name">' + esc(p.n) + '</span>' : '') +
             '<span class="zs-price' + (p.s ? ' zs-soldout' : '') + '">' + esc(priceLabel(p)) + '</span>' +
             '</a>';
         }).join('');
         renderPager(filtered.length, pages);
+        fitBands();
       }
 
       // aria-current state, same rules as the redesign
