@@ -171,7 +171,7 @@
     'button': ['button'], 'pin': ['button'],
     'sticker': ['sticker'], 'patch/sticker': ['sticker'], 'patch': ['sticker']
   };
-  var CACHE_KEY = 'zbr-store-catalog-v4';
+  var CACHE_KEY = 'zbr-store-catalog-v5';
   var CACHE_MS = 60 * 60 * 1000;
 
   function decodeEntities(str) {
@@ -179,7 +179,16 @@
       .replace(/&quot;/g, '"').replace(/&#39;|&#x27;/g, "'");
   }
   // products whose Squarespace title has no "BAND - Title" dash: [band, name shown on the tile]
-  var TITLE_BANDS = { 'adamantium (poster)': ['ADAMANTIUM', '(poster)'] };
+  var TITLE_BANDS = {
+    'adamantium (poster)': ['ADAMANTIUM', '(poster)'],
+    'annwyn (poster)': ['ANNWYN', '(poster)'],
+    'massive attack 100th window (sticky poster)': ['MASSIVE ATTACK', '100th Window (sticky poster)'],
+    'warsaw was raw (cd)': ['WARSAW WAS RAW', '(cd)'],
+    'empty vessels (pin)': ['EMPTY VESSELS', '(pin)'],
+    'emo is more than music (sticker)': ['EMO IS MORE THAN MUSIC', '(sticker)'],
+    "spit don't make babies (sticker)": ["SPIT DON'T MAKE BABIES", '(sticker)'],
+    'spit don\u2019t make babies (sticker)': ["SPIT DON'T MAKE BABIES", '(sticker)']
+  };
 
   function siteImage(item) {
     var own = item.assetUrl || '';
