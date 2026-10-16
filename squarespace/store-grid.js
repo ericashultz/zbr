@@ -172,7 +172,7 @@
     'button': ['button'], 'pin': ['button'],
     'sticker': ['sticker'], 'patch/sticker': ['sticker'], 'patch': ['sticker']
   };
-  var CACHE_KEY = 'zbr-store-catalog-v7';
+  var CACHE_KEY = 'zbr-store-catalog-v8';
   var CACHE_MS = 60 * 60 * 1000;
 
   function decodeEntities(str) {
@@ -190,6 +190,9 @@
     "spit don't make babies (sticker)": ["SPIT DON'T MAKE BABIES", '(sticker)'],
     'spit don\u2019t make babies (sticker)': ["SPIT DON'T MAKE BABIES", '(sticker)']
   };
+
+  // products with no band whose whole title is shown as the yellow headline (it is not a band, so it stays out of Bands A-Z)
+  var TITLE_HEADLINES = { 'zbr tote bag': 'ZBR Tote Bag' };
 
   function siteImage(item) {
     var own = item.assetUrl || '';
@@ -231,6 +234,8 @@
       else if (zm) { band = zm[1]; name = zm[2].trim(); }
       else if (one) { band = one[0]; name = one[1]; }
     }
+    var headline = !band ? (TITLE_HEADLINES[title.toLowerCase()] || '') : '';
+    if (headline) name = '';
     var img = siteImage(item);
     var alt = '';   // a second picture to try when the main one has gone missing on the server
     (item.items || []).some(function (k) { if (k && k.assetUrl && k.assetUrl !== img) { alt = k.assetUrl; return true; } return false; });
@@ -242,6 +247,7 @@
       p: min / 100
     };
     if (alt) out.i2 = alt + '?format=500w';
+    if (headline) out.hl = headline;
     if (max !== min) out.r = 1;
     if (soldOut) out.s = 1;
     if (Object.keys(fmts).length) out.f = Object.keys(fmts);
@@ -417,7 +423,7 @@
         else if (p.l !== st.label) return false;
       }
       if (st.special && p.sp !== st.special) return false;
-      if (q && ((p.b || '') + ' ' + p.n).toLowerCase().indexOf(q) === -1) return false;
+      if (q && ((p.b || '') + ' ' + (p.hl || '') + ' ' + p.n).toLowerCase().indexOf(q) === -1) return false;
       return true;
     }
 
@@ -514,8 +520,8 @@
         grid.innerHTML = filtered.slice((st.page - 1) * PAGE_SIZE, st.page * PAGE_SIZE).map(function (p) {
           return '<a class="zs-tile" href="' + esc(p.u) + '">' +
             '<span class="zs-imgbox">' + (p.i ? '<img src="' + esc(p.i) + '"' + (p.i2 ? ' data-alt="' + esc(p.i2) + '"' : '') + ' alt="' + esc((p.b ? p.b + ' - ' : '') + p.n) + '" loading="lazy">' : '') + '</span>' +
-            (p.b ? '<span class="zs-band' + (longestWord(p.b) >= 15 ? ' zs-tight' : '') + '">' + esc(p.b) + '</span>' : '') +
-            '<span class="zs-name">' + esc(p.n) + '</span>' +
+            (p.b || p.hl ? '<span class="zs-band' + (longestWord(p.b || p.hl) >= 15 ? ' zs-tight' : '') + '">' + esc(p.b || p.hl) + '</span>' : '') +
+            (p.n ? '<span class="zs-name">' + esc(p.n) + '</span>' : '') +
             '<span class="zs-price' + (p.s ? ' zs-soldout' : '') + '">' + esc(priceLabel(p)) + '</span>' +
             '</a>';
         }).join('');
