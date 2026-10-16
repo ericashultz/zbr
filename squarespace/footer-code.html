@@ -800,6 +800,33 @@
     }).observe(document.body, { childList: true, subtree: true });
   })();
 
+  // Squarespace's small notice windows ("Comment Awaiting Moderation", "Enter Comment Text", delete confirmations): the CSS makes them the site's
+  // pop-up windows; here they get an X in the title bar (for a notice it does what "Okay" does, for a confirmation what "Cancel" does)
+  (function () {
+    var addX = function (w) {
+      var t = w.querySelector('.title');
+      if (!t || t.querySelector('.zbr-al-x')) return;
+      var target = w.classList.contains('alert') ? (w.querySelector('.confirmation-button.confirm') || w.querySelector('.confirmation-button')) : w.querySelector('.confirmation-button.cancel');
+      if (!target) return;
+      var x = document.createElement('button');
+      x.type = 'button';
+      x.className = 'zbr-al-x';
+      x.setAttribute('aria-label', 'Close window');
+      x.textContent = 'X';
+      x.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); target.click(); });
+      t.appendChild(x);
+    };
+    new MutationObserver(function (muts) {
+      muts.forEach(function (m) {
+        [].forEach.call(m.addedNodes, function (n) {
+          if (n.nodeType !== 1 || !n.classList.contains('sqs-widgets-confirmation')) return;
+          addX(n);
+          setTimeout(function () { addX(n); }, 80);
+        });
+      });
+    }).observe(document.body, { childList: true });
+  })();
+
   // Keyboard users only get a focus marker: the class is set after a Tab key press and cleared by a mouse click or a touch
   document.addEventListener('keydown', function (e) { if (e.key === 'Tab') document.documentElement.classList.add('zbr-kbd'); }, true);
   ['mousedown', 'pointerdown', 'touchstart'].forEach(function (ev) {
