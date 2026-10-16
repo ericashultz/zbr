@@ -171,13 +171,16 @@
     'button': ['button'], 'pin': ['button'],
     'sticker': ['sticker'], 'patch/sticker': ['sticker'], 'patch': ['sticker']
   };
-  var CACHE_KEY = 'zbr-store-catalog-v3';
+  var CACHE_KEY = 'zbr-store-catalog-v4';
   var CACHE_MS = 60 * 60 * 1000;
 
   function decodeEntities(str) {
     return str.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
       .replace(/&quot;/g, '"').replace(/&#39;|&#x27;/g, "'");
   }
+  // products whose Squarespace title has no "BAND - Title" dash: [band, name shown on the tile]
+  var TITLE_BANDS = { 'adamantium (poster)': ['ADAMANTIUM', '(poster)'] };
+
   function siteImage(item) {
     var own = item.assetUrl || '';
     var isFolder = own.slice(-1) === '/' || /^\d+$/.test(own.split('/').pop());
@@ -204,12 +207,24 @@
 
     var title = decodeEntities(String(item.title || '')).trim();
     var dash = title.indexOf(' - ');
+    var band = '', name = title;
+    if (dash > 0) { band = title.slice(0, dash).trim(); name = title.slice(dash + 3).trim(); }
+    else {
+      // titles whose dash has the wrong spacing ("OSKER- Treatment 5 (cd)", "SOCIAL CATERPILLAR -logo (sticker)"), the ZBR Fest posters,
+      // and a few one-off titles with no dash at all
+      var dm = title.match(/^(.*?\S)-\s+(\S.*)$/) || title.match(/^(.*?\S)\s+-(\S.*)$/);
+      var zm = title.match(/^(ZEGEMA BEACH RECORDS)\s+(\S.*)$/i);
+      var one = TITLE_BANDS[title.toLowerCase()];
+      if (dm) { band = dm[1].trim(); name = dm[2].trim(); }
+      else if (zm) { band = zm[1]; name = zm[2].trim(); }
+      else if (one) { band = one[0]; name = one[1]; }
+    }
     var img = siteImage(item);
     var alt = '';   // a second picture to try when the main one has gone missing on the server
     (item.items || []).some(function (k) { if (k && k.assetUrl && k.assetUrl !== img) { alt = k.assetUrl; return true; } return false; });
     var out = {
-      b: dash > 0 ? title.slice(0, dash).trim() : '',
-      n: dash > 0 ? title.slice(dash + 3).trim() : title,
+      b: band,
+      n: name,
       u: item.fullUrl,
       i: img ? img + '?format=500w' : '',
       p: min / 100
