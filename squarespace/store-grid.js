@@ -40,6 +40,7 @@
     { id: 'cd', label: 'CDs' },
     { id: 'tape', label: 'Cassettes' },
     { id: 'shirt', label: 'Shirts' },
+    { id: 'tote', label: 'Tote Bags' },
     { id: 'poster', label: 'Posters' },
     { id: 'button', label: 'Buttons' },
     { id: 'sticker', label: 'Stickers' }
@@ -171,7 +172,7 @@
     'button': ['button'], 'pin': ['button'],
     'sticker': ['sticker'], 'patch/sticker': ['sticker'], 'patch': ['sticker']
   };
-  var CACHE_KEY = 'zbr-store-catalog-v5';
+  var CACHE_KEY = 'zbr-store-catalog-v6';
   var CACHE_MS = 60 * 60 * 1000;
 
   function decodeEntities(str) {
@@ -215,6 +216,8 @@
     });
 
     var title = decodeEntities(String(item.title || '')).trim();
+    // tote bags are kept on the Shirts store page; they get their own category
+    if (fmts.shirt && /\btote bag\b/i.test(title)) { delete fmts.shirt; fmts.tote = 1; }
     var dash = title.indexOf(' - ');
     var band = '', name = title;
     if (dash > 0) { band = title.slice(0, dash).trim(); name = title.slice(dash + 3).trim(); }
@@ -457,7 +460,7 @@
     // Shareable addresses: the filters live in the page address, so a button can link straight to one, e.g.
     //   /?cat=sticker   /?size=v12   /?band=Casca   /?label=Tomb+Tree   /?special=new   /?q=split   /?page=2
     var CAT_ALIAS = { vinyl: 'vinyl', records: 'vinyl', record: 'vinyl', lp: 'vinyl', cd: 'cd', cds: 'cd',
-      tape: 'tape', tapes: 'tape', cassette: 'tape', cassettes: 'tape', shirt: 'shirt', shirts: 'shirt', tee: 'shirt', tees: 'shirt',
+      tape: 'tape', tapes: 'tape', cassette: 'tape', cassettes: 'tape', shirt: 'shirt', shirts: 'shirt', tee: 'shirt', tees: 'shirt', tote: 'tote', totes: 'tote', totebag: 'tote', totebags: 'tote',
       poster: 'poster', posters: 'poster', button: 'button', buttons: 'button', sticker: 'sticker', stickers: 'sticker' };
     var SIZE_ALIAS = { v12: 'v12', '12': 'v12', '12inch': 'v12', '12inches': 'v12', v7: 'v7', '7': 'v7', '7inch': 'v7', '7inches': 'v7', vo: 'vo', other: 'vo' };
     var SPECIAL_ALIAS = { 'new': 'new', newitems: 'new', steals: 'steals', steal: 'steals' };
