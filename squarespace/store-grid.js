@@ -42,7 +42,7 @@
     { id: 'shirt', label: 'Shirts' },
     { id: 'tote', label: 'Tote Bags' },
     { id: 'poster', label: 'Posters' },
-    { id: 'button', label: 'Buttons' },
+    { id: 'button', label: 'Buttons/Patches' },
     { id: 'sticker', label: 'Stickers' }
   ];
   var LABELS = ['Zegema Beach Releases', 'Tomb Tree', 'Softseed Music', 'All Distro'];
@@ -172,7 +172,7 @@
     'button': ['button'], 'pin': ['button'],
     'sticker': ['sticker'], 'patch/sticker': ['sticker'], 'patch': ['sticker']
   };
-  var CACHE_KEY = 'zbr-store-catalog-v6';
+  var CACHE_KEY = 'zbr-store-catalog-v7';
   var CACHE_MS = 60 * 60 * 1000;
 
   function decodeEntities(str) {
@@ -216,8 +216,8 @@
     });
 
     var title = decodeEntities(String(item.title || '')).trim();
-    // tote bags are kept on the Shirts store page; they get their own category
-    if (fmts.shirt && /\btote bag\b/i.test(title)) { delete fmts.shirt; fmts.tote = 1; }
+    // tote bags are kept on the Shirts and Buttons store pages; they get their own category
+    if (/\btote bag\b/i.test(title)) { delete fmts.shirt; delete fmts.button; fmts.tote = 1; }
     var dash = title.indexOf(' - ');
     var band = '', name = title;
     if (dash > 0) { band = title.slice(0, dash).trim(); name = title.slice(dash + 3).trim(); }
