@@ -1284,37 +1284,52 @@
             var t = (size * (N - 1) - 1) - i + p;
             return t >= 0 && t < T.length ? base + '?offset=' + T[t] : null;
           }
-          var start = Math.floor((current - 1) / 4) * 4 + 1;
           var html = '';
           var firstDate = document.querySelector('article.hentry time.published');
           if (firstDate) html += '<span class="zbr-pagenav-label">News from ' + firstDate.textContent.trim() + '</span>';
-          // the arrows only slide the set of four numbers (1-4 -> 5-8 -> 9-12 ... and back); they do not leave the page you are on
-          var winStart = start;
           var nav = document.createElement('nav');
           nav.className = 'zbr-pagenav';
           nav.setAttribute('aria-label', 'News pages');
           nav.innerHTML = html + '<div class="zbr-pagenav-buttons"></div>';
           var box = nav.querySelector('.zbr-pagenav-buttons');
-          function arrowHtml(sym, dir, label, on) {
-            return on ? '<button type="button" class="zbr-pg zbr-pg-arrow" data-zbr-set="' + dir + '" title="' + label + '" aria-label="' + label + '">' + sym + '</button>'
-                      : '<span class="zbr-pg zbr-pg-arrow zbr-pg-off" aria-hidden="true">' + sym + '</span>';
+          // like the store: previous / next arrows that go straight to the neighbouring page, the first and last page,
+          // and the pages around this one with "..." where numbers are skipped
+          function pageList(cur, n, ar) {
+            var keep = {};
+            keep[1] = 1; keep[n] = 1;
+            for (var q2 = cur - ar; q2 <= cur + ar; q2++) if (q2 >= 1 && q2 <= n) keep[q2] = 1;
+            var nums = Object.keys(keep).map(Number).sort(function (x, y) { return x - y; }), out = [], prev = 0;
+            nums.forEach(function (x) {
+              if (prev && x - prev === 2) out.push(prev + 1);
+              else if (prev && x - prev > 2) out.push('gap');
+              out.push(x);
+              prev = x;
+            });
+            return out;
           }
-          function drawSet() {
-            var out = arrowHtml('&lsaquo;', -1, 'Previous pages', winStart > 1);
-            for (var N = winStart; N < winStart + 4 && N <= pages; N++) {
-              if (N === current) out += '<span class="zbr-pg" aria-current="true">' + N + '</span>';
-              else { var h = href(N); out += h ? '<a class="zbr-pg" href="' + h + '">' + N + '</a>' : '<span class="zbr-pg zbr-pg-off">' + N + '</span>'; }
-            }
-            out += arrowHtml('&rsaquo;', 1, 'Next pages', winStart + 4 <= pages);
+          function arrowHtml(sym, target, label) {
+            var h = target >= 1 && target <= pages ? href(target) : null;
+            return h ? '<a class="zbr-pg zbr-pg-arrow" href="' + h + '" aria-label="' + label + '">' + sym + '</a>'
+                     : '<span class="zbr-pg zbr-pg-arrow zbr-pg-off" aria-hidden="true">' + sym + '</span>';
+          }
+          var drawnAround = 0;
+          function draw() {
+            var around = window.matchMedia('(max-width:900px)').matches ? 1 : 2;
+            if (around === drawnAround) return;
+            drawnAround = around;
+            var out = arrowHtml('&lsaquo;', current - 1, 'Previous page');
+            pageList(current, pages, around).forEach(function (N) {
+              if (N === 'gap') { out += '<span class="zbr-pg-gap" aria-hidden="true">&hellip;</span>'; return; }
+              if (N === current) { out += '<span class="zbr-pg" aria-current="true">' + N + '</span>'; return; }
+              var h = href(N);
+              out += h ? '<a class="zbr-pg" href="' + h + '" aria-label="Page ' + N + '">' + N + '</a>' : '<span class="zbr-pg zbr-pg-off">' + N + '</span>';
+            });
+            out += arrowHtml('&rsaquo;', current + 1, 'Next page');
             box.innerHTML = out;
           }
-          drawSet();
-          nav.addEventListener('click', function (e) {
-            var t = e.target.closest ? e.target.closest('[data-zbr-set]') : null;
-            if (!t) return;
-            winStart = Math.max(1, Math.min(winStart + 4 * parseInt(t.getAttribute('data-zbr-set'), 10), pages));
-            drawSet();
-          });
+          draw();
+          var drawTimer;
+          window.addEventListener('resize', function () { clearTimeout(drawTimer); drawTimer = setTimeout(draw, 150); });
           pager.classList.add('zbr-hidden');
           pager.parentNode.insertBefore(nav, pager.nextSibling);
           // wide screens: if the two-column layout already moved Newer/Older under the whole page, put the numbers there too
