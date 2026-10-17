@@ -1193,3 +1193,9 @@ html body .sqs-widgets-confirmation .confirmation-button:active{ border-style:in
 /* notice window button text: Squarespace sets its own grey text colour on these buttons, so the colours are repeated with more weight (dark on silver, white on blue) */
 html body .sqs-widgets-confirmation .sqs-widgets-confirmation-content .buttons .confirmation-button, html body .sqs-widgets-confirmation .sqs-widgets-confirmation-content .buttons .confirmation-button.no-frame{ color:#000332 !important; -webkit-text-fill-color:#000332 !important; }
 @media (hover:hover){ html body .sqs-widgets-confirmation .sqs-widgets-confirmation-content .buttons .confirmation-button:hover, html body .sqs-widgets-confirmation .sqs-widgets-confirmation-content .buttons .confirmation-button.no-frame:hover{ color:#fff !important; -webkit-text-fill-color:#fff !important; } }
+
+/* news page numbers laid out like the store's: arrows, first / last page, the pages around this one, "..." for skipped numbers */
+.zbr-pagenav-buttons{ display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:6px 0; }
+.zbr-pagenav .zbr-pg-off{ opacity:.45; cursor:default; }
+.zbr-pg-gap{ display:inline-block; width:20px; text-align:center; color:#d9d9d9; font:bold 13px "Fixedsys Excelsior","Courier New",monospace; }
+@media (max-width:900px){ .zbr-pg-gap{ width:16px; } }
