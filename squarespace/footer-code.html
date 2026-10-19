@@ -776,130 +776,29 @@
     })();
   }
 
-  // Product page: a picture that has not appeared after a few seconds (slow connection, lazy loader) is asked for again
-  if (document.body.classList.contains('view-item')) {
-    setTimeout(function () {
-      [].forEach.call(document.querySelectorAll('#productGallery img[data-src], #productDetails img[data-src], .product-block img[data-src]'), function (im) {
-        if (im.complete && im.naturalWidth > 0) return;
-        var s = im.getAttribute('data-src');
-        if (s) im.src = s + (s.indexOf('?') > -1 ? '' : '?format=1000w');
-      });
-    }, 3500);
-  }
-
-  // The "Post a Comment" box that opens when a guest presses Post Comment (Name / Email / Website) is drawn by Squarespace straight onto
-  // the page. Give it a title bar and an X like the site's other pop-up windows (the original close button is invisible).
+  // Product pictures (the big gallery on a product page, products inside posts): when one has not appeared, or fails to load, it is asked
+  // for again in other sizes (Squarespace's image server sometimes fails the first request for a resized copy; the page then shows a blank grey box)
   (function () {
-    var dress = function (root) {
-      if (root.classList.contains('zbr-gl')) return;
-      var kids = [].slice.call(root.children);
-      var closeEl = kids[1];
-      var box = kids[kids.length - 1];
-      if (kids.length < 3 || !box || !box.querySelector('input')) return;
-      root.classList.add('zbr-gl');
-      var close = function () { if (closeEl) closeEl.click(); };
-      var bar = document.createElement('div');
-      bar.className = 'zbr-gl-bar';
-      bar.innerHTML = '<span>Post a Comment</span><button type="button" class="zbr-gl-x" aria-label="Close window">X</button>';
-      bar.querySelector('button').addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); close(); });
-      box.insertBefore(bar, box.firstChild);
-      // a label over each field; the name is marked (required) in yellow (the button stays off until one is typed), the others carry no note
-      [].forEach.call(box.querySelectorAll('input'), function (inp) {
-        var ph = (inp.getAttribute('placeholder') || '').toLowerCase();
-        var text = /name/.test(ph) ? 'Name' : /e-?mail/.test(ph) ? 'Email Address' : /website|url/.test(ph) ? 'Website URL' : '';
-        if (!text) return;
-        var holder = inp;
-        while (holder.parentNode && holder.parentNode !== box) holder = holder.parentNode;
-        if (holder.parentNode !== box) return;
-        var lab = document.createElement('div');
-        lab.className = 'zbr-gl-label';
-        lab.textContent = text;
-        if (text === 'Name') {   // only the name is required: marked in yellow, the others carry no note
-          var req = document.createElement('span');
-          req.className = 'zbr-gl-req';
-          req.textContent = ' (required)';
-          lab.appendChild(req);
-        }
-        box.insertBefore(lab, holder);
-      });
-      if (kids[0]) kids[0].addEventListener('click', close);
-      document.addEventListener('keydown', function onKey(e) {
-        if (!document.body.contains(root)) { document.removeEventListener('keydown', onKey); return; }
-        if (e.key === 'Escape') close();
-      });
+    var SEL = '#productGallery img, #productSlideshow img, #productDetails img[data-src], .sqs-block-product img';
+    var VARIANTS = ['?format=1000w', '?format=750w', ''];
+    var next = function (im) {
+      var base = (im.getAttribute('data-src') || im.getAttribute('data-image') || '').split('?')[0];
+      if (!base) return;
+      var n = parseInt(im.getAttribute('data-zbr-try') || '0', 10);
+      if (n >= VARIANTS.length) return;
+      im.setAttribute('data-zbr-try', String(n + 1));
+      im.setAttribute('src', base + VARIANTS[n] + (n ? '' : (base.indexOf('?') > -1 ? '' : '')));
     };
-    // (Squarespace appends an empty <div> to the page and fills it a moment later, so the whole page is watched and the
-    // top-level <div> that changed is the one checked)
-    var check = function (n) {
-      if (!n || n.nodeType !== 1 || n.parentNode !== document.body || n.classList.contains('zbr-gl')) return;
-      var h = n.querySelector && n.querySelector('h1');
-      if (h && /post a comment/i.test(h.textContent) && n.querySelector('input')) {
-        // the page gets a bare <div>, and the window itself is that div's only child
-        dress(n.children.length === 1 && n.firstElementChild.tagName === 'DIV' ? n.firstElementChild : n);
-      }
-    };
-    new MutationObserver(function (muts) {
-      muts.forEach(function (m) {
-        var t = m.target;
-        while (t && t.parentNode && t.parentNode !== document.body) t = t.parentNode;
-        if (t && t.parentNode === document.body) check(t);
-        [].forEach.call(m.addedNodes, function (n) { check(n); });
-      });
-    }).observe(document.body, { childList: true, subtree: true });
+    var broken = function (im) { return im.complete && im.naturalWidth === 0; };
+    var sweep = function () { [].forEach.call(document.querySelectorAll(SEL), function (im) { if (broken(im) && (im.getAttribute('data-src') || im.getAttribute('data-image'))) next(im); }); };
+    document.addEventListener('error', function (e) {
+      var im = e.target;
+      if (im && im.tagName === 'IMG' && im.matches && im.matches(SEL)) setTimeout(function () { next(im); }, 400);
+    }, true);
+    if (document.body.classList.contains('view-item') || document.querySelector('.sqs-block-product')) {
+      [1500, 4000, 8000].forEach(function (ms) { setTimeout(sweep, ms); });
+    }
   })();
-
-  // Squarespace's small notice windows ("Comment Awaiting Moderation", "Enter Comment Text", delete confirmations): the CSS makes them the site's
-  // pop-up windows; here they get an X in the title bar (for a notice it does what "Okay" does, for a confirmation what "Cancel" does)
-  (function () {
-    var addX = function (w) {
-      var t = w.querySelector('.title');
-      if (!t || t.querySelector('.zbr-al-x')) return;
-      var target = w.classList.contains('alert') ? (w.querySelector('.confirmation-button.confirm') || w.querySelector('.confirmation-button')) : w.querySelector('.confirmation-button.cancel');
-      if (!target) return;
-      var x = document.createElement('button');
-      x.type = 'button';
-      x.className = 'zbr-al-x';
-      x.setAttribute('aria-label', 'Close window');
-      x.textContent = 'X';
-      x.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); target.click(); });
-      t.appendChild(x);
-    };
-    new MutationObserver(function (muts) {
-      muts.forEach(function (m) {
-        [].forEach.call(m.addedNodes, function (n) {
-          if (n.nodeType !== 1 || !n.classList.contains('sqs-widgets-confirmation')) return;
-          addX(n);
-          setTimeout(function () { addX(n); }, 80);
-        });
-      });
-    }).observe(document.body, { childList: true });
-  })();
-
-  // Cart: the quantity box is a number box with the little arrows inside, like the product page's
-  if (/^\/cart(\/|$)/.test(location.pathname)) {
-    var qtyBoxes = function () {
-      [].forEach.call(document.querySelectorAll('#sqs-cart-container .cart-row-qty-input'), function (i) {
-        if (i.type !== 'number') { i.type = 'number'; i.min = '1'; i.step = '1'; }
-      });
-    };
-    var qtyTimer;
-    new MutationObserver(function () { clearTimeout(qtyTimer); qtyTimer = setTimeout(qtyBoxes, 30); }).observe(document.body, { childList: true, subtree: true });
-    qtyBoxes();
-  }
-
-  // Contact form: the confirmation reads "Message received!" instead of Squarespace's "Thank you!"
-  if (document.querySelector('.sqs-block-form')) {
-    var swapThanks = function () {
-      [].forEach.call(document.querySelectorAll('.sqs-block-form'), function (f) {
-        var w = document.createTreeWalker(f, NodeFilter.SHOW_TEXT, null), n;
-        while ((n = w.nextNode())) {
-          if (/^\s*thank you!?\s*$/i.test(n.nodeValue)) n.nodeValue = 'Message received!';
-        }
-      });
-    };
-    new MutationObserver(swapThanks).observe(document.body, { childList: true, subtree: true, characterData: true });
-    swapThanks();
-  }
 
   // Keyboard users only get a focus marker: the class is set after a Tab key press and cleared by a mouse click or a touch
   document.addEventListener('keydown', function (e) { if (e.key === 'Tab') document.documentElement.classList.add('zbr-kbd'); }, true);
