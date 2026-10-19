@@ -1218,3 +1218,11 @@ html body #sqs-cart-container .cart-row-remove:active{ border:0 !important; opac
 nav.main-nav ul li a:has(.zbr-cart-count){ display:inline-flex !important; align-items:center !important; }
 nav.main-nav ul li a .zbr-cart-count{ display:inline-flex !important; align-items:center; justify-content:center; box-sizing:border-box; height:16px; min-width:16px; padding:0 5px 1px !important; margin-left:5px; line-height:11px !important; vertical-align:baseline; }   /* (the 1px under the digit puts its baseline on a whole pixel, so the digit sits dead centre in the circle) */
 nav.main-nav ul li a .zbr-cart-count[hidden]{ display:none !important; }
+
+/* "View Cart" link that appears next to Add to Cart once something was added (phones and tablets only) */
+.zbr-viewcart-cta{ display:none; }
+@media (max-width:700px){
+  .zbr-viewcart-cta{ display:inline-flex !important; align-items:center; align-self:center; order:6; height:34px; margin:15px 0 0 4px !important; padding:0 6px; font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline !important; text-transform:none !important; letter-spacing:0 !important; background:none !important; white-space:nowrap; }
+  .zbr-viewcart-cta:active{ color:#19A800 !important; }
+}
+@media (max-width:700px) and (hover:hover){ .zbr-viewcart-cta:hover{ color:#19A800 !important; } }
