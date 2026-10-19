@@ -1213,8 +1213,3 @@ html body #sqs-cart-container .cart-row-remove{ background:none !important; bord
 html body #sqs-cart-container .cart-row-remove svg{ width:14px !important; height:14px !important; fill:#FF3B3B !important; stroke:#FF3B3B !important; }
 html body #sqs-cart-container .cart-row-remove:active{ border:0 !important; opacity:.7; }
 @media (hover:hover){ html body #sqs-cart-container .cart-row-remove:hover svg{ fill:#FF8080 !important; stroke:#FF8080 !important; } }
-
-/* contact form: the "Message received!" under the Submit button (the footer script adds it after a message is sent); the note Squarespace
-   shows in place of the form is hidden for the moment before the page reloads with a fresh form */
-.zbr-form-ok{ margin:14px 0 0 !important; padding:0 !important; text-align:left; color:#19A800; font:bold 15px Arial,sans-serif !important; }
-html.zbr-form-sent .sqs-block-form .react-form-post-submit, html.zbr-form-sent .sqs-block-form .form-submission-text{ visibility:hidden !important; }
