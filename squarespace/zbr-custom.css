@@ -295,9 +295,9 @@ body.view-item .product-excerpt > p:first-child[style*="text-align: center"]{ di
 #sqs-cart-container .cart-row{ display:flex !important; align-items:center; flex-wrap:wrap; gap:10px; box-sizing:border-box; width:100% !important; margin:0 !important; background:#000 !important; border:3px groove #C0DEFF !important; padding:10px !important; font:13px "Fixedsys Excelsior","Courier New",monospace !important; color:#d9d9d9 !important; }
 #sqs-cart-container .cart-row-img-wrapper{ display:none !important; }
 #sqs-cart-container .cart-row-desc{ flex:1 1 160px; min-width:160px; padding:0 !important; margin:0 !important; }
-#sqs-cart-container .cart-row-title, #sqs-cart-container .cart-row-title:visited{ color:#fff !important; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; text-decoration:none !important; text-transform:none !important; letter-spacing:0 !important; }
+#sqs-cart-container .cart-row-title, #sqs-cart-container .cart-row-title:visited{ color:#fff !important; font:bold 14px Arial,sans-serif !important; text-decoration:none !important; text-transform:none !important; letter-spacing:0 !important; }
 #sqs-cart-container .cart-row-title:hover{ color:#FFEE00 !important; background:none; }
-#sqs-cart-container .cart-row-variants, #sqs-cart-container .cart-row-variants *{ color:#c0c0c0 !important; font:12px "Fixedsys Excelsior","Courier New",monospace !important; }
+#sqs-cart-container .cart-row-variants, #sqs-cart-container .cart-row-variants *{ color:#c0c0c0 !important; font:12px Arial,sans-serif !important; }
 #sqs-cart-container .cart-row-qty{ margin:0 !important; padding:0 !important; }
 #sqs-cart-container .cart-row-qty > div > div{ display:flex !important; align-items:center; gap:4px; border:0 !important; }
 #sqs-cart-container .cart-row-qty-input{ box-sizing:border-box !important; width:44px !important; height:34px !important; padding:0 4px !important; text-align:center; font:bold 13px "Fixedsys Excelsior","Courier New",monospace !important; border:2px inset #c0c0c0 !important; border-radius:0 !important; background:#fff !important; color:#000 !important; }
