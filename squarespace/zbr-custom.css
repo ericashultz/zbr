@@ -1207,3 +1207,9 @@ html body #sqs-cart-container .cart-row-qty, html body #sqs-cart-container .cart
 /* cart Remove button: just the X (no "REMOVE" text) */
 html body #sqs-cart-container .cart-row-remove{ justify-content:center !important; box-sizing:border-box !important; width:30px !important; min-width:30px !important; max-width:30px !important; height:30px !important; min-height:30px !important; gap:0 !important; padding:0 !important; margin:0 9px 0 0 !important; }   /* a 30px square, with room between it and the frame */
 html body #sqs-cart-container .cart-row-remove::after{ content:none !important; }
+
+/* cart Remove: no button box, just a red 14px X */
+html body #sqs-cart-container .cart-row-remove{ background:none !important; border:0 !important; box-shadow:none !important; width:24px !important; min-width:24px !important; max-width:24px !important; height:24px !important; min-height:24px !important; padding:0 !important; margin:0 9px 0 0 !important; }
+html body #sqs-cart-container .cart-row-remove svg{ width:14px !important; height:14px !important; fill:#FF3B3B !important; stroke:#FF3B3B !important; }
+html body #sqs-cart-container .cart-row-remove:active{ border:0 !important; opacity:.7; }
+@media (hover:hover){ html body #sqs-cart-container .cart-row-remove:hover svg{ fill:#FF8080 !important; stroke:#FF8080 !important; } }
