@@ -1216,5 +1216,5 @@ html body #sqs-cart-container .cart-row-remove:active{ border:0 !important; opac
 
 /* cart count badge: its circle is centered on the "View Cart" text (the link lays out as a centered row) */
 nav.main-nav ul li a:has(.zbr-cart-count){ display:inline-flex !important; align-items:center !important; }
-nav.main-nav ul li a .zbr-cart-count{ display:inline-flex !important; align-items:center; justify-content:center; box-sizing:border-box; height:16px; min-width:16px; padding:0 5px !important; margin-left:5px; line-height:1 !important; vertical-align:baseline; }
+nav.main-nav ul li a .zbr-cart-count{ display:inline-flex !important; align-items:center; justify-content:center; box-sizing:border-box; height:16px; min-width:16px; padding:0 5px 1px !important; margin-left:5px; line-height:11px !important; vertical-align:baseline; }   /* (the 1px under the digit puts its baseline on a whole pixel, so the digit sits dead centre in the circle) */
 nav.main-nav ul li a .zbr-cart-count[hidden]{ display:none !important; }
