@@ -1213,3 +1213,8 @@ html body #sqs-cart-container .cart-row-remove{ background:none !important; bord
 html body #sqs-cart-container .cart-row-remove svg{ width:14px !important; height:14px !important; fill:#FF3B3B !important; stroke:#FF3B3B !important; }
 html body #sqs-cart-container .cart-row-remove:active{ border:0 !important; opacity:.7; }
 @media (hover:hover){ html body #sqs-cart-container .cart-row-remove:hover svg{ fill:#FF8080 !important; stroke:#FF8080 !important; } }
+
+/* cart count badge: its circle is centered on the "View Cart" text (the link lays out as a centered row) */
+nav.main-nav ul li a:has(.zbr-cart-count){ display:inline-flex !important; align-items:center !important; }
+nav.main-nav ul li a .zbr-cart-count{ display:inline-flex !important; align-items:center; justify-content:center; box-sizing:border-box; height:16px; min-width:16px; padding:0 5px !important; margin-left:5px; line-height:1 !important; vertical-align:baseline; }
+nav.main-nav ul li a .zbr-cart-count[hidden]{ display:none !important; }
