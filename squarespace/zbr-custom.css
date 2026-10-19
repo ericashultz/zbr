@@ -1230,7 +1230,7 @@ nav.main-nav ul li a .zbr-cart-count[hidden]{ display:none !important; }
 html body .sqs-add-to-cart-button, html body.view-item #productDetails .sqs-add-to-cart-button, html body article.hentry .sqs-block-product.product-block .product-purchase-controls-wrapper .sqs-add-to-cart-button{ width:112px !important; min-width:112px !important; max-width:112px !important; padding:0 !important; white-space:nowrap !important; justify-content:center !important; text-align:center !important; }
 
 /* "« Back" link at the top of the cart page (same look as the Guestbook's) */
-#sqs-cart-root > p.zbr-gb-back{ margin:-14px 0 13px !important; padding:0 !important; text-align:left !important; }   /* as far under the header's blue line as on the Archives pages (28px), and the same 28px above the first product */
+#sqs-cart-root > p.zbr-gb-back{ margin:20px 0 0 !important; padding:0 !important; text-align:left !important; }   /* under the Subtotal / Checkout row, left aligned */
 #sqs-cart-root > p.zbr-gb-back a, #sqs-cart-root > p.zbr-gb-back a:visited{ font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline !important; text-transform:none !important; letter-spacing:0 !important; background:none !important; }
 @media (hover:hover){ #sqs-cart-root > p.zbr-gb-back a:hover{ color:#19A800 !important; } }
 #sqs-cart-root > p.zbr-gb-back a:active{ color:#19A800 !important; }

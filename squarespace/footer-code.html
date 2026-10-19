@@ -570,9 +570,9 @@
     host.insertBefore(wrap, host.firstChild);
   })();
 
-  // "« Back" on the cart page, only while the cart has something in it: returns to the page the visitor came from (the product they
-  // were looking at, the store ...). It is added once the cart has drawn its rows (not before, so the cart's own start-up is left alone)
-  // and taken away again if the cart is emptied.
+  // "« Back" on the cart page, only while the cart has something in it, under the Subtotal / Checkout row: returns to the page the visitor
+  // came from (the product they were looking at, the store ...). It is added once the cart has drawn its rows (not before, so the cart's
+  // own start-up is left alone) and taken away again if the cart is emptied.
   (function () {
     if (!document.getElementById('sqs-cart-root')) return;
     var backHref = function () {
@@ -600,7 +600,7 @@
         link.innerHTML = '&laquo; Back';
         link.addEventListener('click', function (e) { goBack(e); });
         wrap.appendChild(link);
-        root.insertBefore(wrap, root.firstChild);
+        root.appendChild(wrap);   // under the Subtotal / Checkout row
       } else if (!hasItems && cur) {
         cur.parentNode.removeChild(cur);
       }
