@@ -1198,3 +1198,6 @@ html body .sqs-widgets-confirmation .sqs-widgets-confirmation-content .buttons .
 .zbr-pagenav .zbr-pg-off{ opacity:.45; cursor:default; }
 .zbr-pg-gap{ display:inline-block; width:20px; text-align:center; color:#d9d9d9; font:bold 13px "Fixedsys Excelsior","Courier New",monospace; }
 @media (max-width:900px){ .zbr-pg-gap{ width:16px; } }
+
+/* cart: the quantity is just the number box, like the product page's (no - / + buttons) */
+html body #sqs-cart-container .cart-row-qty-dec, html body #sqs-cart-container .cart-row-qty-inc{ display:none !important; }
