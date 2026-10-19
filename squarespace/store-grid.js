@@ -400,11 +400,19 @@
       '</div>';
 
     // a picture that fails to load is swapped for the product's next picture, or hidden (no broken-image icon)
+    // (Squarespace's image server sometimes fails the first request for a resized picture, so each address gets one more try
+    // before the next picture is used)
     root.addEventListener('error', function (e) {
       var im = e.target;
       if (!im || im.tagName !== 'IMG') return;
+      var base = (im.getAttribute('src') || '').replace(/[?&]r=\d+$/, ''), tried = im.getAttribute('data-retried') || '';
+      if (tried.indexOf('|' + base + '|') === -1) {
+        im.setAttribute('data-retried', tried + '|' + base + '|');
+        setTimeout(function () { im.setAttribute('src', base + (base.indexOf('?') > -1 ? '&' : '?') + 'r=' + Date.now()); }, 700);
+        return;
+      }
       var alt = im.getAttribute('data-alt');
-      if (alt && im.getAttribute('src') !== alt) { im.setAttribute('src', alt); im.removeAttribute('data-alt'); }
+      if (alt) { im.setAttribute('src', alt); im.removeAttribute('data-alt'); }
       else im.style.visibility = 'hidden';
     }, true);
     var grid = root.querySelector('.zs-grid');
