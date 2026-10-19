@@ -570,28 +570,44 @@
     host.insertBefore(wrap, host.firstChild);
   })();
 
-  // "« Back" on the cart page: returns to the page the visitor came from (the product they were looking at, the store ...)
+  // "« Back" on the cart page, only while the cart has something in it: returns to the page the visitor came from (the product they
+  // were looking at, the store ...). It is added once the cart has drawn its rows (not before, so the cart's own start-up is left alone)
+  // and taken away again if the cart is emptied.
   (function () {
-    var root = document.getElementById('sqs-cart-root');
-    if (!root || document.querySelector('p.zbr-gb-back')) return;
-    var href = '';
-    try {
-      var st = JSON.parse(sessionStorage.getItem('zbr-store-state') || 'null');
-      if (st && st.path && Date.now() - st.t < 60 * 60 * 1000) href = st.path;
-    } catch (e) {}
-    if (!href) {
-      [].forEach.call(document.querySelectorAll('nav.main-nav ul li a'), function (l) {
-        if (!href && /canada/i.test(l.textContent) && /store/i.test(l.textContent) && l.getAttribute('href') && l.getAttribute('href') !== '#') href = l.getAttribute('href');
-      });
-    }
-    var wrap = document.createElement('p');
-    wrap.className = 'zbr-gb-back';
-    var link = document.createElement('a');
-    link.href = href || '/';
-    link.innerHTML = '&laquo; Back';
-    link.addEventListener('click', function (e) { goBack(e); });
-    wrap.appendChild(link);
-    root.insertBefore(wrap, root.firstChild);
+    if (!document.getElementById('sqs-cart-root')) return;
+    var backHref = function () {
+      var href = '';
+      try {
+        var st = JSON.parse(sessionStorage.getItem('zbr-store-state') || 'null');
+        if (st && st.path && Date.now() - st.t < 60 * 60 * 1000) href = st.path;
+      } catch (e) {}
+      if (!href) {
+        [].forEach.call(document.querySelectorAll('nav.main-nav ul li a'), function (l) {
+          if (!href && /canada/i.test(l.textContent) && /store/i.test(l.textContent) && l.getAttribute('href') && l.getAttribute('href') !== '#') href = l.getAttribute('href');
+        });
+      }
+      return href || '/';
+    };
+    var syncBack = function () {
+      var root = document.getElementById('sqs-cart-root');
+      if (!root) return;
+      var hasItems = !!root.querySelector('.cart-row'), cur = root.querySelector(':scope > p.zbr-gb-back');
+      if (hasItems && !cur) {
+        var wrap = document.createElement('p');
+        wrap.className = 'zbr-gb-back';
+        var link = document.createElement('a');
+        link.href = backHref();
+        link.innerHTML = '&laquo; Back';
+        link.addEventListener('click', function (e) { goBack(e); });
+        wrap.appendChild(link);
+        root.insertBefore(wrap, root.firstChild);
+      } else if (!hasItems && cur) {
+        cur.parentNode.removeChild(cur);
+      }
+    };
+    var backTimer;
+    new MutationObserver(function () { clearTimeout(backTimer); backTimer = setTimeout(syncBack, 120); }).observe(document.getElementById('sqs-cart-root'), { childList: true, subtree: true });
+    syncBack();
   })();
 
   // Mailing list pop-up: "Join The Mailing List" opens a modal that shows the Newsletter block from the hidden /mailing-list page
