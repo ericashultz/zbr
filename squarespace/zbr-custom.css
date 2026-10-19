@@ -1226,3 +1226,4 @@ nav.main-nav ul li a .zbr-cart-count[hidden]{ display:none !important; }
   .zbr-viewcart-cta:active{ color:#19A800 !important; }
 }
 @media (max-width:700px) and (hover:hover){ .zbr-viewcart-cta:hover{ color:#19A800 !important; } }
+@media (max-width:700px){ html body.view-item #productDetails > .zbr-viewcart-cta{ flex:0 0 auto !important; width:auto !important; margin:15px 0 0 0 !important; } }
