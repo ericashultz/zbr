@@ -949,6 +949,17 @@
     badge.className = 'zbr-cart-count';
     badge.hidden = true;
     cartLink.appendChild(badge);
+    var lastCount = null, pendingAdd = null;
+    // after an Add to Cart that really added something, a yellow "View Cart" link appears next to the button (phones)
+    var showViewCart = function (btn) {
+      var wrap = btn.closest('.sqs-add-to-cart-button-wrapper') || btn.parentElement;
+      if (!wrap || (wrap.nextElementSibling && wrap.nextElementSibling.classList.contains('zbr-viewcart-cta'))) return;
+      var a = document.createElement('a');
+      a.className = 'zbr-viewcart-cta';
+      a.href = cartLink.getAttribute('href') || '/cart';
+      a.textContent = 'View Cart';
+      wrap.parentNode.insertBefore(a, wrap.nextSibling);
+    };
     var updateCart = function () {
       fetch('/api/commerce/shopping-cart', { credentials: 'same-origin' })
         .then(function (r) { return r.json(); })
@@ -956,11 +967,16 @@
           var n = (c.entries || []).reduce(function (s, e) { return s + (e.quantity || 0); }, 0);
           badge.textContent = n;
           badge.hidden = !n;
+          if (pendingAdd && lastCount !== null && n > lastCount) showViewCart(pendingAdd);
+          pendingAdd = null;
+          lastCount = n;
         })
         .catch(function () {});
     };
     updateCart();
     document.addEventListener('click', function (e) {
+      var addBtn = e.target.closest && e.target.closest('.sqs-add-to-cart-button');
+      if (addBtn && !addBtn.classList.contains('zbr-disabled')) pendingAdd = addBtn;
       if (e.target.closest && e.target.closest('.sqs-add-to-cart-button, .cart-row-remove, .cart-row-qty-dec, .cart-row-qty-inc')) setTimeout(updateCart, 1500);
     });
     // on the cart page the count also follows a typed or arrow-adjusted quantity, and whatever else redraws the cart
