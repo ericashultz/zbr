@@ -315,6 +315,13 @@
       }
       if (window.__zbrGbBar) window.__zbrGbBar();
       if (window.__zbrGbFit) window.__zbrGbFit();
+      // the "« Back" link lines up with the comment box
+      var backP = document.querySelector('p.zbr-gb-back'), box = root.querySelector('textarea');
+      if (backP && box && backP.getBoundingClientRect().width) {
+        backP.style.setProperty('padding-left', '0', 'important');
+        var inset = box.getBoundingClientRect().left - backP.getBoundingClientRect().left;
+        backP.style.setProperty('padding-left', Math.max(0, Math.round(inset)) + 'px', 'important');
+      }
     };
     document.addEventListener('click', function (e) {
       if (e.__zbrGb) return;   // handled once per click, even if this script were on the page twice
@@ -449,6 +456,7 @@
     var gbSchedule = function () { clearTimeout(gbTimer); gbTimer = setTimeout(tidyGuestbook, 120); };
     new MutationObserver(gbSchedule).observe(document.body, { childList: true, subtree: true, characterData: true });
     window.addEventListener('load', gbSchedule);
+    window.addEventListener('resize', gbSchedule);
     gbSchedule();
   }
 

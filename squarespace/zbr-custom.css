@@ -1015,9 +1015,7 @@ body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .li
 }
 
 /* guestbook on phones: the "« Back" link lines up with the comment form (same inset as the frame -> form) */
-@media (max-width:767px){
-  body.zbr-guestbook p.zbr-gb-back{ padding-left:25px !important; }
-}
+body.zbr-guestbook p.zbr-gb-back{ padding-left:25px !important; }   /* (the footer script sets the exact inset from the comment box) */
 
 /* contact page on phones & tablets: spacing like the redesign (the form 20px under the intro text, the button 36px above the footer line).
    The template's own #page rules (14px block padding, 100px under the page) are matched with an id so these win. */
