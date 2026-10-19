@@ -324,7 +324,7 @@ body.view-item .product-excerpt > p:first-child[style*="text-align: center"]{ di
 #sqs-cart-container .cart-row-qty{ display:flex !important; align-items:center; gap:6px; flex:0 0 auto; }
 #sqs-cart-container .cart-row-qty-dec, #sqs-cart-container .cart-row-qty-inc{ width:24px !important; min-width:24px !important; height:26px !important; padding:0 !important; }
 #sqs-cart-container .cart-row-qty-dec svg, #sqs-cart-container .cart-row-qty-inc svg{ width:10px !important; height:10px !important; }
-#sqs-cart-container .cart-row-qty-input{ width:36px !important; height:26px !important; }
+#sqs-cart-container .cart-row-qty-input{ width:44px !important; height:34px !important; }   /* same box as the product page's */
 #sqs-cart-container .cart-row-price{ flex:0 0 auto; margin:0 6px !important; white-space:nowrap; }
 #sqs-cart-container .cart-row-remove{ display:inline-flex !important; align-items:center; gap:4px; width:auto !important; min-width:0 !important; height:auto !important; padding:4px 8px !important; font:bold 12px "Fixedsys Excelsior","Courier New",monospace !important; }
 #sqs-cart-container .cart-row-remove svg{ width:9px !important; height:9px !important; }
@@ -1201,3 +1201,6 @@ html body .sqs-widgets-confirmation .sqs-widgets-confirmation-content .buttons .
 
 /* cart: the quantity is just the number box, like the product page's (no - / + buttons) */
 html body #sqs-cart-container .cart-row-qty-dec, html body #sqs-cart-container .cart-row-qty-inc{ display:none !important; }
+
+/* cart quantity box: as wide as its number box only, so it sits right beside the price (Squarespace gives the block room for the - / + buttons) */
+html body #sqs-cart-container .cart-row-qty, html body #sqs-cart-container .cart-row-qty > div, html body #sqs-cart-container .cart-row-qty > div > div{ width:auto !important; min-width:0 !important; flex:0 0 auto !important; gap:0 !important; margin:0 !important; }
