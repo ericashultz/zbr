@@ -827,6 +827,18 @@
     }).observe(document.body, { childList: true });
   })();
 
+  // Cart: the quantity box is a number box with the little arrows inside, like the product page's
+  if (/^\/cart(\/|$)/.test(location.pathname)) {
+    var qtyBoxes = function () {
+      [].forEach.call(document.querySelectorAll('#sqs-cart-container .cart-row-qty-input'), function (i) {
+        if (i.type !== 'number') { i.type = 'number'; i.min = '1'; i.step = '1'; }
+      });
+    };
+    var qtyTimer;
+    new MutationObserver(function () { clearTimeout(qtyTimer); qtyTimer = setTimeout(qtyBoxes, 30); }).observe(document.body, { childList: true, subtree: true });
+    qtyBoxes();
+  }
+
   // Keyboard users only get a focus marker: the class is set after a Tab key press and cleared by a mouse click or a touch
   document.addEventListener('keydown', function (e) { if (e.key === 'Tab') document.documentElement.classList.add('zbr-kbd'); }, true);
   ['mousedown', 'pointerdown', 'touchstart'].forEach(function (ev) {
