@@ -839,6 +839,20 @@
     qtyBoxes();
   }
 
+  // Contact form: the confirmation reads "Message received!" instead of Squarespace's "Thank you!"
+  if (document.querySelector('.sqs-block-form')) {
+    var swapThanks = function () {
+      [].forEach.call(document.querySelectorAll('.sqs-block-form'), function (f) {
+        var w = document.createTreeWalker(f, NodeFilter.SHOW_TEXT, null), n;
+        while ((n = w.nextNode())) {
+          if (/^\s*thank you!?\s*$/i.test(n.nodeValue)) n.nodeValue = 'Message received!';
+        }
+      });
+    };
+    new MutationObserver(swapThanks).observe(document.body, { childList: true, subtree: true, characterData: true });
+    swapThanks();
+  }
+
   // Keyboard users only get a focus marker: the class is set after a Tab key press and cleared by a mouse click or a touch
   document.addEventListener('keydown', function (e) { if (e.key === 'Tab') document.documentElement.classList.add('zbr-kbd'); }, true);
   ['mousedown', 'pointerdown', 'touchstart'].forEach(function (ev) {
