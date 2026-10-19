@@ -322,7 +322,6 @@ body.view-item .product-excerpt > p:first-child[style*="text-align: center"]{ di
 @media (min-width:701px){ #sqs-cart-container .cart-row{ flex-wrap:nowrap !important; } }
 #sqs-cart-container .cart-row-desc{ flex:1 1 0 !important; min-width:0 !important; }
 #sqs-cart-container .cart-row-qty{ display:flex !important; align-items:center; gap:6px; flex:0 0 auto; }
-#sqs-cart-container .cart-row-qty::before{ content:"Qty:"; font:bold 13px "Fixedsys Excelsior","Courier New",monospace; color:#d9d9d9; }
 #sqs-cart-container .cart-row-qty-dec, #sqs-cart-container .cart-row-qty-inc{ width:24px !important; min-width:24px !important; height:26px !important; padding:0 !important; }
 #sqs-cart-container .cart-row-qty-dec svg, #sqs-cart-container .cart-row-qty-inc svg{ width:10px !important; height:10px !important; }
 #sqs-cart-container .cart-row-qty-input{ width:36px !important; height:26px !important; }
