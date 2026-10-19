@@ -839,18 +839,40 @@
     qtyBoxes();
   }
 
-  // Contact form: the confirmation reads "Message received!" instead of Squarespace's "Thank you!"
-  if (document.querySelector('.sqs-block-form')) {
-    var swapThanks = function () {
-      [].forEach.call(document.querySelectorAll('.sqs-block-form'), function (f) {
-        var w = document.createTreeWalker(f, NodeFilter.SHOW_TEXT, null), n;
-        while ((n = w.nextNode())) {
-          if (/^\s*thank you!?\s*$/i.test(n.nodeValue)) n.nodeValue = 'Message received!';
-        }
-      });
+  // Contact form: after a message is sent Squarespace swaps the whole form for a "Thank you!" note. Here the form comes back empty
+  // instead, with "Message received!" under the Submit button: the moment the note appears the page quietly reloads (the form was
+  // sent in the background, so nothing is sent twice), and the fresh form shows the message under its button.
+  if (document.querySelector('.sqs-block-form') && window.self === window.top) {
+    var FORM_FLAG = 'zbr-form-sent';
+    var sentNow = false;
+    var checkSent = function () {
+      if (sentNow) return;
+      var done = document.querySelector('.sqs-block-form .react-form-post-submit, .sqs-block-form .form-submission-text');
+      if (!done || !done.textContent.trim()) return;
+      sentNow = true;
+      document.documentElement.classList.add('zbr-form-sent');
+      try { sessionStorage.setItem(FORM_FLAG, location.pathname); } catch (e) {}
+      setTimeout(function () { location.reload(); }, 60);
     };
-    new MutationObserver(swapThanks).observe(document.body, { childList: true, subtree: true, characterData: true });
-    swapThanks();
+    new MutationObserver(checkSent).observe(document.body, { childList: true, subtree: true, characterData: true });
+    var flagged = false;
+    try { flagged = sessionStorage.getItem(FORM_FLAG) === location.pathname; if (flagged) sessionStorage.removeItem(FORM_FLAG); } catch (e) {}
+    if (flagged) {
+      var showOk = function () {
+        var wrap = document.querySelector('.sqs-block-form .form-button-wrapper');
+        if (!wrap || document.querySelector('.zbr-form-ok')) return !!wrap;
+        var ok = document.createElement('p');
+        ok.className = 'zbr-form-ok';
+        ok.setAttribute('role', 'status');
+        ok.textContent = 'Message received!';
+        wrap.parentNode.insertBefore(ok, wrap.nextSibling);
+        try { ok.scrollIntoView({ block: 'center' }); } catch (e) {}
+        // it goes away as soon as the visitor starts typing a new message
+        document.addEventListener('input', function gone() { if (ok.parentNode) ok.parentNode.removeChild(ok); document.removeEventListener('input', gone, true); }, true);
+        return true;
+      };
+      var okTries = 0, okTimer = setInterval(function () { if (showOk() || ++okTries > 40) clearInterval(okTimer); }, 250);
+    }
   }
 
   // Keyboard users only get a focus marker: the class is set after a Tab key press and cleared by a mouse click or a touch
