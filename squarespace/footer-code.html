@@ -949,6 +949,20 @@
     document.addEventListener('click', function (e) {
       if (e.target.closest && e.target.closest('.sqs-add-to-cart-button, .cart-row-remove, .cart-row-qty-dec, .cart-row-qty-inc')) setTimeout(updateCart, 1500);
     });
+    // on the cart page the count also follows a typed or arrow-adjusted quantity, and whatever else redraws the cart
+    var cartTimer;
+    var refreshSoon = function (ms) { clearTimeout(cartTimer); cartTimer = setTimeout(updateCart, ms); };
+    document.addEventListener('change', function (e) {
+      if (e.target.closest && e.target.closest('.cart-row-qty-input')) refreshSoon(1500);
+    }, true);
+    if (/^\/cart(\/|$)/.test(location.pathname)) {
+      new MutationObserver(function (muts) {
+        for (var k = 0; k < muts.length; k++) {
+          var t = muts[k].target.nodeType === 1 ? muts[k].target : muts[k].target.parentElement;
+          if (t && t.closest && t.closest('#sqs-cart-container')) { refreshSoon(900); return; }
+        }
+      }).observe(document.body, { childList: true, subtree: true, characterData: true });
+    }
   }
 
   // Search page: placeholder text and "Start typing" hint
