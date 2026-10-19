@@ -953,12 +953,12 @@
     // after an Add to Cart that really added something, a yellow "View Cart" link appears next to the button (phones)
     var showViewCart = function (btn) {
       var wrap = btn.closest('.sqs-add-to-cart-button-wrapper') || btn.parentElement;
-      if (!wrap || (wrap.nextElementSibling && wrap.nextElementSibling.classList.contains('zbr-viewcart-cta'))) return;
+      if (!wrap || wrap.querySelector('.zbr-viewcart-cta')) return;
       var a = document.createElement('a');
       a.className = 'zbr-viewcart-cta';
       a.href = cartLink.getAttribute('href') || '/cart';
       a.textContent = 'View Cart';
-      wrap.parentNode.insertBefore(a, wrap.nextSibling);
+      wrap.appendChild(a);   // inside the button's own wrapper, right after the button
     };
     var updateCart = function () {
       fetch('/api/commerce/shopping-cart', { credentials: 'same-origin' })
