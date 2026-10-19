@@ -1237,3 +1237,9 @@ html body .sqs-add-to-cart-button, html body.view-item #productDetails .sqs-add-
 
 /* cart with items: Squarespace makes the cart block as tall as the screen (min-height 100vh), which left a huge gap above the footer; 36px now */
 html body #sqs-cart-container > div{ min-height:0 !important; }
+
+/* cart Remove X: never a circle, ring or box in any state (a tap used to draw a white circle around it) */
+html body #sqs-cart-container .cart-row-remove, html body #sqs-cart-container .cart-row-remove:hover, html body #sqs-cart-container .cart-row-remove:active, html body #sqs-cart-container .cart-row-remove:focus, html body #sqs-cart-container .cart-row-remove:focus-visible,
+html body #sqs-cart-container .cart-row-remove *, html body #sqs-cart-container .cart-row-remove:hover *, html body #sqs-cart-container .cart-row-remove:active *, html body #sqs-cart-container .cart-row-remove:focus *{
+  border:0 !important; border-radius:0 !important; box-shadow:none !important; outline:0 !important; background:none !important; background-image:none !important; filter:none !important; }
+html body #sqs-cart-container .cart-row-remove::before, html body #sqs-cart-container .cart-row-remove::after{ border:0 !important; box-shadow:none !important; background:none !important; }
