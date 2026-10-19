@@ -1234,3 +1234,6 @@ html body .sqs-add-to-cart-button, html body.view-item #productDetails .sqs-add-
 #sqs-cart-root > p.zbr-gb-back a, #sqs-cart-root > p.zbr-gb-back a:visited{ font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline !important; text-transform:none !important; letter-spacing:0 !important; background:none !important; }
 @media (hover:hover){ #sqs-cart-root > p.zbr-gb-back a:hover{ color:#19A800 !important; } }
 #sqs-cart-root > p.zbr-gb-back a:active{ color:#19A800 !important; }
+
+/* cart with items: Squarespace makes the cart block as tall as the screen (min-height 100vh), which left a huge gap above the footer; 36px now */
+html body #sqs-cart-container > div{ min-height:0 !important; }
