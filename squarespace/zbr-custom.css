@@ -1123,7 +1123,7 @@ body.zbr-guestbook .squarespace-comments .comment .controls .squarespace-comment
 body.zbr-guestbook p.zbr-gb-back a:active{ color:#19A800 !important; }
 
 /* "« Back" link on the Archives landing page and the archive detail pages (same look as the Guestbook's) */
-body.zbr-archive-detail p.zbr-gb-back{ margin:22px 0 0 !important; padding:0 12px !important; text-align:left !important; }
+body.zbr-archive-detail p.zbr-gb-back{ margin:22px 0 24px !important; padding:0 !important; text-align:left !important; }
 body:has(#zbr-archives) #zbr-archives > p.zbr-gb-back{ margin:0 0 14px !important; padding:0 !important; text-align:left !important; }
 body.zbr-archive-detail p.zbr-gb-back a, body.zbr-archive-detail p.zbr-gb-back a:visited, body:has(#zbr-archives) p.zbr-gb-back a, body:has(#zbr-archives) p.zbr-gb-back a:visited{
   font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline !important; text-transform:none !important; letter-spacing:0 !important; background:none !important; }
