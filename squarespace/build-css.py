@@ -28,5 +28,14 @@ for k in range(0, len(parts), 2):
     p = re.sub(r';}', '}', p)
     parts[k] = p
 css = ''.join(parts).strip() + '\n'
+# the pixel-font stack is written ~80 times: keep it once, as a variable (saves ~2.8 KB of the Custom CSS box's size limit)
+STACK = '"Fixedsys Excelsior","Courier New",monospace'
+css = css.replace(STACK, 'var(--zpx)')
+decl = 'html{--zpx:' + STACK + '}'
+if css.startswith('@import'):          # an @import has to stay first
+    k = css.index(';') + 1
+    css = css[:k] + decl + css[k:]
+else:
+    css = decl + css
 (here / 'zbr-custom.min.css').write_text(css)
 print(len(src.encode()), '->', len(css.encode()), 'bytes')

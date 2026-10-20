@@ -1311,3 +1311,7 @@ html:has(body.zbr-embed){ overflow-y:auto !important; }
 
 /* Guestbook: "Comments (n)" starts out above the comment box and is then moved under it by the footer code; while it is still up there it stays hidden, so it never flashes above the box */
 body.zbr-guestbook .squarespace-comments .header-controls h3.comment-count{ display:none !important; }
+/* Guestbook: the comment box sits 24px under the intro line. The footer code works this out after the box has drawn and sets the same margin, which made the box jump up 40px;
+   the margin is now there from the first frame (-40px; -54px on small screens). */
+body.zbr-guestbook .squarespace-comments{ margin-top:-40px !important; }
+@media (max-width:640px){ body.zbr-guestbook .squarespace-comments{ margin-top:-54px !important; } }
