@@ -1364,6 +1364,8 @@
             if (idxOf[off] !== undefined) firstT = idxOf[off] + 1;
             else { firstT = 0; while (firstT < T.length && T[firstT] >= off) firstT++; }
             current = Math.floor((firstT - p + i) / size) + 1;
+            // a page whose start Squarespace told us directly (the newest pages, newer than the list): that page number is known exactly
+            for (var kn in known) if (String(known[kn]) === String(off)) current = parseInt(kn, 10);
           }
           function href(N) {
             if (N === 1) return base;
