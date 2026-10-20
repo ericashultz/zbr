@@ -12,7 +12,7 @@ To copy a file to the clipboard: `pbcopy < /Users/eshultz/zbr/squarespace/<file>
 
 ## 0. Before you start (do these first, they cannot be redone later)
 
-- [ ] **Back up the live site's current Custom CSS.** Pages > Custom Code (or Design > Custom CSS). Select all, copy, save to a file named `old-custom.css`.
+- [ ] **Back up the live site's current Custom CSS.** (If the box is empty there is nothing to save: skip the next two items, and note that rolling back later just means clearing the boxes.) Pages > Custom Code (or Design > Custom CSS). Select all, copy, save to a file named `old-custom.css`.
 - [ ] **Back up the live site's footer Code Injection** (Settings > Advanced > Code Injection > Footer) to `old-footer.html`. Also copy the Header box if it has anything in it.
 - [ ] **Export what Squarespace cannot bring over later.**
   - Analytics: no export exists. Screenshot or Print > Save as PDF each Analytics panel at the widest date range.
@@ -99,8 +99,8 @@ On the live site, set the main menu to the same order as the duplicate:
 
 ## 8. Rollback (if something looks wrong)
 
-1. Paste `old-custom.css` back into Custom Code. Save. The old look is back immediately.
-2. Paste `old-footer.html` back into the footer injection.
+1. Paste `old-custom.css` back into Custom Code (or, if it was empty before, delete everything in the box). Save. The old look is back immediately.
+2. Paste `old-footer.html` back into the footer injection (or clear the box if it was empty before).
 3. Move the new pages back to Not Linked (they are harmless while unlinked). Restore the old menu order.
 
 ## 9. After launch
