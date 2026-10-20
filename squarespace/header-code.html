@@ -26,3 +26,35 @@ setTimeout(function () {
   (document.body || document.documentElement).appendChild(s);
 }, 1200);
 </script>
+<script>
+// TEMPORARY flight recorder (to find the page-to-page blink): for the first 2.5 s of every page load it notes, on every frame the browser draws,
+// what the page looks like at that moment. The last 12 loads are kept in this browser (localStorage "zbr-diag"); nothing is sent anywhere.
+(function () {
+  try {
+    var rec = { u: location.pathname + location.search, v: document.visibilityState, f: [] }, last = '';
+    var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    if (nav) rec.nav = { type: nav.type, act: Math.round(nav.activationStart || 0), resp: Math.round(nav.responseEnd) };
+    var save = function () {
+      try {
+        var all = JSON.parse(localStorage.getItem('zbr-diag') || '[]');
+        all.push(rec);
+        localStorage.setItem('zbr-diag', JSON.stringify(all.slice(-12)));
+      } catch (e) {}
+    };
+    try {
+      new PerformanceObserver(function (l) { l.getEntries().forEach(function (e) { rec.f.push([Math.round(e.startTime), 'PAINT ' + e.name]); }); }).observe({ type: 'paint', buffered: true });
+      new PerformanceObserver(function (l) { l.getEntries().forEach(function (e) { rec.f.push([Math.round(e.startTime), 'SHIFT ' + e.value.toFixed(3)]); }); }).observe({ type: 'layout-shift', buffered: true });
+    } catch (e) {}
+    var tick = function (ts) {
+      var d = document, t = Math.round(ts), hw = d.getElementById('headerWrapper'), pg = d.getElementById('page'), cv = d.getElementById('canvas'), ft = d.getElementById('footerWrapper');
+      var sig = [hw ? Math.round(hw.getBoundingClientRect().height) : '-', cv ? Math.round(cv.getBoundingClientRect().height) : '-', pg ? getComputedStyle(pg).visibility.charAt(0) + Math.round(pg.getBoundingClientRect().height) : '-',
+                 ft ? Math.round(ft.getBoundingClientRect().top) : '-', d.documentElement.classList.contains('zbr-ready') ? 'R' : '-', d.documentElement.classList.contains('zbr-cart-has') ? 'C' : '-', d.readyState.charAt(0), d.body ? d.body.children.length : 0, d.documentElement.scrollHeight].join(' ');
+      if (sig !== last) { rec.f.push([t, sig]); last = sig; }
+      if (t < 2500) requestAnimationFrame(tick); else save();
+    };
+    requestAnimationFrame(tick);
+    window.addEventListener('pagehide', save);
+  } catch (e) {}
+})();
+</script>
+
