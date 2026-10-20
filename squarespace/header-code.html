@@ -11,21 +11,3 @@ try {
 } catch (e) {}
 </script>
 <link rel="preload" as="font" type="font/woff2" href="https://static1.squarespace.com/static/51f9e29ee4b0d46ee28f3709/t/6ad76ac8d822c91627893930/1792502473012/FixedsysExcelsior.woff2" crossorigin>
-<script type="speculationrules">
-{
-  "prerender": [
-    { "where": { "and": [
-        { "href_matches": "/*" },
-        { "selector_matches": "nav.main-nav a, #footer a, nav.pagination a, .zbr-pagenav a" },
-        { "not": { "href_matches": ["/cart*", "/api/*", "/config*", "/*?*format=*"] } }
-      ] }, "eagerness": "moderate" }
-  ],
-  "prefetch": [
-    { "where": { "and": [
-        { "href_matches": "/*" },
-        { "not": { "href_matches": ["/cart*", "/api/*", "/config*", "/*?*format=*"] } },
-        { "not": { "selector_matches": "a[download], a[target=_blank]" } }
-      ] }, "eagerness": "moderate" }
-  ]
-}
-</script>
