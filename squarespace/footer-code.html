@@ -868,6 +868,13 @@
     if ((centred || /\([A-Z]{1,4}\d+(?:-\d+)?\)$/.test(t)) && t.length < 160) p.classList.add('zbr-catline');
   });
 
+  // Product descriptions: no leading spaces before a paragraph (some are typed with an indent)
+  [].forEach.call(document.querySelectorAll('.product-excerpt p'), function (p) {
+    var w = document.createTreeWalker(p, NodeFilter.SHOW_TEXT, null, false), n = w.nextNode();
+    while (n && !n.nodeValue.replace(/[\s\u00a0]+/g, '')) n = w.nextNode();
+    if (n) n.nodeValue = n.nodeValue.replace(/^[\s\u00a0\u2003\u2002]+/, '');
+  });
+
   // Product page and product blocks inside posts: Bandcamp links in the description become players at the bottom
   [].forEach.call(document.querySelectorAll('.product-excerpt'), function (ex) {
     var details = ex.closest('#productDetails, .productDetails');
