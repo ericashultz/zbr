@@ -34,7 +34,10 @@ setTimeout(function () {
     var rec = { u: location.pathname + location.search, v: document.visibilityState, f: [] }, last = '';
     var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
     if (nav) rec.nav = { type: nav.type, act: Math.round(nav.activationStart || 0), resp: Math.round(nav.responseEnd) };
+    var saved = false;
     var save = function () {
+      if (saved) return;
+      saved = true;
       try {
         var all = JSON.parse(localStorage.getItem('zbr-diag') || '[]');
         all.push(rec);
