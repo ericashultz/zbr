@@ -679,7 +679,10 @@
   // so the pop-up is already ready when it is first opened
   if (window.self === window.top) {
     var warmMail = function () { if (document.querySelector('a.zbr-ml-btn')) mailModal(); };
-    window.addEventListener('load', function () { setTimeout(warmMail, 250); setTimeout(warmMail, 3000); });
+    // starts as soon as the Join button is on the page (checked every 0.1 s for 4 s), not after the page has finished loading
+    var warmTries = 0;
+    var warmLoop = function () { warmMail(); if (!document.getElementById('zbr-ml-modal') && ++warmTries < 40) setTimeout(warmLoop, 100); };
+    setTimeout(warmLoop, 0);
     ['pointerover', 'touchstart'].forEach(function (ev) {
       document.addEventListener(ev, function (e) { if (e.target.closest && e.target.closest('a.zbr-ml-btn')) mailModal(); }, { passive: true, capture: true });
     });
