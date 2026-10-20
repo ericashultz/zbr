@@ -814,6 +814,15 @@
     }
   })();
 
+  // Product page picture: a picture that is (nearly) square fills the whole frame instead of leaving strips at the sides; very tall or wide
+  // pictures (posters, banners) are still shown whole
+  [].forEach.call(document.querySelectorAll('#productSlideshow .slide img'), function (im) {
+    var m = (im.getAttribute('data-image-dimensions') || '').match(/^(\d+)x(\d+)$/);
+    if (!m) return;
+    var r = parseInt(m[1], 10) / parseInt(m[2], 10);
+    if (r > 0.85 && r < 1.2) im.classList.add('zbr-fill');
+  });
+
   // Keyboard users only get a focus marker: the class is set after a Tab key press and cleared by a mouse click or a touch
   document.addEventListener('keydown', function (e) { if (e.key === 'Tab') document.documentElement.classList.add('zbr-kbd'); }, true);
   ['mousedown', 'pointerdown', 'touchstart'].forEach(function (ev) {

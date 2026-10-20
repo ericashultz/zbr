@@ -1253,12 +1253,12 @@ html body #sqs-cart-container .cart-row-remove::before, html body #sqs-cart-cont
 
 /* Add to Cart inside a news post: Squarespace's own button rules are very specific (16px text, big padding), so the text wrapped onto two lines in the
    fixed-width button; these match that weight (the class is repeated on purpose) */
-html body .sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button{ padding:0 !important; }
-html body .sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button .sqs-add-to-cart-button-inner{ font:inherit !important; line-height:1 !important; letter-spacing:0 !important; text-transform:inherit !important; padding:0 !important; margin:0 !important; white-space:nowrap !important; color:inherit !important; }
+html body .sqs-add-to-cart-button:not(#zbr){ padding:0 !important; }
+html body .sqs-add-to-cart-button:not(#zbr) .sqs-add-to-cart-button-inner{ font:inherit !important; line-height:1 !important; letter-spacing:0 !important; text-transform:inherit !important; padding:0 !important; margin:0 !important; white-space:nowrap !important; color:inherit !important; }
 
 /* a sold out product's disabled button says SOLD OUT (drawn here, so it survives Squarespace redrawing the button) */
-html body .sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.zbr-disabled .sqs-add-to-cart-button-inner{ font-size:0 !important; }
-html body .sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.zbr-disabled .sqs-add-to-cart-button-inner::after{ content:"SOLD OUT"; font:bold 13px "Fixedsys Excelsior","Courier New",monospace; letter-spacing:0; text-transform:uppercase; }
+html body .sqs-add-to-cart-button:not(#zbr).zbr-disabled .sqs-add-to-cart-button-inner{ font-size:0 !important; }
+html body .sqs-add-to-cart-button:not(#zbr).zbr-disabled .sqs-add-to-cart-button-inner::after{ content:"SOLD OUT"; font:bold 13px "Fixedsys Excelsior","Courier New",monospace; letter-spacing:0; text-transform:uppercase; }
 
 /* Button blocks in news posts and sidebar boxes always sit at the left, whatever alignment (Left / Center / Right) was picked in the editor */
 html body article.hentry [class*="sqs-block-button-container"], html body #zbr-sidebar [class*="sqs-block-button-container"], html body #zbr-news-main .zbr-widget [class*="sqs-block-button-container"]{ justify-content:flex-start !important; align-items:flex-start !important; text-align:left !important; }
@@ -1298,3 +1298,7 @@ html{ overflow-y:scroll !important; }
    while the green dots showed where it was going to be. Its room is kept from the first frame (same height as the finished form). */
 .sqs-block-form:not(:has(form)){ min-height:313px; }
 @media (max-width:500px){ .sqs-block-form:not(:has(form)){ min-height:374px; } }
+
+/* product page picture: nearly square pictures fill the frame (cropped a hair at most); others are shown whole on black (no light strips) */
+body.view-item #productSlideshow{ background:#000 !important; }
+body.view-item #productSlideshow .slide img.zbr-fill{ object-fit:cover !important; }
