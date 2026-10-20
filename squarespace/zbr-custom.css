@@ -1268,3 +1268,7 @@ body.zbr-archive-detail #page{ padding-left:22px !important; padding-right:22px 
 
 /* no sliding / growing animations on the menu or the cart count circle (Squarespace animates every size change, so the circle seemed to grow and shrink as the page finished loading) */
 nav.main-nav, nav.main-nav ul, nav.main-nav ul li, nav.main-nav ul li a, nav.main-nav ul li a .zbr-cart-count{ transition:none !important; animation:none !important; }
+
+/* cart count circle, drawn by CSS from the very first frame (header code marks the page with the last known count); the footer code then swaps in the real circle, same size, in the same instant */
+html.zbr-cart-has:not(.zbr-cart-live) nav.main-nav ul li a[href$="/cart"]{ display:inline-flex !important; align-items:center !important; }
+html.zbr-cart-has:not(.zbr-cart-live) nav.main-nav ul li a[href$="/cart"]::after{ content:var(--zbr-cart-n); display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; height:16px; min-width:16px; padding:0 5px 1px; margin-left:5px; line-height:11px; background:#A500A8; color:#fff; border-radius:8px; font:bold 11px "Fixedsys Excelsior","Courier New",monospace; text-align:center; }

@@ -1,0 +1,11 @@
+<script>
+// Remembers the cart count from the last page and marks the page right away (before anything is drawn), so the "View Cart" button has room
+// for the count circle from the first frame and the menu does not shift when the footer code adds the real circle.
+try {
+  var zbrN = parseInt(localStorage.getItem('zbr-cart-n'), 10);
+  if (zbrN > 0) {
+    document.documentElement.classList.add('zbr-cart-has');
+    document.documentElement.style.setProperty('--zbr-cart-n', '"' + zbrN + '"');
+  }
+} catch (e) {}
+</script>
