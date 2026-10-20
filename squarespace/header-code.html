@@ -11,16 +11,6 @@ try {
 } catch (e) {}
 </script>
 <link rel="preload" as="font" type="font/woff2" href="https://static1.squarespace.com/static/51f9e29ee4b0d46ee28f3709/t/6ad76ac8d822c91627893930/1792502473012/FixedsysExcelsior.woff2" crossorigin>
-<style>
-/* smooth page-to-page navigation: the old page fades into the new one (the header and menu stay put) instead of a hard cut.
-   Browsers that do not support this (Firefox) just load the page as before.
-   (This lives here, not in Custom CSS: Squarespace's CSS box rejects these new rules and then throws away ALL of the custom CSS.) */
-@view-transition{ navigation:auto; }
-#headerWrapper{ view-transition-name:zbr-header; }
-::view-transition-group(root){ animation-duration:.2s; }
-::view-transition-old(root), ::view-transition-new(root){ animation-duration:.2s; }
-@media (prefers-reduced-motion:reduce){ ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*){ animation:none !important; } }
-</style>
 <script type="speculationrules">
 {
   "prerender": [
