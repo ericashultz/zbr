@@ -1304,3 +1304,7 @@ body.view-item #productSlideshow{ background:#000 !important; }
 body.view-item #productSlideshow .slide img.zbr-fill{ object-fit:cover !important; }
 /* ...except inside the mailing list pop-up, which only shows a scroll bar if its content really does not fit */
 html:has(body.zbr-embed){ overflow-y:auto !important; }
+/* mailing list pop-up: a short "Loading..." while the form is still coming (only when it is opened before it is ready) */
+#zbr-ml-modal .zbr-ml-box{ position:relative; }
+#zbr-ml-modal .zbr-ml-loading{ position:absolute; left:0; right:0; top:calc(50% + 14px); text-align:center; color:#C0DEFF; font:13px "Fixedsys Excelsior","Courier New",monospace; pointer-events:none; }
+#zbr-ml-modal.zbr-ml-ready .zbr-ml-loading{ display:none; }
