@@ -138,8 +138,8 @@ nav.main-nav ul li{ float:none !important; margin:0 !important; padding:0 !impor
 }
 
 /* ---- v4: product pages (PDP) styled like the redesign ---- */
-@font-face{ font-family:"Fixedsys Excelsior"; src:url("https://static1.squarespace.com/static/51f9e29ee4b0d46ee28f3709/t/6ad76ac8d822c91627893930/1792502473012/FixedsysExcelsior.woff2") format("woff2"); font-weight:normal; font-style:normal; font-display:swap; }
-@font-face{ font-family:"Fixedsys Excelsior"; src:url("https://static1.squarespace.com/static/51f9e29ee4b0d46ee28f3709/t/6ad76ac8d822c91627893930/1792502473012/FixedsysExcelsior.woff2") format("woff2"); font-weight:bold; font-style:normal; font-display:swap; }
+@font-face{ font-family:"Fixedsys Excelsior"; src:url("https://static1.squarespace.com/static/51f9e29ee4b0d46ee28f3709/t/6ad76ac8d822c91627893930/1792502473012/FixedsysExcelsior.woff2") format("woff2"), url("https://static1.squarespace.com/static/51f9e29ee4b0d46ee28f3709/t/6ad76ac2747bf2559d722fcb/1792502466909/FixedsysExcelsior.woff") format("woff"); font-weight:normal; font-style:normal; font-display:swap; }
+@font-face{ font-family:"Fixedsys Excelsior"; src:url("https://static1.squarespace.com/static/51f9e29ee4b0d46ee28f3709/t/6ad76ac8d822c91627893930/1792502473012/FixedsysExcelsior.woff2") format("woff2"), url("https://static1.squarespace.com/static/51f9e29ee4b0d46ee28f3709/t/6ad76ac2747bf2559d722fcb/1792502466909/FixedsysExcelsior.woff") format("woff"); font-weight:bold; font-style:normal; font-display:swap; }
 
 /* the frame is on #productSummary so the back link (#productNav) sits above it, outside the frame */
 body.view-item #productWrapper{ background:transparent !important; border:0 !important; padding:0 !important; margin:16px 14px; box-sizing:border-box; max-width:none; }
