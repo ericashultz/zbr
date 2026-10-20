@@ -978,21 +978,31 @@
     }
   }
 
-  // Search page: placeholder text and "Start typing" hint
-  var tries = 0;
-  (function waitForSearch() {
-    var inp = document.querySelector('.sqs-search-page-input input');
-    if (!inp) { if (++tries < 40) setTimeout(waitForSearch, 150); return; }
-    inp.placeholder = 'Search band names, releases, news...';
-    var wrap = inp.closest('.sqs-search-page-input');
-    var hint = document.createElement('p');
-    hint.className = 'zbr-search-hint';
-    hint.textContent = 'Start typing to search news posts and releases.';
-    wrap.parentNode.insertBefore(hint, wrap.nextSibling);
-    var sync = function () { hint.style.display = inp.value.trim() ? 'none' : ''; };
-    inp.addEventListener('input', sync);
-    sync();
-    setTimeout(sync, 300);
+  // Search page: placeholder text and "Start typing" hint. The search box is drawn by Squarespace a moment after the page; it is watched for and
+  // changed the instant it appears (the CSS keeps Squarespace's own placeholder text invisible until then, so it never shows)
+  (function () {
+    var done = false;
+    var setup = function () {
+      var inp = document.querySelector('.sqs-search-page-input input');
+      if (!inp) return false;
+      if (done) return true;
+      done = true;
+      inp.placeholder = 'Search band names, releases, news...';
+      var wrap = inp.closest('.sqs-search-page-input');
+      var hint = document.createElement('p');
+      hint.className = 'zbr-search-hint';
+      hint.textContent = 'Start typing to search news posts and releases.';
+      wrap.parentNode.insertBefore(hint, wrap.nextSibling);
+      var sync = function () { hint.style.display = inp.value.trim() ? 'none' : ''; };
+      inp.addEventListener('input', sync);
+      sync();
+      setTimeout(sync, 300);
+      return true;
+    };
+    if (setup() || !document.querySelector('.sqs-search-page')) return;
+    var mo = new MutationObserver(function () { if (setup()) mo.disconnect(); });
+    mo.observe(document.body, { childList: true, subtree: true });
+    setTimeout(function () { mo.disconnect(); }, 10000);
   })();
 
   // News list: split each news post into cards, tidy titles, short previews with Read More, and the two-column layout
