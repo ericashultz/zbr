@@ -108,7 +108,7 @@ On the live site, set the main menu to the same order as the duplicate:
 
 - [ ] Import the mailing list (subscribed CSV only) if it was exported from another site, or point the Newsletter block at the existing list.
 - [ ] Keep the duplicate site for a few weeks as a reference, then cancel it.
-- [ ] Optional: regenerate the news pager table now and then (`make-news-pages.py`). The pager already copes with posts added since the table was made.
+- [ ] Optional: regenerate the news pager table (`make-news-pages.py`) only occasionally, e.g. once a year. New posts are picked up automatically (each visitor's browser asks Squarespace for the posts newer than the table, up to 80, and remembers them).
 - [ ] Grid image fallback: if a store tile ever shows a placeholder image, load the store once with `?refresh=1` on the end of its URL to skip the one-hour product cache.
 
 ## Reference: what each file is

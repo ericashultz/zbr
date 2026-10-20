@@ -1338,40 +1338,47 @@
       var T = [], acc = 0, idxOf = {};
       TS.forEach(function (x, n) { acc = n === 0 ? parseInt(x, 36) : acc - parseInt(x, 36); T.push(acc); idxOf[acc] = n; });
       var size = 5;
-      var known = {};   // page number -> offset, read straight from Squarespace for the newest pages (posts newer than the list below)
-      // find the newest post we have a time for (posts added since the list was made come before it)
-      function locate(url, seen, tries) {
+      // Posts published since the saved list was made are found by asking Squarespace, newest first, until a post we already know turns up.
+      // They are remembered (in this browser) and put in front of the saved list, so the page numbers grow by themselves.
+      var extra = [];
+      try { extra = (JSON.parse(localStorage.getItem('zbr-news-extra') || '[]') || []).filter(function (x) { return typeof x === 'number' && x > T[0]; }); } catch (e) {}
+      function walk(url, found, tries) {
         return fetch(url, { credentials: 'same-origin' })
           .then(function (r) { return r.json(); })
           .then(function (d) {
-            var items = d.items || [], n;
-            if (seen === 0 && d.pagination && d.pagination.nextPage && items.length) size = items.length;
-            if (d.pagination && d.pagination.nextPage && items.length && (seen + items.length) % size === 0) known[(seen + items.length) / size + 1] = d.pagination.nextPageOffset;
-            for (n = 0; n < items.length; n++) { if (idxOf[items[n].publishOn] !== undefined) return { i: seen + n, p: idxOf[items[n].publishOn] }; }
-            if (tries > 0 && d.pagination && d.pagination.nextPage) return locate(base + '?format=json&offset=' + d.pagination.nextPageOffset, seen + items.length, tries - 1);
-            return null;
+            var items = d.items || [], n, t;
+            if (!found.length && url.indexOf('offset=') < 0 && d.pagination && d.pagination.nextPage && items.length) size = items.length;
+            for (n = 0; n < items.length; n++) {
+              t = items[n].publishOn;
+              if (t === T[0] || extra.indexOf(t) > -1) return { found: found, stopAt: t };
+              found.push(t);
+            }
+            if (tries > 0 && d.pagination && d.pagination.nextPage) return walk(base + '?format=json&offset=' + d.pagination.nextPageOffset, found, tries - 1);
+            return { found: found, stopAt: null };
           });
       }
-      locate(base + '?format=json', 0, 6)
-        .then(function (loc) {
-          if (!loc) return;
-          var i = loc.i, p = loc.p;
-          var pages = Math.ceil(((T.length - p) + i) / size);
+      walk(base + '?format=json', [], 80)
+        .catch(function () { return null; })
+        .then(function (res) {
+          if (res) {
+            if (res.stopAt === null || res.stopAt === T[0]) extra = res.found;
+            else extra = res.found.concat(extra.slice(extra.indexOf(res.stopAt)));
+            try { localStorage.setItem('zbr-news-extra', JSON.stringify(extra)); } catch (e) {}
+          }
+          var all = extra.concat(T);
+          var pages = Math.ceil(all.length / size);
           var q = location.search.match(/[?&]offset=(\d+)/);
           var current = 1;
           if (q) {
-            var off = parseInt(q[1], 10), firstT;
-            if (idxOf[off] !== undefined) firstT = idxOf[off] + 1;
-            else { firstT = 0; while (firstT < T.length && T[firstT] >= off) firstT++; }
-            current = Math.floor((firstT - p + i) / size) + 1;
-            // a page whose start Squarespace told us directly (the newest pages, newer than the list): that page number is known exactly
-            for (var kn in known) if (String(known[kn]) === String(off)) current = parseInt(kn, 10);
+            var off = parseInt(q[1], 10), firstT = all.indexOf(off);
+            if (firstT > -1) firstT += 1;
+            else { firstT = 0; while (firstT < all.length && all[firstT] >= off) firstT++; }
+            current = Math.floor(firstT / size) + 1;
           }
           function href(N) {
             if (N === 1) return base;
-            if (known[N]) return base + '?offset=' + known[N];
-            var t = (size * (N - 1) - 1) - i + p;
-            return t >= 0 && t < T.length ? base + '?offset=' + T[t] : null;
+            var t = size * (N - 1) - 1;
+            return t >= 0 && t < all.length ? base + '?offset=' + all[t] : null;
           }
           var html = '';
           var firstDate = document.querySelector('article.hentry time.published');
