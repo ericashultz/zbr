@@ -1478,3 +1478,7 @@
   }
 })();
 </script>
+<script>
+// tells the browser the page is ready to be shown (the header code asks it to hold the first frame until this exists, so the new page appears already put together)
+document.body.appendChild(Object.assign(document.createElement('span'), { id: 'zbr-ready', hidden: true }));
+</script>
