@@ -1273,9 +1273,13 @@ nav.main-nav, nav.main-nav ul, nav.main-nav ul li, nav.main-nav ul li a, nav.mai
 html.zbr-cart-has:not(.zbr-cart-live) nav.main-nav ul li a[href$="/cart"]{ display:inline-flex !important; align-items:center !important; }
 html.zbr-cart-has:not(.zbr-cart-live) nav.main-nav ul li a[href$="/cart"]::after{ content:var(--zbr-cart-n); display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; height:16px; width:var(--zbr-cart-w,16px); padding:0 0 1px; margin-left:5px; line-height:11px; background:#A500A8; color:#fff; border-radius:8px; font:bold 11px "Fixedsys Excelsior","Courier New",monospace; text-align:center; }
 
-/* Search page: the page's own search widget draws itself in stages, so it stays invisible (but keeps its room) until the footer code says it is finished */
-body:has(.sqs-search-page):not(.zbr-search-ready) .sqs-search-page{ opacity:0 !important; min-height:140px; }
-body.zbr-search-ready .sqs-search-page{ transition:opacity .15s ease !important; }
+/* Search page: Squarespace draws its search box in stages (a bare box, a "See more" link, then the finished layout). The unfinished box is styled to look
+   exactly like the finished one from the first frame (same size, same place, a stand-in for the input), so nothing visibly changes while it finishes. */
+.sqs-search-page:not(.sqs-search-page-content){ max-width:640px; margin:24px 31px; padding:12px; box-sizing:border-box; min-height:201px; }
+.sqs-search-page-input:not(.yui3-widget){ min-height:62px; box-sizing:border-box; }
+.sqs-search-page-input:not(:has(form))::after{ content:"Search band names, releases, news..."; display:block; box-sizing:border-box; margin-top:0; height:34px; padding:8px; border:2px inset #c0c0c0; background:#fff; color:#757575; font:14px/14px "Fixedsys Excelsior","Courier New",monospace; }
+.sqs-search-page-input:not(:has(form)) .spinner-wrapper{ display:none !important; }
+.sqs-search-page-output.hide{ display:none !important; }
 
 /* Cart page: when the last visit left items in the cart (header code marks the page), the empty-cart message stays hidden until the items have drawn */
 html.zbr-cart-has:not(.zbr-cart-drawn) #sqs-cart-container:has(.empty-message){ visibility:hidden !important; }
