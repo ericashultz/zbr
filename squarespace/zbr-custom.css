@@ -1298,3 +1298,7 @@ html{ overflow-y:scroll !important; }
    while the green dots showed where it was going to be. Its room is kept from the first frame (same height as the finished form). */
 .sqs-block-form:not(:has(form)){ min-height:313px; }
 @media (max-width:500px){ .sqs-block-form:not(:has(form)){ min-height:374px; } }
+
+/* product page picture: nearly square pictures fill the frame (cropped a hair at most); others are shown whole on black (no light strips) */
+body.view-item #productSlideshow{ background:#000 !important; }
+body.view-item #productSlideshow .slide img.zbr-fill{ object-fit:cover !important; }
