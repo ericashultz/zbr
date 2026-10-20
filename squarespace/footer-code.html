@@ -922,6 +922,7 @@
     try {
       var savedN = parseInt(localStorage.getItem('zbr-cart-n'), 10);
       if (savedN > 0) { badge.textContent = savedN; badge.hidden = false; }
+      document.documentElement.classList.add('zbr-cart-live');   // the real circle is in place: the one drawn by CSS from the header code steps aside
     } catch (e) {}
     // after an Add to Cart that really added something, a yellow "View Cart" link appears next to the button (phones)
     var showViewCart = function (btn) {
@@ -941,6 +942,7 @@
           badge.textContent = n;
           badge.hidden = !n;
           try { localStorage.setItem('zbr-cart-n', String(n)); } catch (e) {}
+          document.documentElement.classList.add('zbr-cart-live');
           if (pendingAdd && lastCount !== null && n > lastCount) showViewCart(pendingAdd);
           pendingAdd = null;
           lastCount = n;
