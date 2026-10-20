@@ -1302,3 +1302,5 @@ html{ overflow-y:scroll !important; }
 /* product page picture: nearly square pictures fill the frame (cropped a hair at most); others are shown whole on black (no light strips) */
 body.view-item #productSlideshow{ background:#000 !important; }
 body.view-item #productSlideshow .slide img.zbr-fill{ object-fit:cover !important; }
+/* ...except inside the mailing list pop-up, which only shows a scroll bar if its content really does not fit */
+html:has(body.zbr-embed){ overflow-y:auto !important; }
