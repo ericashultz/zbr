@@ -1232,7 +1232,7 @@
       a.removeAttribute('href');
     });
     // "Read More" follows the redesign's rules: only text-only cards (no photo, slideshow or call-to-action link)
-    // with more than 500 characters are shortened. The first 500 characters show, then "Read More" opens the rest.
+    // with more than 600 characters are shortened. The first 600 characters show, then "Read More" opens the rest.
     [].forEach.call(document.querySelectorAll('article.hentry'), function (art) {
       var body = art.querySelector('.post > .body.entry-content');
       if (!body) return;
@@ -1244,11 +1244,11 @@
       var paras = [];
       texts.forEach(function (t) { [].forEach.call(t.querySelectorAll('.sqs-html-content p'), function (p) { paras.push(p); }); });
       var full = paras.map(function (p) { return p.textContent; }).join(' ').replace(/\s+/g, ' ').trim();
-      if (full.length <= 500) return;
-      var cut = full.lastIndexOf(' ', 500);
+      if (full.length <= 600) return;
+      var cut = full.lastIndexOf(' ', 600);
       var preview = document.createElement('p');
       preview.className = 'zbr-preview';
-      preview.appendChild(document.createTextNode(full.slice(0, cut > 0 ? cut : 500) + '… '));
+      preview.appendChild(document.createTextNode(full.slice(0, cut > 0 ? cut : 600) + '… '));
       var more = document.createElement('a');
       more.className = 'zbr-readmore';
       more.href = '#';
@@ -1257,14 +1257,15 @@
       var firstBlock = texts[0].querySelector('.sqs-html-content');
       texts[0].classList.add('zbr-first-text');
       firstBlock.insertBefore(preview, firstBlock.firstChild);
-      var lessWrap = document.createElement('p');
-      lessWrap.className = 'zbr-less-wrap';
       var less = document.createElement('a');
       less.className = 'zbr-readmore';
       less.href = '#';
       less.textContent = 'Read Less';
-      lessWrap.appendChild(less);
-      texts[texts.length - 1].querySelector('.sqs-html-content').appendChild(lessWrap);
+      // "Read Less" follows the last line of the text, on the same line (like "Read More" does)
+      var lastP = null;
+      for (var lp = paras.length - 1; lp >= 0; lp--) { if (paras[lp].textContent.trim()) { lastP = paras[lp]; break; } }
+      if (lastP) { lastP.appendChild(document.createTextNode(' ')); lastP.appendChild(less); }
+      else { var lessWrap = document.createElement('p'); lessWrap.className = 'zbr-less-wrap'; lessWrap.appendChild(less); texts[texts.length - 1].querySelector('.sqs-html-content').appendChild(lessWrap); }
       art.classList.add('zbr-collapsed');
       more.addEventListener('click', function (e) { e.preventDefault(); art.classList.remove('zbr-collapsed'); });
       less.addEventListener('click', function (e) { e.preventDefault(); art.classList.add('zbr-collapsed'); });
