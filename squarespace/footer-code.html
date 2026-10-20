@@ -904,6 +904,11 @@
     badge.hidden = true;
     cartLink.appendChild(badge);
     var lastCount = null, pendingAdd = null;
+    // the last known count is drawn straight away on every page (and then checked with Squarespace), so the badge does not blink out and back in
+    try {
+      var savedN = parseInt(localStorage.getItem('zbr-cart-n'), 10);
+      if (savedN > 0) { badge.textContent = savedN; badge.hidden = false; }
+    } catch (e) {}
     // after an Add to Cart that really added something, a yellow "View Cart" link appears next to the button (phones)
     var showViewCart = function (btn) {
       var wrap = btn.closest('.sqs-add-to-cart-button-wrapper') || btn.parentElement;
@@ -921,6 +926,7 @@
           var n = (c.entries || []).reduce(function (s, e) { return s + (e.quantity || 0); }, 0);
           badge.textContent = n;
           badge.hidden = !n;
+          try { localStorage.setItem('zbr-cart-n', String(n)); } catch (e) {}
           if (pendingAdd && lastCount !== null && n > lastCount) showViewCart(pendingAdd);
           pendingAdd = null;
           lastCount = n;
