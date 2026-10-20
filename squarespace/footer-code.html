@@ -1101,6 +1101,15 @@
         .catch(function () {});
     };
     updateCart();
+    // Back / Forward can bring a page back from the browser's memory exactly as it was left (including an old cart count): refresh the count then,
+    // and also when this tab is looked at again, or when another tab changes the count
+    window.addEventListener('pageshow', function (e) { if (e.persisted) updateCart(); });
+    document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') updateCart(); });
+    window.addEventListener('storage', function (e) {
+      if (e.key !== 'zbr-cart-n' || e.newValue === null) return;
+      var n = parseInt(e.newValue, 10) || 0;
+      badge.textContent = n; badge.hidden = !n;
+    });
     // Cart page: while the last visit left items in the cart, the "cart is empty" message is kept hidden until the items have drawn (the cart
     // briefly shows its empty design first); shown at once when the cart is confirmed empty, an item is removed, or after 3 seconds whatever happens
     if (/^\/cart(\/|$)/.test(location.pathname)) setTimeout(function () { document.documentElement.classList.add('zbr-cart-drawn'); }, 3000);
