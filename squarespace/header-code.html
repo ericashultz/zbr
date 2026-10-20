@@ -6,6 +6,11 @@ try {
   if (zbrN > 0) {
     document.documentElement.classList.add('zbr-cart-has');
     document.documentElement.style.setProperty('--zbr-cart-n', '"' + zbrN + '"');
+    // the cart page's height from the last visit (same screen size): the cart keeps that much room until its items have drawn
+    try {
+      var zbrH = (localStorage.getItem('zbr-cart-h') || '').split(':');
+      if (zbrH[0] === (window.innerWidth <= 700 ? 's' : 'l') && parseInt(zbrH[1], 10) > 0) document.documentElement.style.setProperty('--zbr-cart-h', parseInt(zbrH[1], 10) + 'px');
+    } catch (e) {}
     document.documentElement.style.setProperty('--zbr-cart-w', (zbrN < 10 ? 16 : zbrN < 100 ? 22 : 28) + 'px');   // the circle has a fixed width, so it never changes size when the pixel font finishes loading
   }
 } catch (e) {}

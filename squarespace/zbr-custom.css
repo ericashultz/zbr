@@ -1315,3 +1315,6 @@ body.zbr-guestbook .squarespace-comments .header-controls h3.comment-count{ disp
    the margin is now there from the first frame (-40px; -54px on small screens). */
 body.zbr-guestbook .squarespace-comments{ margin-top:-40px !important; }
 @media (max-width:640px){ body.zbr-guestbook .squarespace-comments{ margin-top:-54px !important; } }
+
+/* Cart page: until the items have drawn, the cart keeps the room it took last time (height saved by the footer code, set by the header code), so the page does not grow */
+html.zbr-cart-has:not(.zbr-cart-drawn):not(.zbr-cart-rows) #sqs-cart-root{ min-height:var(--zbr-cart-h, 0px); }
