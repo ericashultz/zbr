@@ -989,6 +989,12 @@
     };
     var SIDE = /^\s*(johnny[’']?s\s+reco-?mmendations|reviews?|features?|last\s+(?:fucking\s+)?copy)\s*[:\-–—]\s*/i;
     var sideWidgets = [];
+    // words that make a section or post a sidebar box on their own: "last fucking copy" = Last Copy, "operation x-ray" = Features
+    var PHRASE_WIDGETS = [[/last\s+fucking\s+copy/i, 'Last Copy'], [/operation\s+x[-\s]?ray/i, 'Features']];
+    var phraseLabel = function (t) {
+      for (var q = 0; q < PHRASE_WIDGETS.length; q++) if (PHRASE_WIDGETS[q][0].test(t)) return PHRASE_WIDGETS[q][1];
+      return '';
+    };
     var SIDE_NAME = /^(johnny[\u2019']?s\s+reco-?mmendations|reviews?|features?|last\s+(?:fucking\s+)?copy)$/i;
     var dropMarker = function (blocks) {   // remove a leading [Label] from the first text block
       var fh = blocks.filter(function (b) { return b.classList.contains('sqs-block-html'); })[0];
@@ -1016,8 +1022,9 @@
         if (m) { sideWidgets.push({ label: m[1], blocks: g }); return; }
         var bracket = txt.match(/^\s*\[([^\]]{1,30})\]/);
         if (bracket && SIDE_NAME.test(bracket[1].trim())) { dropMarker(g); sideWidgets.push({ label: bracket[1].trim(), blocks: g }); return; }
-        // any section that says "last fucking copy" anywhere is a Last Copy box
-        if (/last\s+fucking\s+copy/i.test(txt)) { dropMarker(g); sideWidgets.push({ label: 'Last Copy', blocks: g }); return; }
+        // a section that says "last fucking copy" or "operation x-ray" anywhere is a Last Copy / Features box
+        var phrase = phraseLabel(txt);
+        if (phrase) { dropMarker(g); sideWidgets.push({ label: phrase, blocks: g }); return; }
         // the tag: a label typed in square brackets at the start of the section, e.g. [Releases], otherwise a guess from the text
         var label = /music video/i.test(txt) ? 'Music Video' : 'Releases';
         var tagged = txt.match(/^\s*\[([^\]]{1,30})\]\s*/);
@@ -1056,13 +1063,14 @@
 
     // A label typed in square brackets at the very start of a post's first text, e.g. [Premiers], replaces its "News -- date" tag
     [].forEach.call(document.querySelectorAll('article.hentry:not(.zbr-section)'), function (art) {
-      // a whole post that says "last fucking copy" anywhere in its text is a Last Copy box (on the news list; a post opened on its own stays)
+      // a whole post that says "last fucking copy" / "operation x-ray" anywhere in its text is a Last Copy / Features box (on the news list; a post opened on its own stays)
       if (!document.body.classList.contains('view-item')) {
         var shown = [].slice.call(art.querySelectorAll('.post > .body .sqs-block')).filter(function (b) { return b.style.display !== 'none'; });
-        if (/last\s+fucking\s+copy/i.test(textOf(shown))) {
+        var wholePhrase = phraseLabel(textOf(shown));
+        if (wholePhrase) {
           dropMarker(shown);
           art.style.display = 'none';
-          sideWidgets.push({ label: 'Last Copy', blocks: shown, art: art });
+          sideWidgets.push({ label: wholePhrase, blocks: shown, art: art });
           return;
         }
       }
