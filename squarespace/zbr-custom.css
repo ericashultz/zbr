@@ -1256,3 +1256,8 @@ html body .sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.
 /* Button blocks in news posts and sidebar boxes always sit at the left, whatever alignment (Left / Center / Right) was picked in the editor */
 html body article.hentry [class*="sqs-block-button-container"], html body #zbr-sidebar [class*="sqs-block-button-container"], html body #zbr-news-main .zbr-widget [class*="sqs-block-button-container"]{ justify-content:flex-start !important; align-items:flex-start !important; text-align:left !important; }
 html body article.hentry .sqs-block-button a, html body #zbr-sidebar .sqs-block-button a, html body #zbr-news-main .zbr-widget .sqs-block-button a{ margin-left:0 !important; margin-right:auto !important; }
+
+/* Bandcamp players under a product in a news post: a clear gap under the button, and the same smaller gap between the players */
+html body article.hentry .sqs-block-product .zbr-bcplayer{ margin-top:20px !important; margin-bottom:0 !important; }
+html body article.hentry .sqs-block-website-component:has(.zbr-bcplayer){ padding-bottom:0 !important; }
+html body article.hentry .sqs-block-website-component:has(.zbr-bcplayer) + .zbr-bcplayer, html body article.hentry .zbr-bcplayer + .zbr-bcplayer{ margin-top:12px !important; }
