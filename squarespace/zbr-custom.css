@@ -1265,3 +1265,6 @@ html body article.hentry .sqs-block-website-component:has(.zbr-bcplayer) + .zbr-
 /* archive detail pages: the post and its Back link sit inside the frame with some room, not right against it */
 body.zbr-archive-detail #page{ padding-left:22px !important; padding-right:22px !important; box-sizing:border-box !important; }
 @media (max-width:700px){ body.zbr-archive-detail #page{ padding-left:14px !important; padding-right:14px !important; } }
+
+/* no sliding / growing animations on the menu or the cart count circle (Squarespace animates every size change, so the circle seemed to grow and shrink as the page finished loading) */
+nav.main-nav, nav.main-nav ul, nav.main-nav ul li, nav.main-nav ul li a, nav.main-nav ul li a .zbr-cart-count{ transition:none !important; animation:none !important; }
