@@ -1505,5 +1505,6 @@
 </script>
 <script>
 // the page is set up: tells the browser it can show it now (see the header code)
+document.documentElement.classList.add('zbr-ready');   // the page is finished: the temporary dark column behind the frame goes away
 if (!document.getElementById('zbr-ready')) document.body.appendChild(Object.assign(document.createElement('span'), { id: 'zbr-ready', hidden: true }));
 </script>
