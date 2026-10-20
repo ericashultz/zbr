@@ -1256,8 +1256,3 @@ html body .sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.
 /* Button blocks in news posts and sidebar boxes always sit at the left, whatever alignment (Left / Center / Right) was picked in the editor */
 html body article.hentry [class*="sqs-block-button-container"], html body #zbr-sidebar [class*="sqs-block-button-container"], html body #zbr-news-main .zbr-widget [class*="sqs-block-button-container"]{ justify-content:flex-start !important; align-items:flex-start !important; text-align:left !important; }
 html body article.hentry .sqs-block-button a, html body #zbr-sidebar .sqs-block-button a, html body #zbr-news-main .zbr-widget .sqs-block-button a{ margin-left:0 !important; margin-right:auto !important; }
-
-/* Product blocks in news posts always show the picture and the description (the block's own "show image / description" switches are ignored) */
-html body article.hentry .sqs-block-product.product-block .image-container{ display:block !important; width:260px !important; max-width:100% !important; margin:0 0 4px !important; }
-html body article.hentry .sqs-block-product.product-block .productDetails .product-excerpt{ display:block !important; }
-html body article.hentry .sqs-block-product.product-block .product-excerpt p{ margin:0 0 12px !important; }
