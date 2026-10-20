@@ -16,10 +16,9 @@ try {
 } catch (e) {}
 </script>
 <link rel="preload" as="font" type="font/woff2" href="https://static1.squarespace.com/static/51f9e29ee4b0d46ee28f3709/t/6ad76ac8d822c91627893930/1792502473012/FixedsysExcelsior.woff2" crossorigin>
-<link rel="expect" href="#zbr-ready" blocking="render">
 <script>
-// the browser is asked (line above) to keep showing the old page until the footer code has set the new one up (it adds #zbr-ready when done);
-// this timer makes sure the new page is shown after 1.2 seconds even if that never happens
+// the footer code marks the page ready when it has set it up (the CSS shows the page's content then); this timer does it after 1.2 seconds
+// even if that never happens
 setTimeout(function () {
   document.documentElement.classList.add('zbr-ready');
   if (document.getElementById('zbr-ready')) return;
