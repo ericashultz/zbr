@@ -632,10 +632,8 @@
     };
     new MutationObserver(watchThanks).observe(document.body, { subtree: true, childList: true, attributes: true, characterData: true });
   }
-  document.addEventListener('click', function (e) {
-    var a = e.target.closest && e.target.closest('a.zbr-ml-btn');
-    if (!a) return;
-    e.preventDefault();
+  // builds the pop-up (closed) and starts loading the form page into it, once
+  var mailModal = function () {
     var m = document.getElementById('zbr-ml-modal');
     if (!m) {
       m = document.createElement('div');
@@ -653,9 +651,25 @@
       f.addEventListener('load', function () { setTimeout(function () { f.style.visibility = 'visible'; }, 60); });
       f.setAttribute('src', '/mailing-list');
     }
+    return m;
+  };
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a.zbr-ml-btn');
+    if (!a) return;
+    e.preventDefault();
+    var m = mailModal();
     m.classList.add('zbr-ml-open');
     document.documentElement.classList.add('zbr-ml-lock');
   });
+  // the form page is fetched in the background shortly after this page has loaded (or the moment a finger / mouse nears the button),
+  // so the pop-up is already ready when it is first opened
+  if (window.self === window.top) {
+    var warmMail = function () { if (document.querySelector('a.zbr-ml-btn')) mailModal(); };
+    window.addEventListener('load', function () { setTimeout(warmMail, 1200); setTimeout(warmMail, 5000); });
+    ['pointerover', 'touchstart'].forEach(function (ev) {
+      document.addEventListener(ev, function (e) { if (e.target.closest && e.target.closest('a.zbr-ml-btn')) mailModal(); }, { passive: true, capture: true });
+    });
+  }
 
   // Product page: "Back to Store" link returns to the store at the same filters, page and scroll position
   var back = document.querySelector('#productNav a');
