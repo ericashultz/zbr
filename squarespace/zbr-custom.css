@@ -1243,3 +1243,8 @@ html body #sqs-cart-container .cart-row-remove, html body #sqs-cart-container .c
 html body #sqs-cart-container .cart-row-remove *, html body #sqs-cart-container .cart-row-remove:hover *, html body #sqs-cart-container .cart-row-remove:active *, html body #sqs-cart-container .cart-row-remove:focus *{
   border:0 !important; border-radius:0 !important; box-shadow:none !important; outline:0 !important; background:none !important; background-image:none !important; filter:none !important; }
 html body #sqs-cart-container .cart-row-remove::before, html body #sqs-cart-container .cart-row-remove::after{ border:0 !important; box-shadow:none !important; background:none !important; }
+
+/* Add to Cart inside a news post: Squarespace's own button rules are very specific (16px text, big padding), so the text wrapped onto two lines in the
+   fixed-width button; these match that weight (the class is repeated on purpose) */
+html body .sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button{ padding:0 !important; }
+html body .sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button.sqs-add-to-cart-button .sqs-add-to-cart-button-inner{ font:inherit !important; line-height:1 !important; letter-spacing:0 !important; text-transform:inherit !important; padding:0 !important; margin:0 !important; white-space:nowrap !important; color:inherit !important; }
