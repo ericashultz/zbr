@@ -631,6 +631,16 @@
       }
     };
     new MutationObserver(watchThanks).observe(document.body, { subtree: true, childList: true, attributes: true, characterData: true });
+    // tell the page that holds this pop-up as soon as the email box has appeared, so it can show the form without waiting for the whole page to finish loading
+    var signalReady = function () {
+      if (!document.querySelector('input[type=email], input[name=email]')) return false;
+      setTimeout(function () { try { parent.postMessage({ zbrMl: 'ready' }, location.origin); } catch (e) {} }, 80);
+      return true;
+    };
+    if (!signalReady()) {
+      var readyMo = new MutationObserver(function () { if (signalReady()) readyMo.disconnect(); });
+      readyMo.observe(document.body, { subtree: true, childList: true });
+    }
   }
   // builds the pop-up (closed) and starts loading the form page into it, once
   var mailModal = function () {
@@ -638,7 +648,7 @@
     if (!m) {
       m = document.createElement('div');
       m.id = 'zbr-ml-modal';
-      m.innerHTML = '<div class="zbr-ml-box" role="dialog" aria-modal="true" aria-label="Join The Mailing List"><div class="zbr-ml-bar"><span>Join The Mailing List</span><button type="button" class="zbr-ml-x" aria-label="Close">X</button></div><iframe class="zbr-ml-frame" title="Join The Mailing List"></iframe></div>';
+      m.innerHTML = '<div class="zbr-ml-box" role="dialog" aria-modal="true" aria-label="Join The Mailing List"><div class="zbr-ml-bar"><span>Join The Mailing List</span><button type="button" class="zbr-ml-x" aria-label="Close">X</button></div><iframe class="zbr-ml-frame" title="Join The Mailing List"></iframe><div class="zbr-ml-loading">Loading...</div></div>';
       document.body.appendChild(m);
       var close = function () { m.classList.remove('zbr-ml-open'); document.documentElement.classList.remove('zbr-ml-lock'); };
       m.addEventListener('click', function (ev) { if (ev.target === m || ev.target.classList.contains('zbr-ml-x')) close(); });
@@ -648,7 +658,11 @@
     if (!f.getAttribute('src')) {
       // stay black until the form page has loaded and put its own black styling on (it used to flash the page's green-dot background first)
       f.style.visibility = 'hidden';
-      f.addEventListener('load', function () { setTimeout(function () { f.style.visibility = 'visible'; }, 60); });
+      var reveal = function () { f.style.visibility = 'visible'; m.classList.add('zbr-ml-ready'); };
+      window.addEventListener('message', function (ev) {
+        if (ev.origin === location.origin && ev.data && ev.data.zbrMl === 'ready' && ev.source === f.contentWindow) reveal();
+      });
+      f.addEventListener('load', function () { setTimeout(reveal, 60); });   // (also when the page has loaded, in case the message never comes)
       f.setAttribute('src', '/mailing-list');
     }
     return m;
@@ -665,7 +679,7 @@
   // so the pop-up is already ready when it is first opened
   if (window.self === window.top) {
     var warmMail = function () { if (document.querySelector('a.zbr-ml-btn')) mailModal(); };
-    window.addEventListener('load', function () { setTimeout(warmMail, 1200); setTimeout(warmMail, 5000); });
+    window.addEventListener('load', function () { setTimeout(warmMail, 250); setTimeout(warmMail, 3000); });
     ['pointerover', 'touchstart'].forEach(function (ev) {
       document.addEventListener(ev, function (e) { if (e.target.closest && e.target.closest('a.zbr-ml-btn')) mailModal(); }, { passive: true, capture: true });
     });
