@@ -1275,7 +1275,7 @@ html.zbr-cart-has:not(.zbr-cart-live) nav.main-nav ul li a[href$="/cart"]::after
 
 /* Search page: Squarespace draws its search box in stages (a bare box, a "See more" link, then the finished layout). The unfinished box is styled to look
    exactly like the finished one from the first frame (same size, same place, a stand-in for the input), so nothing visibly changes while it finishes. */
-.sqs-search-page:not(.sqs-search-page-content){ max-width:640px; margin:24px 31px; padding:12px; box-sizing:border-box; min-height:201px; }
+.sqs-search-page:not(.sqs-search-page-content):not(.yui3-widget){ max-width:640px; margin:24px 31px; padding:12px; box-sizing:border-box; min-height:201px; }
 .sqs-search-page-input:not(.yui3-widget){ min-height:62px; box-sizing:border-box; }
 .sqs-search-page-input:not(:has(form))::after{ content:"Search band names, releases, news..."; display:block; box-sizing:border-box; margin-top:0; height:34px; padding:8px; border:2px inset #c0c0c0; background:#fff; color:#757575; font:14px/14px "Fixedsys Excelsior","Courier New",monospace; }
 .sqs-search-page-input:not(:has(form)) .spinner-wrapper{ display:none !important; }
