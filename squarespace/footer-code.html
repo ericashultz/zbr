@@ -604,6 +604,14 @@
       } else if (!hasItems && cur) {
         cur.parentNode.removeChild(cur);
       }
+      // the cart's height is remembered (for this screen size) so the next visit keeps its room from the first frame (see the header code and CSS);
+      // the reserved room is let go once the items and the Back link have drawn
+      if (hasItems) {
+        document.documentElement.classList.add('zbr-cart-rows');
+        try { localStorage.setItem('zbr-cart-h', (window.innerWidth <= 700 ? 's' : 'l') + ':' + Math.round(root.getBoundingClientRect().height)); } catch (e) {}
+      } else if (document.documentElement.classList.contains('zbr-cart-drawn')) {
+        try { localStorage.removeItem('zbr-cart-h'); } catch (e) {}
+      }
     };
     var backTimer;
     new MutationObserver(function () { clearTimeout(backTimer); backTimer = setTimeout(syncBack, 120); }).observe(document.getElementById('sqs-cart-root'), { childList: true, subtree: true });
