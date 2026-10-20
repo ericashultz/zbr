@@ -1272,6 +1272,7 @@
       var T = [], acc = 0, idxOf = {};
       TS.forEach(function (x, n) { acc = n === 0 ? parseInt(x, 36) : acc - parseInt(x, 36); T.push(acc); idxOf[acc] = n; });
       var size = 5;
+      var known = {};   // page number -> offset, read straight from Squarespace for the newest pages (posts newer than the list below)
       // find the newest post we have a time for (posts added since the list was made come before it)
       function locate(url, seen, tries) {
         return fetch(url, { credentials: 'same-origin' })
@@ -1279,6 +1280,7 @@
           .then(function (d) {
             var items = d.items || [], n;
             if (seen === 0 && d.pagination && d.pagination.nextPage && items.length) size = items.length;
+            if (d.pagination && d.pagination.nextPage && items.length && (seen + items.length) % size === 0) known[(seen + items.length) / size + 1] = d.pagination.nextPageOffset;
             for (n = 0; n < items.length; n++) { if (idxOf[items[n].publishOn] !== undefined) return { i: seen + n, p: idxOf[items[n].publishOn] }; }
             if (tries > 0 && d.pagination && d.pagination.nextPage) return locate(base + '?format=json&offset=' + d.pagination.nextPageOffset, seen + items.length, tries - 1);
             return null;
@@ -1299,6 +1301,7 @@
           }
           function href(N) {
             if (N === 1) return base;
+            if (known[N]) return base + '?offset=' + known[N];
             var t = (size * (N - 1) - 1) - i + p;
             return t >= 0 && t < T.length ? base + '?offset=' + T[t] : null;
           }
