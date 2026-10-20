@@ -260,8 +260,8 @@ body.view-item .product-excerpt > p:first-child[style*="text-align: center"]{ di
 }
 
 /* ---- v6: Search page like the redesign ---- */
-.sqs-search-page-content{ max-width:640px; margin:24px auto; padding:12px; box-sizing:border-box; text-align:center; }
-.sqs-search-page-content::before{ content:""; display:block; width:40px; height:40px; margin:0 auto 10px; background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAKlBMVEUAAACZmQAEBAT//////5nMzGaGhob/zJnAwMAA//8AgIAAAP8AAICAgAD8SDm2AAAAAXRSTlMAQObYZgAAAAFiS0dEAxEMTPIAAAAHdElNRQfiBhoAMhGgfCbxAAABtUlEQVQ4y32Uv07DMBDG271LW3UvHoiEWFAYWjGBLHthYeAFqBSlnS38AJUq0jVLgK0T5A1QO3Wlr9B34f4lgST0G6LoPv/ufD4nnc4J9UmDRrwbkq7GdWOoWXWkey3G7bgdqCMlUEcqoIaMHis99AvBkmHYqrGkMlEUeScZnbV2wIaJsyxTXoLaaceGmU9BiXIY0tpqL0ScpSkgbwEGHYkMk+B60MZZsCzmYyNNwwy1cbgeLCHm05CAZA25KCzETAAoYjkREyYJw4RFudDzZCzTCRPZxltty10BMS0JZ7FFrgFEVhLUupVUyfQXQfINgvOUNSrCO7YolY4LAg6LlnvpPE6EWAdU3GvPhHkpS8CBU205xE8BcFMAwG6Z0IsPAvLzAPu2ZQ1rFsjkKnqiXL7YldZ3F3meq9kqCnCs1hejBUcp9bycAOKhgBA4AY2ji8PVLqD2iuIYhvM2y5vtHoDirDCMFwqQ1+0ucJiLCAzzRO+/3rd7j1V8QfBA3TciVhrEGwkF6HIIQtsd9Ssdj4ic8Xeg/ugSEXxpfMKINIKoHiKtv4lTSLsByKHd6B3+MaABfP4A/GM5Iiuf48sAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTgtMDYtMjZUMDA6NTA6MTctMDQ6MDD4Km3nAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE4LTA2LTI2VDAwOjUwOjE3LTA0OjAwiXfVWwAAAABJRU5ErkJggg==") no-repeat center / 40px 40px; }
+.sqs-search-page-content, .sqs-search-page:not(.yui3-widget):not(.sqs-search-page-content){ max-width:640px; margin:24px auto; padding:12px; box-sizing:border-box; text-align:center; }
+.sqs-search-page-content::before, .sqs-search-page:not(.yui3-widget):not(.sqs-search-page-content)::before{ content:""; display:block; width:40px; height:40px; margin:0 auto 10px; background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAKlBMVEUAAACZmQAEBAT//////5nMzGaGhob/zJnAwMAA//8AgIAAAP8AAICAgAD8SDm2AAAAAXRSTlMAQObYZgAAAAFiS0dEAxEMTPIAAAAHdElNRQfiBhoAMhGgfCbxAAABtUlEQVQ4y32Uv07DMBDG271LW3UvHoiEWFAYWjGBLHthYeAFqBSlnS38AJUq0jVLgK0T5A1QO3Wlr9B34f4lgST0G6LoPv/ufD4nnc4J9UmDRrwbkq7GdWOoWXWkey3G7bgdqCMlUEcqoIaMHis99AvBkmHYqrGkMlEUeScZnbV2wIaJsyxTXoLaaceGmU9BiXIY0tpqL0ScpSkgbwEGHYkMk+B60MZZsCzmYyNNwwy1cbgeLCHm05CAZA25KCzETAAoYjkREyYJw4RFudDzZCzTCRPZxltty10BMS0JZ7FFrgFEVhLUupVUyfQXQfINgvOUNSrCO7YolY4LAg6LlnvpPE6EWAdU3GvPhHkpS8CBU205xE8BcFMAwG6Z0IsPAvLzAPu2ZQ1rFsjkKnqiXL7YldZ3F3meq9kqCnCs1hejBUcp9bycAOKhgBA4AY2ji8PVLqD2iuIYhvM2y5vtHoDirDCMFwqQ1+0ucJiLCAzzRO+/3rd7j1V8QfBA3TciVhrEGwkF6HIIQtsd9Ssdj4ic8Xeg/ugSEXxpfMKINIKoHiKtv4lTSLsByKHd6B3+MaABfP4A/GM5Iiuf48sAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTgtMDYtMjZUMDA6NTA6MTctMDQ6MDD4Km3nAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE4LTA2LTI2VDAwOjUwOjE3LTA0OjAwiXfVWwAAAABJRU5ErkJggg==") no-repeat center / 40px 40px; }
 .zbr-search-hint{ text-align:center; color:#fff; font:15px/1.4 Arial,sans-serif; margin:14px 0 0; }
 .sqs-search-page-input input::placeholder{ color:#757575; }
 .sqs-search-page-input{ position:relative; background:none !important; border:0 !important; padding:0 !important; height:auto !important; min-height:0 !important; box-shadow:none !important; }
@@ -1273,9 +1273,13 @@ nav.main-nav, nav.main-nav ul, nav.main-nav ul li, nav.main-nav ul li a, nav.mai
 html.zbr-cart-has:not(.zbr-cart-live) nav.main-nav ul li a[href$="/cart"]{ display:inline-flex !important; align-items:center !important; }
 html.zbr-cart-has:not(.zbr-cart-live) nav.main-nav ul li a[href$="/cart"]::after{ content:var(--zbr-cart-n); display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; height:16px; width:var(--zbr-cart-w,16px); padding:0 0 1px; margin-left:5px; line-height:11px; background:#A500A8; color:#fff; border-radius:8px; font:bold 11px "Fixedsys Excelsior","Courier New",monospace; text-align:center; }
 
-/* Search page: the page's own search widget draws itself in stages, so it stays invisible (but keeps its room) until the footer code says it is finished */
-body:has(.sqs-search-page):not(.zbr-search-ready) .sqs-search-page{ opacity:0 !important; min-height:140px; }
-body.zbr-search-ready .sqs-search-page{ transition:opacity .15s ease !important; }
+/* Search page: Squarespace draws its search box in stages (a bare box, a "See more" link, then the finished layout). The unfinished box is styled to look
+   exactly like the finished one from the first frame (same size, same place, a stand-in for the input), so nothing visibly changes while it finishes. */
+.sqs-search-page:not(.yui3-widget):not(.sqs-search-page-content){ min-height:201px; }
+.sqs-search-page-input:not(.yui3-widget){ min-height:62px; box-sizing:border-box; }
+.sqs-search-page-input:not(:has(form))::after{ content:"Search band names, releases, news..."; display:block; box-sizing:border-box; margin-top:0; height:34px; padding:8px; border:2px inset #c0c0c0; background:#fff; color:#757575; font:14px/14px "Fixedsys Excelsior","Courier New",monospace; }
+.sqs-search-page-input:not(:has(form)) .spinner-wrapper{ display:none !important; }
+.sqs-search-page-output.hide{ display:none !important; }
 
 /* Cart page: when the last visit left items in the cart (header code marks the page), the empty-cart message stays hidden until the items have drawn */
 html.zbr-cart-has:not(.zbr-cart-drawn) #sqs-cart-container:has(.empty-message){ visibility:hidden !important; }
