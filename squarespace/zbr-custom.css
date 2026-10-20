@@ -1308,3 +1308,6 @@ html:has(body.zbr-embed){ overflow-y:auto !important; }
 #zbr-ml-modal .zbr-ml-box{ position:relative; }
 #zbr-ml-modal .zbr-ml-loading{ position:absolute; left:0; right:0; top:calc(50% + 14px); text-align:center; color:#C0DEFF; font:13px "Fixedsys Excelsior","Courier New",monospace; pointer-events:none; }
 #zbr-ml-modal.zbr-ml-ready .zbr-ml-loading{ display:none; }
+
+/* Guestbook: "Comments (n)" starts out above the comment box and is then moved under it by the footer code; while it is still up there it stays hidden, so it never flashes above the box */
+body.zbr-guestbook .squarespace-comments .header-controls h3.comment-count{ display:none !important; }
