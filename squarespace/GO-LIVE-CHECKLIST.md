@@ -63,6 +63,7 @@ Compare the duplicate and the live site, panel by panel, and copy anything that 
 ## 4. Paste the code (still invisible to visitors until the CSS goes in)
 
 - [ ] Footer Code Injection: `pbcopy < /Users/eshultz/zbr/squarespace/footer-code.html` then paste into Settings > Advanced > Code Injection > Footer. Save.
+- [ ] Header Code Injection (a few lines, keeps the cart count circle from making the menu shift): `pbcopy < /Users/eshultz/zbr/squarespace/header-code.html` then paste into Settings > Advanced > Code Injection > Header. Save.
 - [ ] Re-check the News Sidebar page's Code Block holds the latest `news-sidebar.html`.
 - [ ] Re-check the store page's Code Block holds the latest `store-grid-inline.html`.
 
@@ -116,6 +117,7 @@ On the live site, set the main menu to the same order as the duplicate:
 |---|---|
 | `zbr-custom.min.css` | Pages > Custom Code (whole file). Built from `zbr-custom.css` (the readable source) by `build-css.py` |
 | `footer-code.html` | Settings > Advanced > Code Injection > Footer |
+| `header-code.html` | Settings > Advanced > Code Injection > Header |
 | `store-grid-inline.html` | Code Block on the Canada/Intl Store page |
 | `news-sidebar.html` | Code Block on the News Sidebar page |
 | `archives-page.html` | Code Block on the Archives page |
