@@ -1,5 +1,4 @@
 /* ZBR GeoCities redesign -- Squarespace 7.0 Custom CSS (v1) */
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 /* ---- Page + starfield ---- */
 html{
@@ -69,20 +68,20 @@ article.hentry p{ color:#fff !important; font-size:15px; line-height:1.5; }
 article.hentry .date a{
   display:inline-block;
   background:#1D64A7; border:2px outset #1D64A7; color:#fff !important;
-  font:bold 15px "VT323","Courier New",monospace; padding:0 8px;
+  font:bold 15px "Fixedsys Excelsior","Courier New",monospace; padding:0 8px;
 }
 article.hentry img{ border:4px ridge #c0c0c0; max-width:100%; }
 
 /* ---- Store grid ---- */
 .product{ background:#000; border:3px ridge #C0DEFF; padding:8px; }
 .product-title{ color:#fff !important; font-weight:bold; text-transform:none !important; }
-.product-price{ color:#C0DEFF !important; font-family:"VT323","Courier New",monospace !important; font-size:18px; }
+.product-price{ color:#C0DEFF !important; font-family:"Fixedsys Excelsior","Courier New",monospace !important; font-size:18px; }
 .product-image img{ border:4px ridge #c0c0c0; }
 .product-mark{ background:#cc0000 !important; color:#fff !important; border-radius:0 !important; }
 
 /* ---- Buttons ---- */
 .sqs-add-to-cart-button, .sqs-block-button-element, input[type="submit"], button.sqs-add-to-cart-button{
-  font:bold 18px "VT323","Courier New",monospace !important;
+  font:bold 18px "Fixedsys Excelsior","Courier New",monospace !important;
   background:linear-gradient(180deg,#e8e8e8,#a0a0a0) !important;
   border:2px outset #fff !important; color:#000 !important; border-radius:0 !important; box-shadow:none !important;
 }
