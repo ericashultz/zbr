@@ -1391,8 +1391,18 @@
       });
     };
     if (page) {
-      fetch('/news-sidebar', { credentials: 'same-origin' })
+      // The sidebar is remembered from the last visit and used straight away, so it appears together with the posts; the fresh copy is
+      // fetched in the background and kept for the next page (the very first visit has nothing remembered, so it waits for the fetch)
+      var sideCached = '';
+      try { sideCached = localStorage.getItem('zbr-news-sidebar') || ''; } catch (e) {}
+      var sideFetch = fetch('/news-sidebar', { credentials: 'same-origin' })
         .then(function (r) { return r.ok ? r.text() : ''; })
+        .then(function (html) {
+          if (html && html.indexOf('zbr-widget') > -1) { try { localStorage.setItem('zbr-news-sidebar', html); } catch (e) {} }
+          return html;
+        });
+      if (sideCached) sideFetch.catch(function () {});
+      (sideCached ? Promise.resolve(sideCached) : sideFetch)
         .then(function (html) {
           if (!html) { showWidgetsAsCards(); return; }
           var doc = new DOMParser().parseFromString(html, 'text/html');
