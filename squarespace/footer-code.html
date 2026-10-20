@@ -980,13 +980,9 @@
 
   // Search page: placeholder text and "Start typing" hint
   var tries = 0;
-  // the Search page's own widget draws itself in stages (a "See more" link, an empty results row, then the real layout); it stays invisible
-  // until it is finished (a few moments), and is shown anyway after 3 seconds whatever happens
-  var searchReady = function () { document.body.classList.add('zbr-search-ready'); };
-  if (/^\/search(\/|$)/.test(location.pathname)) setTimeout(searchReady, 3000);
   (function waitForSearch() {
     var inp = document.querySelector('.sqs-search-page-input input');
-    if (!inp) { if (++tries < 40) setTimeout(waitForSearch, 150); else searchReady(); return; }
+    if (!inp) { if (++tries < 40) setTimeout(waitForSearch, 150); return; }
     inp.placeholder = 'Search band names, releases, news...';
     var wrap = inp.closest('.sqs-search-page-input');
     var hint = document.createElement('p');
@@ -997,7 +993,6 @@
     inp.addEventListener('input', sync);
     sync();
     setTimeout(sync, 300);
-    setTimeout(searchReady, 350);
   })();
 
   // News list: split each news post into cards, tidy titles, short previews with Read More, and the two-column layout
@@ -1500,5 +1495,6 @@
 </script>
 <script>
 // the page is set up: tells the browser it can show it now (see the header code)
+document.documentElement.classList.add('zbr-dots');   // the green-dot background is drawn now that the page is set up
 if (!document.getElementById('zbr-ready')) document.body.appendChild(Object.assign(document.createElement('span'), { id: 'zbr-ready', hidden: true }));
 </script>

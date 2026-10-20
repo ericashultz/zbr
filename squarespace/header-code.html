@@ -16,6 +16,7 @@ try {
 // the browser is asked (line above) to keep showing the old page until the footer code has set the new one up (it adds #zbr-ready when done);
 // this timer makes sure the new page is shown after 1.2 seconds even if that never happens
 setTimeout(function () {
+  document.documentElement.classList.add('zbr-dots');
   if (document.getElementById('zbr-ready')) return;
   var s = document.createElement('span'); s.id = 'zbr-ready'; s.hidden = true;
   (document.body || document.documentElement).appendChild(s);
