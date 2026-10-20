@@ -14,7 +14,7 @@ html, body{
 body{ background:transparent !important; }
 /* While a page is still being put together, a dark column the width of the frame is already there behind it (the half-built page shows no green dots inside the frame area);
    it goes away when the page is finished (class from the header / footer code). */
-html:not(.zbr-ready)::before{ content:""; position:fixed; top:14px; bottom:0; left:0; right:0; margin:0 auto; width:980px; max-width:calc(100% - 8px); background:#000011; z-index:-1; pointer-events:none; }
+html:not(.zbr-ready)::before{ content:""; position:fixed; top:14px; bottom:0; left:0; right:0; margin:0 auto; width:992px; max-width:calc(100% - 8px); background:#000011; z-index:-1; pointer-events:none; }
 #site{ background:transparent !important; }
 #canvas{
   max-width:980px; margin:14px auto !important;
