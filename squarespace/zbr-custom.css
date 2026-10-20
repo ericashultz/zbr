@@ -4,13 +4,10 @@
 /* ---- Page + starfield ---- */
 html, body{
   background-color:#000033 !important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Ccircle cx='10' cy='10' r='1' fill='%2319A800'/%3E%3Ccircle cx='40' cy='60' r='1' fill='%2319A800'/%3E%3Ccircle cx='70' cy='20' r='1' fill='%2319A800'/%3E%3Ccircle cx='90' cy='80' r='1.5' fill='%2319A800'/%3E%3Ccircle cx='25' cy='90' r='1' fill='%2319A800'/%3E%3Ccircle cx='55' cy='35' r='1' fill='%2319A800'/%3E%3C/svg%3E") !important;
   background-size:100px 100px !important;
   color:#ffffff !important;
   font-family:Arial, sans-serif !important;
-}
-/* the green dots are added once the page is set up (class from the header / footer code), so an unfinished page never flashes them */
-html.zbr-dots, html.zbr-dots body{
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Ccircle cx='10' cy='10' r='1' fill='%2319A800'/%3E%3Ccircle cx='40' cy='60' r='1' fill='%2319A800'/%3E%3Ccircle cx='70' cy='20' r='1' fill='%2319A800'/%3E%3Ccircle cx='90' cy='80' r='1.5' fill='%2319A800'/%3E%3Ccircle cx='25' cy='90' r='1' fill='%2319A800'/%3E%3Ccircle cx='55' cy='35' r='1' fill='%2319A800'/%3E%3C/svg%3E") !important;
 }
 #site{ background:transparent !important; }
 #canvas{
@@ -1289,3 +1286,8 @@ html.zbr-cart-has:not(.zbr-cart-drawn) #sqs-cart-container:has(.empty-message){ 
 
 /* the page scrollbar is always there, so short pages (Search, Cart) and long ones line up exactly: the whole site no longer shifts sideways when moving between them */
 html{ overflow-y:scroll !important; }
+
+/* Contact page: the form is drawn by Squarespace a moment after the page (it is not in the page's own HTML), which made the black frame grow by ~310px
+   while the green dots showed where it was going to be. Its room is kept from the first frame (same height as the finished form). */
+.sqs-block-form:not(:has(form)){ min-height:313px; }
+@media (max-width:500px){ .sqs-block-form:not(:has(form)){ min-height:374px; } }
