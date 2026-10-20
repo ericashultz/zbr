@@ -945,6 +945,7 @@
           badge.hidden = !n;
           try { localStorage.setItem('zbr-cart-n', String(n)); } catch (e) {}
           document.documentElement.classList.add('zbr-cart-live');
+          if (!n) document.documentElement.classList.add('zbr-cart-drawn');   // Squarespace confirms the cart really is empty: its empty-cart message may show
           if (pendingAdd && lastCount !== null && n > lastCount) showViewCart(pendingAdd);
           pendingAdd = null;
           lastCount = n;
@@ -952,7 +953,11 @@
         .catch(function () {});
     };
     updateCart();
+    // Cart page: while the last visit left items in the cart, the "cart is empty" message is kept hidden until the items have drawn (the cart
+    // briefly shows its empty design first); shown at once when the cart is confirmed empty, an item is removed, or after 3 seconds whatever happens
+    if (/^\/cart(\/|$)/.test(location.pathname)) setTimeout(function () { document.documentElement.classList.add('zbr-cart-drawn'); }, 3000);
     document.addEventListener('click', function (e) {
+      if (e.target.closest && e.target.closest('.cart-row-remove, .cart-row-qty-dec')) document.documentElement.classList.add('zbr-cart-drawn');
       var addBtn = e.target.closest && e.target.closest('.sqs-add-to-cart-button');
       if (addBtn && !addBtn.classList.contains('zbr-disabled')) pendingAdd = addBtn;
       if (e.target.closest && e.target.closest('.sqs-add-to-cart-button, .cart-row-remove, .cart-row-qty-dec, .cart-row-qty-inc')) setTimeout(updateCart, 1500);
