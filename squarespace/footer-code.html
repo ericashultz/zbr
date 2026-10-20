@@ -1498,3 +1498,7 @@
   }
 })();
 </script>
+<script>
+// the page is set up: tells the browser it can show it now (see the header code)
+if (!document.getElementById('zbr-ready')) document.body.appendChild(Object.assign(document.createElement('span'), { id: 'zbr-ready', hidden: true }));
+</script>
