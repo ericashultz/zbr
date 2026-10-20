@@ -6,6 +6,8 @@ try {
   if (zbrN > 0) {
     document.documentElement.classList.add('zbr-cart-has');
     document.documentElement.style.setProperty('--zbr-cart-n', '"' + zbrN + '"');
+    document.documentElement.style.setProperty('--zbr-cart-w', (zbrN < 10 ? 16 : zbrN < 100 ? 22 : 28) + 'px');   // the circle has a fixed width, so it never changes size when the pixel font finishes loading
   }
 } catch (e) {}
 </script>
+<link rel="preload" as="font" type="font/woff2" href="https://zbr-rho.vercel.app/assets/fonts/FixedsysExcelsior.woff2" crossorigin>

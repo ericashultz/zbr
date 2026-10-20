@@ -1214,7 +1214,7 @@ html body #sqs-cart-container .cart-row-remove:active{ border:0 !important; opac
 
 /* cart count badge: its circle is centered on the "View Cart" text (the link lays out as a centered row) */
 nav.main-nav ul li a:has(.zbr-cart-count){ display:inline-flex !important; align-items:center !important; }
-nav.main-nav ul li a .zbr-cart-count{ display:inline-flex !important; align-items:center; justify-content:center; box-sizing:border-box; height:16px; min-width:16px; padding:0 5px 1px !important; margin-left:5px; line-height:11px !important; vertical-align:baseline; }   /* (the 1px under the digit puts its baseline on a whole pixel, so the digit sits dead centre in the circle) */
+nav.main-nav ul li a .zbr-cart-count{ display:inline-flex !important; align-items:center; justify-content:center; box-sizing:border-box; height:16px; width:var(--zbr-cart-w,16px) !important; min-width:0 !important; padding:0 0 1px !important; margin-left:5px; line-height:11px !important; vertical-align:baseline; }   /* (the 1px under the digit puts its baseline on a whole pixel, so the digit sits dead centre in the circle) */
 nav.main-nav ul li a .zbr-cart-count[hidden]{ display:none !important; }
 
 /* "View Cart" link that appears right after the Add to Cart button once something was added (phones and tablets only) */
@@ -1271,4 +1271,4 @@ nav.main-nav, nav.main-nav ul, nav.main-nav ul li, nav.main-nav ul li a, nav.mai
 
 /* cart count circle, drawn by CSS from the very first frame (header code marks the page with the last known count); the footer code then swaps in the real circle, same size, in the same instant */
 html.zbr-cart-has:not(.zbr-cart-live) nav.main-nav ul li a[href$="/cart"]{ display:inline-flex !important; align-items:center !important; }
-html.zbr-cart-has:not(.zbr-cart-live) nav.main-nav ul li a[href$="/cart"]::after{ content:var(--zbr-cart-n); display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; height:16px; min-width:16px; padding:0 5px 1px; margin-left:5px; line-height:11px; background:#A500A8; color:#fff; border-radius:8px; font:bold 11px "Fixedsys Excelsior","Courier New",monospace; text-align:center; }
+html.zbr-cart-has:not(.zbr-cart-live) nav.main-nav ul li a[href$="/cart"]::after{ content:var(--zbr-cart-n); display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; height:16px; width:var(--zbr-cart-w,16px); padding:0 0 1px; margin-left:5px; line-height:11px; background:#A500A8; color:#fff; border-radius:8px; font:bold 11px "Fixedsys Excelsior","Courier New",monospace; text-align:center; }
