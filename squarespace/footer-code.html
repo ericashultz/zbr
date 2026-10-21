@@ -1523,7 +1523,7 @@
           // and the pages around this one with "..." where numbers are skipped
           function pageList(cur, n, ar) {
             var keep = {};
-            keep[1] = 1; keep[n] = 1;
+            keep[1] = 1;   // (the last page's number is not shown: only a "..." says there are more)
             for (var q2 = cur - ar; q2 <= cur + ar; q2++) if (q2 >= 1 && q2 <= n) keep[q2] = 1;
             var nums = Object.keys(keep).map(Number).sort(function (x, y) { return x - y; }), out = [], prev = 0;
             nums.forEach(function (x) {
@@ -1532,6 +1532,7 @@
               out.push(x);
               prev = x;
             });
+            if (prev < n) out.push('gap');
             return out;
           }
           function arrowHtml(sym, target, label) {
