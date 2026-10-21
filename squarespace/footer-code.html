@@ -1524,7 +1524,7 @@
           function pageList(cur, n, ar) {
             var keep = {};
             keep[1] = 1;   // (the last page's number is not shown: only a "..." says there are more)
-            for (var q2 = cur - ar; q2 <= cur + ar; q2++) if (q2 >= 1 && q2 <= n) keep[q2] = 1;
+            for (var q2 = cur - ar; q2 <= Math.max(cur + ar, 3); q2++) if (q2 >= 1 && q2 <= n) keep[q2] = 1;   // (always at least 1 2 3 at the start)
             var nums = Object.keys(keep).map(Number).sort(function (x, y) { return x - y; }), out = [], prev = 0;
             nums.forEach(function (x) {
               if (prev && x - prev === 2) out.push(prev + 1);
