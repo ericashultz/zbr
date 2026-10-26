@@ -1310,7 +1310,7 @@
       if (!blk || blk.style.display === 'none') return;
       var first = card && [].slice.call(card.querySelectorAll('.post > .body .sqs-block')).filter(function (b) { return b.style.display !== 'none' && !b.classList.contains('zbr-empty'); })[0];
       if (!/EmbeddedPlayer/.test(decodeURIComponent(fr.src || ''))) return;     // YouTube etc. stay as they are
-      var pl = bcFrom(fr, blk === first);
+      var pl = bcFrom(fr, blk === first || !!fr.closest('.sqs-block-code'));   // a player pasted into a code block keeps the medium size it always had
       if (pl) blk.parentNode.replaceChild(pl, blk);
     });
 
