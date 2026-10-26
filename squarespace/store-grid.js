@@ -68,8 +68,9 @@
     '#zbr-store ul.zs-list.zs-collapsed{display:none}' +
     '#zbr-store ul.zs-list li, #zbr-store ul.zs-sublist li{list-style:none;margin:0 0 2px;padding:0;background:none}' +
     '#zbr-store ul.zs-list li::before, #zbr-store ul.zs-sublist li::before{content:none}' +
-    '#zbr-store .zs-list button, #zbr-store .zs-list a{display:block;width:100%;box-sizing:border-box;text-align:left;background:none;border:0;font:13px "Fixedsys Excelsior","Courier New",monospace;color:#C0DEFF;padding:4px 6px;text-decoration:none}' +
-    '#zbr-store .zs-list button:hover, #zbr-store .zs-list a:hover, #zbr-store .zs-list button[aria-current="true"]{background:#1D64A7;color:#fff}' +
+    '#zbr-store .zs-list button{display:block;width:100%;text-align:left;background:none;border:0;font:13px "Fixedsys Excelsior","Courier New",monospace;color:#C0DEFF;padding:4px 6px}' +
+    '#zbr-store .zs-list button:disabled{opacity:.4;cursor:default}' +
+    '#zbr-store .zs-list button:not(:disabled):hover, #zbr-store .zs-list button[aria-current="true"]{background:#1D64A7;color:#fff}' +
     '#zbr-store ul.zs-sublist{list-style:none;margin:2px 0 2px 14px;padding:0}' +
     '#zbr-store .zs-sublist button{display:block;width:100%;text-align:left;background:none;border:0;font:12px "Fixedsys Excelsior","Courier New",monospace;color:#d9d9d9;padding:3px 6px}' +
     '#zbr-store .zs-sublist button:hover, #zbr-store .zs-sublist button[aria-current="true"]{background:#1D64A7;color:#fff}' +
@@ -378,7 +379,7 @@
 
     var labelsHtml = '<li><button type="button" data-zs-viewall="label">View All</button></li>' + LABELS.map(function (l) {
       return '<li><button type="button" data-zs-label="' + esc(l) + '">' + esc(l) + '</button></li>';
-    }).join('') + '<li><a href="https://persistentvisionrecords.com/collections/zegema-beach-records" target="_blank" rel="noopener">Persistent Vision Records</a></li>';   // (the USA store: opens in a new tab)
+    }).join('') + '<li><button type="button" disabled aria-disabled="true" title="Coming soon">Persistent Vision Records</button></li>';   // greyed out until its products are added (then it becomes a normal label in LABELS)
 
     root.innerHTML =
       '<div class="zs-layout">' +
