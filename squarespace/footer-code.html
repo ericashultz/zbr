@@ -687,15 +687,10 @@
     m.classList.add('zbr-ml-open');
     document.documentElement.classList.add('zbr-ml-lock');
   });
-  // the form page is fetched in the background shortly after this page has loaded (or the moment a finger / mouse nears the button),
-  // so the pop-up is already ready when it is first opened
+  // the form page is fetched in the background only when someone shows interest (a mouse near the Join button, a finger on it, or keyboard focus),
+  // so it is usually ready by the time they click. (It is not loaded for everybody: Squarespace counts each load of that page as a page view.)
   if (window.self === window.top) {
-    var warmMail = function () { if (document.querySelector('a.zbr-ml-btn')) mailModal(); };
-    // starts as soon as the Join button is on the page (checked every 0.1 s for 4 s), not after the page has finished loading
-    var warmTries = 0;
-    var warmLoop = function () { warmMail(); if (!document.getElementById('zbr-ml-modal') && ++warmTries < 40) setTimeout(warmLoop, 100); };
-    setTimeout(warmLoop, 0);
-    ['pointerover', 'touchstart'].forEach(function (ev) {
+    ['pointerover', 'touchstart', 'focusin'].forEach(function (ev) {
       document.addEventListener(ev, function (e) { if (e.target.closest && e.target.closest('a.zbr-ml-btn')) mailModal(); }, { passive: true, capture: true });
     });
   }
