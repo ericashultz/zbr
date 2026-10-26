@@ -13,7 +13,7 @@ html, body{
 body{ background:transparent !important; }
 /* While a page is still being put together, a dark column the width of the frame is already there behind it (the half-built page shows no green dots inside the frame area);
    it goes away when the page is finished (class from the header / footer code). */
-html:not(.zbr-ready)::before{ content:""; position:fixed; top:14px; bottom:0; left:0; right:0; margin:0 auto; width:992px; max-width:calc(100% - 8px); background:#000011; z-index:-1; pointer-events:none; }
+html:not(.zbr-ready)::before{ content:""; position:fixed; top:14px; bottom:0; left:0; right:0; margin:0 auto; width:992px; max-width:98%; background:#000011; z-index:-1; pointer-events:none; }
 #site{ background:transparent !important; }
 #canvas{
   max-width:980px; margin:14px auto !important;
@@ -1017,7 +1017,7 @@ body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .au
 body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .date,
 body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .likes{ flex:none !important; }
 @media (max-width:767px){
-  body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .author{ max-width:max(48px, calc(100vw - 290px)) !important; }
+  body.zbr-guestbook .squarespace-comments .comment .comment-header .user-info .author{ max-width:120px !important;   /* (fallback: the footer script measures each name's real room) */ }
 }
 
 /* guestbook on phones: the "« Back" link lines up with the comment form (same inset as the frame -> form) */
@@ -1181,7 +1181,7 @@ html body.view-item .product-mark.sold-out, html body .product-mark.sold-out{ ba
 
 /* Squarespace's small notice / confirmation windows ("Comment Awaiting Moderation", "Enter Comment Text", ...): the site's pop-up window, centered */
 .sqs-widgets-confirmation-overlay{ background:rgba(0,0,10,.78) !important; opacity:1 !important; }
-html body .sqs-widgets-confirmation{ position:fixed !important; top:50% !important; left:50% !important; right:auto !important; bottom:auto !important; transform:translate(-50%,-50%) !important; width:calc(100% - 32px) !important; max-width:420px !important; height:auto !important; margin:0 !important; padding:0 !important; box-sizing:border-box !important; background:#000 !important; border:3px groove #C0DEFF !important; box-shadow:0 0 0 2px #1D64A7 !important; border-radius:0 !important; text-align:left !important; color:#fff !important; }
+html body .sqs-widgets-confirmation{ position:fixed !important; top:50% !important; left:50% !important; right:auto !important; bottom:auto !important; transform:translate(-50%,-50%) !important; width:91% !important; max-width:420px !important; height:auto !important; margin:0 !important; padding:0 !important; box-sizing:border-box !important; background:#000 !important; border:3px groove #C0DEFF !important; box-shadow:0 0 0 2px #1D64A7 !important; border-radius:0 !important; text-align:left !important; color:#fff !important; }
 html body .sqs-widgets-confirmation .sqs-widgets-confirmation-content{ margin:0 !important; padding:0 !important; border:0 !important; background:none !important; box-shadow:none !important; border-radius:0 !important; text-align:left !important; }
 html body .sqs-widgets-confirmation .title{ display:flex !important; align-items:center; justify-content:space-between; margin:0 !important; padding:5px 8px !important; background:#C0DEFF !important; color:#000 !important; border:0 !important; font:13px/13px "Fixedsys Excelsior","Courier New",monospace !important; text-transform:none !important; letter-spacing:0 !important; text-align:left !important; }
 html body .sqs-widgets-confirmation .message{ margin:0 !important; padding:16px 16px 14px !important; background:none !important; color:#fff !important; font:14px/1.5 Arial,sans-serif !important; text-transform:none !important; letter-spacing:0 !important; text-align:left !important; }
@@ -1305,7 +1305,7 @@ body.view-item #productSlideshow .slide img.zbr-fill{ object-fit:cover !importan
 html:has(body.zbr-embed){ overflow-y:auto !important; }
 /* mailing list pop-up: a short "Loading..." while the form is still coming (only when it is opened before it is ready) */
 #zbr-ml-modal .zbr-ml-box{ position:relative; }
-#zbr-ml-modal .zbr-ml-loading{ position:absolute; left:0; right:0; top:calc(50% + 14px); text-align:center; color:#C0DEFF; font:13px "Fixedsys Excelsior","Courier New",monospace; pointer-events:none; }
+#zbr-ml-modal .zbr-ml-loading{ position:absolute; left:0; right:0; top:50%; margin-top:14px; text-align:center; color:#C0DEFF; font:13px "Fixedsys Excelsior","Courier New",monospace; pointer-events:none; }
 #zbr-ml-modal.zbr-ml-ready .zbr-ml-loading{ display:none; }
 
 /* Guestbook: "Comments (n)" starts out above the comment box and is then moved under it by the footer code; while it is still up there it stays hidden, so it never flashes above the box */
@@ -1328,5 +1328,6 @@ html.zbr-cart-has:not(.zbr-cart-drawn):not(.zbr-cart-rows) #sqs-cart-root{ min-h
 /* phones: no "« Back" links (swiping back does the job): guestbook, archives, cart, news posts, product pages */
 @media (max-width:700px){ p.zbr-gb-back, body.view-item #productNav{ display:none !important; } }
 
-/* mailing list pop-up, phones only (the pop-up's own width is under 400px; on desktop it is 420px and the box keeps its 320px): the email box is 18px from the frame on each side */
-@media (max-width:400px){ html body.zbr-embed .sqs-block-newsletter input[type=email], html body.zbr-embed .sqs-block-newsletter input[type=text], html body.zbr-embed .newsletter-form-field-element{ max-width:min(320px, calc(100% - 36px)) !important; } }
+/* mailing list pop-up, phones only (the pop-up's own width is under 400px; on desktop it is 420px and the box keeps its 320px): the email box is about 18px from the frame on each side.
+   (No calc() mixing % and px anywhere in this file: Squarespace's CSS box turns them into wrong numbers.) */
+@media (max-width:400px){ html body.zbr-embed .sqs-block-newsletter input[type=email], html body.zbr-embed .sqs-block-newsletter input[type=text], html body.zbr-embed .newsletter-form-field-element{ max-width:min(320px, 89%) !important; } }
