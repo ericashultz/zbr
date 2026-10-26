@@ -1332,14 +1332,14 @@ html.zbr-cart-has:not(.zbr-cart-drawn):not(.zbr-cart-rows) #sqs-cart-root{ min-h
    (No calc() mixing % and px anywhere in this file: Squarespace's CSS box turns them into wrong numbers.) */
 @media (max-width:400px){ html body.zbr-embed .sqs-block-newsletter input[type=email], html body.zbr-embed .sqs-block-newsletter input[type=text], html body.zbr-embed .newsletter-form-field-element{ max-width:min(320px, 89%) !important; } }
 
-/* news post photo galleries on wide screens: a fixed square frame on the left (the photo is cropped a little to fill it), the thumbnails in ONE column on its right:
+/* news post photo galleries on wide screens: a 360px-tall frame on the left, up to 460px wide (as wide as the post leaves room for next to the thumbnails; the photo is scaled and cropped to fill it), the thumbnails in ONE column on its right:
    72px each, scaling down together when there are too many to fit the frame's height */
 @media (min-width:701px){
-  html body article.hentry .sqs-block-gallery:has(.sqs-gallery-thumbnails) .sqs-block-content{ display:flex !important; align-items:stretch; gap:12px; }
-  html body article.hentry .sqs-block-gallery .sqs-gallery-container{ flex:0 1 360px !important; width:360px !important; max-width:360px !important; height:auto !important; aspect-ratio:1 / 1; margin:0 !important; }
-  html body article.hentry .sqs-block-gallery .sqs-gallery{ height:100% !important; width:100% !important; }
-  html body article.hentry .sqs-block-gallery .sqs-gallery .slide img{ object-fit:cover !important; object-position:center !important; }
-  html body article.hentry .sqs-block-gallery .sqs-gallery-thumbnails{ flex:0 0 72px !important; display:flex !important; flex-direction:column; width:72px !important; margin:0 !important; min-height:0; }
-  html body article.hentry .sqs-block-gallery .sqs-gallery-thumbnails .sqs-wrapper{ flex:1 1 0 !important; min-height:0; flex-direction:column !important; flex-wrap:nowrap !important; width:100% !important; max-height:none !important; gap:6px; }
-  html body article.hentry .sqs-block-gallery .sqs-gallery-thumbnails img{ flex:0 1 72px !important; min-height:0 !important; height:auto !important; width:auto !important; max-width:72px; aspect-ratio:1 / 1; align-self:flex-start; }
+  html body #page article.hentry .sqs-block-gallery:has(.sqs-gallery-thumbnails) .sqs-block-content{ display:flex !important; align-items:stretch; gap:12px; }
+  html body #page article.hentry .sqs-block-gallery .sqs-gallery-container{ flex:1 1 0 !important; width:auto !important; min-width:0 !important; max-width:460px !important; height:360px !important; margin:0 !important; }
+  html body #page article.hentry .sqs-block-gallery .sqs-gallery{ height:100% !important; width:100% !important; }
+  html body #page article.hentry .sqs-block-gallery .sqs-gallery .slide img{ object-fit:cover !important; object-position:center !important; }
+  html body #page article.hentry .sqs-block-gallery .sqs-gallery-thumbnails{ flex:0 0 72px !important; display:flex !important; flex-direction:column; width:72px !important; margin:0 !important; min-height:0; }
+  html body #page article.hentry .sqs-block-gallery .sqs-gallery-thumbnails .sqs-wrapper{ flex:1 1 0 !important; min-height:0; flex-direction:column !important; flex-wrap:nowrap !important; width:100% !important; max-height:none !important; gap:6px; }
+  html body #page article.hentry .sqs-block-gallery .sqs-gallery-thumbnails img{ flex:0 1 72px !important; min-height:0 !important; height:auto !important; width:auto !important; max-width:72px; aspect-ratio:1 / 1; align-self:flex-start; }
 }
