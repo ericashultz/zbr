@@ -1328,5 +1328,5 @@ html.zbr-cart-has:not(.zbr-cart-drawn):not(.zbr-cart-rows) #sqs-cart-root{ min-h
 /* phones: no "« Back" links (swiping back does the job): guestbook, archives, cart, news posts, product pages */
 @media (max-width:700px){ p.zbr-gb-back, body.view-item #productNav{ display:none !important; } }
 
-/* mailing list pop-up: the email box stops a little short of the frame on narrow screens (14px more room each side) */
-html body.zbr-embed .sqs-block-newsletter input[type=email], html body.zbr-embed .sqs-block-newsletter input[type=text], html body.zbr-embed .newsletter-form-field-element{ max-width:min(320px, calc(100% - 28px)) !important; }
+/* mailing list pop-up: the email box stops a little short of the frame on narrow screens (30px from the frame on each side) */
+html body.zbr-embed .sqs-block-newsletter input[type=email], html body.zbr-embed .sqs-block-newsletter input[type=text], html body.zbr-embed .newsletter-form-field-element{ max-width:min(320px, calc(100% - 60px)) !important; }
