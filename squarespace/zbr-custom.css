@@ -1320,3 +1320,13 @@ html.zbr-cart-has:not(.zbr-cart-drawn):not(.zbr-cart-rows) #sqs-cart-root{ min-h
 /* Cart page, empty cart: the empty message is drawn a moment after the page, which made the frame grow by ~185px; its room is kept from the first frame (the height of the drawn message) */
 #sqs-cart-root{ min-height:209px; }
 @media (max-width:700px){ #sqs-cart-root{ min-height:155px; } }
+
+/* phones: the guestbook intro line breaks after "know" */
+.zbr-mbr{ display:none; }
+@media (max-width:700px){ .zbr-mbr{ display:inline; } }
+
+/* phones: no "« Back" links (swiping back does the job): guestbook, archives, cart, news posts, product pages */
+@media (max-width:700px){ p.zbr-gb-back, body.view-item #productNav{ display:none !important; } }
+
+/* mailing list pop-up: the email box stops a little short of the frame on narrow screens (30px from the frame on each side) */
+html body.zbr-embed .sqs-block-newsletter input[type=email], html body.zbr-embed .sqs-block-newsletter input[type=text], html body.zbr-embed .newsletter-form-field-element{ max-width:min(320px, calc(100% - 60px)) !important; }
