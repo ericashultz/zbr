@@ -1331,3 +1331,12 @@ html.zbr-cart-has:not(.zbr-cart-drawn):not(.zbr-cart-rows) #sqs-cart-root{ min-h
 /* mailing list pop-up, phones only (the pop-up's own width is under 400px; on desktop it is 420px and the box keeps its 320px): the email box is about 18px from the frame on each side.
    (No calc() mixing % and px anywhere in this file: Squarespace's CSS box turns them into wrong numbers.) */
 @media (max-width:400px){ html body.zbr-embed .sqs-block-newsletter input[type=email], html body.zbr-embed .sqs-block-newsletter input[type=text], html body.zbr-embed .newsletter-form-field-element{ max-width:min(320px, 89%) !important; } }
+
+/* news post photo galleries on wide screens: the big photo on the left in a frame that fits it (size set by the footer script), the thumbnails stacked in a column on its right */
+@media (min-width:701px){
+  html body article.hentry .sqs-block-gallery:has(.sqs-gallery-thumbnails) .sqs-block-content{ display:flex !important; align-items:flex-start; gap:12px; }
+  html body article.hentry .sqs-block-gallery .sqs-gallery-container{ flex:0 0 auto !important; width:var(--zbr-gw, 100%) !important; max-width:100% !important; margin:0 !important; }
+  html body article.hentry .sqs-block-gallery .sqs-gallery{ height:var(--zbr-gh, 360px) !important; width:100% !important; }
+  html body article.hentry .sqs-block-gallery .sqs-gallery-thumbnails{ flex:0 0 auto !important; width:auto !important; margin:0 !important; }
+  html body article.hentry .sqs-block-gallery .sqs-gallery-thumbnails .sqs-wrapper{ flex-direction:column !important; flex-wrap:nowrap !important; width:auto !important; }
+}
