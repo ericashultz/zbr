@@ -1302,9 +1302,9 @@
       meta.appendChild(pill);
     });
 
-    // in the cards, swap Bandcamp embeds for the slim player; a card that starts with a player gets the
+    // in the cards, swap Bandcamp embeds (embed blocks, and players pasted into a code block) for the slim player; a card that starts with a player gets the
     // medium player (120px, small album art), on phones too
-    [].forEach.call(document.querySelectorAll('article.hentry .sqs-block-embed iframe'), function (fr) {
+    [].forEach.call(document.querySelectorAll('article.hentry .sqs-block-embed iframe, article.hentry .sqs-block-code iframe'), function (fr) {
       var blk = fr.closest('.sqs-block');
       var card = fr.closest('article.hentry');
       if (!blk || blk.style.display === 'none') return;
