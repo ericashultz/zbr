@@ -952,6 +952,34 @@
     swapThanks();
   }
 
+  // News post photo galleries (wide screens): the big photo sits on the left in a frame that fits the photo exactly (no black bars), and the thumbnails
+  // stand in a column to its right. The frame is sized from the shown photo's shape, again whenever another photo is picked or the window changes.
+  (function () {
+    var blocks = [].slice.call(document.querySelectorAll('article.hentry .sqs-block-gallery')).filter(function (b) { return b.querySelector('.sqs-gallery-thumbnails'); });
+    if (!blocks.length) return;
+    var fit = function (b) {
+      var content = b.querySelector('.sqs-block-content'), thumbs = b.querySelector('.sqs-gallery-thumbnails');
+      if (!content) return;
+      if (window.innerWidth <= 700) { b.style.removeProperty('--zbr-gw'); b.style.removeProperty('--zbr-gh'); return; }
+      var slides = [].slice.call(b.querySelectorAll('.sqs-gallery .slide')), ti = [].slice.call(b.querySelectorAll('.sqs-gallery-thumbnails img')), idx = 0, k;
+      for (k = 0; k < ti.length; k++) if (ti[k].classList.contains('sqs-active-slide')) { idx = k; break; }
+      var img = slides[idx] && slides[idx].querySelector('img');
+      if (!img) return;
+      var m = (img.getAttribute('data-image-dimensions') || '').match(/^(\d+)x(\d+)$/), w = m ? +m[1] : img.naturalWidth, h = m ? +m[2] : img.naturalHeight;
+      if (!w || !h) return;
+      var a = w / h, H = 360, avail = content.clientWidth - (thumbs ? thumbs.offsetWidth : 0) - 12, W = (H - 8) * a + 8;
+      if (W > avail) { W = avail; H = (W - 8) / a + 8; }
+      b.style.setProperty('--zbr-gw', Math.round(W) + 'px');
+      b.style.setProperty('--zbr-gh', Math.round(H) + 'px');
+    };
+    var fitAll = function () { blocks.forEach(fit); };
+    blocks.forEach(function (b) { new MutationObserver(function () { fit(b); }).observe(b, { subtree: true, attributes: true, attributeFilter: ['class'] }); });
+    window.addEventListener('resize', fitAll);
+    window.addEventListener('load', fitAll);
+    fitAll();
+    [400, 1500].forEach(function (ms) { setTimeout(fitAll, ms); });
+  })();
+
   // Product page picture: a picture that is (nearly) square fills the whole frame instead of leaving strips at the sides; very tall or wide
   // pictures (posters, banners) are still shown whole
   [].forEach.call(document.querySelectorAll('#productSlideshow .slide img'), function (im) {
