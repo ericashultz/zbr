@@ -1329,4 +1329,4 @@ html.zbr-cart-has:not(.zbr-cart-drawn):not(.zbr-cart-rows) #sqs-cart-root{ min-h
 @media (max-width:700px){ p.zbr-gb-back, body.view-item #productNav{ display:none !important; } }
 
 /* mailing list pop-up, phones only (the pop-up's own width is under 400px; on desktop it is 420px and the box keeps its 320px): the email box is 18px from the frame on each side */
-@media (max-width:400px){ html body.zbr-embed .sqs-block-newsletter input[type=email], html body.zbr-embed .sqs-block-newsletter input[type=text], html body.zbr-embed .newsletter-form-field-element{ max-width:calc(100% - 36px) !important; } }
+@media (max-width:400px){ html body.zbr-embed .sqs-block-newsletter input[type=email], html body.zbr-embed .sqs-block-newsletter input[type=text], html body.zbr-embed .newsletter-form-field-element{ max-width:min(320px, calc(100% - 36px)) !important; } }
