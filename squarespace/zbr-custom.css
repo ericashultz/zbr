@@ -1142,7 +1142,7 @@ body.zbr-archive-detail p.zbr-gb-back a:active, body:has(#zbr-archives) p.zbr-gb
 /* product page on phones: the SOLD OUT tag has the same room above (picture) and below (text): 16px each */
 @media (max-width:700px){
   body.view-item #productSummary{ row-gap:0 !important; }
-  body.view-item #productGallery{ margin-top:24px !important; }   /* (the 24px the row gap used to give) */
+  body.view-item #productGallery{ margin-top:8px !important; }   /* (with the title's own 8px below it: 16px between the title and the picture, the same as between the frame and the title) */
   body.view-item #productDetails{ margin-top:0 !important; }
   body.view-item #productDetails > .product-mark.sold-out, body.view-item #productDetails > .product-mark.sale{ margin:16px 0 16px !important; }
   body.view-item #productDetails:not(:has(> .product-mark)){ margin-top:24px !important; }
@@ -1343,3 +1343,6 @@ html.zbr-cart-has:not(.zbr-cart-drawn):not(.zbr-cart-rows) #sqs-cart-root{ min-h
   html body #page article.hentry .sqs-block-gallery .sqs-gallery-thumbnails .sqs-wrapper{ flex:1 1 0 !important; min-height:0; flex-direction:column !important; flex-wrap:nowrap !important; width:100% !important; max-height:none !important; gap:6px; }
   html body #page article.hentry .sqs-block-gallery .sqs-gallery-thumbnails img{ flex:0 1 72px !important; min-height:0 !important; height:auto !important; width:auto !important; max-width:72px; aspect-ratio:1 / 1; align-self:flex-start; }
 }
+
+/* news post photo galleries on phones: the photo fills the frame (cropped a little) instead of leaving black bars */
+@media (max-width:700px){ html body #page article.hentry .sqs-block-gallery .sqs-gallery .slide img{ object-fit:cover !important; object-position:center !important; } }
