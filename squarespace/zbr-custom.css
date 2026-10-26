@@ -1339,7 +1339,7 @@ html.zbr-cart-has:not(.zbr-cart-drawn):not(.zbr-cart-rows) #sqs-cart-root{ min-h
   html body article.hentry .sqs-block-gallery .sqs-gallery-container{ flex:0 1 360px !important; width:360px !important; max-width:360px !important; height:auto !important; aspect-ratio:1 / 1; margin:0 !important; }
   html body article.hentry .sqs-block-gallery .sqs-gallery{ height:100% !important; width:100% !important; }
   html body article.hentry .sqs-block-gallery .sqs-gallery .slide img{ object-fit:cover !important; object-position:center !important; }
-  html body article.hentry .sqs-block-gallery .sqs-gallery-thumbnails{ flex:0 0 auto !important; display:flex !important; flex-direction:column; width:auto !important; margin:0 !important; min-height:0; }
-  html body article.hentry .sqs-block-gallery .sqs-gallery-thumbnails .sqs-wrapper{ flex:1 1 0 !important; min-height:0; flex-direction:column !important; flex-wrap:nowrap !important; width:auto !important; max-height:none !important; gap:6px; }
+  html body article.hentry .sqs-block-gallery .sqs-gallery-thumbnails{ flex:0 0 72px !important; display:flex !important; flex-direction:column; width:72px !important; margin:0 !important; min-height:0; }
+  html body article.hentry .sqs-block-gallery .sqs-gallery-thumbnails .sqs-wrapper{ flex:1 1 0 !important; min-height:0; flex-direction:column !important; flex-wrap:nowrap !important; width:100% !important; max-height:none !important; gap:6px; }
   html body article.hentry .sqs-block-gallery .sqs-gallery-thumbnails img{ flex:0 1 72px !important; min-height:0 !important; height:auto !important; width:auto !important; max-width:72px; aspect-ratio:1 / 1; align-self:flex-start; }
 }
