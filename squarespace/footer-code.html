@@ -952,6 +952,80 @@
     swapThanks();
   }
 
+  // News post photo galleries: clicking the photo opens it full size over a dark backdrop (like the product pages), with arrows to go through the
+  // gallery's photos, an X, Esc to close and swipes on phones. (The gallery block has no lightbox of its own turned on.)
+  (function () {
+    if (!document.querySelector('article.hentry .sqs-block-gallery')) return;
+    var st = document.createElement('style');
+    st.textContent =
+      'article.hentry .sqs-block-gallery .sqs-gallery{cursor:zoom-in}' +
+      'html.zbr-lb-lock{overflow:hidden !important}' +
+      '#zbr-lb{position:fixed;top:0;right:0;bottom:0;left:0;z-index:2147483000;background:rgba(0,0,0,.95);display:flex;align-items:center;justify-content:center;touch-action:pan-y}' +
+      '#zbr-lb img{max-width:94vw;max-height:92vh;width:auto;height:auto;object-fit:contain;box-shadow:0 0 0 1px #333;background:#000}' +
+      '#zbr-lb button{position:absolute;background:none;border:0;color:#fff;cursor:pointer;font:300 40px/1 Arial,sans-serif;padding:10px 16px;opacity:.85}' +
+      '#zbr-lb button:hover{opacity:1}' +
+      '#zbr-lb .zbr-lb-x{top:6px;right:8px;font-size:44px}' +
+      '#zbr-lb .zbr-lb-prev{left:6px;top:50%;margin-top:-30px;font-size:56px}' +
+      '#zbr-lb .zbr-lb-next{right:6px;top:50%;margin-top:-30px;font-size:56px}';
+    document.head.appendChild(st);
+    var box = null, list = [], at = 0;
+    var srcOf = function (im) {
+      var base = (im.getAttribute('data-src') || im.getAttribute('data-image') || im.currentSrc || im.src || '').split('?')[0];
+      return base ? base + '?format=2500w' : '';
+    };
+    var show = function () {
+      var im = box.querySelector('img');
+      im.src = list[at];
+      box.querySelector('.zbr-lb-prev').style.display = box.querySelector('.zbr-lb-next').style.display = list.length > 1 ? '' : 'none';
+    };
+    var step = function (d) { at = (at + d + list.length) % list.length; show(); };
+    var close = function () {
+      if (!box) return;
+      document.removeEventListener('keydown', onKey, true);
+      box.parentNode.removeChild(box); box = null;
+      document.documentElement.classList.remove('zbr-lb-lock');
+    };
+    var onKey = function (e) {
+      if (e.key === 'Escape') { e.preventDefault(); close(); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+    };
+    var open = function (block) {
+      var slides = [].slice.call(block.querySelectorAll('.sqs-gallery .slide')), ti = [].slice.call(block.querySelectorAll('.sqs-gallery-thumbnails img')), k;
+      list = []; at = 0;
+      slides.forEach(function (sl) { var im = sl.querySelector('img'), u = im && srcOf(im); if (u) list.push(u); });
+      for (k = 0; k < ti.length; k++) if (ti[k].classList.contains('sqs-active-slide')) { at = k; break; }
+      if (!list.length) return;
+      box = document.createElement('div');
+      box.id = 'zbr-lb';
+      box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-label', 'Photo');
+      box.innerHTML = '<img alt=""><button type="button" class="zbr-lb-prev" aria-label="Previous photo">&lsaquo;</button><button type="button" class="zbr-lb-next" aria-label="Next photo">&rsaquo;</button><button type="button" class="zbr-lb-x" aria-label="Close">&times;</button>';
+      box.addEventListener('click', function (e) {
+        if (e.target.classList.contains('zbr-lb-prev')) step(-1);
+        else if (e.target.classList.contains('zbr-lb-next')) step(1);
+        else if (e.target.tagName !== 'IMG') close();
+      });
+      var x0 = null;
+      box.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+      box.addEventListener('touchend', function (e) {
+        if (x0 === null) return;
+        var dx = e.changedTouches[0].clientX - x0; x0 = null;
+        if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+      }, { passive: true });
+      document.body.appendChild(box);
+      document.documentElement.classList.add('zbr-lb-lock');
+      document.addEventListener('keydown', onKey, true);
+      show();
+    };
+    document.addEventListener('click', function (e) {
+      var fr = e.target.closest && e.target.closest('article.hentry .sqs-block-gallery .sqs-gallery');
+      if (!fr || e.target.closest('.sqs-gallery-controls, .sqs-gallery-thumbnails, a')) return;
+      e.preventDefault();
+      e.stopPropagation();   // (the gallery's own click would otherwise move on to the next photo as well)
+      open(fr.closest('.sqs-block-gallery'));
+    }, true);
+  })();
+
   // Product page picture: a picture that is (nearly) square fills the whole frame instead of leaving strips at the sides; very tall or wide
   // pictures (posters, banners) are still shown whole
   [].forEach.call(document.querySelectorAll('#productSlideshow .slide img'), function (im) {
