@@ -1021,8 +1021,9 @@
       var fr = e.target.closest && e.target.closest('article.hentry .sqs-block-gallery .sqs-gallery');
       if (!fr || e.target.closest('.sqs-gallery-controls, .sqs-gallery-thumbnails, a')) return;
       e.preventDefault();
+      e.stopPropagation();   // (the gallery's own click would otherwise move on to the next photo as well)
       open(fr.closest('.sqs-block-gallery'));
-    });
+    }, true);
   })();
 
   // Product page picture: a picture that is (nearly) square fills the whole frame instead of leaving strips at the sides; very tall or wide
