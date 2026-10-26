@@ -255,6 +255,10 @@
       var l = cm && cm.querySelector('.likes'), n = l ? parseInt(l.textContent.replace(/[^0-9]/g, ''), 10) : 0;
       return isNaN(n) ? 0 : n;
     };
+    // phones: the intro line breaks after "know" (the break is switched on by the CSS on small screens only)
+    [].forEach.call(document.querySelectorAll('article.hentry .sqs-html-content p'), function (p) {
+      if (/know\s+you stopped/i.test(p.textContent) && !p.querySelector('.zbr-mbr')) p.innerHTML = p.innerHTML.replace(/know\s+you/i, 'know <br class="zbr-mbr">you');
+    });
     var tidyGuestbook = function () {
       var root = document.querySelector('.squarespace-comments');
       if (!root) return;
