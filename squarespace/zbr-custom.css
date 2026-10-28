@@ -146,7 +146,6 @@ body.view-item #productWrapper{ background:transparent !important; border:0 !imp
 
 /* back link: yellow Fixedsys link like the redesign's "Back to Store" */
 body.view-item #productNav{ margin:0 0 10px !important; padding:0 2px !important; }
-body.view-item #productNav a, body.view-item #productNav a:visited{ font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline; text-transform:none !important; letter-spacing:0 !important; background:none !important; }
 body.view-item #productNav a:hover{ color:#19A800 !important; }
 
 /* two columns: photo left, details right */
@@ -715,7 +714,6 @@ html body.zbr-embed .zbr-ml-thanks{ position:fixed !important; inset:0 !importan
 /* guestbook: "Back to News" link above the page content, same look as the product page back link */
 body.zbr-guestbook p.zbr-gb-back{ max-width:640px; margin:22px auto 0 !important; padding:0 !important; text-align:left !important; }
 body.zbr-guestbook p.zbr-gb-back + article.hentry{ margin-top:10px !important; }
-body.zbr-guestbook p.zbr-gb-back a, body.zbr-guestbook p.zbr-gb-back a:visited{ font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline; text-transform:none !important; letter-spacing:0 !important; background:none !important; }
 @media (hover:hover){ body.zbr-guestbook p.zbr-gb-back a:hover{ color:#19A800 !important; } }
 
 /* phones & tablets: keep the sidebar Quick Links hidden (the collapsed purple bar replaces it); the later .zbr-widget{display:flex} rule had brought it back */
@@ -1126,8 +1124,6 @@ body.zbr-guestbook p.zbr-gb-back a:active{ color:#19A800 !important; }
 /* "« Back" link on the Archives landing page and the archive detail pages (same look as the Guestbook's) */
 body.zbr-archive-detail p.zbr-gb-back{ margin:22px 0 24px !important; padding:0 !important; text-align:left !important; }
 body:has(#zbr-archives) #zbr-archives > p.zbr-gb-back{ margin:0 0 14px !important; padding:0 !important; text-align:left !important; }
-body.zbr-archive-detail p.zbr-gb-back a, body.zbr-archive-detail p.zbr-gb-back a:visited, body:has(#zbr-archives) p.zbr-gb-back a, body:has(#zbr-archives) p.zbr-gb-back a:visited{
-  font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline !important; text-transform:none !important; letter-spacing:0 !important; background:none !important; }
 @media (hover:hover){ body.zbr-archive-detail p.zbr-gb-back a:hover, body:has(#zbr-archives) p.zbr-gb-back a:hover{ color:#19A800 !important; } }
 body.zbr-archive-detail p.zbr-gb-back a:active, body:has(#zbr-archives) p.zbr-gb-back a:active{ color:#19A800 !important; }
 
@@ -1232,7 +1228,8 @@ html body .sqs-add-to-cart-button, html body.view-item #productDetails .sqs-add-
 
 /* "« Back" link at the top of the cart page (same look as the Guestbook's) */
 #sqs-cart-root > p.zbr-gb-back{ margin:20px 0 0 !important; padding:0 !important; text-align:left !important; }   /* under the Subtotal / Checkout row, left aligned */
-#sqs-cart-root > p.zbr-gb-back a, #sqs-cart-root > p.zbr-gb-back a:visited{ font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline !important; text-transform:none !important; letter-spacing:0 !important; background:none !important; }
+/* the "« Back" link style of every page that has one (product pages, guestbook, archives, cart) */
+body.view-item #productNav a, body.view-item #productNav a:visited, body.zbr-guestbook p.zbr-gb-back a, body.zbr-guestbook p.zbr-gb-back a:visited, body.zbr-archive-detail p.zbr-gb-back a, body.zbr-archive-detail p.zbr-gb-back a:visited, body:has(#zbr-archives) p.zbr-gb-back a, body:has(#zbr-archives) p.zbr-gb-back a:visited, #sqs-cart-root > p.zbr-gb-back a, #sqs-cart-root > p.zbr-gb-back a:visited{ font:bold 14px "Fixedsys Excelsior","Courier New",monospace !important; color:#FFEE00 !important; text-decoration:underline !important; text-transform:none !important; letter-spacing:0 !important; background:none !important; }
 @media (hover:hover){ #sqs-cart-root > p.zbr-gb-back a:hover{ color:#19A800 !important; } }
 #sqs-cart-root > p.zbr-gb-back a:active{ color:#19A800 !important; }
 
