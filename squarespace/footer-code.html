@@ -956,6 +956,10 @@
   // gallery's photos, an X, Esc to close and swipes on phones. (The gallery block has no lightbox of its own turned on.)
   (function () {
     if (!document.querySelector('article.hentry .sqs-block-gallery')) return;
+    // galleries with more than 6 photos get a full-width photo with the thumbnails in a row below (the CSS looks for this class)
+    [].forEach.call(document.querySelectorAll('article.hentry .sqs-block-gallery'), function (b) {
+      if (b.querySelectorAll('.sqs-gallery-thumbnails img').length > 6) b.classList.add('zbr-gal-many');
+    });
     var st = document.createElement('style');
     st.textContent =
       'article.hentry .sqs-block-gallery .sqs-gallery{cursor:zoom-in}' +
