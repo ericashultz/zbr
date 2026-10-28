@@ -1351,3 +1351,6 @@ html.zbr-cart-has:not(.zbr-cart-drawn):not(.zbr-cart-rows) #sqs-cart-root{ min-h
 
 /* sidebar boxes: the space between the text and the call-to-action link looks the same as the space between the link and the player (the text line has extra room under its letters) */
 .zbr-widget p:has(> a.zbr-cta){ margin-top:-4px !important; }
+
+/* news posts: text between two media blocks looks equally spaced above and below (measured from the letters: ~22px each; the picture below sits 14px under the text block, and the line's own spacing differs top and bottom, so the text block keeps 5px) */
+html body #page article.hentry .sqs-block-html:has(+ .sqs-block-gallery, + .sqs-block-image){ padding-bottom:5px !important; }
