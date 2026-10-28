@@ -1,4 +1,9 @@
 <script>
+// The Persistent Vision Records page (/pvc) is the store with that label picked, not Squarespace's own plain product list: go straight there
+// (replace, so the Back button does not bounce back here). The products' own pages (/pvc/...) are left alone.
+if (/^\/pvc\/?$/i.test(location.pathname)) location.replace('/?label=Persistent+Vision+Records');
+</script>
+<script>
 // Remembers the cart count from the last page and marks the page right away (before anything is drawn), so the "View Cart" button has room
 // for the count circle from the first frame and the menu does not shift when the footer code adds the real circle.
 try {
