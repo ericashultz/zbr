@@ -43,7 +43,7 @@ Pages panel > + > create each one, then move it to **Not Linked**.
 
 Notes:
 - The store grid reads these existing store pages by slug, so **do not rename, delete or re-create them**:
-  `zegema-beach-releases`, `tomb-tree-tapes`, `softseed`, `specials`, `steals`, `12inches`, `12distro2`, `distro-7inch`,
+  `zegema-beach-releases`, `tomb-tree-tapes`, `softseed`, `pvr` (Persistent Vision Records; it must be enabled, not Disabled, or it shows "not found" and the store loads without it), `specials`, `steals`, `12inches`, `12distro2`, `distro-7inch`,
   `oddvinyl`, `cassettes`, `cds`, `shirts`, `posters1`, `posters2`, `buttons`, `stickers`.
   They can sit in Not Linked. Their product URLs stay exactly the same.
 - The Guestbook buttons in the sidebar point to `/guestbook/sign`. Keep those slugs.

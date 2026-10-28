@@ -45,7 +45,7 @@
     { id: 'button', label: 'Buttons/Patches' },
     { id: 'sticker', label: 'Stickers' }
   ];
-  var LABELS = ['Zegema Beach Releases', 'Tomb Tree', 'Softseed Music', 'All Distro'];
+  var LABELS = ['Zegema Beach Releases', 'Tomb Tree', 'Softseed Music', 'Persistent Vision Records', 'All Distro'];
 
   // The Fixedsys Excelsior font is declared once, page-wide, in the site's Custom CSS (zbr-custom.css).
   var CSS = '' +
@@ -69,8 +69,7 @@
     '#zbr-store ul.zs-list li, #zbr-store ul.zs-sublist li{list-style:none;margin:0 0 2px;padding:0;background:none}' +
     '#zbr-store ul.zs-list li::before, #zbr-store ul.zs-sublist li::before{content:none}' +
     '#zbr-store .zs-list button{display:block;width:100%;text-align:left;background:none;border:0;font:13px "Fixedsys Excelsior","Courier New",monospace;color:#C0DEFF;padding:4px 6px}' +
-    '#zbr-store .zs-list button:disabled{opacity:.4;cursor:default}' +
-    '#zbr-store .zs-list button:not(:disabled):hover, #zbr-store .zs-list button[aria-current="true"]{background:#1D64A7;color:#fff}' +
+        '#zbr-store .zs-list button:not(:disabled):hover, #zbr-store .zs-list button[aria-current="true"]{background:#1D64A7;color:#fff}' +
     '#zbr-store ul.zs-sublist{list-style:none;margin:2px 0 2px 14px;padding:0}' +
     '#zbr-store .zs-sublist button{display:block;width:100%;text-align:left;background:none;border:0;font:12px "Fixedsys Excelsior","Courier New",monospace;color:#d9d9d9;padding:3px 6px}' +
     '#zbr-store .zs-sublist button:hover, #zbr-store .zs-sublist button[aria-current="true"]{background:#1D64A7;color:#fff}' +
@@ -148,6 +147,7 @@
     { slug: 'zegema-beach-releases', label: 'Zegema Beach Releases' },
     { slug: 'tomb-tree-tapes', label: 'Tomb Tree' },
     { slug: 'softseed', label: 'Softseed Music' },
+    { slug: 'pvr', label: 'Persistent Vision Records' },
     { slug: 'specials', special: 'new' },
     { slug: 'steals', special: 'steals' },
     { slug: '12inches', fmt: ['v12'], distro: true },
@@ -173,7 +173,7 @@
     'button': ['button'], 'pin': ['button'],
     'sticker': ['sticker'], 'patch/sticker': ['sticker'], 'patch': ['sticker']
   };
-  var CACHE_KEY = 'zbr-store-catalog-v8';
+  var CACHE_KEY = 'zbr-store-catalog-v9';
   var CACHE_MS = 60 * 60 * 1000;
 
   function decodeEntities(str) {
@@ -379,7 +379,7 @@
 
     var labelsHtml = '<li><button type="button" data-zs-viewall="label">View All</button></li>' + LABELS.map(function (l) {
       return '<li><button type="button" data-zs-label="' + esc(l) + '">' + esc(l) + '</button></li>';
-    }).join('') + '<li><button type="button" disabled aria-disabled="true" title="Coming soon">Persistent Vision Records</button></li>';   // greyed out until its products are added (then it becomes a normal label in LABELS)
+    }).join('');
 
     root.innerHTML =
       '<div class="zs-layout">' +
