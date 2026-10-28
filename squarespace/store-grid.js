@@ -55,6 +55,7 @@
     '#zbr-store .zs-sidebar{flex:0 0 200px;min-width:160px;background:#000;border:3px groove #C0DEFF;padding:10px}' +
     '#zbr-store .zs-search{display:block;font:bold 14px "Fixedsys Excelsior","Courier New",monospace!important;font-size:14px!important;color:#fff;margin:0 0 14px;text-transform:none;letter-spacing:0}' +
     '#zbr-store .zs-search input{display:block;width:100%;height:auto;margin:0;padding:6px;font:13px "Fixedsys Excelsior","Courier New",monospace;border:2px inset #c0c0c0;border-radius:0;background:#fff;color:#000;box-shadow:none;text-transform:none;letter-spacing:0}' +
+    '#zbr-store .zs-search input::placeholder{font-size:12px}' +
     '#zbr-store .zs-quick{display:flex;gap:8px;margin:0 0 14px}' +
     '#zbr-store button{-webkit-appearance:none;appearance:none;border-radius:0;box-shadow:none;text-transform:none;letter-spacing:0;line-height:1.3;cursor:pointer;margin:0}' +
     '#zbr-store .zs-quick button{flex:1;text-align:center;background:linear-gradient(180deg,#fff,#d4d4d4);border:2px outset #fff;color:#000332;font:bold 13px "Fixedsys Excelsior","Courier New",monospace;padding:6px 4px}' +
