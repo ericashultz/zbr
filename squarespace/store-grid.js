@@ -147,7 +147,7 @@
     { slug: 'zegema-beach-releases', label: 'Zegema Beach Releases' },
     { slug: 'tomb-tree-tapes', label: 'Tomb Tree' },
     { slug: 'softseed', label: 'Softseed Music' },
-    { slug: 'pvr', label: 'Persistent Vision Records' },
+    { slug: 'pvc', label: 'Persistent Vision Records' },
     { slug: 'specials', special: 'new' },
     { slug: 'steals', special: 'steals' },
     { slug: '12inches', fmt: ['v12'], distro: true },
