@@ -107,6 +107,8 @@
       '#zbr-store .zs-sidebar{border:0;background:none;padding:0}' +
       '#zbr-store .zs-search{margin:0 0 12px}' +
       '#zbr-store .zs-clear{margin:-2px 0 10px}' +
+      '#zbr-store .zs-search input,#zbr-store .zs-filters-toggle{box-sizing:border-box;height:36px}' +
+      '#zbr-store .zs-filters-toggle{padding-top:0;padding-bottom:0}' +
       '#zbr-store .zs-filters-toggle{display:block;width:100%;text-align:left;background:#C0DEFF;color:#000;border:2px outset #fff;font:bold 14px "Fixedsys Excelsior","Courier New",monospace;margin:0;padding:8px 10px}' +
       '#zbr-store .zs-filters-toggle .zs-arrow{display:inline;float:right;transition:transform .15s ease}' +
       '#zbr-store .zs-filters-toggle[aria-expanded="true"] .zs-arrow{transform:rotate(180deg)}' +
