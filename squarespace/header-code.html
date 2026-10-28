@@ -1,7 +1,11 @@
 <script>
-// The Persistent Vision Records page (/pvc) is the store with that label picked, not Squarespace's own plain product list: go straight there
-// (replace, so the Back button does not bounce back here). The products' own pages (/pvc/...) are left alone.
-if (/^\/pvc\/?$/i.test(location.pathname)) location.replace('/?label=Persistent+Vision+Records');
+// The label pages (Zegema Beach Releases, Tomb Tree, Softseed Music, Persistent Vision Records) are the store with that label picked, not Squarespace's own
+// plain product lists: go straight there (replace, so the Back button does not bounce back). The products' own pages (/<page>/...) are left alone.
+(function () {
+  var LABEL_PAGES = { 'zegema-beach-releases': 'Zegema+Beach+Releases', 'tomb-tree-tapes': 'Tomb+Tree', 'softseed': 'Softseed+Music', 'pvc': 'Persistent+Vision+Records' };
+  var m = location.pathname.toLowerCase().match(/^\/([^\/]+)\/?$/);
+  if (m && LABEL_PAGES[m[1]]) location.replace('/?label=' + LABEL_PAGES[m[1]]);
+})();
 </script>
 <script>
 // Remembers the cart count from the last page and marks the page right away (before anything is drawn), so the "View Cart" button has room
