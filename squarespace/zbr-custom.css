@@ -1348,3 +1348,6 @@ html.zbr-cart-has:not(.zbr-cart-drawn):not(.zbr-cart-rows) #sqs-cart-root{ min-h
   #page article.hentry .sqs-block-gallery.zbr-gal-many .sqs-gallery-thumbnails .sqs-wrapper{ display:flex !important; flex-direction:row !important; flex-wrap:nowrap !important; width:100% !important; max-height:none !important; gap:6px; }
   #page article.hentry .sqs-block-gallery.zbr-gal-many .sqs-gallery-thumbnails img{ flex:0 1 72px !important; min-width:0 !important; width:auto !important; height:auto !important; max-width:72px; max-height:none !important; aspect-ratio:1 / 1; }
 }
+
+/* sidebar boxes: the space between the text and the call-to-action link looks the same as the space between the link and the player (the text line has extra room under its letters) */
+.zbr-widget p:has(> a.zbr-cta){ margin-top:-4px !important; }
