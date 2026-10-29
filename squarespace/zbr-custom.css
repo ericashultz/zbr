@@ -713,7 +713,7 @@ html body.zbr-embed .zbr-ml-thanks{ position:fixed !important; inset:0 !importan
 
 /* guestbook: "Back to News" link above the page content, same look as the product page back link */
 body.zbr-guestbook p.zbr-gb-back{ max-width:640px; margin:22px auto 0 !important; padding:0 !important; text-align:left !important; }
-body.zbr-guestbook p.zbr-gb-back + article.hentry{ margin-top:10px !important; }
+
 @media (hover:hover){ body.zbr-guestbook p.zbr-gb-back a:hover{ color:#19A800 !important; } }
 
 /* phones & tablets: keep the sidebar Quick Links hidden (the collapsed purple bar replaces it); the later .zbr-widget{display:flex} rule had brought it back */
