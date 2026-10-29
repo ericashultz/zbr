@@ -1371,3 +1371,6 @@ body.not-found-page #page a:active{ color:#19A800 !important; }
 
 /* news cards: the space between the tag and the first line of copy looks the same as the space between the card's frame and the tag (the first line's own spacing above its letters made it ~5px bigger) */
 article.hentry:has(.zbr-pill) .body .sqs-row:first-child .sqs-block:first-child.sqs-block-html{ margin-top:-5px !important; }
+
+/* Guestbook on phones: the icon sits 36px under the menu bar, like the Contact and Search pages */
+@media (max-width:700px){ body.zbr-guestbook article.hentry{ margin-top:36px !important; } }
