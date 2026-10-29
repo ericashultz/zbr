@@ -1319,6 +1319,8 @@ html.zbr-cart-has:not(.zbr-cart-drawn):not(.zbr-cart-rows) #sqs-cart-root{ min-h
 
 /* phones: no "« Back" links (swiping back does the job): guestbook, archives, cart, news posts, product pages */
 @media (max-width:700px){ p.zbr-gb-back, body.view-item #productNav{ display:none !important; } }
+/* ...and no "« Back" link on the Guestbook at any size */
+body.zbr-guestbook p.zbr-gb-back{ display:none !important; }
 
 /* mailing list pop-up, phones only (the pop-up's own width is under 400px; on desktop it is 420px and the box keeps its 320px): the email box is about 18px from the frame on each side.
    (No calc() mixing % and px anywhere in this file: Squarespace's CSS box turns them into wrong numbers.) */
