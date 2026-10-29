@@ -257,6 +257,8 @@
     };
     // phones: the intro line breaks after "know" (the break is switched on by the CSS on small screens only)
     [].forEach.call(document.querySelectorAll('article.hentry .sqs-html-content p'), function (p) {
+      // the intro reads "Let Dave know you stopped by!" (whatever is typed in the post; "Leave a note and let Dave know ..." is shortened)
+      if (/leave a note and let dave know/i.test(p.textContent)) p.innerHTML = p.innerHTML.replace(/leave a note and let dave know/i, 'Let Dave know');
       if (/know\s+you stopped/i.test(p.textContent) && !p.querySelector('.zbr-mbr')) p.innerHTML = p.innerHTML.replace(/know\s+you/i, 'know <br class="zbr-mbr">you');
     });
     var tidyGuestbook = function () {
