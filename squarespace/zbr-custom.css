@@ -1366,3 +1366,6 @@ body.not-found-page #page a, body.not-found-page #page a:visited{ font:bold 14px
 @media (hover:hover){ body.not-found-page #page a:hover{ color:#19A800 !important; } }
 body.not-found-page #page a:active{ color:#19A800 !important; }
 @media (max-width:700px){ body.not-found-page #page{ padding:24px 14px 28px; } }
+
+/* news cards: the space between the tag and the first line of copy looks the same as the space between the card's frame and the tag (the first line's own spacing above its letters made it ~5px bigger) */
+article.hentry:has(.zbr-pill) .body .sqs-row:first-child .sqs-block:first-child.sqs-block-html{ margin-top:-5px !important; }
