@@ -1,10 +1,13 @@
 <script>
-// The label pages (Zegema Beach Releases, Tomb Tree, Softseed Music, Persistent Vision Records) are the store with that label picked, not Squarespace's own
-// plain product lists: go straight there (replace, so the Back button does not bounce back). The products' own pages (/<page>/...) are left alone.
+// Squarespace's own plain product lists are replaced by the store with the matching filter picked (the label pages, and the CDs page): go straight there
+// (replace, so the Back button does not bounce back). The products' own pages (/<page>/...) are left alone.
 (function () {
-  var LABEL_PAGES = { 'zegema-beach-releases': 'Zegema+Beach+Releases', 'tomb-tree-tapes': 'Tomb+Tree', 'softseed': 'Softseed+Music', 'pvc': 'Persistent+Vision+Records' };
+  var STORE_FILTER = {
+    'zegema-beach-releases': 'label=Zegema+Beach+Releases', 'tomb-tree-tapes': 'label=Tomb+Tree', 'softseed': 'label=Softseed+Music', 'pvc': 'label=Persistent+Vision+Records',
+    'cds': 'cat=cd'
+  };
   var m = location.pathname.toLowerCase().match(/^\/([^\/]+)\/?$/);
-  if (m && LABEL_PAGES[m[1]]) location.replace('/?label=' + LABEL_PAGES[m[1]]);
+  if (m && STORE_FILTER[m[1]]) location.replace('/?' + STORE_FILTER[m[1]]);
 })();
 </script>
 <script>
