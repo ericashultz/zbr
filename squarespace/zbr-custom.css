@@ -1317,8 +1317,9 @@ html.zbr-cart-has:not(.zbr-cart-drawn):not(.zbr-cart-rows) #sqs-cart-root{ min-h
 .zbr-mbr{ display:none; }
 
 /* phones: no "« Back" links (swiping back does the job): guestbook, archives, cart, news posts, product pages */
-@media (max-width:700px){ p.zbr-gb-back, body.view-item #productNav{ display:none !important; } }
-/* ...and none on the Guestbook, single news posts, the Archives page or archive detail pages at any size (the cart and product pages keep theirs on desktop) */
+@media (max-width:700px){ p.zbr-gb-back{ display:none !important; } }
+body.view-item #productNav{ display:none !important; }   /* no "Back to Store" link on product pages at any size */
+/* ...and none on the Guestbook, single news posts, the Archives page or archive detail pages at any size (the cart keeps its on desktop) */
 body.zbr-guestbook p.zbr-gb-back, body.collection-type-blog p.zbr-gb-back, body.zbr-archive-detail p.zbr-gb-back, body:has(#zbr-archives) p.zbr-gb-back{ display:none !important; }
 
 /* mailing list pop-up, phones only (the pop-up's own width is under 400px; on desktop it is 420px and the box keeps its 320px): the email box is about 18px from the frame on each side.
