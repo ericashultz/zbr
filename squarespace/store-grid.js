@@ -198,7 +198,11 @@
   };
 
   // products with no band whose whole title is shown as the yellow headline (it is not a band, so it stays out of Bands A-Z)
-  var TITLE_HEADLINES = { 'zbr tote bag': 'ZBR Tote Bag' };
+  var TITLE_HEADLINES = {
+    'zbr tote bag': 'ZBR Tote Bag',
+    '7" vinyl record random mystery set': '7" VINYL RECORD RANDOM MYSTERY SET',
+    '12" vinyl record random mystery set': '12" VINYL RECORD RANDOM MYSTERY SET'
+  };
 
   function siteImage(item) {
     var own = item.assetUrl || '';
