@@ -1373,3 +1373,7 @@ article.hentry:has(.zbr-pill) .body .sqs-row:first-child .sqs-block:first-child.
 
 /* Guestbook on phones: the icon sits 36px under the menu bar, like the Contact and Search pages */
 @media (max-width:700px){ body.zbr-guestbook article.hentry{ margin-top:36px !important; } }
+
+/* archive pages without their Back link: the content starts 24px under the menu bar */
+body.zbr-archive-detail #page{ padding-top:24px !important; }
+body:has(#zbr-archives) #zbr-archives{ padding-top:24px; }
