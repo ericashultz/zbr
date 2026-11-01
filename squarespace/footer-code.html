@@ -983,15 +983,11 @@
       'html.zbr-lb-lock{overflow:hidden !important}' +
       '#zbr-lb{position:fixed;top:0;right:0;bottom:0;left:0;z-index:2147483000;background:rgba(0,0,0,.95);display:flex;align-items:center;justify-content:center;touch-action:pan-y}' +
       '#zbr-lb img{max-width:94vw;max-height:92vh;width:auto;height:auto;object-fit:contain;box-shadow:0 0 0 1px #333;background:#000}' +
-      '#zbr-lb button{position:absolute;width:36px;height:36px;box-sizing:border-box;padding:0;font-size:0;display:flex;align-items:center;justify-content:center;cursor:pointer;background:linear-gradient(180deg,#fff,#d4d4d4);border:2px outset #fff;border-radius:0}' +
-      '#zbr-lb button::before{content:"";display:block;width:0;height:0;border:solid transparent}' +
-      '@media (hover:hover){#zbr-lb button:hover{background:linear-gradient(180deg,#fff,#c0deff)}}' +
-      '#zbr-lb .zbr-lb-x{top:12px;right:12px}' +
-      '#zbr-lb .zbr-lb-x::before{content:"X";border:0;color:#000332;font:bold 20px/1 \'Fixedsys Excelsior\',\'Courier New\',monospace}' +
-      '#zbr-lb .zbr-lb-prev{left:10px;top:50%;margin-top:-18px}' +
-      '#zbr-lb .zbr-lb-prev::before{border-width:8px 11px 8px 0;border-right-color:#000332}' +
-      '#zbr-lb .zbr-lb-next{right:10px;top:50%;margin-top:-18px}' +
-      '#zbr-lb .zbr-lb-next::before{border-width:8px 0 8px 11px;border-left-color:#000332}';
+      '#zbr-lb button{position:absolute;width:34px;height:30px;box-sizing:border-box;padding:0 0 3px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:linear-gradient(180deg,#e8e8e8,#a0a0a0);border:2px outset #fff;border-radius:0;color:#000066;font:bold 19px/1 Tahoma,"MS Sans Serif",sans-serif}' +
+      '@media (hover:hover){#zbr-lb button:hover{background:linear-gradient(180deg,#fff,#c9c9c9)}}' +
+      '#zbr-lb .zbr-lb-x{top:12px;right:12px;padding:0;font-size:15px}' +
+      '#zbr-lb .zbr-lb-prev{left:10px;top:50%;margin-top:-15px}' +
+      '#zbr-lb .zbr-lb-next{right:10px;top:50%;margin-top:-15px}';
     document.head.appendChild(st);
     var box = null, list = [], at = 0;
     var srcOf = function (im) {
@@ -1024,7 +1020,7 @@
       box = document.createElement('div');
       box.id = 'zbr-lb';
       box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-label', 'Photo');
-      box.innerHTML = '<img alt=""><button type="button" class="zbr-lb-prev" aria-label="Previous photo">&lsaquo;</button><button type="button" class="zbr-lb-next" aria-label="Next photo">&rsaquo;</button><button type="button" class="zbr-lb-x" aria-label="Close">&times;</button>';
+      box.innerHTML = '<img alt=""><button type="button" class="zbr-lb-prev" aria-label="Previous photo">&lsaquo;</button><button type="button" class="zbr-lb-next" aria-label="Next photo">&rsaquo;</button><button type="button" class="zbr-lb-x" aria-label="Close">X</button>';
       box.addEventListener('click', function (e) {
         if (e.target.classList.contains('zbr-lb-prev')) step(-1);
         else if (e.target.classList.contains('zbr-lb-next')) step(1);
