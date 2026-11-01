@@ -1377,3 +1377,8 @@ article.hentry:has(.zbr-pill) .body .sqs-row:first-child .sqs-block:first-child.
 /* archive pages without their Back link: the content starts 24px under the menu bar */
 body.zbr-archive-detail #page{ padding-top:24px !important; }
 body:has(#zbr-archives) #zbr-archives{ padding-top:12px; }
+
+/* Squarespace's own product list pages (Sold Out, Specials, Steals, the format pages ...): tiles in a grid so uneven tile heights leave no gaps */
+#productList{ display:grid !important; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:14px; padding:0 14px; }
+#productList .product{ float:none !important; width:auto !important; margin:0 !important; clear:none !important; }
+#productList::before, #productList::after{ display:none !important; }
