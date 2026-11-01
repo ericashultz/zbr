@@ -29,6 +29,9 @@ for k in range(0, len(parts), 2):
     p = re.sub(r' !important', '!important', p)
     p = re.sub(r':\s', ':', p)
     p = re.sub(r', ', ',', p)
+    p = re.sub(r'(?<![\d.\w-])0px(?![\w%])', '0', p)
+    p = re.sub(r'font-weight:bold', 'font-weight:700', p)
+    p = re.sub(r'#([0-9a-fA-F])\1([0-9a-fA-F])\2([0-9a-fA-F])\3(?![0-9a-fA-F])', r'#\1\2\3', p)   # #ffffff -> #fff (colours only: ids never start with a digit run like this)
     p = re.sub(r'(?<![\d.\w#-])0\.(\d)', r'.\1', p)
     parts[k] = p
 css = ''.join(parts).strip() + '\n'
