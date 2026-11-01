@@ -664,6 +664,7 @@ html body.zbr-embed, html body.zbr-embed #site{ background:#000 !important; }
 html body.zbr-embed #canvas, html body.zbr-embed #pageWrapper, html body.zbr-embed #page{ width:auto !important; max-width:none !important; margin:0 !important; padding:0 !important; border:0 !important; box-shadow:none !important; background:#000 !important; }
 html body.zbr-embed article.hentry{ margin:0 !important; padding:16px !important; border:0 !important; background:#000 !important; box-shadow:none !important; }
 html body.zbr-embed article.hentry::before{ display:none !important; }
+html body.zbr-embed .sqs-block-newsletter{ color:#d9d9d9; }
 
 
 /* mailing list pop-up, round 2: centered, white copy, button under the field (selectors are broad because the real Newsletter block markup can't be inspected) */
