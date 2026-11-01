@@ -1376,4 +1376,4 @@ article.hentry:has(.zbr-pill) .body .sqs-row:first-child .sqs-block:first-child.
 
 /* archive pages without their Back link: the content starts 24px under the menu bar */
 body.zbr-archive-detail #page{ padding-top:24px !important; }
-body:has(#zbr-archives) #zbr-archives{ padding-top:24px; }
+body:has(#zbr-archives) #zbr-archives{ padding-top:12px; }
