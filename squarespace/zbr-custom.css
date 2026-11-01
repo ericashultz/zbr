@@ -1383,3 +1383,9 @@ body:has(#zbr-archives) #zbr-archives{ padding-top:12px; }
 #productList{ display:grid !important; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:14px; margin:0 !important; padding:14px !important; width:100% !important; max-width:100% !important; box-sizing:border-box; }
 #productList .product{ float:none !important; width:auto !important; margin:0 !important; clear:none !important; }
 #productList::before, #productList::after{ display:none !important; }
+
+/* product list pages: tile names styled like the Canada store grid (band in yellow, release title below in white) */
+#productList .product-title{ font:11px Arial,sans-serif !important; font-weight:normal !important; line-height:normal !important; text-transform:none !important; letter-spacing:0; }
+#productList .product-title .zbr-pl-band{ display:block; font:bold 12px Arial,sans-serif; color:#FFEE00; }
+#productList .product-title .zbr-pl-band.zbr-pl-tight{ font-size:10px; }
+#productList .product-title .zbr-pl-name{ display:block; margin:2px 0; }
