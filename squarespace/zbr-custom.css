@@ -1392,3 +1392,13 @@ body:has(#zbr-archives) #zbr-archives{ padding-top:12px; }
 /* product list pages: every picture fills its frame (Squarespace sizes them in script, which cropped the frame's sides off wide pictures) */
 #productList .product-image .intrinsic > div{ position:absolute !important; top:0; left:0; width:100%; height:100%; overflow:hidden; }
 #productList .product-image img{ position:absolute !important; top:0 !important; left:0 !important; width:100% !important; height:100% !important; max-width:none !important; object-fit:cover; box-sizing:border-box; }
+/* news photo carousels: side arrows on the photo (Squarespace's own previous / next buttons, shown as dark boxes with a white arrow, like the photo viewer's) */
+html body #page article.hentry .sqs-block-gallery .sqs-gallery-container{ position:relative !important; }
+html body #page article.hentry .sqs-block-gallery .sqs-gallery-meta-container{ position:absolute !important; top:0; left:0; right:0; bottom:0; width:auto !important; height:auto !important; pointer-events:none; z-index:1000 !important; }
+html body #page article.hentry .sqs-block-gallery .sqs-gallery-controls{ display:block !important; position:absolute; top:0; left:0; right:0; bottom:0; opacity:1 !important; }
+html body #page article.hentry .sqs-block-gallery .sqs-gallery-controls a{ position:absolute !important; top:50% !important; bottom:auto !important; width:40px !important; height:64px !important; margin:-32px 0 0 !important; padding:0 !important; background:rgba(0,0,0,.55) !important; display:flex !important; align-items:center; justify-content:center; pointer-events:auto; cursor:pointer; color:#fff; text-decoration:none; opacity:.85; }
+html body #page article.hentry .sqs-block-gallery .sqs-gallery-controls a.previous{ left:4px !important; right:auto !important; }
+html body #page article.hentry .sqs-block-gallery .sqs-gallery-controls a.next{ right:4px !important; left:auto !important; }
+html body #page article.hentry .sqs-block-gallery .sqs-gallery-controls a::before{ content:'\2039'; font:300 44px/1 Arial,sans-serif !important; color:#fff !important; }
+html body #page article.hentry .sqs-block-gallery .sqs-gallery-controls a.next::before{ content:'\203A'; }
+@media (hover:hover){ html body #page article.hentry .sqs-block-gallery .sqs-gallery-controls a:hover{ opacity:1; background:rgba(0,0,0,.8) !important; } }
