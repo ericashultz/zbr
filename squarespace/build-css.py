@@ -26,6 +26,10 @@ for k in range(0, len(parts), 2):
     p = re.sub(r'\s+', ' ', parts[k])
     p = re.sub(r' ?([{};]) ?', r'\1', p)
     p = re.sub(r';}', '}', p)
+    p = re.sub(r' !important', '!important', p)
+    p = re.sub(r':\s', ':', p)
+    p = re.sub(r', ', ',', p)
+    p = re.sub(r'(?<![\d.\w#-])0\.(\d)', r'.\1', p)
     parts[k] = p
 css = ''.join(parts).strip() + '\n'
 # the pixel-font stack is written ~80 times: keep it once, as a variable (saves ~2.8 KB of the Custom CSS box's size limit)
