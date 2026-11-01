@@ -695,6 +695,21 @@
     });
   }
 
+  // Squarespace's own product list pages (Sold Out, Specials ...): the tile name is split like the Canada store grid's: band in yellow, release title below in white
+  [].forEach.call(document.querySelectorAll('#productList .product-title'), function (t) {
+    var title = t.textContent.trim();
+    var dash = title.indexOf(' - ');
+    var m = dash > 0 ? [title, title.slice(0, dash), title.slice(dash + 3)] : (title.match(/^(.*?\S)-\s+(\S.*)$/) || title.match(/^(.*?\S)\s+-(\S.*)$/) || title.match(/^(ZEGEMA BEACH RECORDS)\s+(\S.*)$/i));
+    if (!m) return;
+    var band = m[1].trim(), name = m[2].trim();
+    t.textContent = '';
+    var b = document.createElement('span'), n = document.createElement('span');
+    b.className = 'zbr-pl-band'; b.textContent = band;
+    n.className = 'zbr-pl-name'; n.textContent = name;
+    if (band.split(/\s+/).reduce(function (a, w) { return Math.max(a, w.length); }, 0) >= 15) b.className += ' zbr-pl-tight';
+    t.appendChild(b); t.appendChild(n);
+  });
+
   // Product page: "Back to Store" link returns to the store at the same filters, page and scroll position
   var back = document.querySelector('#productNav a');
   if (back) {
