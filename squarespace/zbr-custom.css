@@ -1389,3 +1389,6 @@ body:has(#zbr-archives) #zbr-archives{ padding-top:12px; }
 #productList .product-title .zbr-pl-band{ display:block; font:bold 12px Arial,sans-serif; color:#FFEE00; }
 #productList .product-title .zbr-pl-band.zbr-pl-tight{ font-size:10px; }
 #productList .product-title .zbr-pl-name{ display:block; margin:2px 0; }
+/* product list pages: every picture fills its frame (Squarespace sizes them in script, which cropped the frame's sides off wide pictures) */
+#productList .product-image .intrinsic > div{ position:absolute !important; top:0; left:0; width:100%; height:100%; overflow:hidden; }
+#productList .product-image img{ position:absolute !important; top:0 !important; left:0 !important; width:100% !important; height:100% !important; max-width:none !important; object-fit:cover; box-sizing:border-box; }
