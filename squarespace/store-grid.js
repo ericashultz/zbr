@@ -178,7 +178,7 @@
     'button': ['button'], 'pin': ['button'],
     'sticker': ['sticker'], 'patch/sticker': ['sticker'], 'patch': ['sticker']
   };
-  var CACHE_KEY = 'zbr-store-catalog-v10';
+  var CACHE_KEY = 'zbr-store-catalog-v11';
   var CACHE_MS = 60 * 60 * 1000;
 
   function decodeEntities(str) {
@@ -192,7 +192,6 @@
     'massive attack 100th window (sticky poster)': ['MASSIVE ATTACK', '100th Window (sticky poster)'],
     'warsaw was raw (cd)': ['WARSAW WAS RAW', '(cd)'],
     'empty vessels (pin)': ['EMPTY VESSELS', '(pin)'],
-    'zbr fest pre-show 2027 (april 30th)': ['ZBR FEST PRE-SHOW 2027', '(April 30th)'],
     'emo is more than music (sticker)': ['EMO IS MORE THAN MUSIC', '(sticker)'],
     "spit don't make babies (sticker)": ["SPIT DON'T MAKE BABIES", '(sticker)'],
     'spit don\u2019t make babies (sticker)': ["SPIT DON'T MAKE BABIES", '(sticker)']
@@ -202,7 +201,8 @@
   var TITLE_HEADLINES = {
     'zbr tote bag': 'ZBR Tote Bag',
     '7" vinyl record random mystery set': '7" VINYL RECORD RANDOM MYSTERY SET',
-    '12" vinyl record random mystery set': '12" VINYL RECORD RANDOM MYSTERY SET'
+    '12" vinyl record random mystery set': '12" VINYL RECORD RANDOM MYSTERY SET',
+    'zbr fest pre-show 2027 (april 30th)': ['ZBR FEST PRE-SHOW 2027', '(April 30th)']   // [yellow headline, the line under it]
   };
 
   function siteImage(item) {
@@ -245,8 +245,9 @@
       else if (zm) { band = zm[1]; name = zm[2].trim(); }
       else if (one) { band = one[0]; name = one[1]; }
     }
-    var headline = !band ? (TITLE_HEADLINES[title.toLowerCase()] || '') : '';
-    if (headline) name = '';
+    var hv = !band ? TITLE_HEADLINES[title.toLowerCase()] : null;
+    var headline = hv ? (typeof hv === 'string' ? hv : hv[0]) : '';
+    if (headline) name = typeof hv === 'string' ? '' : hv[1];
     var img = siteImage(item);
     var alt = '';   // a second picture to try when the main one has gone missing on the server
     (item.items || []).some(function (k) { if (k && k.assetUrl && k.assetUrl !== img) { alt = k.assetUrl; return true; } return false; });
