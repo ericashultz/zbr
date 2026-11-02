@@ -290,7 +290,9 @@
             tog.setAttribute('data-for', g.id);
             tog.innerHTML = '<a href="#"></a>';
           }
-          tog.firstChild.textContent = open ? 'hide replies' : 'view replies (' + comments.length + ')';
+          // (only when the words change: rewriting the same text on every DOM change replaces the text node under the pointer, and Safari drops a click whose pressed text node has been replaced)
+          var tlabel = open ? 'hide replies' : 'view replies (' + comments.length + ')';
+          if (tog.firstChild.textContent !== tlabel) tog.firstChild.textContent = tlabel;
           if (tog.nextElementSibling !== g.replies[0]) g.replies[0].parentNode.insertBefore(tog, g.replies[0]);
         });
         // toggles of entries that no longer exist
