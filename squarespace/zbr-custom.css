@@ -1403,3 +1403,4 @@ body:has(#zbr-archives) #zbr-archives{ padding-top:12px; }
 #page article.hentry .sqs-gallery-controls a{ position:absolute !important; pointer-events:auto; }
 #page article.hentry .sqs-gallery-controls a.previous{ left:10px !important; right:auto !important; }
 #page article.hentry .sqs-gallery-controls a.next{ right:10px !important; left:auto !important; }
+@media (max-width:700px){ #page article.hentry .sqs-gallery-controls{ display:none !important; } }   /* phones swipe instead (footer script) */
