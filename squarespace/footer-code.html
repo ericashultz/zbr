@@ -702,8 +702,8 @@
     var title = t.textContent.trim();
     var dash = title.indexOf(' - ');
     var m = dash > 0 ? [title, title.slice(0, dash), title.slice(dash + 3)] : (title.match(/^(.*?\S)-\s+(\S.*)$/) || title.match(/^(.*?\S)\s+-(\S.*)$/) || title.match(/^(ZEGEMA BEACH RECORDS)\s+(\S.*)$/i));
-    var head = { '7" vinyl record random mystery set': 1, '12" vinyl record random mystery set': 1 }[title.toLowerCase()];
-    if (!m && head) m = [title, title.toUpperCase(), ''];
+    var odd = { '7" vinyl record random mystery set': 1, '12" vinyl record random mystery set': 1, 'zbr fest pre-show 2027 (april 30th)': ['ZBR FEST PRE-SHOW 2027', '(April 30th)'] }[title.toLowerCase()];
+    if (!m && odd) m = odd === 1 ? [title, title.toUpperCase(), ''] : [title, odd[0], odd[1]];
     if (!m) return;
     var band = m[1].trim(), name = m[2].trim();
     t.textContent = '';
