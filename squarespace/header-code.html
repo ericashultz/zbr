@@ -1,10 +1,10 @@
 <script>
-// Squarespace's own plain product lists are replaced by the store with the matching filter picked (the label pages, and the CDs page): go straight there
+// Squarespace's own plain product lists are replaced by the store with the matching filter picked (the label pages, the CDs page and the Specials page): go straight there
 // (replace, so the Back button does not bounce back). The products' own pages (/<page>/...) are left alone.
 (function () {
   var STORE_FILTER = {
     'zegema-beach-releases': 'label=Zegema+Beach+Releases', 'tomb-tree-tapes': 'label=Tomb+Tree', 'softseed': 'label=Softseed+Music', 'pvc': 'label=Persistent+Vision+Records',
-    'cds': 'cat=cd'
+    'cds': 'cat=cd', 'specials': 'special=new'
   };
   var m = location.pathname.toLowerCase().match(/^\/([^\/]+)\/?$/);
   if (m && STORE_FILTER[m[1]]) location.replace('/?' + STORE_FILTER[m[1]]);
