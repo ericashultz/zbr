@@ -125,7 +125,7 @@
     });
   };
   // label cards (Music Video, Releases...): the pill, the video/photo, the copy and the Bandcamp player are evenly spaced.
-  // Gaps are measured from the pixels of each piece; next to copy they are 4px smaller so the text's own line spacing makes them look the same.
+  // Gaps are measured from the pixels of each piece; next to copy they are 4px smaller so the text's own line spacing makes them look the same (then 10px more room around the copy: 24px).
   var evenCardGaps = function () {
     var kind = function (b) {
       if (b.classList.contains('zbr-bcplayer')) return 'player';
@@ -170,7 +170,7 @@
         (function (A, B) {
           var ka = kind(A), kb = kind(B);
           if (ka === 'cta' || kb === 'cta' || (ka === 'text' && kb === 'text') || (ka === 'player' && kb === 'player')) return;
-          var target = (ka === 'text' || kb === 'text') ? 14 : 18;
+          var target = (ka === 'text' || kb === 'text') ? 24 : 18;
           A.style.setProperty('margin-bottom', '0px', 'important');
           setGap(function () { return bottomOf(A); }, B, target);
         })(blocks[i - 1], blocks[i]);
