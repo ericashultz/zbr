@@ -1404,3 +1404,6 @@ body:has(#zbr-archives) #zbr-archives{ padding-top:12px; }
 #page article.hentry .sqs-gallery-controls a.previous{ left:10px !important; right:auto !important; }
 #page article.hentry .sqs-gallery-controls a.next{ right:10px !important; left:auto !important; }
 @media (max-width:700px){ #page article.hentry .sqs-gallery-controls{ display:none !important; } }   /* phones swipe instead (footer script) */
+/* body copy between two media blocks (photos, players ...): 10px more room above and below than before (a photo under the copy keeps its own 14px, so it gets 10px less of its own) */
+html body #page article.hentry :is(.sqs-block-gallery,.sqs-block-image,.sqs-block-video,.sqs-block-embed,.sqs-block-code,.sqs-block-website,.sqs-block-product) + .sqs-block-html:has(+ :is(.sqs-block-gallery,.sqs-block-image,.sqs-block-video,.sqs-block-embed,.sqs-block-code,.sqs-block-website,.sqs-block-product)){ padding-top:26px !important; padding-bottom:24px !important; }
+html body #page article.hentry :is(.sqs-block-gallery,.sqs-block-image,.sqs-block-video,.sqs-block-embed,.sqs-block-code,.sqs-block-website,.sqs-block-product) + .sqs-block-html:has(+ :is(.sqs-block-gallery,.sqs-block-image)){ padding-bottom:15px !important; }
