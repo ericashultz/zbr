@@ -192,6 +192,7 @@
     'massive attack 100th window (sticky poster)': ['MASSIVE ATTACK', '100th Window (sticky poster)'],
     'warsaw was raw (cd)': ['WARSAW WAS RAW', '(cd)'],
     'empty vessels (pin)': ['EMPTY VESSELS', '(pin)'],
+    'zbr fest pre-show 2027 (april 30th)': ['ZBR FEST PRE-SHOW 2027', '(April 30th)'],
     'emo is more than music (sticker)': ['EMO IS MORE THAN MUSIC', '(sticker)'],
     "spit don't make babies (sticker)": ["SPIT DON'T MAKE BABIES", '(sticker)'],
     'spit don\u2019t make babies (sticker)': ["SPIT DON'T MAKE BABIES", '(sticker)']
